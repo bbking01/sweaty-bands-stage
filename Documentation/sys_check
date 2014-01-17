@@ -1,0 +1,49 @@
+
+                   
+  Check: Settings  
+                   
+
+Unsecure BaseURL OK
+Secure BaseURL OK
+Cookie Domain (unsecure) OK
+Cookie Domain (secure) OK
+
+                     
+  Check: Filesystem  
+                     
+
+Folder media found.
+Folder var found.
+Folder var/cache found.
+Folder var/session found.
+File app/etc/local.xml found.
+File index.php.sample found.
+
+              
+  Check: PHP  
+              
+
+Required PHP Module simplexml found.
+Required PHP Module mcrypt found.
+Required PHP Module hash found.
+Required PHP Module gd found.
+Required PHP Module dom found.
+Required PHP Module iconv found.
+Required PHP Module curl found.
+Required PHP Module soap found.
+Required PHP Module pdo found.
+Required PHP Module pdo_mysql found.
+Bytecode Cache apc found.
+
+                   
+  Check: Security  
+                   
+
+app/etc/local.xml can be accessed from outside!
+
+                
+  Check: MySQL  
+                
+
+MySQL Version 5.1.71 found.
+Required MySQL Storage Engine InnoDB found.

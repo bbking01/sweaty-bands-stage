@@ -1,0 +1,166 @@
+
+                   
+  Magento Modules  
+                   
+
++-----------+--------------------------------------+------------+----------+
+| codePool  | Name                                 | Version    | Status   |
++-----------+--------------------------------------+------------+----------+
+| core      | Mage_Core                            | 1.6.0.2    | active   |
+| core      | Mage_Eav                             | 1.6.0.0    | active   |
+| core      | Mage_Page                            | 1.6.0.0    | active   |
+| core      | Mage_Install                         | 0.7.0      | active   |
+| core      | Mage_Admin                           | 1.6.1.0    | active   |
+| core      | Mage_Rule                            | 1.6.0.0    | active   |
+| core      | Mage_Adminhtml                       | 0.7.1      | active   |
+| core      | Mage_AdminNotification               | 1.6.0.0    | active   |
+| core      | Mage_Cron                            | 1.6.0.0    | active   |
+| core      | Mage_Directory                       | 1.6.0.1    | active   |
+| core      | Mage_Dataflow                        | 1.6.0.0    | active   |
+| core      | Mage_Cms                             | 1.6.0.0.1  | active   |
+| core      | Mage_Index                           | 1.6.0.0    | active   |
+| core      | Mage_Customer                        | 1.6.2.0.1  | active   |
+| core      | Mage_Catalog                         | 1.6.0.0.14 | active   |
+| core      | Mage_CatalogRule                     | 1.6.0.3    | active   |
+| core      | Mage_CatalogIndex                    | 1.6.0.0    | active   |
+| core      | Mage_CatalogSearch                   | 1.6.0.0    | active   |
+| core      | Mage_Payment                         | 1.6.0.0    | active   |
+| core      | Mage_Sales                           | 1.6.0.7    | active   |
+| core      | Mage_CatalogInventory                | 1.6.0.0.2  | active   |
+| core      | Mage_Shipping                        | 1.6.0.0    | active   |
+| core      | Mage_SalesRule                       | 1.6.0.3    | active   |
+| core      | Mage_Usa                             | 1.6.0.1    | active   |
+| core      | Mage_Paygate                         | 1.6.0.0    | active   |
+| core      | Mage_Checkout                        | 1.6.0.0    | active   |
+| core      | Mage_Backup                          | 1.6.0.0    | active   |
+| core      | Mage_Paypal                          | 1.6.0.2    | active   |
+| core      | Mage_Poll                            | 1.6.0.0    | active   |
+| core      | Mage_GoogleCheckout                  | 1.6.0.1    | active   |
+| core      | Mage_Log                             | 1.6.0.0    | active   |
+| core      | Mage_Review                          | 1.6.0.0    | active   |
+| core      | Mage_Rating                          | 1.6.0.0    | active   |
+| core      | Mage_Widget                          | 1.6.0.0    | active   |
+| core      | Mage_Tag                             | 1.6.0.0    | active   |
+| core      | Mage_Reports                         | 1.6.0.0.1  | active   |
+| core      | Mage_GoogleAnalytics                 | 1.6.0.0    | active   |
+| core      | Mage_Tax                             | 1.6.0.3    | active   |
+| core      | Mage_Wishlist                        | 1.6.0.0    | active   |
+| core      | Mage_PaypalUk                        | 1.6.0.0    | active   |
+| core      | Mage_Media                           | 1.6.0.0    | active   |
+| core      | Mage_GiftMessage                     | 1.6.0.0    | active   |
+| core      | Mage_Contacts                        | 1.6.0.0    | active   |
+| core      | Mage_Sendfriend                      | 1.6.0.0    | active   |
+| core      | Mage_Sitemap                         | 1.6.0.0    | active   |
+| core      | Mage_Rss                             | 1.6.0.0    | active   |
+| core      | Mage_ProductAlert                    | 1.6.0.0    | active   |
+| core      | Mage_Api                             | 1.6.0.0    | active   |
+| core      | Mage_Oauth                           | 1.0.0.0    | active   |
+| core      | Mage_Authorizenet                    | 1.5.0.0    | active   |
+| core      | Mage_Bundle                          | 1.6.0.0.1  | active   |
+| core      | Mage_Captcha                         | 1.7.0.0.0  | active   |
+| core      | Mage_Centinel                        | 1.6.0.0    | active   |
+| local     | Mage_Colors                          | 0.1.0      | active   |
+| core      | Mage_Compiler                        | 1.6.0.0    | active   |
+| core      | Mage_Connect                         | 1.6.0.0    | active   |
+| core      | Mage_Newsletter                      | 1.6.0.1    | active   |
+| core      | Mage_Downloadable                    | 1.6.0.0.2  | active   |
+| core      | Mage_GoogleShopping                  | 1.6.0.0.1  | active   |
+| core      | Mage_ImportExport                    | 1.6.0.2    | active   |
+| core      | Mage_Api2                            | 1.0.0.0    | active   |
+| core      | Mage_PageCache                       | 1.6.0.0    | active   |
+| core      | Mage_Persistent                      | 1.0.0.0    | active   |
+| local     | Mage_Qcprice                         | 0.1.0      | active   |
+| local     | Mage_Qrange                          | 0.1.0      | active   |
+| core      | Mage_Weee                            | 1.6.0.0    | active   |
+| core      | Mage_CurrencySymbol                  | 1.0.0.0.0  | active   |
+| core      | Mage_XmlConnect                      | 1.6.0.0    | active   |
+| local     | AHT_Customerpictures                 | 0.1.0      | active   |
+| local     | AW_Affiliate                         |            | inactive |
+| local     | AW_Ajaxcatalog                       | 1.0.5      | active   |
+| local     | AW_All                               | 2.2.1      | active   |
+| local     | AW_Autorelated                       | 2.3.1      | active   |
+| local     | AW_Catalogpermissions                | 1.3.0      | active   |
+| local     | AW_Checkoutpromo                     | 1.2.2      | active   |
+| local     | AW_Core                              | 1.0.2      | active   |
+| local     | AW_FBIntegrator                      | 2.1.4      | active   |
+| local     | AW_Followupemail                     | 3.5.2      | active   |
+| local     | AW_Points                            | 1.6.2      | active   |
+| local     | AW_Popup                             | 1.2.0      | active   |
+| local     | AW_Searchautocomplete                | 3.2.2      | active   |
+| local     | Amasty_Base                          | 1.0.3      | active   |
+| local     | Amasty_Perm                          | 1.3.5      | active   |
+| community | EM_DeleteOrder                       | 1.0.0      | active   |
+| community | Ebizmarts_AbandonedCart              | 0.1.24     | active   |
+| community | Ebizmarts_Autoresponder              | 0.1.4      | active   |
+| community | Ebizmarts_MageMonkey                 | 1.1.19     | active   |
+| community | Ebizmarts_Mandrill                   | 1.0.8      | active   |
+| local     | Excellence_Ajax                      | 0.1.0      | active   |
+| local     | Excellence_AjaxWishlist              | 0.1.0      | active   |
+| community | Fishpig_Wordpress                    | 2.4.76     | active   |
+| community | Fishpig_Wordpress_Addon_AllInOneSEO  | 1.0.0      | active   |
+| community | Fishpig_Wordpress_Addon_WordPressSEO | 1.0.0      | active   |
+| community | Growdevelopment_Base                 | 0.0.1      | active   |
+| community | Growdevelopment_Storelocations       | 1.1.0      | active   |
+|           | depends                              |            | inactive |
+| community | I95DevConnect_StorePickup            |            | inactive |
+| community | I95DevConnect_Silver                 |            | inactive |
+| community | I95DevConnect_GpStatus               |            | inactive |
+| community | I95DevConnect_Errorreport            |            | inactive |
+| community | I95DevConnect_CustomerCredits        |            | inactive |
+| community | I95DevConnect_Creditlimits           |            | inactive |
+| community | I95DevConnect_Configsettings         |            | inactive |
+| community | I95DevConnect_CashOnDelivery         |            | inactive |
+| community | I95DevConnect_Base                   |            | inactive |
+| community | I95DevConnect_Gold                   |            | inactive |
+| community | I95DevConnect_Platinum               |            | inactive |
+| community | I95DevConnect_PriceLevel             |            | inactive |
+| community | I95DevConnect_OnetimeSync            |            | inactive |
+| community | IG_FlatShipping5                     | 1.0.3      | active   |
+| community | Inchoo_Apc                           | 0.1.0      | active   |
+| community | Inchoo_Prevnext                      | 1.0.0.0    | active   |
+| local     | Itoris_Installer                     | 2.1.7      | active   |
+| local     | Itoris_QuickBuy                      | 1.1.11     | active   |
+| local     | MW_Mcore                             | 3.0.3      | active   |
+| local     | MW_RewardPoints                      | 4.2.1      | active   |
+| community | Magemaven_OrderComment               | 1.0.5.0    | active   |
+| local     | Magestore_Admintheme                 |            | active   |
+| local     | Magestore_Affiliateplus              | 0.4.0      | active   |
+| local     | Magestore_AffiliateplusReferFriend   | 0.1.0      | active   |
+| local     | Magestore_Affiliatepluscoupon        | 0.4.0      | active   |
+| local     | Magestore_Affiliatepluslevel         | 0.4.0      | active   |
+| local     | Magestore_Affiliateplusprogram       | 0.4.0      | active   |
+| local     | Magestore_Affiliateplusstatistic     | 0.4.0      | active   |
+| local     | Magestore_Checkoutcart               | 0.1.0      | active   |
+| local     | Magestore_Sales                      |            | active   |
+| local     | Magestore_Clipartmanagement          | 0.1.0      | active   |
+| local     | Magestore_Customer                   | 0.3.3      | active   |
+| local     | Magestore_Customtabs                 | 0.1.0      | active   |
+| local     | Magestore_Design                     | 0.3.1      | active   |
+| local     | Magestore_Fontmanagement             | 0.1.0      | active   |
+| local     | Magestore_Gallery                    | 0.1.0      | active   |
+| local     | Magestore_Magenotification           | 0.1.3      | active   |
+| local     | Magestore_Printcolormanagement       | 0.1.0      | active   |
+| community | Magneto_Debug                        | 1.0.0      | active   |
+| community | Netzarbeiter_CustomerActivation      | 0.5.2      | active   |
+| community | Olark_Chatbox                        | 1.0.9      | active   |
+| community | Openstream_ReviewNotifications       | 0.0.1      | active   |
+| community | Openstream_TagNotifications          | 0.2.1      | active   |
+| community | Phoenix_Moneybookers                 | 1.6.0.0    | active   |
+| local     | Queldorei_Priceslider                | 0.1.0      | active   |
+| local     | Queldorei_ShopperSettings            | 1.5.2      | active   |
+| local     | Queldorei_Shoppercategories          | 0.1.2      | active   |
+| local     | Queldorei_Shopperslideshow           | 1.4.0      | active   |
+| community | Spadar_Login                         |            | inactive |
+| community | TBT_Enhancedgrid                     | 1.3.2.1    | active   |
+| community | Unirgy_Giftcert                      | 2.0.7      | active   |
+| community | Unirgy_GiftcertPro                   | 1.0.1      | active   |
+| community | Unirgy_SimpleUp                      | 1.0.6      | active   |
+| community | Unirgy_SimpleLicense                 | 1.0.10     | active   |
+| community | Unirgy_StoreLocator                  |            | inactive |
+| community | VladimirPopov_WebForms               | 2.3.7      | active   |
+| community | VladimirPopov_WebFormsCRF            | 1.3.8      | active   |
+| local     | Webtex_Core                          | 0.1.0      | active   |
+| local     | Webtex_CustomerGroupsPrice           | 2.7.0      | active   |
+| community | Widgento_Core                        | 0.1.0      | active   |
+| community | Widgento_Login                       | 1.0.5      | active   |
++-----------+--------------------------------------+------------+----------+

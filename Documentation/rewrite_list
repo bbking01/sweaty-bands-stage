@@ -1,0 +1,109 @@
++----------------+---------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| Type           | Class                                                   | Rewrite                                                                                                              |
++----------------+---------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+
+| blocks         | adminhtml/notification_window                           | AW_All_Block_Notification_Window                                                                                     |
+| blocks         | adminhtml/sales_order_create_billing_method_form        | AW_Points_Block_Adminhtml_Sales_Order_Create_Billing_Method_Form                                                     |
+| blocks         | adminhtml/permissions_user_edit_tabs                    | Amasty_Perm_Block_Adminhtml_Permissions_User_Edit_Tabs                                                               |
+| blocks         | adminhtml/customer_edit_tab_account                     | Amasty_Perm_Block_Adminhtml_Customer_Edit_Tab_Account, VladimirPopov_WebFormsCRF_Block_Adminhtml_Account             |
+| blocks         | adminhtml/sales_order_grid                              | EM_DeleteOrder_Block_Adminhtml_Sales_Order_Grid, Magemaven_OrderComment_Block_Adminhtml_Sales_Order_Grid             |
+| blocks         | checkout/cart_sidebar                                   | Excellence_Ajax_Block_Cart_Sidebar                                                                                   |
+| blocks         | checkout/onepage_shipping_method_available              | IG_FlatShipping5_Block_Available                                                                                     |
+| blocks         | checkout/agreements                                     | Magemaven_OrderComment_Block_Checkout_Agreements                                                                     |
+| blocks         | catalog/product_list                                    | Magestore_AffiliateplusReferFriend_Block_Product_List                                                                |
+| blocks         | adminhtml/widget_grid_column                            | TBT_Enhancedgrid_Block_Widget_Grid_Column                                                                            |
+| blocks         | adminhtml/catalog_product                               | TBT_Enhancedgrid_Block_Catalog_Product                                                                               |
+| blocks         | adminhtml/sales_order_totals                            | Unirgy_Giftcert_Block_Adminhtml_Sales_Order_Totals                                                                   |
+| blocks         | adminhtml/sales_order_invoice_totals                    | Unirgy_Giftcert_Block_Adminhtml_Sales_Invoice_Totals                                                                 |
+| blocks         | adminhtml/sales_order_creditmemo_totals                 | Unirgy_Giftcert_Block_Adminhtml_Sales_Creditmemo_Totals                                                              |
+| blocks         | checkout/onepage_payment_methods                        | Unirgy_Giftcert_Block_Payment_Methods                                                                                |
+| blocks         | ugiftcert/cart_item                                     | Unirgy_GiftcertPro_Block_Cart_Item                                                                                   |
+| blocks         | adminhtml/customer_edit_form                            | VladimirPopov_WebFormsCRF_Block_Adminhtml_Form                                                                       |
+| blocks         | customer/form_register                                  | VladimirPopov_WebFormsCRF_Block_Form_Register                                                                        |
+| blocks         | customer/form_edit                                      | VladimirPopov_WebFormsCRF_Block_Form_Edit                                                                            |
+| blocks         | checkout/onepage_billing                                | VladimirPopov_WebFormsCRF_Block_Onepage_Billing                                                                      |
+| blocks         | adminhtml/customer_group_edit_form                      | VladimirPopov_WebFormsCRF_Block_Adminhtml_Group, Webtex_CustomerGroupsPrice_Block_Adminhtml_Customer_Group_Edit_Form |
+| blocks         | catalog/product_view_type_configurable                  | Webtex_CustomerGroupsPrice_Block_Catalog_Product_View_Type_Configurable                                              |
+| blocks         | catalog/product_view                                    | Webtex_CustomerGroupsPrice_Block_Catalog_Product_View                                                                |
+| blocks         | catalog/product_price                                   | Webtex_CustomerGroupsPrice_Block_Catalog_Product_Price                                                               |
+| blocks         | catalog/layer_filter_price                              | Webtex_CustomerGroupsPrice_Block_Catalog_Layer_Filter_Price                                                          |
+| blocks         | adminhtml/catalog_product_edit_tab_super_config         | Webtex_CustomerGroupsPrice_Block_Adminhtml_Catalog_Product_Edit_Tab_Super_Config                                     |
+| blocks         | adminhtml/catalog_product_edit_tab_attributes           | Webtex_CustomerGroupsPrice_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes                                       |
+| blocks         | adminhtml/sales_order_create_search_grid_renderer_price | Webtex_CustomerGroupsPrice_Block_Adminhtml_Renderer_Price                                                            |
+| blocks         | bundle/adminhtml_catalog_product_edit_tab_attributes    | Webtex_CustomerGroupsPrice_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Bundle                                |
+| blocks         | bundle/catalog_product_price                            | Webtex_CustomerGroupsPrice_Block_Bundle_Catalog_Product_Price                                                        |
+| models         | salesrule/rule_condition_product_found                  | AW_Autorelated_Model_Salesrule_Rule_Condition_Product_Found                                                          |
+| models         | newsletter/subscriber                                   | AW_Followupemail_Model_Subscriber                                                                                    |
+| models         | salesrule_mysql4/rule_collection                        | AW_Followupemail_Model_Mysql4_Salesrule_Collection                                                                   |
+| models         | log_resource/visitor                                    | AW_Followupemail_Model_Resource_Visitor                                                                              |
+| models         | sales/order_invoice_item                                | AW_Points_Model_Sales_Order_Invoice_Item                                                                             |
+| models         | core/email_template                                     | Ebizmarts_Mandrill_Model_Email_Template                                                                              |
+| models         | poll/poll_vote                                          | MW_RewardPoints_Model_Poll_Vote                                                                                      |
+| models         | sales_resource/order_grid_collection                    | Magemaven_OrderComment_Model_Mysql4_Order_Grid_Collection                                                            |
+| models         | tax/sales_total_quote_tax                               | Magestore_Affiliateplus_Model_Total_Address_Tax                                                                      |
+| models         | checkout/cart                                           | Magestore_Checkoutcart_Model_Cart                                                                                    |
+| models         | sales/quote                                             | Magestore_Sales_Model_Quote                                                                                          |
+| models         | catalog/product                                         | Webtex_CustomerGroupsPrice_Model_Catalog_Product                                                                     |
+| models         | catalog/product_type_price                              | Webtex_CustomerGroupsPrice_Model_Catalog_Product_Type_Price                                                          |
+| models         | catalog/product_type_configurable_price                 | Webtex_CustomerGroupsPrice_Model_Catalog_Product_Type_Configurable_Price                                             |
+| models         | catalog/product_attribute_backend_customergroupsprice   | Webtex_CustomerGroupsPrice_Model_Catalog_Product_Attribute_Backend_Customergroupsprice                               |
+| models         | catalog_resource_eav_mysql4/layer_filter_price          | Webtex_CustomerGroupsPrice_Model_Mysql4_Catalog_Layer_Filter_Price                                                   |
+| models         | resource/product_collection                             | Webtex_CustomerGroupsPrice_Model_Resource_Product_Collection                                                         |
+| helpers        | payment/data                                            | Unirgy_Giftcert_Helper_Payment                                                                                       |
+| autoload: Mage | Mage_Qcprice_etc_adminhtml                              | Mage_Qcprice_etc_adminhtml                                                                                           |
+| autoload: Mage | Mage_Qcprice_etc_system                                 | Mage_Qcprice_etc_system                                                                                              |
+| autoload: Mage | Mage_Qcprice_etc_config                                 | Mage_Qcprice_etc_config                                                                                              |
+| autoload: Mage | Mage_Qcprice_Model_Qcprice                              | Mage_Qcprice_Model_Qcprice                                                                                           |
+| autoload: Mage | Mage_Qcprice_Model_Mysql4_Qcprice                       | Mage_Qcprice_Model_Mysql4_Qcprice                                                                                    |
+| autoload: Mage | Mage_Qcprice_Model_Mysql4_Qcprice_Collection            | Mage_Qcprice_Model_Mysql4_Qcprice_Collection                                                                         |
+| autoload: Mage | Mage_Qcprice_Model_Status                               | Mage_Qcprice_Model_Status                                                                                            |
+| autoload: Mage | Mage_Qcprice_controllers_Adminhtml_QcpriceController    | Mage_Qcprice_controllers_Adminhtml_QcpriceController                                                                 |
+| autoload: Mage | Mage_Qcprice_controllers_IndexController                | Mage_Qcprice_controllers_IndexController                                                                             |
+| autoload: Mage | Mage_Qcprice_Block_Adminhtml_Qcprice                    | Mage_Qcprice_Block_Adminhtml_Qcprice                                                                                 |
+| autoload: Mage | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit               | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit                                                                            |
+| autoload: Mage | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit_Form          | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit_Form                                                                       |
+| autoload: Mage | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit_Tabs          | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit_Tabs                                                                       |
+| autoload: Mage | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit_Tab_Form      | Mage_Qcprice_Block_Adminhtml_Qcprice_Edit_Tab_Form                                                                   |
+| autoload: Mage | Mage_Qcprice_Block_Adminhtml_Qcprice_Grid               | Mage_Qcprice_Block_Adminhtml_Qcprice_Grid                                                                            |
+| autoload: Mage | Mage_Qcprice_Block_Adminhtml_Qcprice_Pricesymbol        | Mage_Qcprice_Block_Adminhtml_Qcprice_Pricesymbol                                                                     |
+| autoload: Mage | Mage_Qcprice_Block_Qcprice                              | Mage_Qcprice_Block_Qcprice                                                                                           |
+| autoload: Mage | Mage_Qcprice_Helper_Data                                | Mage_Qcprice_Helper_Data                                                                                             |
+| autoload: Mage | Mage_Qcprice_sql_qcprice_setup_mysql4-install-0.1.0     | Mage_Qcprice_sql_qcprice_setup_mysql4-install-0.1.0                                                                  |
+| autoload: Mage | Mage_Colors_etc_adminhtml                               | Mage_Colors_etc_adminhtml                                                                                            |
+| autoload: Mage | Mage_Colors_etc_config                                  | Mage_Colors_etc_config                                                                                               |
+| autoload: Mage | Mage_Colors_Model_Colors                                | Mage_Colors_Model_Colors                                                                                             |
+| autoload: Mage | Mage_Colors_Model_Mysql4_Colors_Collection              | Mage_Colors_Model_Mysql4_Colors_Collection                                                                           |
+| autoload: Mage | Mage_Colors_Model_Mysql4_Colors                         | Mage_Colors_Model_Mysql4_Colors                                                                                      |
+| autoload: Mage | Mage_Colors_Model_Status                                | Mage_Colors_Model_Status                                                                                             |
+| autoload: Mage | Mage_Colors_controllers_Adminhtml_ColorsController      | Mage_Colors_controllers_Adminhtml_ColorsController                                                                   |
+| autoload: Mage | Mage_Colors_controllers_IndexController                 | Mage_Colors_controllers_IndexController                                                                              |
+| autoload: Mage | Mage_Colors_Block_Adminhtml_Colors_Edit                 | Mage_Colors_Block_Adminhtml_Colors_Edit                                                                              |
+| autoload: Mage | Mage_Colors_Block_Adminhtml_Colors_Edit_Form            | Mage_Colors_Block_Adminhtml_Colors_Edit_Form                                                                         |
+| autoload: Mage | Mage_Colors_Block_Adminhtml_Colors_Edit_Tabs            | Mage_Colors_Block_Adminhtml_Colors_Edit_Tabs                                                                         |
+| autoload: Mage | Mage_Colors_Block_Adminhtml_Colors_Edit_Tab_Form        | Mage_Colors_Block_Adminhtml_Colors_Edit_Tab_Form                                                                     |
+| autoload: Mage | Mage_Colors_Block_Adminhtml_Colors_Grid                 | Mage_Colors_Block_Adminhtml_Colors_Grid                                                                              |
+| autoload: Mage | Mage_Colors_Block_Adminhtml_Colors                      | Mage_Colors_Block_Adminhtml_Colors                                                                                   |
+| autoload: Mage | Mage_Colors_Block_Colors                                | Mage_Colors_Block_Colors                                                                                             |
+| autoload: Mage | Mage_Colors_Helper_Data                                 | Mage_Colors_Helper_Data                                                                                              |
+| autoload: Mage | Mage_Colors_sql_colors_setup_mysql4-install-0.1.0       | Mage_Colors_sql_colors_setup_mysql4-install-0.1.0                                                                    |
+| autoload: Mage | Mage_Qrange_etc_adminhtml                               | Mage_Qrange_etc_adminhtml                                                                                            |
+| autoload: Mage | Mage_Qrange_etc_config                                  | Mage_Qrange_etc_config                                                                                               |
+| autoload: Mage | Mage_Qrange_Model_Qrange                                | Mage_Qrange_Model_Qrange                                                                                             |
+| autoload: Mage | Mage_Qrange_Model_Mysql4_Qrange                         | Mage_Qrange_Model_Mysql4_Qrange                                                                                      |
+| autoload: Mage | Mage_Qrange_Model_Mysql4_Qrange_Collection              | Mage_Qrange_Model_Mysql4_Qrange_Collection                                                                           |
+| autoload: Mage | Mage_Qrange_Model_Status                                | Mage_Qrange_Model_Status                                                                                             |
+| autoload: Mage | Mage_Qrange_controllers_Adminhtml_QrangeController      | Mage_Qrange_controllers_Adminhtml_QrangeController                                                                   |
+| autoload: Mage | Mage_Qrange_controllers_IndexController                 | Mage_Qrange_controllers_IndexController                                                                              |
+| autoload: Mage | Mage_Qrange_Block_Adminhtml_Qrange                      | Mage_Qrange_Block_Adminhtml_Qrange                                                                                   |
+| autoload: Mage | Mage_Qrange_Block_Adminhtml_Qrange_Edit                 | Mage_Qrange_Block_Adminhtml_Qrange_Edit                                                                              |
+| autoload: Mage | Mage_Qrange_Block_Adminhtml_Qrange_Edit_Form            | Mage_Qrange_Block_Adminhtml_Qrange_Edit_Form                                                                         |
+| autoload: Mage | Mage_Qrange_Block_Adminhtml_Qrange_Edit_Tabs            | Mage_Qrange_Block_Adminhtml_Qrange_Edit_Tabs                                                                         |
+| autoload: Mage | Mage_Qrange_Block_Adminhtml_Qrange_Edit_Tab_Form        | Mage_Qrange_Block_Adminhtml_Qrange_Edit_Tab_Form                                                                     |
+| autoload: Mage | Mage_Qrange_Block_Adminhtml_Qrange_Grid                 | Mage_Qrange_Block_Adminhtml_Qrange_Grid                                                                              |
+| autoload: Mage | Mage_Qrange_Block_Qrange                                | Mage_Qrange_Block_Qrange                                                                                             |
+| autoload: Mage | Mage_Qrange_Helper_Data                                 | Mage_Qrange_Helper_Data                                                                                              |
+| autoload: Mage | Mage_Qrange_sql_qrange_setup_mysql4-install-0.1.0       | Mage_Qrange_sql_qrange_setup_mysql4-install-0.1.0                                                                    |
+| autoload: Mage | Mage_Sales_Model_Quote_Item_Abstract_24-6-2013          | Mage_Sales_Model_Quote_Item_Abstract_24-6-2013                                                                       |
+| autoload: Mage | Mage_Sales_Model_Quote_Item_Abstract___                 | Mage_Sales_Model_Quote_Item_Abstract___                                                                              |
+| autoload: Mage | Mage_Sales_Model_Quote_Item_Abstract                    | Mage_Sales_Model_Quote_Item_Abstract                                                                                 |
+| autoload: Mage | Mage_Page_Block_Html_Footer                             | Mage_Page_Block_Html_Footer                                                                                          |
++----------------+---------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+

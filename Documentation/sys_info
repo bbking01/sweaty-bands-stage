@@ -1,0 +1,19 @@
+
+                              
+  Magento System Information  
+                              
+
++----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| name                       | value                                                                                                                                                                                                                    |
++----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Version                    | 1.7.0.2                                                                                                                                                                                                                  |
+| Edition                    | Community                                                                                                                                                                                                                |
+| Cache Backend              | Zend_Cache_Backend_TwoLevels                                                                                                                                                                                             |
+| Session                    |                                                                                                                                                                                                                          |
+| Crypt Key                  | 28290e653b9b933c2aaf97ccd6d17055                                                                                                                                                                                         |
+| Install Date               | Sun, 10 Mar 2013 00:08:45 +0000                                                                                                                                                                                          |
+| Core Autoloader Overwrites | 57                                                                                                                                                                                                                       |
+| Vendors (core)             | Mage, Zend                                                                                                                                                                                                               |
+| Vendors (community)        | 15052013I95DevConnect, EM, Ebizmarts, EcomDev.bkk, Fishpig, Growdevelopment, I95DevConnect, IG, Inchoo, Magemaven, Magneto, Netzarbeiter, Olark, Openstream, Phoenix, TBT, Unirgy, Varien, VladimirPopov, Widgento, Zend |
+| Vendors (local)            | AHT, AW, Amasty, Excellence, Itoris, MW, Mage, Magestore, Queldorei, Webtex                                                                                                                                              |
++----------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
