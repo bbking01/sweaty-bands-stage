@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sub@i95dev.com so we can send you a copy immediately.
+ *
+ * @category       I95DevConnect
+ * @package        I95DevConnect_Errorreport
+ * @Description    
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2013 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+<layout>
+    <adminhtml_report_errorreport_index>
+        <reference name="content">
+            <block type="errorreport/adminhtml_report_errorreport" name="report_errorreport"></block>
+        </reference>
+    </adminhtml_report_errorreport_index>
+    <adminhtml_reports_unsyncreport_index>
+        <reference name="content">
+            <block type="errorreport/adminhtml_reports_unsyncreport" name="admin.report.unsync" />
+        </reference>           
+    </adminhtml_reports_unsyncreport_index>      
+</layout>
+

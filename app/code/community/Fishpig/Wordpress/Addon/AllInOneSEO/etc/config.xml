@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Fishpig_Wordpress_Addon_AllInOneSEO>
+			<version>1.0.0</version>
+		</Fishpig_Wordpress_Addon_AllInOneSEO>
+	</modules>
+	<frontend>
+		<events>
+			<wordpress_render_layout_before>
+				<observers>
+					<allinoneseo>
+						<type>singleton</type>
+						<class>Fishpig_Wordpress_Addon_AllInOneSEO_Helper_Data</class>
+						<method>injectSeoObserver</method>
+					</allinoneseo>
+				</observers>
+			</wordpress_render_layout_before>
+		</events>
+	</frontend>
+</config>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+    name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+            <complexType name="ugiftcertEntity">
+                <all>
+                    <element name="cert_number" type="xsd:string" minOccurs="0"/>
+                    <element name="currency_code" type="xsd:string" minOccurs="0"/>
+                    <element name="pin" type="xsd:string" minOccurs="0"/>
+                    <element name="status" type="xsd:string" minOccurs="0"/>
+                    <element name="expire_at" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_name" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_email" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_address" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_message" type="xsd:string" minOccurs="0"/>
+                    <element name="comments" type="xsd:string" minOccurs="0"/>
+                    <element name="sender_name" type="xsd:string" minOccurs="0"/>
+                    <element name="store_id" type="xsd:int" minOccurs="0"/>
+                    <element name="qty" type="xsd:int" minOccurs="0"/>
+                    <element name="balance" type="xsd:float" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="ugiftcertEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:ugiftcertEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="ugiftcertUpdateEntity">
+                <all>
+                    <element name="cert_number" type="xsd:string" minOccurs="0"/>
+                    <element name="currency_code" type="xsd:string" minOccurs="0"/>
+                    <element name="pin" type="xsd:string" minOccurs="0"/>
+                    <element name="status" type="xsd:string" minOccurs="0"/>
+                    <element name="expire_at" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_name" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_email" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_address" type="xsd:string" minOccurs="0"/>
+                    <element name="recipient_message" type="xsd:string" minOccurs="0"/>
+                    <element name="sender_name" type="xsd:string" minOccurs="0"/>
+                    <element name="store_id" type="xsd:int" minOccurs="0"/>
+                    <element name="balance" type="xsd:float" minOccurs="0"/>
+                    <element name="comments" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="ugiftcertUpdateEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:ugiftcertUpdateEntity[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+        </schema>
+    </types>
+    <message name="ugiftcertListRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="filters" type="typens:filters" />
+    </message>
+    <message name="ugiftcertListResponse">
+        <part name="result" type="typens:ugiftcertEntityArray" />
+    </message>
+    <message name="ugiftcertFetchRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="code" type="xsd:string"/>
+    </message>
+    <message name="ugiftcertFetchResponse">
+        <part name="result" type="typens:ugiftcertEntity"/>
+    </message>
+    <message name="ugiftcertUpdateRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="code" type="xsd:string" />
+        <part name="data" type="typens:ugiftcertUpdateEntity" />
+    </message>
+    <message name="ugiftcertUpdateResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="ugiftcertMassUpdateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="items" type="typens:ugiftcertUpdateEntityArray"/>
+    </message>
+    <message name="ugiftcertMassUpdateResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="ugiftcertCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="data" type="typens:ugiftcertEntity"/>
+    </message>
+    <message name="ugiftcertCreateResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="ugiftcertMassCreateRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="items" type="typens:ugiftcertEntityArray"/>
+    </message>
+    <message name="ugiftcertMassCreateResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="ugiftcertDeleteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="code" type="xsd:string"/>
+    </message>
+    <message name="ugiftcertDeleteResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+    <message name="ugiftcertMassDeleteRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="items" type="typens:ArrayOfString"/>
+    </message>
+    <message name="ugiftcertMassDeleteResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <portType name="{{var wsdl.handler}}PortType">
+        <operation name="ugiftcertList">
+            <documentation>Retrieve gift certificates, filtered</documentation>
+            <input message="typens:ugiftcertListRequest" />
+            <output message="typens:ugiftcertListResponse" />
+        </operation>
+        <operation name="ugiftcertFetch">
+            <documentation>Fetch gift certificate data</documentation>
+            <input message="typens:ugiftcertFetchRequest"/>
+            <output message="typens:ugiftcertFetchResponse"/>
+        </operation>
+        <operation name="ugiftcertCreate">
+            <documentation>Create gift certificate</documentation>
+            <input message="typens:ugiftcertCreateRequest"/>
+            <output message="typens:ugiftcertCreateResponse"/>
+        </operation>
+        <operation name="ugiftcertMassCreate">
+            <documentation>Bulk create certificates</documentation>
+            <input message="typens:ugiftcertMassCreateRequest"/>
+            <output message="typens:ugiftcertMassCreateResponse"/>
+        </operation>
+        <operation name="ugiftcertUpdate">
+            <documentation>Update gift certificate data</documentation>
+            <input message="typens:ugiftcertUpdateRequest"/>
+            <output message="typens:ugiftcertUpdateResponse"/>
+        </operation>
+        <operation name="ugiftcertMassUpdate">
+            <documentation>Bulk update certificates</documentation>
+            <input message="typens:ugiftcertMassUpdateRequest"/>
+            <output message="typens:ugiftcertMassUpdateResponse"/>
+        </operation>
+        <operation name="ugiftcertDelete">
+            <documentation>Delete gift certificate.</documentation>
+            <input message="typens:ugiftcertDeleteRequest" />
+            <output message="typens:ugiftcertDeleteResponse" />
+        </operation>
+        <operation name="ugiftcertMassDelete">
+            <documentation>Bulk delete certificates</documentation>
+            <input message="typens:ugiftcertMassDeleteRequest"/>
+            <output message="typens:ugiftcertMassDeleteResponse"/>
+        </operation>
+    </portType>
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+        <operation name="ugiftcertList">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="ugiftcertFetch">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="ugiftcertCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="ugiftcertMassCreate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="ugiftcertUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="ugiftcertMassUpdate">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="ugiftcertDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="ugiftcertMassDelete">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+    </binding>
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}" />
+        </port>
+    </service>
+</definitions>

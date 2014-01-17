@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * i95Dev.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@i95dev.com so we can send you a copy immediately.
+ *
+ * @category       I95DevConnect
+ * @package        I95DevConnect_StorePickup
+ * @Description    Model class for store pickup
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2013 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+<config>
+	<modules>
+		<I95DevConnect_StorePickup>
+			<version>1.1.1</version>
+		</I95DevConnect_StorePickup>
+	</modules>
+
+	<global>
+		<models>
+			<storepickup>
+				<class>I95DevConnect_StorePickup_Model</class>
+			</storepickup>
+		</models>
+
+        
+	</global>
+	
+    <default>
+       
+		 <carriers>
+			<storepickup>
+				<active>0</active>
+				<sallowspecific>0</sallowspecific>
+				<model>storepickup/storeforpickup</model>
+				<name>Fixed</name>
+				<price>0.00</price>
+				<title>Store Pickup</title>
+				<specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+			</storepickup>
+		 </carriers>
+    </default>
+	
+</config>

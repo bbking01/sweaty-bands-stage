@@ -1,0 +1,83 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="entry-edit">
+    <?php if (!$this->getIsReadonly()): ?>
+    
+	<div class="box-left">
+        <form id="category_import_form" action="<?php echo $this->getUrl('*/*/importCategoryPost') ?>" method="post" enctype="multipart/form-data">
+            <?php echo $this->getBlockHtml('formkey')?>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('gallery')->__('Import Design Idea Categories') ?></h4>
+            </div>			
+            <fieldset>
+                <legend><?php echo Mage::helper('gallery')->__('Import Design Idea Categories') ?></legend>				
+                <div style="padding-bottom:10px;"><?php echo $this->__('Note: First need to download sample format, fill the records and use the same format.'); ?><br /></div>
+				<input type="file" name="import_designidea_categories_file" class="input-file required-entry"/>
+                <?php echo $this->getButtonHtml('Import DesignIdea Categories', "this.form.submit()") ?>
+				<?php $designIdeaCategoryCsvFileName = "DesignIdea_Category.csv"; ?>	
+				<a href="<?php echo $this->getUrl('*/*/sampleCsv', array('filename' => $designIdeaCategoryCsvFileName)) ?>">Download sample format</a>
+            </fieldset>
+        </form>
+        <script type="text/javascript">
+            var importForm = new varienForm('category_import_form');
+        </script>
+    </div>
+       
+	<div class="box-right">        
+		<form id="import_form" action="<?php echo $this->getUrl('*/*/importPost') ?>" method="post" enctype="multipart/form-data">
+            <?php echo $this->getBlockHtml('formkey')?>
+            <div class="entry-edit-head">
+                <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('gallery')->__('Import DesignIdea') ?></h4>
+            </div>			
+            <fieldset>
+                <legend><?php echo Mage::helper('gallery')->__('Import DesignIdea') ?></legend>
+				<div style="padding-bottom:10px;">
+				</div>
+                <input type="file" name="import_designidea_file" class="input-file required-entry"/>
+                <?php echo $this->getButtonHtml('Import DesignIdea', "this.form.submit()") ?>
+				<?php 
+				$designIdeaCsvFileName = "DesignIdea.csv";
+				?>				
+				<a href="<?php echo $this->getUrl('*/*/sampleCsv', array('filename' => $designIdeaCsvFileName)) ?>">Download sample format</a>
+		   		<br/> <br/><p  class="designidea" >How to import design idea?</p>
+				<ul class="listul">
+			  <li class="fonrmngmt"><span>Download the  "Download sample format" file and edit the text as per your needed to import the design idea.</span></li>
+			  <li class="fonrmngmt"><span>You also need to upload all required thumbnail images in  the  "media/gallery" folder.</span></li>
+			  <br />
+			 <span>Note: File must be in "csv" extenstion and set the all thumbnail images permission to 777</span>
+				</ul>
+			</fieldset>
+			
+			
+        </form>
+        <script type="text/javascript">
+            var importForm = new varienForm('import_form');
+        </script>
+    </div>
+	
+	<?php endif; ?>  
+</div>

@@ -1,0 +1,10 @@
+<?php 
+	$image = Mage::getModel('customerpictures/images')->load($this->getRequest()->getParam('id')); 
+	$title = $image->getImageTitle().' | '.Mage::getStoreConfig('customerpictures/page/title');
+?>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="<?php echo trim($image->getImageTitle()); ?>"/>
+<meta property="og:url" content="<?php echo $this->getUrl('customerpictures/index/view').'id/'.$image->getId() ?>"/>
+<meta property="og:description" content="<?php echo $image->getImageDescription() ?>"/>
+<meta property="og:image" content="<?php echo $this->getImageUrl($image->getImageName(), $image->getUserId())?>"/>
+<meta property="og:site_name" content="<?php echo $title ?>"/>

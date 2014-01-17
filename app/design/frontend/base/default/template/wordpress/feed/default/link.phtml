@@ -1,0 +1,19 @@
+<?php
+/**
+ *
+ */
+
+	$_helper = Mage::helper('wordpress');
+	
+	try {
+		$blogName = trim($this->escapeHtml($_helper->getWpOption('blogname')));
+	}
+	catch (Exception $e) {
+		$_helper->log($e->getMessage());
+	}
+	
+	if ($blogName === '') {
+		return;
+	}
+?>
+<link rel="alternate" type="application/rss+xml" title="<?php echo $this->__('%s - RSS Feed', $blogName) ?>" href="<?php echo $_helper->getUrl('feed') ?>" />

@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+<!--
+    Copyright (c) 2009-2011 Amasty (http://www.amasty.com) 
+-->
+<config>
+    <modules>
+        <Amasty_Perm>
+            <version>1.3.5</version>
+        </Amasty_Perm>
+    </modules>
+    
+    <global>
+        <models>
+            <amperm>
+                <class>Amasty_Perm_Model</class>
+                <resourceModel>amperm_mysql4</resourceModel>
+            </amperm>
+            <amperm_mysql4>
+                <class>Amasty_Perm_Model_Mysql4</class>
+                <entities>
+                    <perm>
+                        <table>am_perm</table>
+                    </perm>
+                    <message>
+                        <table>am_perm_message</table>
+                    </message>                    
+                    <login>
+                        <table>am_perm_login</table>
+                    </login>
+                </entities>
+            </amperm_mysql4>
+        </models>    
+        <resources>
+            <amperm_setup>
+                <setup>
+                    <module>Amasty_Perm</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </amperm_setup>
+            <amperm_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </amperm_write>
+            <amperm_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </amperm_read>
+        </resources>
+
+        <blocks>
+            <amperm>
+                <class>Amasty_Perm_Block</class>
+            </amperm>
+            <adminhtml>
+                <rewrite>
+                    <permissions_user_edit_tabs>Amasty_Perm_Block_Adminhtml_Permissions_User_Edit_Tabs</permissions_user_edit_tabs>
+                    <customer_edit_tab_account>Amasty_Perm_Block_Adminhtml_Customer_Edit_Tab_Account</customer_edit_tab_account>
+                </rewrite>
+            </adminhtml>             
+        </blocks>
+         
+        <helpers>
+            <amperm>
+                <class>Amasty_Perm_Helper</class>
+            </amperm>
+        </helpers>
+        
+        <template>
+            <email>
+               <amperm_messages_template translate="label" module="amperm">
+                   <label>Sales Rep Notification Template</label>
+                   <file>amasty_sales_rep_notification.html</file>
+                   <type>html</type>
+               </amperm_messages_template>
+            </email>
+        </template> 
+        
+        
+        <events>
+            <customer_save_after>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleCustomerSaveAfter</method>
+                    </amperm>
+                </observers>
+            </customer_save_after> 
+            <checkout_submit_all_after>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleOrderCreated</method>
+                    </amperm>
+                </observers>
+            </checkout_submit_all_after>            
+        </events>
+    </global>
+    
+    <admin>
+        <routers>
+			<amperm>
+				<use>admin</use>
+				<args>
+					<module>Amasty_Perm</module>
+					<frontName>amperm</frontName>
+				</args>
+			</amperm>
+        </routers>
+        
+    </admin> 
+    
+    <adminhtml>
+        <events>
+            <admin_user_save_after>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleAdminUserSaveAfter</method>
+                    </amperm>
+                </observers>
+            </admin_user_save_after>
+            <eav_collection_abstract_load_before>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleCustomerCollectionLoadBefore</method>
+                    </amperm>
+                </observers>
+            </eav_collection_abstract_load_before>            
+            
+            <sales_order_invoice_grid_collection_load_before>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleOrderCollectionLoadBefore</method>
+                    </amperm>
+                </observers>
+            </sales_order_invoice_grid_collection_load_before>
+            
+            <sales_order_shipment_grid_collection_load_before>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleOrderCollectionLoadBefore</method>
+                    </amperm>
+                </observers>
+            </sales_order_shipment_grid_collection_load_before>
+            
+            <sales_order_creditmemo_grid_collection_load_before>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleOrderCollectionLoadBefore</method>
+                    </amperm>
+                </observers>
+            </sales_order_creditmemo_grid_collection_load_before>
+
+            <sales_order_grid_collection_load_before>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleOrderCollectionLoadBefore</method>
+                    </amperm>
+                </observers>
+            </sales_order_grid_collection_load_before>
+            
+            <core_collection_abstract_load_before>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleCoreCollectionAbstractLoadBefore</method>
+                    </amperm>
+                </observers>
+            </core_collection_abstract_load_before>            
+            
+            <!-- Add button -->
+            <core_layout_block_create_after>
+                <observers>
+                    <amperm>
+                        <type>singleton</type>
+                        <class>amperm/observer</class>
+                        <method>handleCoreLayoutBlockCreateAfter</method>
+                    </amperm>
+                </observers>
+            </core_layout_block_create_after>
+        </events>   
+          
+        <layout>
+            <updates>
+                <amperm module="Amasty_Perm">
+                    <file>amperm.xml</file>
+                </amperm>
+            </updates>
+        </layout> 
+        
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+			</resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <amperm translate="title" module="amperm">
+                                        <title>Sales Reps Settings</title>
+                                    </amperm>
+                                </children>
+                            </config>
+                        </children>
+                    </system> 
+                    <acl>
+                        <children>
+                            <amperm translate="title" module="amperm"> 
+                                <title>Sales Reps Settings</title>
+                            </amperm>
+                        </children>
+                    </acl>                    
+                 </children>
+            </admin> 			
+		</acl>
+		
+    	<menu>
+		    <system>
+                <children>
+                    <acl>
+                        <children>
+                            <amperm translate="title" module="amperm"> 
+                                <title>Sales Reps Settings</title>
+                                <action>adminhtml/system_config/edit/section/amperm</action>
+                                <sort_order>9000</sort_order>
+                            </amperm>
+                        </children>
+                    </acl>
+                </children>
+            </system>
+		</menu>		
+		
+		
+        <translate>
+            <modules>
+                <Amasty_Perm>
+                    <files>
+                        <default>Amasty_Perm.csv</default>
+                    </files>
+                </Amasty_Perm>
+            </modules>
+        </translate> 
+    </adminhtml> 
+    
+    <frontend>
+        <routers>
+            <amperm>
+                <use>standard</use>
+                <args>
+                    <module>Amasty_Perm</module>
+                    <frontName>ampermfront</frontName>
+                </args>
+            </amperm>
+        </routers>
+    	<layout>
+            <updates>
+                <amperm module="Amasty_Perm">
+                    <file>amperm.xml</file>
+                </amperm>
+            </updates>
+        </layout> 
+    </frontend>
+    
+    <default>
+        <amperm>
+            <general>
+                <role>0</role>
+                <send_email>0</send_email>
+                <description_customer>0</description_customer>
+                <description_checkout>0</description_checkout>
+            </general>
+            <messages>
+                <enabled>0</enabled>
+                <see_other_dealers>1</see_other_dealers>
+                <admin_email>noreply@example.com</admin_email>
+                <identity>general</identity>
+                <template>amperm_messages_template</template>
+            </messages>
+        </amperm>
+    </default>     
+</config>

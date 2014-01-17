@@ -1,0 +1,116 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div class="content-header">
+    <h3 class="icon-head"><?php echo $this->getHeaderText() ?></h3>
+    <p class="content-buttons form-buttons">
+        <?php echo $this->getBackButtonHtml(); ?>
+        <?php echo $this->getSaveButtonHtml(); ?>
+    </p>
+</div>
+<div>
+    <?php echo $this->getForm() ?>
+</div>
+<div>
+    <?php echo $this->getCustomersGrid() ?>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+
+    var selectedCustomers = new Hash();
+    $('selected_customers').value = selectedCustomers.toQueryString();
+
+    Event.observe(window, 'load', function() {
+    
+        customerGridJsObject.rowClickCallback = transactionCustomerRowClick;
+        customerGridJsObject.checkboxCheckCallback = registerTransactionCustomer;
+
+        if (typeof(customerGrid_massactionJsObject)!='undefined') {
+
+            // rewrite selectAll()
+            customerGrid_massactionJsObject._selectAll = customerGrid_massactionJsObject.selectAll;
+            customerGrid_massactionJsObject.selectAll = function() {               
+                customerGrid_massactionJsObject._selectAll()
+                $('selected_customers').value = customerGrid_massactionJsObject.getCheckedValues();
+                return false;
+            }
+
+            // rewrite unselectAll()
+            customerGrid_massactionJsObject._unselectAll = customerGrid_massactionJsObject.unselectAll;
+            customerGrid_massactionJsObject.unselectAll = function() {
+                customerGrid_massactionJsObject._unselectAll()
+                $('selected_customers').value = customerGrid_massactionJsObject.getCheckedValues();
+                return false;
+            }
+
+            // rewrite selectVisible()
+            customerGrid_massactionJsObject._selectVisible = customerGrid_massactionJsObject.selectVisible;
+            customerGrid_massactionJsObject.selectVisible = function() {
+                customerGrid_massactionJsObject._selectVisible()
+                $('selected_customers').value = customerGrid_massactionJsObject.getCheckedValues();
+                return false;
+            }
+
+            // rewrite unselectVisible()
+            customerGrid_massactionJsObject._unselectVisible = customerGrid_massactionJsObject.unselectVisible;
+            customerGrid_massactionJsObject.unselectVisible = function() {
+                customerGrid_massactionJsObject._unselectVisible()
+                $('selected_customers').value = customerGrid_massactionJsObject.getCheckedValues();
+                return false;
+            }
+
+        }
+    });
+
+    function registerTransactionCustomer(grid, element, checked){
+        if(checked){
+            selectedCustomers.set(element.value, true);
+            customerGrid_massactionJsObject.setCheckbox(element);
+        } else{
+            selectedCustomers.unset(element.value);
+            customerGrid_massactionJsObject.setCheckbox(element);
+        }
+        $('selected_customers').value = customerGrid_massactionJsObject.checkedString;
+        //$('selected_customers').value = selectedCustomers.keys();
+        grid.reloadParams = {'selected_customers[]':selectedCustomers.keys()};
+    }
+    function transactionCustomerRowClick(grid, event){
+        var trElement = Event.findElement(event, 'tr');
+        var isInput   = Event.element(event).tagName == 'INPUT';
+        if(trElement){
+            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            if(checkbox[0]){
+                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                customerGridJsObject.setCheckboxChecked(checkbox[0], checked);
+            }
+        }
+    }
+   
+    var transactionAddForm = new varienForm('transaction_add_form');
+
+    //]]>
+</script>

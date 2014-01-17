@@ -1,0 +1,24 @@
+<?php $width = Mage::getStoreConfig('customerpictures/page/width') ?>
+<?php $height = Mage::getStoreConfig('customerpictures/page/height') ?>
+<div class="customerpictures 1column-page">
+	<!-- Begin [JMO] -->
+	<div class="model-banner"><img src="skin/frontend/shopper/default/customerpictures/images/model-of-the-month.jpg"></div>
+	<!-- End [JMO] -->
+	<div class="top-banner" style="height:<?php echo $height;?>px; padding:10px; border:1px solid #cdcdcd; margin-bottom:25px">
+		<div class="banner" style="height:<?php echo $height-30 ?>px">
+			<h1>Look At You</h1>
+			<div class="description">
+				<?php echo Mage::getStoreConfig('customerpictures/general/desc') ?>
+			</div>
+			<div class="customerpictures-upload-button">
+				<button onclick="setLocation('<?php echo $this->getUrl('customerpictures/user') ?>')"><span><span><?php echo $this->__('Upload a Look') ?></span></span></button>
+			</div>
+		</div>
+		<div class="current-winner" style="width: <?php echo $width+170?>px">
+			<?php echo $this->getChildHtml('current-winner') ?>
+		</div>
+	</div>
+	<div class="customerpictures-image-list">
+		<?php echo $this->getChildHtml('list') ?>
+	</div>
+</div>

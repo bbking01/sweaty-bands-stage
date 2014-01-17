@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Unirgy_GiftcertPro>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Unirgy_Giftcert/>
+            </depends>
+        </Unirgy_GiftcertPro>
+    </modules>
+</config>

@@ -1,0 +1,10 @@
+===== 1.0.1 =====
+  * added personalized image thumbnail in cart
+  * fixed wrong setup script
+===== 1.0.0 =====
+  * Initialised module
+  * Option in admin to create combinations of gift certificate email and PDF templates
+  * You can have as many combinations as you want
+  * Each combination has a title and optional preview image
+  * On frontend adds a drop down menu with variants' titles
+  * On variant choice, product image is updated to preview image and corresponding email and pdf ids are added to product details

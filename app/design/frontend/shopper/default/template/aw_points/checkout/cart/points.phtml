@@ -1,0 +1,61 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+$helperConfig = Mage::helper('points/config');
+?>
+<div>
+    <?php if ($this->getPoints() > 0): ?>
+        <ul class="messages">
+            <li class="points-notice-msg">
+                <ul>
+                    <li>
+                        <?php if ($this->getMoney()): ?>
+                            <?php echo $this->__('Checkout now and earn %s %s (%s) !', $this->getPoints(), $helperConfig->getPointUnitName(), Mage::app()->getStore()->convertPrice($this->getMoney(), true)) ?>
+                        <?php else: ?>
+                            <?php echo $this->__('Checkout now and earn %s %s !', $this->getPoints(), $helperConfig->getPointUnitName()) ?>
+                        <?php endif; ?>
+                        <?php echo $this->getChildHtml('infopage.link') ?>
+                    </li>
+                    <?php if ($this->customerIsGuest()): ?>
+                        <li>
+                            <?php echo $this->__('Applies only to registered customers, may vary when logged in.') ?>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </li>
+        </ul>
+    <?php endif; ?>
+    <?php foreach ($this->getAppliedRules() as $rule): ?>
+        <div>
+            <?php foreach ($this->getStaticBlocks($rule) as $block): ?>
+                <?php echo $block ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>
+

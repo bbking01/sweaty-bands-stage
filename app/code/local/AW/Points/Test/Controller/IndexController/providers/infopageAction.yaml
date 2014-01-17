@@ -1,0 +1,16 @@
+-
+  - 1
+  - "0"
+  - false
+-
+  - 2
+  - "undefined"
+  - false
+-
+  - 3
+  - "home"
+  - true
+-
+  - 4
+  - "no-route"
+  - true

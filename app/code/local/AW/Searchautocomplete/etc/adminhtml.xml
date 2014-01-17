@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+	
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<searchautocomplete>
+											<title>aheadWorks - Search Autocomplete and Suggest Section</title>
+										</searchautocomplete>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<translate>
+			<modules>
+				<AW_Searchautocomplete>
+					<files>
+						<default>AW_Searchautocomplete.csv</default>
+					</files>
+				</AW_Searchautocomplete>
+			</modules>
+		</translate>
+
+</config>

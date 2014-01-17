@@ -1,0 +1,112 @@
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Ajaxcatalog
+ * @copyright  Copyright (c) 2011 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+*/ 
+
+.awac-button {
+    height: 40px;
+    position: relative;
+    text-align: center;
+}
+
+.awac-button  .button-label-container {
+    height: 30px;
+    left: 50%;
+    position: absolute;
+    width: 320px;
+}
+
+.awac-button .button-label {
+    background: url("../images/button-bkg.png") repeat-x scroll 0 2px #EEEEEE;
+    border-color: #CCCCCC #999999 #999999 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    height: 26px;
+    left: -50%;
+    margin-top: 4px;
+    padding-top: 3px;
+    position: absolute;
+    text-align: center;
+    width: 320px;
+}
+
+.awac-button.hidden * {
+    display: none;
+}
+
+.awac-button .button-label span {
+    font-size: 14px;
+}
+
+.awac-button .button-label span.loading {
+    display: none;
+}
+
+.awac-button .button-label.loading span.loading {
+    display: block;
+}
+
+.awac-button .button-label.loading span.label {
+    display: none;
+}
+
+.robot-link {
+    position: absolute;
+    left: -1000px;
+}
+
+.awac-loader {
+    text-align: center;
+}
+
+.awac-loader .loader-label {
+    display: none;
+}
+
+.awac-loader  .loader-label.loading {
+    display: block;
+}
+
+.awac-loader .loader-label img.loading {
+    background: url("../images/ajax-loader.gif") no-repeat scroll 0 0 transparent;    
+    width: 16px;
+    height: 16px;
+}
+
+.awac-toolbar {
+    margin-top: -25px;
+}
+
+/* 'Back to Top' button */
+#awac-back-to-top,
+#awac-back-to-top.visible {
+    display: none;
+}
+
+#awac-back-to-top {
+    position: fixed;
+    top: 20px;
+    cursor: pointer;
+    padding: 3px 17px 3px 17px;
+    font: bold 12px Arial, Helvetica, sans-serif;
+    color: #fff;
+    background: none repeat scroll 0 0 #406A83;
+
+    border: solid 1px #000;
+}
+
+#awac-back-to-top.visible {
+    display: inline;
+}

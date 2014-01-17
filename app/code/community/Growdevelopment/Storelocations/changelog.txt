@@ -1,0 +1,17 @@
+Grow Development - Store Locations Pro
+
+2013.04.06 version 1.1.0
+ * Fix: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'id' in 'where clause'
+ * Fix: Region/State output on the location details page
+ * Fix: Broken image displayed when location has no image
+ * Fix: Page Layout setting works now on Location Listing page
+ * Fix: Removed default country "US" from the search page
+ * Add: Page Layout setting for Locations Details page
+ * Add: Default settings for all pages
+ * Add: Ability to display all locations on Listing Page
+ * Add: Additional fields to locations (Street 2, Fax, Email, Opening hours)
+
+2012.08.09 version 1.0.0
+ * Initial Release
+
+

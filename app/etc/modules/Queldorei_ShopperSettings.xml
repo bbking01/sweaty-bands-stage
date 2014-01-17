@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Queldorei_ShopperSettings>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Queldorei_ShopperSettings>
+    </modules>
+</config>

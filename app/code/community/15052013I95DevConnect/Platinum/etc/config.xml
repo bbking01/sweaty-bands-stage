@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_Base
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <modules>
+        <I95DevConnect_Platinum>
+            <version>0.1.0</version>
+        </I95DevConnect_Platinum>
+    </modules>
+    <frontend>
+        <routers>
+            <Platinum>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_Platinum</module>
+                    <frontName>platinumconnect</frontName>
+                </args>
+            </Platinum>
+        </routers>
+        <layout>
+            <updates>
+                <Platinum>
+                    <file>Platinum.xml</file>
+                </Platinum>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+        <blocks>
+            <I95DevConnect_Platinum>
+                <class>I95DevConnect_Platinum_Block</class>
+            </I95DevConnect_Platinum>
+            <adminhtml>
+                <rewrite>
+                    <catalog_product_grid>I95DevConnect_Platinum_Block_GP_Adminhtml_Catalog_Product_Grid</catalog_product_grid>
+                </rewrite>
+                <rewrite>
+                    <catalog_product_edit_tabs>I95DevConnect_Platinum_Block_GP_Adminhtml_Catalog_Product_Edit_Tabs</catalog_product_edit_tabs>
+                </rewrite>
+                <rewrite>
+                    <customer_grid>I95DevConnect_Platinum_Block_GP_Adminhtml_Customer_Grid</customer_grid>
+                </rewrite>
+                <rewrite>
+                    <sales_order_grid>I95DevConnect_Platinum_Block_GP_Adminhtml_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <i95devconnect_Platinum>
+                <class>I95DevConnect_Platinum_Helper</class>
+            </i95devconnect_Platinum>
+        </helpers>
+        <models>
+            <I95DevConnect_Platinum>
+                <class>I95DevConnect_Platinum_Model</class>
+            </I95DevConnect_Platinum>
+        </models>
+        <events>
+            <catalog_product_save_after>
+                <observers>
+                    <i95dev_catalog_product_save_after>
+                        <class>I95DevConnect_Platinum_Model_Observers_Observer</class>
+                        <method>i95devCatalogProductSaveAfter</method>
+                    </i95dev_catalog_product_save_after>
+                </observers>
+            </catalog_product_save_after>
+            <sales_order_place_before><!--checkout_controller_onepage_save_shipping_method-->
+                <observers>
+                    <i95dev_sales_order_place_before>
+                        <class>I95DevConnect_Platinum_Model_Observers_Observer</class>
+                        <method>checkInventory</method>
+                    </i95dev_sales_order_place_before>
+                </observers>
+            </sales_order_place_before> <!--sales_order_place_before-->
+        </events>
+        <resources>
+            <platinum_setup>
+                <setup>
+                    <module>I95DevConnect_Platinum</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </platinum_setup>
+        </resources>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <Platinum>
+                    <file>Platinumadmin.xml</file>
+                </Platinum>
+            </updates>
+        </layout>
+                
+        <events>
+            <i95dev_adminhtml_customer_group_save_before>
+                <observers>
+                    <i95devconnect_Platinum_customer_group_save_before>
+                        <class>I95DevConnect_Platinum_Model_Observers_Observer</class>
+                        <method>validatePricelevel</method>
+                    </i95devconnect_Platinum_customer_group_save_before>
+                </observers>
+            </i95dev_adminhtml_customer_group_save_before> 
+            <i95dev_adminhtml_customer_group_save_after>
+                <observers>
+                    <i95devconnect_Platinum_customer_group_save_after>
+                        <class>I95DevConnect_Platinum_Model_Observers_Observer</class>
+                        <method>createCustomerGroup</method>
+                    </i95devconnect_Platinum_customer_group_save_after>
+                </observers>
+            </i95dev_adminhtml_customer_group_save_after>    
+        </events>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <I95DevConnect_Platinum_Adminhtml before="Mage_Adminhtml">I95DevConnect_Platinum_Adminhtml</I95DevConnect_Platinum_Adminhtml>
+                    </modules>
+                </args>
+
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

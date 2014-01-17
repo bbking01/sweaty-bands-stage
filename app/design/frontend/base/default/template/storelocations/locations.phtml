@@ -1,0 +1,233 @@
+<?php
+/**
+ * Grow Development - Store Locations Pro
+ *
+ * @category   Growdevelopment
+ * @package    Growdevelopment_StoreLocations
+ * @copyright  Copyright (c) 2012 Grow Development (http://www.growdevelopment.com)
+ * @license    http://www.growdevelopment.com/docs/eula.txt
+ * @author     Daniel Espinoza <modules@growdevelopment.com>
+ *
+ */
+?>
+<?php 
+	// Display the listings grid/list page
+?>
+<div class="store-location-list">
+	<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+
+	<div class="page-title">
+	    <h1><?php echo Mage::helper('growdevstorelocations')->__('Store Locations') ?></h1>
+	</div>
+<?php 
+	$type = filter_var($this->getRequest()->getParam('type'), FILTER_SANITIZE_STRING);
+	$country_id = filter_var($this->getRequest()->getParam('country_id'), FILTER_SANITIZE_STRING);
+	$region_id = filter_var($this->getRequest()->getParam('region_id'), FILTER_SANITIZE_STRING);
+?>
+	<?php if ( $this->displayLimiter() ) { ?>
+	<div class="limiter">
+	<form method="get" id="store_search">
+
+		<label for="type">Store Type</label>
+
+		<div class="input-select">
+		<select name="type" id="type">
+			<option>All</option>
+			<option <?php if($type=="online") echo "selected"; ?> value="online">Online</option>
+			<option <?php if($type=="physical") echo "selected"; ?> value="physical">Physical</option>
+			<option <?php if($type=="both") echo "selected"; ?> value="both">Online & Physical</option>
+		</select>
+		</div>
+
+		<div id="country_region" <?php if ($type=="online") echo 'style="display:none;"'; ?>>
+	        <label for="country" class="required"><?php echo $this->__('Country') ?></label>
+	        <div class="input-box">
+	            <?php echo Mage::getBlockSingleton('directory/data')->getCountryHtmlSelect($country_id); ?>
+	        </div>
+	
+	        <label for="region_id"><?php echo $this->__('Region/State') ?></label>
+	        <div class="input-box">
+	            <select id="region_id" name="region_id" title="<?php echo $this->__('Region/State') ?>" style="display:none;">
+	                <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
+	            </select>
+	           <script type="text/javascript">
+	           //<![CDATA[
+	               $('region_id').setAttribute('defaultValue',  "<?php echo $region_id ?>");
+	           //]]>
+	           </script>
+	           <input type="text" id="region" name="region" value="<?php echo $this->htmlEscape($region_id) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text" style="display:none;" />
+	       </div>
+       </div>
+
+	<?php 
+		$_product_ids = $this->getProductIds();
+		if ( 0 < count($_product_ids)) {
+	?>		
+			<label>Product</label>
+			<div class="input-checkbox">
+		<?php	
+			$products = $this->getRequest()->getParam('products') ? $this->getRequest()->getParam('products') : array();
+	
+			foreach ( $_product_ids as $_product_id ) {
+				$_product = Mage::getModel('catalog/product')->load($_product_id->getProductId());
+		?>
+				<input type="checkbox" <?php if ( in_array($_product->getId(), $products )) echo "checked"; ?> name="products[]" value="<?php echo $_product->getId(); ?>"> <?php echo $_product->getName(); ?><br/>
+	<?php } ?>
+		</div>
+	<?php } ?>
+		<div class="buttons-set">
+		<button class="button"><span><span>Search</span></span></button>
+		</div>
+	</form>
+        <script type="text/javascript">
+        //<![CDATA[
+            new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>);
+            
+			var TypeUpdate = Class.create({
+			
+				initialize: function(fieldid){
+					this.fieldid = fieldid;
+					$(fieldid).observe('change', this.validateOnChange.bind(this));
+				},
+				
+				validateOnChange: function(event) {
+					var value;
+					value = $(this.fieldid).getValue();					
+					if (value=='All') {
+						$('country_region').show();
+					}
+					else if (value=='online') {
+						$('country_region').hide();
+						document.getElementByID('country').options[0].selected = true;
+						document.getElementByID('region_id').options[0].selected = true;
+					}
+					else {
+						$('country_region').show();
+					}
+
+				}
+			
+			});
+			
+			new TypeUpdate( document.getElementById('type') );
+        //]]>
+        </script>
+	</div>
+	<?php } ?>
+	
+	<?php $collection = $this->getLocations(); ?>
+	
+	<?php if (($collection->getLastPageNumber()>1) && $collection->getSize()) : ?>
+	    <div class="pager">
+	
+			<?php if ( $collection->getCurPage() > 1 ) { 				
+				$paramstring = '?p=' . ($collection->getCurPage()-1);
+				if (isset($type))
+					$paramstring .= '&type=' . $type;
+				if (isset($country_id))
+					$paramstring .= '&country_id=' . $country_id;
+				if (isset($region_id))
+					$paramstring .= '&region_id=' . $region_id;
+			?>
+	    	<a href="<?php echo $this->getUrl('store-locations') ?><?php echo $paramstring; ?>" class="prev" >&lt; Previous</a>
+			<?php } ?>
+			
+			<?php if ( $collection->getCurPage() < $collection->getLastPageNumber() ) { 
+				$paramstring = '?p=' . ($collection->getCurPage()+1);
+				if (isset($type))
+					$paramstring .= '&type=' . $type;
+				if (isset($country_id))
+					$paramstring .= '&country_id=' . $country_id;
+				if (isset($region_id))
+					$paramstring .= '&region_id=' . $region_id;			
+			?>
+	    		<a href="<?php echo $this->getUrl('store-locations'); ?><?php echo $paramstring; ?>" class="next" >Next &gt;</a>
+			<?php } ?>
+			<p>Page <?php echo $collection->getCurPage(); ?> of <?php echo $collection->getLastPageNumber(); ?></p>
+	    </div>
+	<?php endif; ?> 
+		
+	<?php if (!$collection->count()){ ?>
+	<p class="note-msg"><?php echo $this->__('There are no locations matching the selection.') ?></p>
+
+	<?php } else { 
+		if ( $this->getMode() == 'grid' ) {
+
+			// Grid  display
+	?>
+		    <?php $_collectionSize = $collection->count() ?>
+		    <?php $_columnCount = 3; ?>
+
+		    <?php $i=0; foreach ($collection as $location): ?>
+		        <?php if ($i++%$_columnCount==0): ?>
+		        <ul class="locations-grid">
+		        <?php endif ?>
+		            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+		            	<?php if ($location->getPhoto() != '') { ?>
+		                <a href="<?php echo $this->getUrl('store-locations'); echo '?location='.$location->getId(); ?>" title="<?php echo $this->stripTags($location->getStoreName()) ?>" class="location-image"><img src="<?php echo $this->getUrl('media'); echo $location->getPhoto(); ?>"  alt="<?php echo $this->stripTags($location->getStoreName()) ?>" /></a>
+		                <?php } ?>
+		                
+				<h2 class="location-name"><a href="<?php echo $this->getUrl('store-locations'); echo '?location='.$location->getId(); ?>" title="<?php echo $location->getStoreName(); ?>"><?php echo $location->getStoreName(); ?></a></h2>		                
+				
+						<?php if ($location->getStoreType() != 1) { ?>
+						<div class="address">
+						<?php echo $location->getStreet(); ?><br/>
+						<?php echo $location->getCity(); ?>, <?php 
+						$region = Mage::getModel('directory/region')->load($location->getLocationRegionId());
+						echo $region->getName();
+						?> <?php echo $location->getPostalCode(); ?><br/>
+						<?php echo $location->getLocationCountryId(); ?><br/>
+						</div>
+						<?php } ?>
+						<?php echo $location->getPhone(); ?><br/>
+						<a href="<?php echo $location->getUrl(); ?>" target="_blank"><?php echo $location->getUrl(); ?></a><br/>
+						
+		            </li>
+		        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+		        </ul>
+		        <?php endif ?>
+		        <?php endforeach ?>
+		        <script type="text/javascript">decorateGeneric($$('ul.locations-grid'), ['odd','even','first','last'])</script>
+
+		<?php } else {
+
+			// List display
+
+			$_iterator = 0; ?> 
+ 		   <ol class="locations-list" id="locations-list">
+ 		   <?php foreach ( $collection as $location ): ?>
+	           <li class="item<?php if( ++$_iterator == sizeof($collection) ): ?> last<?php endif; ?>">
+            	<?php if ($location->getPhoto() != '') { ?>
+	            <a href="<?php echo $this->getUrl('store-locations'); echo '?location='.$location->getId(); ?>" title="<?php echo $this->stripTags($location->getStoreName()) ?>" class="location-image"><img src="<?php echo $this->getUrl('media'); echo $location->getPhoto(); ?>" width="150" alt="<?php echo $this->stripTags($location->getStoreName()); ?>" /></a>
+	            <?php } ?>
+				<h2 class="location-name"><a href="<?php echo $this->getUrl('store-locations'); echo '?location='.$location->getId(); ?>" title="<?php echo $location->getStoreName(); ?>"><?php echo $location->getStoreName(); ?></a></h2>	  
+				<?php if ($location->getStoreType() != 1) { ?>
+				<div class="address">
+					<?php echo $location->getStreet(); ?><br/>
+					<?php echo $location->getCity(); ?>, <?php 
+			        $regionCollection = Mage::getModel('directory/region')->getCollection();
+			        $regions = $regionCollection->toOptionArray();
+			        
+				    if (isset($regions[$location->getLocationRegionId()])){
+						echo $regions[$location->getLocationRegionId()]['label'];
+					} else {
+						echo $location->getLocationRegionId(); 
+					}
+					?><br/>
+					<?php echo $location->getPostalCode(); ?><br/>
+					<?php echo $location->getLocationCountryID(); ?><br/>
+				</div>
+				<?php } ?>
+				<span class="phone"><?php echo $location->getPhone(); ?></span><br/>
+				<a href="<?php echo $location->getUrl(); ?>" class="location-url" target="_blank"><?php echo $location->getUrl(); ?></a>
+
+				<div class="desc"><?php echo $location->getDescription(); ?></div>
+				
+        		</li>
+    		<?php endforeach; ?>
+    		</ol>
+		    <script type="text/javascript">decorateList('locations-list', 'none-recursive')</script>
+    		
+	<?php	}
+	}?>
+</div>

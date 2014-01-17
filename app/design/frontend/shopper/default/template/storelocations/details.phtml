@@ -1,0 +1,226 @@
+<?php
+/**
+ * Grow Development - Store Locations Pro
+ *
+ * @category   Growdevelopment
+ * @package    Growdevelopment_StoreLocations
+ * @copyright  Copyright (c) 2012 Grow Development (http://www.growdevelopment.com)
+ * @license    http://www.growdevelopment.com/docs/eula.txt
+ * @author     Daniel Espinoza <modules@growdevelopment.com>
+ *
+ */
+?>
+<?php 
+	// Display a single listing's details
+	$location = $this->getLocationById( $this->getRequest()->getParam('location') );
+?>
+<div class="store-location-details">
+
+	<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+
+	<div class="page-title">
+	    <h1><?php echo $location->getStoreName() ?></h1>
+	</div>
+
+	<?php 
+		// set map height based on template. 
+		$map_height = '340px';
+		$root = Mage::app()->getLayout()->getBlock('root');		
+		if ($root){
+			$template = $root->getTemplate();
+ 			switch ($template){
+				case 'page/1column.phtml': 
+					$map_height = '350px';
+				break;
+				case 'page/2columns-left.phtml': 
+					$map_height = '340px';
+				break;
+				case 'page/2columns-right.phtml': 
+					$map_height = '340px';
+				break;
+				case 'page/3columns.phtml': 
+					$map_height = '150px';
+				break;
+			}
+		}
+	?>
+
+	<div class="location-image">
+	<?php if ($location->getPhoto() != '') { ?>
+	<img src="<?php echo $this->getUrl('media'); echo $location->getPhoto(); ?>" alt="<?php echo $this->stripTags($location->getStoreName()) ?>" />	                
+	<?php } ?>
+	</div>
+
+	<div id="map_container" class="map">
+		<?php if ($this->displayMap()) { ?>
+			<div id="map_canvas" style="width: 100%; height: <?php echo $map_height; ?>; " ></div>
+		<?php } ?>
+		<?php
+		if($this->displayGetDirections()) {
+			// get directions link
+			$daddr = urlencode($location->getStreet() . ", " . $location->getCity() . ", " . $location->getState() . ", " . $location->getPostalCode);
+		?>
+			<div class="get-directions">
+				<a class="get-directions" href="http://maps.google.com/maps?f=d&hl=en&geocode=&saddr=&daddr=<?php echo $daddr; ?>" target="_blank">Get Directions</a>
+			</div>
+		<?php 
+			}	
+		?>
+	</div>
+
+	<?php if ( strlen($location->getOwnerName()) > 0 ) { ?>
+	<h3 class="owner"><?php echo __('Owner:'); ?> <?php echo $location->getOwnerName(); ?></h3>
+	<?php }?>
+
+
+	<?php if ($location->getStoreType() != 1) { ?>
+	<div class="address">
+	<?php echo $location->getStreet(); ?><br/>
+	<?php echo $location->getStreet2(); ?><br/>
+	<?php echo $location->getCity(); ?>, <?php 
+	$region = Mage::getModel('directory/region')->load($location->getLocationRegionId());
+	echo $region->getName();
+	?> <?php echo $location->getPostalCode(); ?><br/>
+	<?php echo $location->getLocationCountryId(); ?><br/>
+	</div>
+	<?php } ?>
+
+	<div class="phone"><?php echo $location->getPhone(); ?></div>
+	<div class="fax"><?php echo $location->getfax(); ?></div>
+	
+	<div class="location-url">
+		<a href="<?php echo $location->getUrl(); ?>" target="_blank"><?php echo $location->getUrl(); ?></a>
+	</div>
+
+	<div class="email">
+		<a href="mailto:<?php echo $location->getEmail(); ?>" target="_blank"><?php echo $location->getEmail(); ?></a>
+	</div>
+
+	<div class="hours">
+		<strong><?php echo __('Hours'); ?></strong>
+		<p><?php echo $location->getOpeningHours(); ?></p>
+	</div>
+
+	<div class="desc"><?php echo $location->getDescription(); ?></div>
+	
+	<div class="buttons-set">
+	<a href="<?php echo $this->getUrl('store-locations'); ?>" class="back">&lt; <?php echo Mage::helper('growdevstorelocations')->__('Back to Listing Page') ?></a>
+	</div>
+
+</div>
+
+	<?php 
+	// Display the search form and the preview map. 
+	$lat  = $location->getGoogleLatitude();
+	$long = $location->getGoogleLongitude();
+	$zoom = $location->getGoogleZoomLevel();
+
+	// Display map if there are coordinates
+	if ( ($lat != 0) && ($long != 0) && ($this->displayMap()) ) {
+	?>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+    <script type="text/javascript">
+	    jQuery.noConflict(); 
+	    
+		jQuery(document).ready(function(){
+			var map;
+			var geocoder;
+			var address;
+			var location;
+			var markersArray = [];
+			
+			function initialize() {
+			  
+			  // Create Map
+			  location = new google.maps.LatLng(<?php echo $lat; ?>,<?php echo $long; ?>);
+			  var myOptions = {
+			  		center: location,
+			  		zoom: <?php echo $zoom; ?>,
+			  		mapTypeId: google.maps.MapTypeId.ROADMAP,
+			  		streetViewControl: true
+			  };
+			  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			        	  
+			}
+			
+			// Adds the overlays to the map and keeps track of them in the markersArray
+			function addMarker(location) {
+	  			var marker = new google.maps.Marker({
+	    			position: location,
+	    			map: map
+	  			});
+	  			markersArray.push(marker);
+			}
+			
+			// Deletes all markers
+			function removeMarkers() {
+			 	if (markersArray.length != 0 ) {
+			    	for (i=0; i < markersArray.length; i++) {
+			      		markersArray[i].setMap(null);
+			    	}
+			    	markersArray = new Array();
+			  	}
+			}
+	
+			// Sets initial marker on center point
+			function setSavedAddress() {
+				point = new google.maps.LatLng(<?php echo $lat; ?>,<?php echo $long; ?>);
+			 	addMarker(point);
+	  		}
+			
+			
+			// Updates fields with address data
+			function showAddress(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+	        		removeMarkers();
+	        		
+	        		map.setCenter(results[0].geometry.location);
+	        			
+	        		addMarker(results[0].geometry.location);
+
+	        		var point = results[0].geometry.location;
+	        				
+					jQuery('#google_latitude').attr('value',point.lat());
+					jQuery('#google_longitude').attr('value',point.lng());
+	        					
+	        	} else {
+	        		alert("Status Code:" + status);
+	        		
+	        	}
+			}
+			
+			// mapAddress() add the given address to the map
+			function mapAddress(results, status) {
+			  
+			  removeMarkers();
+			  if (status != google.maps.GeocoderStatus.OK) {
+				alert("Sorry, we were unable to geocode that address");
+			  } else {
+				var point = results[0].geometry.location;					
+				
+				map.setCenter(point, <?php echo $zoom; ?>);
+				addMarker(point);
+			  					
+				jQuery('#google_latitude').attr('value',point.lat());
+				jQuery('#google_longitude').attr('value',point.lng());
+				
+			  }
+			}
+			
+			// search for the given address
+			jQuery('#get_lat_long').click(function(){
+				var address = jQuery('#search_address').attr('value');
+				geocoder.geocode( { 'address': address}, mapAddress);
+			})
+		
+
+			initialize();
+			setSavedAddress();
+			
+						
+		});
+    </script>
+
+<?php } ?>

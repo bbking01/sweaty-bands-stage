@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<widgets>
+	<webformscrf type="webformscrf/widget_form" translate="name description" module="webforms">
+		<name>Web-forms: Customer Registration Form</name>
+		<description type="desc">Adds registration form to a page</description>
+		<parameters>
+			<webform_id>
+				<label>Web-form</label>
+				<visible>1</visible>
+				<required>1</required>
+				<type>select</type>
+				<source_model>webformscrf/webforms</source_model>
+			</webform_id>
+            <address>
+                <label>Add address profile</label>
+                <visible>1</visible>
+                <required>0</required>
+                <type>select</type>
+                <source_model>adminhtml/system_config_source_yesno</source_model>
+            </address>
+			<template translate="label">
+				<label>Frontend Template</label>
+				<visible>1</visible>
+				<required>1</required>
+				<type>select</type>
+				<values>
+					<default translate="label">
+						<value>webformscrf/register/default.phtml</value>
+						<label>Default</label>
+					</default>
+					<legacy translate="label">
+						<value>webformscrf/register/legacy.phtml</value>
+						<label>Legacy (Magento 1.3 and earlier)</label>
+					</legacy>
+				</values>
+			</template>
+		</parameters>
+	</webformscrf>	
+	<webformscrf_form type="webformscrf/widget_additional" translate="name description" module="webforms">
+		<name>Web-forms: Additional Account Form</name>
+		<description type="desc">Adds additional account form to a page</description>
+		<parameters>
+			<webform_id>
+				<label>Web-form</label>
+				<visible>1</visible>
+				<required>1</required>
+				<type>select</type>
+				<source_model>webforms/webforms</source_model>
+			</webform_id>
+			<template translate="label">
+				<label>Frontend Template</label>
+				<visible>1</visible>
+				<required>1</required>
+				<type>select</type>
+				<values>
+					<default translate="label">
+						<value>webformscrf/form/default.phtml</value>
+						<label>Default</label>
+					</default>
+				</values>
+			</template>
+		</parameters>
+	</webformscrf_form>
+</widgets>

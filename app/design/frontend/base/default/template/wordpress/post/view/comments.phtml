@@ -1,0 +1,41 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php $post = $this->getPost() ?>
+<?php $comments = $this->getComments() ?>
+<div id="comments" class="comments-wrapper">
+	<?php if ($comments->count() > 0): ?>
+		<h2><?php echo $this->getCommentCount() ?> <?php echo $this->getCommentCount() == 1 ? $this->__('Response to %s', $post->getPostTitle()) : $this->__('Responses to %s', $post->getPostTitle()) ?></h2>
+		<ul class="comment-list">
+			<?php foreach($comments as $comment): ?>
+				<li class="comment" id="comment-<?php echo $comment->getId() ?>">
+					<?php if ($comment->getGravatarUrl()): ?>
+						<div class="gravatar">
+							<img src="<?php echo $comment->getGravatarUrl() ?>" alt="<?php echo $this->escapeHtml($comment->getCommentAuthor()) ?>" />
+						</div>
+					<?php endif; ?>
+					<div class="comment-meta comment-date by">
+						<?php if ($comment->getCommentAuthorUrl() !== '#'): ?>
+							<a href="<?php echo $this->escapeHtml($comment->getCommentAuthorUrl()) ?>" rel="nofollow" class="comment-url"><?php echo $this->escapeHtml($comment->getCommentAuthor()) ?></a> 
+						<?php else: ?>
+							<span class="comment-url">
+								<?php echo $this->escapeHtml($comment->getCommentAuthor()) ?>
+							</span>					
+						<?php endif; ?>
+						<?php echo $this->__('on') ?> <a href="<?php echo $comment->getUrl() ?>" rel="nofollow"><?php echo $this->__('%s at %s', $comment->getCommentDate() , $comment->getCommentTime()) ?></a> <?php echo $this->__('said:') ?>
+					</div>
+					<p class="comment-entry entry"><?php echo nl2br($this->escapeHtml($comment->getCommentContent())) ?></p>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php echo $this->getPagerHtml() ?>
+	<?php endif; ?>
+	<?php if ($this->canComment()): ?>
+		<?php echo $this->getCommentFormHtml() ?>
+	<?php endif; ?>
+</div>

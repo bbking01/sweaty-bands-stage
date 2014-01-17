@@ -1,0 +1,143 @@
+.jcarousel-next-horizontal, .jcarousel-prev-horizontal { background-size:70px 70px; }
+button.btn-proceed-checkout span span {background-size:44px 20px;  }
+.header-switch span.current { background-size:7px 4px}
+#toTop { background-size:56px 112px}
+.btn-remove, .block-compare .block-content .actions a:before { background-size:15px 15px}
+.sorter .view-mode .grid { background-size:27px 54px}
+.sorter .view-mode .list { background-size:27px 54px}
+.error-msg { background-size:26px 26px}
+.success-msg { background-size:26px 26px}
+.note-msg { background-size:26px 26px}
+.notice-msg { background-size:26px 26px}
+.breadcrumbs span { background-size:3px 5px}
+.cart-top > a, .cart-top-title a span.icon { background-size:24px 20px}
+.compare-top, .compare-top-title a span.icon { background-size:13px 16px}
+.products-grid .hover .button-container button.button span span em { background-size:24px 19px}
+.product-view .add-to-cart button.button span span { background-size:41px 20px}
+.product-view .add-to-links li span.icon { background-size:17px 16px}
+.product-view .add-to-links li.compare span.icon { background-size:13px 16px}
+.product-view .add-to-links li.email-friend span.icon { background-size:18px 13px}
+.search-top, .search-top-container .search-form .search-top-title span.icon { background-size:18px 18px}
+.data-table .btn-remove2 { background-size:16px 17px}
+.footer-info ul.twitterList li span.tweet-icon { background-size:13px 10px}
+.product-prev span, .product-next span { background-size:26px 54px}
+.rating-box, .rating-box .rating { background-size:11px 20px}
+.footer-info ul.social li a { background-size:220px 36px}
+.block-layered-price .ui-widget-content .ui-state-default { background-size:19px 18px}
+.flex-direction-nav a { background-size:154px 77px}
+.footer-info .block-control { background-size:70px 70px}
+.btn-edit { background-size:15px 15px}
+.data-table .btn-edit2 { background-size:16px 17px}
+
+.std ul.disc li,
+#queldoreiNav li.custom-block div.sub-wrapper>ul>li, #queldoreiNav li.custom-block div.sub-wrapper ul li,
+#nav li.custom-block ul li>ul>li,
+.toolbar-dropdown ul li,
+.block .block-content li, .block .block-content li.item,
+.block-layered-nav .block-content dd li,
+.product-tabs-content ul.disc li { background-size:3px 5px}
+
+.slider-container .jcarousel-list .button-container button.button span span,
+.products-grid .button-container button.button span span,
+.products-list .button-container .btn-add-cart span,
+.box-up-sell2 .jcarousel-list .button-container button.button span span { background-size:17px 13px}
+
+.new-label, .sale-label { background-size:364px 182px}
+.product-view .product-img-box .zoom #handle { background-size:9px 22px}
+.toolbar-switch .toolbar-title { background-size:29px 14px}
+
+
+@media only screen and (-Webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+
+    .jcarousel-next-horizontal,
+    .jcarousel-prev-horizontal { background-image:url("../images/arrow_about@2x.png")}
+    button.btn-proceed-checkout span span {background-image:url('../images/arrow_button@2x.png')}
+    .header-switch span.current { background-image:url("../images/arrow_switch@2x.png")}
+    #toTop { background-image:url("../images/arrow_totop@2x.png")}
+    .btn-remove, .block-compare .block-content .actions a:before { background-image:url(../images/btn_remove@2x.png);}
+    .sorter .view-mode .grid { background-image:url(../images/i_grid_mode@2x.png);}
+    .sorter .view-mode .list { background-image:url(../images/i_list_mode@2x.png);}
+    .error-msg { background-image:url(../images/i_msg-error@2x.png);}
+    .success-msg { background-image:url(../images/i_msg-success@2x.png);}
+    .note-msg { background-image:url(../images/i_msg-note@2x.png);}
+    .notice-msg { background-image:url(../images/i_msg-notice@2x.png);}
+    .breadcrumbs span { background-image:url(../images/icon_breadcrumb@2x.png);}
+    .cart-top > a, .cart-top-title a span.icon { background-image:url(../images/icon_cart@2x.png);}
+    .compare-top, .compare-top-title a span.icon { background-image:url(../images/icon_compare@2x.png);}
+    .products-grid .hover .button-container button.button span span em { background-image:url(../images/icon_cart_listing_mask@2x.png);}
+    .product-view .add-to-cart button.button span span { background-image:url(../images/icon_cart_product@2x.png);}
+    .product-view .add-to-links li span.icon {background-image:url(../images/icon_wishlist@2x.png);}
+    .product-view .add-to-links li.compare span.icon { background-image:url(../images/icon_compare@2x.png);}
+    .product-view .add-to-links li.email-friend span.icon { background-image:url(../images/icon_email@2x.png);}
+    .search-top, .search-top-container .search-form .search-top-title span.icon {background-image:url(../images/icon_search@2x.png);}
+    .data-table .btn-remove2 {background-image:url(../images/icon_trash@2x.png);}
+    .footer-info ul.twitterList li span.tweet-icon {background-image:url(../images/icon_twitter@2x.png);}
+    .product-prev span, .product-next span {background-image:url(../images/prev_next@2x.png);}
+    .rating-box, .rating-box .rating {background-image:url(../images/rating@2x.png);}
+    .block-layered-price .ui-widget-content .ui-state-default {background-image:url(../images/slider_handle@2x.png);}
+    .flex-direction-nav a {background-image:url(../images/slideshow_arrows@2x.png);}
+    .footer-info ul.social li a {background-image:url(../images/social_icons@2x.png);}
+    /*.footer-info ul.social li a { background-size:220px 36px}*/
+    .footer-info .block-control {background-image:url(../images/arrow_footer@2x.png);}
+    .std ul.disc li,
+    #queldoreiNav li.custom-block div.sub-wrapper>ul>li, #queldoreiNav li.custom-block div.sub-wrapper ul li,
+    #nav li.custom-block ul li>ul>li,
+    .toolbar-dropdown ul li,
+    .block .block-content li, .block .block-content li.item,
+    .block-layered-nav .block-content dd li,
+    .product-tabs-content ul.disc li {background-image:url(../images/arrow_item@2x.png);}
+    .btn-edit {background-image:url(../images/btn_edit@2x.png);}
+    .slider-container .jcarousel-list .button-container button.button span span,
+    .products-grid .button-container button.button span span,
+    .products-list .button-container .btn-add-cart span,
+    .box-up-sell2 .jcarousel-list .button-container button.button span span {background-image:url(../images/icon_cart_listing@2x.png);}
+    .data-table .btn-edit2 {background-image:url(../images/icon_edit@2x.png);}
+    .new-label, .sale-label {background-image:url(../images/labels@2x.png);}
+    .product-view .product-img-box .zoom #handle {background-image:url(../images/magnifier_handle@2x.png);}
+    .toolbar-switch .toolbar-title {background-image:url("../images/selectbox_arrow@2x.png")}
+
+    .block-slider .slides > li,
+    .block-viewed .block-content li,
+    .block-tags .block-content li,
+    .block-bestsellers .block-content li,
+    .block-login .block-content li,
+    .block-reorder .block-content li.item,
+    .block-compare .block-content li.item,
+    .block-slider .flex-control-nav li,
+    .block-poll .block-content li{background:none;}
+
+    .block-compare .block-content .actions a::before, .compare-top-container .details .actions a::before {display:none }
+    .form-list li.wide select {width:200px }
+
+    .footer-info .information ul li:before,
+    #checkout-step-login .block-checkout-register ul.ul li:before,
+    .block-progress dt:before {top:-2px}
+
+}
+
+@media only screen and (-Webkit-min-device-pixel-ratio: 1.5) and (max-width: 959px),
+only screen and (-moz-min-device-pixel-ratio: 1.5) and (max-width: 959px),
+only screen and (-o-min-device-pixel-ratio: 3/2) and (max-width: 959px),
+only screen and (min-device-pixel-ratio: 1.5) and (max-width: 959px){
+    .toolbar-switch .toolbar-title {background-image:none}
+
+    .block-slider .slides > li,
+    .block-viewed .block-content li,
+    .block-tags .block-content li,
+    .block-bestsellers .block-content li,
+    .block-login .block-content li,
+    .block-reorder .block-content li.item,
+    .block-compare .block-content li.item,
+    .block-slider .flex-control-nav li,
+    .block-poll .block-content li{background:none;}
+
+    .block-compare .block-content .actions a::before, .compare-top-container .details .actions a::before {display:none }
+    .form-list li.wide select {width:200px }
+
+    .footer-info .information ul li:before,
+    #checkout-step-login .block-checkout-register ul.ul li:before,
+    .block-progress dt:before {top:-2px}
+}

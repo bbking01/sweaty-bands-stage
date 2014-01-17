@@ -1,0 +1,23 @@
+--- app/code/community/Unirgy/StoreLocator/Model/Mysql4/Location/Collection.php
++++ app/code/community/Unirgy/StoreLocator/Model/Mysql4/Location/Collection.php
+@@ -33,16 +33,16 @@
+         $dist = sprintf(
+             "(%s*acos(cos(radians(%s))*cos(radians(`latitude`))*cos(radians(`longitude`)-radians(%s))+sin(radians(%s))*sin(radians(`latitude`))))",
+             $units=='mi' ? 3959 : 6371,
+-            $conn->quote($center_lat),
+-            $conn->quote($center_lng),
+-            $conn->quote($center_lat)
++            (float)$center_lat,
++            (float)$center_lng,
++            (float)$center_lat
+         );
+         $this->_select = $conn->select()->from(array('main_table' => $this->getResource()->getMainTable()), array('*', 'distance'=>$dist))
+             ->where('`latitude` is not null and `latitude`<>0 and `longitude` is not null and `longitude`<>0');
+ 
+         if ($radius) {
+-             $this->_select->where($dist.'<=?', $radius);
++             $this->_select->where($dist.'<=?', (float)$radius);
+         }
+ 
+         return $this;
+     }

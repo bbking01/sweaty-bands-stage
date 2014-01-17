@@ -1,0 +1,19 @@
+<?php $winner = $this->getWinner(); ?>
+<?php if(count($winner)>0): ?>
+<?php 
+	$width = Mage::getStoreConfig('customerpictures/page/width');
+	$height = Mage::getStoreConfig('customerpictures/page/height');
+?>
+	<?php foreach($winner as $_winner): ?>
+	<?php $url = Mage::getBaseDir('media').DS."customerpictures".DS."images".DS.$_winner->getUserId() .DS.$_winner->getImageName(); ?>
+		<div class="name">
+			<em><?php echo $this->__("Monthly winner's:") ?></em>
+			<p><?php echo Mage::getModel('customer/customer')->load($_winner->getUserId())->getName()?></p>
+		</div>
+		<div class="pic-win" style="width:<?php echo $width ?>px">
+			<a href="<?php echo $this->getUrl('customerpictures/index/view') ?>id/<?php echo $_winner->getId() ?>" title="">
+				<img src="<?php echo Mage::helper('customerpictures/data')->reSize($url, $_winner->getImageName(), 'images', $_winner->getUserId(), $width, $height); ?>" alt="<?php $_winner->getImageTitle() ?>"/>
+			</a>
+		</div>
+	<?php endforeach ?>
+<?php endif ?>

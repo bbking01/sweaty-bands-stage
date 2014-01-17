@@ -1,0 +1,62 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: pp
+ * Date: 11-7-1
+ * Time: 15:32
+ */
+    /* @var $this Unirgy_Giftcert_Block_Adminhtml_Pdf_Edit_Tab_Form */
+
+    /* @var $form Varien_Data_Form */
+    $form = $this->getForm();
+
+    /* @var $_element Varien_Data_Form_Element_Fieldset */
+    $_element = $form->getElement($this->getFieldsetId());
+    $elements = $_element->getSortedElements();
+    $max = $_element->getData('maxcols');
+    $count = 0;
+    $cycle = 'odd';
+
+?>
+<div class = "entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo $_element->getLegend() ?></h4>
+        <div class="form-buttons"><?php echo $_element->getHeaderBar() ?></div>
+    </div>
+    <div class="fieldset <?php echo $_element->getClass() ?>" id="<?php echo $_element->getHtmlId() ?>">
+        <div class="hor-scroll">
+        <?php if ($_element->getComment()): ?>
+            <p class="comment"><?php echo Mage::helper('ugiftcert')->escape($_element->getComment()) ?></p>
+        <?php endif; ?>
+        <?php if(count($elements)): ?>
+            <table>
+                <tbody>
+                <?php foreach($elements as $el):?>
+                    <?php if($el->getData('ugc_heading')) :?>
+                        <?php if($count > 0): ?>
+                            <?php $cycle = ($cycle == 'odd') ? 'even' : 'odd' ;?>
+                            <?php echo $this->fillRow($count, $max); $count = 0;?>
+                         </tr>
+                        <?php endif;?>
+                        <?php
+$last = $el->getData('is_last');
+                        ?>
+                        <tr class="<?php echo $cycle; echo ($last && $el->getData('rows') == 1)? ' last':''; ?>">
+                            <th class="system-fieldset-sub-head" rowspan="<?php echo $el->getData('rows');?>" id="<?php echo $el->getHtmlId();?>"><?php echo $el->getLabel(); ?></th>
+                        <?php continue; ?>
+                    <?php endif; ?>
+                    <?php if($count == $max):?>
+                        </tr><tr class="<?php echo $cycle; echo $last ? ' last':'';?>">
+                    <?php endif;?>
+                    <?php echo $this->renderField($el); ?>
+                    <?php $count++;?>
+                    <?php endforeach; ?>
+                    <?php echo $this->fillRow($count, $max); $count = 0;?>
+                         </tr>
+                </tbody>
+            </table>
+        <?php endif; ?>
+        </div>
+    </div>
+</div>
+<?php echo $this->getChildHtml('form_after'); ?>

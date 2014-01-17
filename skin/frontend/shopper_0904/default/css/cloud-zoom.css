@@ -1,0 +1,45 @@
+
+/* This is the moving lens square underneath the mouse pointer. */
+.cloud-zoom-lens {
+	border: 1px solid #ededed;
+	margin:-1px;	/* Set this to minus the border thickness. */
+	background-color:#fff;	
+	cursor:move;		
+}
+
+/* This is for the title text. */
+.cloud-zoom-title {
+	font-family:Arial, Helvetica, sans-serif;
+	position:absolute !important;
+	background-color:#000;
+	color:#fff;
+	padding:3px;
+	width:100%;
+	text-align:center;	
+	font-weight:bold;
+	font-size:10px;
+	top:0px;
+}
+
+/* This is the zoom window. */
+.cloud-zoom-big {
+    margin-left:10px;
+    background-repeat:no-repeat;
+    background-color:#ffffff;
+	border:2px solid white;
+	overflow:hidden;
+    -moz-box-shadow:0 0 10px #ddd;
+    -webkit-box-shadow:0 0 10px #ddd;
+    box-shadow:0 0 10px #ddd;
+}
+
+/* This is the loading message. */
+.cloud-zoom-loading {
+	color:white;	
+	background:#222;
+	padding:3px;
+	border:1px solid #000;
+}
+
+.mousetrap {background:url('../images/spacer.gif') 0 0 !important; }
+

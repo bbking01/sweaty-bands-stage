@@ -1,0 +1,8 @@
+tables:
+ awautorelated/blocks:
+  - id: 1
+    status: 1
+  - id: 2
+    status: 0
+  - id: 3
+    status: 1

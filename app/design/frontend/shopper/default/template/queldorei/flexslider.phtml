@@ -1,0 +1,69 @@
+<?php $config = Mage::getStoreConfig('shopperslideshow/flexslider', Mage::app()->getStore()->getId()); ?>
+<!-- SLIDESHOW -->
+<div class="slider">
+    <div id="slide-timeline"></div>
+    <div id="flexslider" class="flexslider">
+        <ul class="slides">
+			<?php
+			$slides = $this->getSlides();
+			foreach($slides as $s) {
+				$style = $content = '';
+				$attr = 'data-img-height="0"';
+				if ( !empty($s['image']) ) {
+					$imgSize = getimagesize(Mage::getBaseDir('media') .'/'. $s['image']);
+					if ($imgSize) {
+						$style = "background:url('". Mage::getBaseUrl('media') . $s['image'] . "') 50% 0 no-repeat;";
+						$attr = 'data-img-height="'.$imgSize[1].'"';
+					}
+				}
+				if ( !empty($s['slide_width']) ) {
+					$content = 'style="width:'.$s['slide_width'].'px;"';
+				}
+				?>
+                <li style="<?php echo $style; ?>" <?php echo $attr; ?> >
+					<?php if ( !empty($s['small_image']) ) : ?>
+                    <img class="small_image" src="<?php echo Mage::getBaseUrl('media') . $s['small_image'] ?>" alt="" />
+					<?php endif; ?>
+                    <div class="row text-<?php echo $s['slide_align']; ?>">
+                        <div class="content" <?php echo $content; ?>>
+							<?php if ( !empty($s['slide_title']) ) : ?>
+                            <strong><?php echo $s['slide_title']; ?></strong>
+							<?php endif; ?>
+							<?php if ( !empty($s['slide_text']) || !empty($s['slide_button']) ) : ?>
+                            <div class="border"></div>
+							<?php endif; ?>
+							<?php if ( !empty($s['slide_text']) ) : ?>
+                            <p><?php echo nl2br($s['slide_text']); ?></p>
+							<?php endif; ?>
+							<?php if ( !empty($s['slide_button']) ) : ?>
+                            <button class="button button_white" <?php echo ( empty($s['slide_link']) ? '' : 'onclick="window.location=\''.$s['slide_link'].'\'"' ); ?>><span><span><?php echo $s['slide_button']; ?></span></span></button>
+							<?php endif; ?>
+                        </div>
+                    </div>
+                </li>
+				<?php
+			} // foreach($slides as $s) { ?>
+        </ul>
+    </div>
+</div>
+<script>
+    var CONFIG_SLIDESHOW = {
+        animation: "<?php echo ( in_array($config['animation'], array('slide', 'fade')) ? $config['animation'] : 'slide' ); ?>",
+        slideshow: <?php echo ( in_array($config['slideshow'], array('true', 'false')) ? $config['slideshow'] : 'true' ); ?>,
+        useCSS: false,
+        touch: true,
+        video: false,
+        animationLoop: <?php echo ( in_array($config['animation_loop'], array('true', 'false')) ? $config['animation_loop'] : 'true' ); ?>,
+        mousewheel: <?php echo ( in_array($config['mousewheel'], array('true', 'false')) ? $config['mousewheel'] : 'false' ); ?>,
+        smoothHeight: <?php echo ( in_array($config['smoothheight'], array('true', 'false')) ? $config['smoothheight'] : 'false' ); ?>,
+        slideshowSpeed: <?php echo ( is_numeric($config['slideshow_speed']) ? $config['slideshow_speed'] : 7000 ); ?>,
+        animationSpeed: <?php echo ( is_numeric($config['animation_speed']) ? $config['animation_speed'] : 600 ); ?>,
+        pauseOnAction: true,
+        pauseOnHover: true,
+        controlNav: <?php echo ( in_array($config['control_nav'], array('true', 'false')) ? $config['control_nav'] : 'true' ); ?>,
+        directionNav: <?php echo ( in_array($config['direction_nav'], array('true', 'false')) ? $config['direction_nav'] : 'true' ); ?>,
+        timeline: <?php echo ( in_array($config['timeline'], array('true', 'false')) ? $config['timeline'] : 'true' ); ?>,
+        height: "<?php echo (is_numeric($config['height']) ? $config['height'] : 'auto' ); ?>"
+    }
+</script>
+<!-- SLIDESHOW EOF -->

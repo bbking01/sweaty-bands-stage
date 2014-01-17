@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<!--
+/**
+* i95Dev.com
+* 
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to sub@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect
+* @package        I95DevConnect_Creditlimits
+* @Description    Configuration file
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+-->
+<config>
+	<modules>
+		<I95DevConnect_Creditlimits>
+			<version>0.1.0</version>
+		</I95DevConnect_Creditlimits>
+	</modules>
+	<frontend>
+		<routers>
+			<creditlimits>
+				<use>standard</use>
+				<args>
+					<module>I95DevConnect_Creditlimits</module>
+					<frontName>creditlimits</frontName>
+				</args>
+			</creditlimits>
+		</routers>
+		<layout>
+			<updates>
+				<creditlimits>
+					<file>creditlimits.xml</file>
+				</creditlimits>
+			</updates>
+		</layout>
+	</frontend>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<I95DevConnect_Creditlimits_Adminhtml
+							before="Mage_Adminhtml">I95DevConnect_Creditlimits_Adminhtml</I95DevConnect_Creditlimits_Adminhtml>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<global>
+		<models>
+			<i95devconnect_creditlimits>
+				<class>I95DevConnect_Creditlimits_Model</class>
+			</i95devconnect_creditlimits>
+                        <core>
+				<rewrite>
+					<translate>I95DevConnect_Creditlimits_Model_Core_Translate</translate>
+				</rewrite>
+			</core>
+			<i95devconnect_creditlimits>
+				<class>I95DevConnect_Creditlimits_Model</class>
+				<resourceModel>creditlimits_mysql4</resourceModel>
+			</i95devconnect_creditlimits>
+			<creditlimits_mysql4>
+				<class>I95DevConnect_Creditlimits_Model_Mysql4</class>
+				<entities>
+					<creditlimits>
+						<table>gp_transaction_history</table>
+					</creditlimits>
+				</entities>
+			</creditlimits_mysql4>
+			 <financecharges>
+				<class>I95DevConnect_Creditlimits_Model</class>
+				<rewrite>
+					<creditprocessor>I95DevConnect_Creditlimits_Model_Credits_Creditprocessor</creditprocessor>
+				</rewrite>
+				<resourceModel>financecharges_mysql4</resourceModel>
+			</financecharges>
+			<financecharges_mysql4>
+				<class>I95DevConnect_Creditlimits_Model_Mysql4</class>
+				<entities>
+					<financecharges_history>
+						<table>creditlimits_finance_charges</table>
+					</financecharges_history>
+				</entities>
+			</financecharges_mysql4>
+		</models>
+		<resources>
+			<creditlimits_setup>
+				<setup>
+					<module>I95DevConnect_Creditlimits</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</creditlimits_setup>
+			<creditlimits_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</creditlimits_write>
+			<creditlimits_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</creditlimits_read>
+		</resources>
+		<blocks>
+			<creditlimits>
+        	<class>I95DevConnect_Creditlimits_Block</class>
+        	</creditlimits>
+			<creditlimits>
+				<class>I95DevConnect_Creditlimits_Block</class>
+				<rewrite>
+					<creditlimits>I95DevConnect_Creditlimits_Block_CreditLimits</creditlimits>
+				</rewrite>
+			</creditlimits>
+			<onepage_payment_methods>I95DevConnect_Creditlimits_Block_Onepage_Payment_Methods</onepage_payment_methods>
+			<adminhtml>
+				<rewrite>
+					<customer_edit_tabs>I95DevConnect_Creditlimits_Block_Adminhtml_Customer_Edit_Tabs</customer_edit_tabs>
+				</rewrite>
+
+			</adminhtml>
+		</blocks>
+		<helpers>
+			<i95devconnect_creditlimits>
+				<class>I95DevConnect_Creditlimits_Helper</class>
+			</i95devconnect_creditlimits>
+		</helpers>
+	</global>
+
+	<adminhtml>
+		<layout>
+			<updates>
+				<creditlimits>
+					<file>creditlimits.xml</file>
+				</creditlimits>
+			</updates>
+		</layout>
+          <events>
+            <!-- dispatching custom event for the magento Controller Event -->
+            <i95dev_before_service_call_before>
+                <observers>
+                    <i95devconnect_creditlimits>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Creditlimits_Model_Observer</class>
+                        <method>adminhtmlCustomerSave</method>
+                    </i95devconnect_creditlimits>
+                </observers>
+            </i95dev_before_service_call_before>
+          </events>
+       </adminhtml>
+	<default>
+		<payment>
+			<creditlimits>
+				<active>0</active>
+				<model>i95devconnect_creditlimits/credits_creditprocessor</model>
+				<order_status>pending</order_status>
+				<title>Credit Limit</title>
+				<customer_group_access>0</customer_group_access>
+				<customer_group>0</customer_group>
+				<allowspecific>0</allowspecific>
+				<debug>0</debug>
+				<payment_action>authorize_capture</payment_action>
+			</creditlimits>
+		 </payment>
+	</default>
+</config>

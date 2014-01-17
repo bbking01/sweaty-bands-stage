@@ -1,0 +1,40 @@
+.nav-container, #nav, #nav > li {position:static}
+
+#nav ul.level0, #nav > li div { position:absolute; left:-10000px; padding:16px; margin:36px 0 0; background-color:#fff; width:1138px; z-index:2000;}
+#nav ul.level0 > li { float:none; display:inline-block; vertical-align:top; width:175px;  margin:0 14px 10px 0;}
+#nav ul.level0 > li.last {}
+#nav ul.level0 > li > a { padding:0 10px; color:#373230; font-size:14px; font-family:"Myriad Pro",sans-serif; font-weight:700; line-height:36px; letter-spacing:-0.1em; text-transform:uppercase; }
+
+#nav ul li a { float:none; }
+#nav ul li.parent {}
+
+#nav ul ul,#nav ul div { position:static !important; width:auto; padding:0; margin:0; -webkit-box-shadow:none; -moz-box-shadow:none; box-shadow:none;}
+#nav ul ul li { float:none; width:auto;  margin:0 0 0 11px; padding:0 0 0 13px; line-height:20px; background: url("../images/arrow_item.gif") 0 8px no-repeat;}
+#nav ul ul li a { padding:0;}
+
+#nav ul ul li.active, #nav ul ul li.over, #nav ul ul li:hover { background-position:5px 8px }
+#nav ul ul li.over > a, #nav ul ul li a:hover { background:transparent;}
+#nav ul ul li.active > a {background:#f0f0f0 !important; color:#000 !important;}
+
+#nav ul.level2 { padding:5px 0; }
+#nav ul.level2 li { background-position:0px 4px  }
+#nav ul.level2 li a { font-size:11px; line-height:13px; }
+#nav ul.level2 li:hover { background-position:5px 4px  }
+
+#nav li > ul.shown-sub, #nav li > div.shown-sub { left:0px; }
+
+.wide-navigation #nav li.custom-block > ul > li {width:auto;}
+
+/***** Standard 960px *****/
+@media only screen and (min-width:960px) and (max-width:1200px) {
+    #nav ul.level0, #nav > li div { width:838px; }
+    #nav ul.level0 > li { width:195px; }
+    #nav li > ul.shown-sub, #nav li > div.shown-sub { left:29px; }
+}
+
+#nav ul ul li {
+    -webkit-transition: background 200ms ease-in-out;
+    -moz-transition: background 200ms ease-in-out;
+    -o-transition: background 200ms ease-in-out;
+    transition: background 200ms ease-in-out;
+}

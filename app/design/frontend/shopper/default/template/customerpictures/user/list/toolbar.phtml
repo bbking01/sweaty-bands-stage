@@ -1,0 +1,14 @@
+<div class="toolbar">
+	<div class="pager">
+        <p class="amount">
+			<strong><?php echo $this->__('%s Pic(s)', $this->getTotalNum()) ?></strong>
+		</p>
+		<?php echo $this->getPagesHtml() ?>
+		<div class="sort-by">
+			<?php echo $this->getSortBy() ?>
+		</div>
+		<div class="pages">
+			<?php echo $this->divPage(); ?>
+		</div>
+    </div>
+</div>

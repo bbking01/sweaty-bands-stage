@@ -1,0 +1,10 @@
+<?php if ($dealer = $this->getDealer()):?>
+<div class="block">
+	<div class="block-title">
+    	<strong><span><?php echo $this->__('Your Dealer Info') ?></span></strong>
+    </div>
+    <div class="block-content">
+    	<div class="empty"><?php echo $dealer->getDescription();?></div>     
+	</div>
+</div>
+<?php endif;?>

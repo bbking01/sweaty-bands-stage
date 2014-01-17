@@ -1,0 +1,145 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: pp
+ * Date: 11-11-11
+ * Time: 20:47
+ */
+
+/* @var $this Unirgy_GiftcertPro_Block_Adminhtml_Product_Personalization */
+?>
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlName    = 'ugiftcert_personalization'; ?>
+<?php $_hlp = Mage::helper('ugiftcert');?>
+<tr>
+    <td>&nbsp;</td>
+    <td>
+        <ul id="text_notes" class="messages">
+            <li class="notice-msg">
+                <ul>
+                    <li>
+                        <?php echo $this->__("Preview images should have size convenient for display on product page.<br>No image processing is done by Giftcert module.");?>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </td>
+</tr>
+<tr>
+    <td class="label"><?php echo $this->__("Personalization options");?></td>
+    <td colspan="10" class="grid personal_settings">
+        <table cellspacing="0" class="data border" id="personal_settings_table">
+            <col width="250" />
+            <col width="135" />
+            <col width="250" />
+            <col width="250" />
+            <col />
+            <col width="1" />
+            <thead>
+            <tr class="headings">
+                <th><?php echo $_hlp->__('Title') ?></th>
+                <th><?php echo $_hlp->__('Preview') ?></th>
+                <th><?php echo $_hlp->__('Image') ?></th>
+                <th><?php echo $_hlp->__('Email Template') ?></th>
+                <th><?php echo $_hlp->__('PDF Template') ?></th>
+                <th class="last"><?php echo $_hlp->__('Action') ?></th>
+            </tr>
+            </thead>
+            <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="10" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            var optionsRowTemplate = '<tr id="personal_settings_row_{{index}}">'
+                + '<td><input type="text" id="personal_settings_{{index}}_title" name="<?php echo $_htmlName ?>[{{index}}][title]" value="{{title}}" /></td>'
+                + '<td class="img-preview">{{preview}}</td>'
+                + '<td><input type="file" id="personal_settings_{{index}}_file" name="<?php echo $_htmlName ?>[{{index}}][file]" value="{{image}}" /></td>'
+                + '<td><select class="u-email-template" name="<?php echo $_htmlName ?>[{{index}}][email_template]" value="{{email_template}}" id="personal_settings_row_{{index}}_email_template" >'
+                    <?php foreach($this->getEmailTemplates() as $id => $emailTemplate):?>
+                    + '  <option value="<?php echo $id ?>"><?php echo $this->jsQuoteEscape($_hlp->escape($emailTemplate)) ?></option>'
+                    <?php endforeach;?>
+                + '</select></td>'
+                + '<td><select class="u-pdf-template" name="<?php echo $_htmlName ?>[{{index}}][pdf_template]" value="{{pdf_template}}" id="personal_settings_row_{{index}}_pdf_template" >'
+                    <?php foreach($this->getPdfTemplates() as $id => $pdfTemplate):?>
+                    + '  <option value="<?php echo $id ?>"><?php echo $this->jsQuoteEscape($_hlp->escape($pdfTemplate)) ?></option>'
+                    <?php endforeach;?>
+                + '</select></td>'
+                + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="personal_settings_row_{{index}}_delete" />'
+                + '<button title="<?php echo Mage::helper("catalog")->__("Delete entry") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="personal_settings_row_{{index}}_delete_button" onclick="return optionsControl.deleteItem(event);">'
+                + '<span><?php echo Mage::helper("catalog")->__("Delete") ?></span></button></td>'
+                + '</tr>';
+
+            var previewTemplate = '<a href="{{url}}" onclick="imagePreview(\'personal_settings_{{index}}_image\'); return false;">'
+                + '<img src="<?php echo  Mage::getBaseUrl('media');?>{{url}}" id="personal_settings_{{index}}_image" title="{{image}}" alt="{{image}}" height="50" width="50" class="small-image-preview v-middle" /></a>'
+                + '<input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][image]" value="{{image}}" /><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][url]" value="{{url}}" />';
+
+            var optionsControl = {
+                template: new Template(optionsRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                previewTpl: new Template(previewTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                itemsCount: 0,
+                addItem : function () {
+                    var data = {
+                        url: false, // actual image url, used to show small preview, and load big image
+                        title: '',
+                        preview: '',
+                        image: '',
+                        email_template: 0,
+                        pdf_template: 0
+                    };
+                    this.itemsCount++
+
+                    if(arguments.length > 0) {
+                        data = arguments[0];
+                    } else {
+                        data.isNew = true;
+                    }
+                    data.index = this.itemsCount;
+
+                    if(data.url) {
+                        data.preview = this.previewTpl.evaluate(data);
+                    }
+
+                    Element.insert($('<?php echo $_htmlId ?>_container'), {
+                        bottom : this.template.evaluate(data)
+                    });
+
+                    $('personal_settings_row_' + data.index + '_email_template').value = data.email_template;
+                    $('personal_settings_row_' + data.index + '_pdf_template').value = data.pdf_template;
+
+                    $('personal_settings_row_' + data.index).select('input', 'select').each(function(el){
+                        Event.observe(el, 'change', el.setHasChanges.bind(el));
+                    });
+                },
+                disableElement: function(el) {
+                    el.disabled = true;
+                    el.addClassName('disabled');
+                },
+                deleteItem: function(event) {
+                    var tr = Event.findElement(event, 'tr');
+                    if (tr) {
+                        Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+                        Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+                        Element.hide(tr);
+                        Element.addClassName(tr, 'no-display template');
+                    }
+                    return false;
+                }
+            };
+            <?php foreach ($this->getValues() as $_item): ?>
+                optionsControl.addItem({
+                        title: '<?php echo $this->escapeHtml(addslashes($_item['title']));?>',
+                        url: '<?php echo $_item['url'];?>', // actual image url, used to show small preview, and load big image
+                        image: '<?php echo $_item['image'];?>',
+                        email_template: '<?php echo (int) $_item['email_template'];?>',
+                        pdf_template: '<?php echo (int) $_item['pdf_template'];?>'
+                    }
+                );
+            <?php endforeach; ?>
+            //]]>
+        </script>
+    </td></tr>

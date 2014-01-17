@@ -1,0 +1,381 @@
+<?php
+/**
+ * title: Observer.php
+ * modified by:  d charles sweet
+ * date:    2013 11 29
+ *          2013 12 02
+ *          2013 12 09
+ * TODO:
+ *   add skus to email
+ * 
+ * 
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ *
+ * @category    Magemaven
+ * @package     Magemaven_OrderComment
+ * @copyright   Copyright (c) 2011-2012 Sergey Storchay <r8@r8.com.ua>
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+class Magemaven_OrderComment_Model_Observer extends Varien_Object
+{
+    /**
+     * Save comment from agreement form to order
+     *
+     * @param $observer
+     */
+    public function saveOrderComment($observer)
+    {
+        $orderComment = Mage::app()->getRequest()->getPost('ordercomment');
+        $order = $observer->getEvent()->getOrder();
+        
+        Mage::log("saveOrderComment");
+        
+/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ * 
+ * SAVE CUSTOMER COMMENT TO CUSTOMER ORDER HISTORY
+ *   SEND NOTIFICATION OF CUSTOMER COMMENT TO ADMIN
+ * 
+ * :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/       
+        
+        if (is_array($orderComment) && isset($orderComment['comment'])) 
+        {
+           $oc=print_r($orderComment,1);  
+            Mage::log($oc);
+            $comment = trim($orderComment['comment']);
+
+            if (!empty($comment)) 
+            {
+				  Mage::log("comment $comment");
+               // $order = $observer->getEvent()->getOrder(); 
+               /*+++++++++++++++++++++++++++++++++++++++++++++++++++
+                * SAVE COMMENT 
+                *+++++++++++++++++++++++++++++++++++++++++++++++++++*/
+               
+                $order->setCustomerComment($comment);
+                $order->setCustomerNoteNotify(true);
+                $order->setCustomerNote($comment);
+                
+               /*+++++++++++++++++++++++++++++++++++++++++++++++++++
+                * SEND COMMENT NOTIFICATION
+                *+++++++++++++++++++++++++++++++++++++++++++++++++++*/
+                
+                //$this->sendCommentNotification($comment,$order->getData('increment_id'));
+                $this->sendCommentNotification($comment,$order);
+            }
+        }//END_IFISCOMMENT
+ 
+ 
+/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ * 
+ * : check if first order
+ * -----if so
+ * --------if logged in and wholesale group member
+ * --------send notification to admin
+ * 
+ *::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/        
+
+		if(Mage::getModel('customer/session')->isLoggedIn())
+		{
+		// Get group Id
+		Mage::log(__LINE__);
+		$groupId = Mage::getModel('customer/session')->getCustomerGroupId();
+		$group = Mage::getModel('customer/group')->load($groupId);
+
+		if ($group->getCode() == 'Wholesale50' ||
+   			$group->getCode() == 'Wholesale60' ||
+   			$group->getCode() == 'Wholesale100' ||
+   			$group->getCode() == 'LearningExpress' ||
+   			$group->getCode() == 'PalmBeachTan')
+   			{
+             Mage::log("customer is a wholesaler");
+             /*+++++++++++++++++++++++++++++++++++++++++++++++++++
+              * IS FIRST ORDER??
+             *+++++++++++++++++++++++++++++++++++++++++++++++++++*/
+              $this->sendFirstOrderNotification($order,$group->getCode());
+             
+             }
+        
+        }//END_IF_FIRSTORDER
+       else {
+		    //Not logged in or not in a wholesale group
+            Mage::log("Not Logged");
+            //CANNOT CHECK AN ORDER HISTORY, SO QUIT           
+             }  
+ 
+ 
+ 
+    
+    
+    }//END_FUNCTION_saveOrderComment
+
+
+ 
+
+/*====================================================================*/
+ function sendCommentNotification($comment,$order)
+/*====================================================================*/ 
+{  
+	 /**                                                                                                                                                                     
+     * Send transactional email to recipient                                                                                                                                
+     * sendTransactional(31, $sender, $email, $name, $vars, $storeId);                                                                                                                                                                     
+     * @param   int $templateId                                                                                                                                             
+     * @param   string|array $sender sneder informatio, can be declared as part of config path                                                                              
+     * @param   string $email recipient email                                                                                                                               
+     * @param   string $name recipient name                                                                                                                                 
+     * @param   array $vars varianles which can be used in template                                                                                                         
+     * @param   int|null $storeId                                                                                                                                           
+     * @return  Mage_Core_Model_Email_Template      
+     * 
+<p><strong>Order No:  {{var ordernumber}}</p>
+<p><strong>Comment:  </strong>{{var ordercomment}}</p>                                                                                                                             
+
+     TODO: 
+     *  add customer email
+     *  customer name
+     *  customer phone number
+     *  customer purchased skus
+<p>A customer has left a comment on a new order.</p>
+<p><strong>Name: </strong>{{var customername}}</p>
+<p><strong>Email: </strong>{{var customeremail}}</p>
+<p><strong>Telephone: </strong>{{var telephone}}</p>
+<p><strong>Order No: </strong>{{var orderNumber}}</p>
+<p><strong>Items(skus): </strong>{{var customeritems}}</p>
+<p><strong>Comment: </strong>{{var ordercomment}}</p> 
+     */ 
+     
+     //Mage::log("\n====sendCommentNotification=====\n : ".__LINE__."\n=========\n");                      
+
+     $mailSubject = 'HI this is a test mail.';
+     
+     $templateCode= 'SB Order Comment Admin Notification';
+ 
+$emailTemplate = Mage::getModel('core/email_template')->loadByCode($templateCode);
+$template_id= $emailTemplate['template_id'];    
+     //Mage::log("\n=========\n sender: ".print_r($emailTemplate,1)."\n=========\n");
+     Mage::log("\n=========\n template_id: ".$template_id."\n=========\n");
+     
+     
+
+  /**
+  * $sender can be of type string or array. You can set identity of
+  * diffrent Store emails (like 'support', 'sales', etc.) found
+  * in "System->Configuration->General->Store Email Addresses"
+  */
+    // Set sender information          
+    $senderName = Mage::getStoreConfig('trans_email/ident_support/name');
+    $senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');    
+    $sender = array('name' => $senderName,
+                'email' => $senderEmail);     
+ 
+
+ 
+  /**
+  * In case of multiple recipient use array here.
+  */
+  $email =  $senderEmail;
+  //$email =  "mag-dcsweet@cox.net";
+ //$email =  "Matt.Dennis@powerhousefactories.com";
+  /**
+  * If $name = null, then magento will parse the email id
+  * and use the base part as name.
+  */
+  $name = 'Charlie';
+ 
+  $vars = Array();
+
+  
+          $shipping = $order->getShippingAddress(); 
+        $increment_id=$order->getData('increment_id'); 
+        Mage::log($order->getData( 'customer_email' )); //OKAY
+        Mage::log($order->getData('increment_id' )); //OKAY  
+       // Mage::log($order->getCreatedAtDate()); //OKAY  
+        
+        Mage::log($shipping->getName()); //OKAY 
+        Mage::log($shipping->getData("telephone")); //OKAY 
+        
+   Mage::log(__LINE__);        
+$lines = $this->getOrderLineDetails($order);   
+$stuff=print_r($lines,1);  
+Mage::log($stuff); 
+$customeritems="";
+$items='';
+foreach($lines as $line){
+	$items=sprintf("%s  (qty)%s",$line['sku'],$line['order_quantity']);
+            
+	$customeritems=sprintf("%s  %s\n",$items,$customeritems);
+	
+}
+Mage::log($customeritems); 
+
+
+  // Set variables that can be used in email template
+    $vars = array(
+              'customername' => $shipping->getName(),
+              'customeremail' => $order->getData( 'customer_email' ),
+              'telephone' =>  $shipping->getData("telephone"),                           
+              'ordernumber' => $increment_id,
+              'customeritems' => $customeritems,              
+              'ordercomment'  => $comment);     
+    Mage::log("\n=========\n sender: ".print_r($vars,1)."\n=========\n");    
+   
+   Mage::log(__LINE__);   
+              
+  /*This is optional*/
+  $storeId = Mage::app()->getStore()->getId();
+ 
+
+
+
+ 
+  $translate  = Mage::getSingleton('core/translate');
+  Mage::getModel('core/email_template')
+      ->setTemplateSubject($mailSubject)
+      ->sendTransactional($template_id, $sender, $email, $name, $vars, $storeId);
+  $translate->setTranslateInline(true);
+
+ }//END_sendCommentNotification
+
+
+/*====================================================================*/
+ function sendFirstOrderNotification($order,$groupID)
+/*====================================================================*/ 
+	 /**                                                                                                                                                                     
+     * Send transactional email NOTIFICATION to recipient
+     *@param  order 
+     * <p><strong>Name: </strong>{{var customername}}</p>
+     * <p><strong>Group: </strong>{{var customergroup}}</p>
+     * <p><strong>Email: </strong>{{var customeremail}}</p>
+     * <p><strong>Telephone: </strong>{{var telephone}}</p>
+     * <p><strong>Order No: </strong>{{var ordernumber}}</p>
+     * <p><strong>Items(skus): </strong>{{var customeritems}}</p>
+     * <p><strong>Comment: </strong>{{var ordercomment}}</p>                                
+     **/ 
+{  
+ Mage::log("sendFirstOrderNotification");
+
+$customer = Mage::getSingleton('customer/session')->getCustomer();
+
+
+  Mage::log("customer id:" . $customer->getId()); 
+  
+$orders = Mage::getResourceModel('sales/order_collection')
+    ->addFieldToSelect('*')
+    ->addFieldToFilter('customer_id', $customer->getId());
+
+if (!$orders->getSize())
+{ 
+    Mage::log("has never placed an order"); 
+    /*+++++++++++++++++++++++++++++++++++++++++++++++++++
+    * SEND NOTIFICATION OF FIRST ORDER!
+    *+++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+    $templateCode = "SB Wholesale First Order";    
+    $mailSubject = $templateCode;
+    $emailTemplate = Mage::getModel('core/email_template')->loadByCode($templateCode);
+    $template_id= $emailTemplate['template_id'];    
+
+         $shipping = $order->getShippingAddress(); 
+         
+    // Set sender information          
+        $senderName = Mage::getStoreConfig('trans_email/ident_support/name');
+        $senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');    
+        $sender = array('name' => $senderName,
+                        'email' => $senderEmail);     
+  /**
+  * In case of multiple recipient use array here.
+  */
+        $email =  $senderEmail;
+	//        $email =  "mag-dcsweet@cox.net";
+        //$email =  "Matt.Dennis@powerhousefactories.com";
+  /**
+  * If $name = null, then magento will parse the email id
+  * and use the base part as name.
+  */
+       $name = 'Charlie';
+ 
+       $vars = Array();
+          $shipping = $order->getShippingAddress(); 
+        $increment_id=$order->getData('increment_id'); 
+$lines = $this->getOrderLineDetails($order);   
+$stuff=print_r($lines,1);  
+Mage::log($stuff); 
+$customeritems="";
+$items='';
+foreach($lines as $line){
+	$items=sprintf("%s  (qty)%s",$line['sku'],$line['order_quantity']);
+            
+	$customeritems=sprintf("%s  %s\n",$items,$customeritems);
+	
+}
+Mage::log($customeritems);         
+
+  // Set variables that can be used in email template
+    $vars = array(
+              'customername' => $shipping->getName(),
+              'customergroup' => $groupID,
+              'customeremail' => $order->getData( 'customer_email' ),
+              'telephone' =>  $shipping->getData("telephone"),                           
+              'ordernumber' => $increment_id,
+              'customeritems' => $customeritems);     
+    Mage::log("\n=========\n sender: ".print_r($vars,1)."\n=========\n");    
+              
+  /*This is optional*/
+  $storeId = Mage::app()->getStore()->getId();
+ 
+ 
+  $translate  = Mage::getSingleton('core/translate');
+  Mage::getModel('core/email_template')
+      ->setTemplateSubject($mailSubject)
+      ->sendTransactional($template_id, $sender, $email, $name, $vars, $storeId);
+  $translate->setTranslateInline(true);
+    
+}//END_IF_First_Order
+
+}//END_sendFirstOrderNotification
+
+
+/*-------------------------------------------------------------------------------------*/
+function getOrderLineDetails($order)
+/*-------------------------------------------------------------------------------------*/
+{
+//	  Mage::log("getOrderLineDetails");
+    $lines = array();
+    foreach($order->getItemsCollection() as $prod)
+    {
+        $line = array();
+        $_product = Mage::getModel('catalog/product')->load($prod->getProductId());
+        $line['sku'] = $_product->getSku();
+        $line['order_quantity'] = (int)$prod->getQtyOrdered();
+        $lines[] = $line;
+    }
+    return $lines;
+}
+
+
+
+
+}//END_CLASS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

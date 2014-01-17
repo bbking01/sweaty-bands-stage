@@ -1,0 +1,221 @@
+<?php
+/**
+ * Unirgy_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Unirgy
+ * @package    Unirgy_StoreLocator
+ * @copyright  Copyright (c) 2008 Unirgy LLC
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Unirgy
+ * @package    Unirgy_StoreLocator
+ * @author     Boris (Moshe) Gurevich <moshe@unirgy.com>
+ */
+/* @var $this Unirgy_StoreLocator_Block_Map */
+?>
+<?php
+$_showMap = Mage::getStoreConfig('ustorelocator/general/show_map');
+$_showSearch = Mage::getStoreConfig('ustorelocator/general/show_search');
+$_defaultLocation = Mage::getStoreConfig('ustorelocator/general/default_location');
+$_defaultRadius = Mage::getStoreConfig('ustorelocator/general/default_radius');
+$_minZoom = Mage::getStoreConfig('ustorelocator/general/min_zoom');
+$_scale_icon = Mage::getStoreConfig('ustorelocator/general/scale_icon');
+$apiKey = Mage::getStoreConfig('ustorelocator/general/api_key');
+$apiVersion = Mage::getStoreConfig('ustorelocator/general/api_version');
+$_initialLocations = '{}';
+
+if ($_showMap) {
+    $collection = $this->getSlHelper()->getDefaultCollection();
+    $this->setCollection($collection);
+    $_initialLocations = Zend_Json::encode($this->getSlHelper()->prepareLocationData($collection->getData()));
+}
+
+$_units = Mage::getStoreConfig('ustorelocator/general/distance_units');
+$_searchRadiuses = explode(',',Mage::getStoreConfig('ustorelocator/general/search_radius_options'));
+$_locale = Mage::getStoreConfig('general/country/default');
+$_no_result = $this->getSlHelper()->getNoResultCoordinates();
+$isCurrentlySecure = Mage::app()->getStore()->isCurrentlySecure();
+$mapUrl = $isCurrentlySecure ? 'https' : 'http';
+$mapUrl .= '://maps.googleapis.com/maps/api/js?';
+if($apiVersion){
+    $mapUrl .= "v={$apiVersion}&";
+}
+
+if($apiKey){
+    $mapUrl .= "key={$apiKey}&";
+}
+$mapUrl .= "sensor=false";
+
+?>
+
+<script src="<?php echo $mapUrl; ?>" type="text/javascript"></script>
+
+<?php if ($_showSearch): ?>
+<div class="page-title">
+	<h2><?php echo $this->__('Find a store')?></h2>
+</div>
+<form id="store_locator_form" onsubmit="return false">
+    <fieldset class="fieldset">
+        <ul class="location-search">
+            <li class="first">
+                <label for="address"><?php echo $this->__('Enter Address')?></label><br/>
+                <input type="text" class="input-text" id="address" name="address" style="width:300px;"/>
+            </li>
+            <li class="last">
+                <div class="input-box">
+                    <label for="radius"><?php echo $this->__('Radius')?></label><br/>
+                    <select id="radius" name="radius" style="width:80px;">
+                        <?php foreach($_searchRadiuses as $radius) : $val = intval($radius);?>
+                        <?php $selected = ($_defaultRadius == $val) ? " selected='selected'" : "";?>
+                        <?php if (!$val) continue; ?>
+                        <option value="<?php echo $val;?>"<?php echo $selected;?>><?php echo $val;?> <?php echo $_units;?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </li>
+        </ul>
+        <div class="button-set">
+            <button type="submit" class="button"><span><span><?php echo $this->__('Submit')?></span></span></button>
+            <button type="reset" class="button"><span><span><?php echo $this->__('Reset')?></span></span></button>
+            <img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif');?>" alt="Loading ..." id="sl-loader" style="display: none">
+        </div>
+    </fieldset>
+</form>
+<?php endif ?>
+
+<div id="storelocator-results" <?php if (!$_showMap): ?>style="visibility:hidden;"<?php endif ?>>
+    <div id="storelocator-container">
+        <table style="width:100%;">
+        <tbody>
+          <tr id="map-container">
+            <td width="200" valign="top">
+                <div id="pager-top" class="pager"><?php echo $this->getPagerHtml();?></div>
+                <div id="sidebar"></div>
+                <div id="pager-bottom" class="pager"><?php echo $this->getPagerHtml();?></div>
+            </td>
+            <td>
+                <div id="map"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="tag-container">
+        <a class="f-right" id="locations-reset"><strong><?php echo $this->__("Reset locations");?></strong></a>
+        <div id="tag-row"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+var ex;
+(function(){
+    var storeLocator = new UnirgyStoreLocator({
+        mapEl: $('map'),
+        sidebarEl: $('sidebar'),
+        searchUrl: '<?php echo $this->getUrl('ustorelocator/location/searchJson', array('_secure' => $isCurrentlySecure))?>',
+        // searchUrl: '<?php echo $this->getUrl('ustorelocator/location/search',array('_secure' => $isCurrentlySecure))?>',
+        scale_icon: <?php echo $_scale_icon;?>,
+        initial_locations:  <?php echo isset($_initialLocations) ? $_initialLocations: '{}';?>,
+        min_zoom: <?php echo $_minZoom;?>,
+        defaultLocation: '<?php echo addslashes($_defaultLocation);?>',
+        units: '<?php echo $_units;?>',
+        region: '<?php echo $_locale;?>',
+        route_not_found: '<?php echo $this->__("Could not find route between these locations.");?>',
+        show_all_text: '<?php echo $this->__("Show all");?>',
+        no_result_error: '<?php echo $this->__('No results found.');?>',
+        invalid_address_text: '<?php echo $this->__('Search does not seem to be valid address.');?>',
+        no_result: new google.maps.LatLng('<?php echo $_no_result[0];?>','<?php echo $_no_result[1];?>'),
+        tag_row_label: '<strong><?php echo $this->__('Filter Map by Tag')?>: </strong>',
+        generateSidebarHtml: function(m) {
+            var container = new Element('div');
+            var div = new Element('div', {id: "loc-" + m.location_id}).addClassName('sidebar-entry');
+            if(m.is_featured === true) {
+                div.addClassName('featured');
+            }
+            div.insert(new Element('span').update(m.title)).insert('<br/>');
+            if(m.distance) {
+                div.insert(' (' + parseFloat(m.distance).toFixed(1) + ' ' + m.units + ')');
+            }
+            div.insert('<address>'+m.address_display.replace(/\n/, '<br/>')+'</address>');
+            container.insert(div);
+            return  container.innerHTML;
+        },
+        generateDirectionsElement: function(m) {
+            var directionsDiv = new Element('div', {id: "directions-" +  m.location_id}).addClassName("directions");
+            var btnSpan = new Element('span', {id: "get-dir-btn-container-" +  m.location_id});
+            btnSpan.className = "get-dir-btn-container";
+            var a = new Element('a',{id: 'get-dir-' + m.location_id}).update("<?php echo $this->__("Get directions");?>");
+            a.addClassName("dir-btn");
+            btnSpan.insert(a);
+            directionsDiv.insert(btnSpan); // directions buttons
+            directionsDiv.insert(new Element('div', {"style" : "display: none"}).addClassName("step-directions")); // this is where step by step directions should be
+            return directionsDiv;
+        },
+        generateMarkerHtml: function(m) {
+            var url = '';
+            if(m.website_url){
+                url = m.website_url.replace(/\s/,'');
+            }
+            var container = new Element('div');
+            var div = new Element('div', {id: "marker-loc-" + m.location_id}).addClassName("marker-entry");
+            if(m.is_featured) {
+                div.addClassName('featured');
+            }
+            div.insert('<b>' + m.title + '</b> <br/>').insert(m.address_display.replace(/\n/, '<br/>') + '<br/>');
+            if(m.phone && m.phone.length > 5) {
+                div.insert(m.phone + '<br/>');
+            }
+            if(url.length > 5) {
+                div.insert('<a href="' + (url.match(/@/) ? 'mailto:' : '') + url + '"><strong>' + url + '</strong></a><br/>')
+            }
+            div.insert('<p>' + m.notes + '</p>');
+            container.update(div);
+            return  container.innerHTML;
+        }
+    });
+    function doSearch() {
+        $('storelocator-results').style.visibility = 'visible';
+        storeLocator.search($('address').value, {
+            radius: $('radius').value
+            /*, type: $('product_type').value*/
+        });
+    }
+    Event.observe(window, 'load', function () {
+        storeLocator.load();
+
+<?php if ($_initialLocations && $_initialLocations != '{}'): ?>
+        $('storelocator-results').style.visibility = 'visible';
+<?php endif ?>
+
+        <?php
+        // start load page with address search param
+        $address = $this->getRequest()->getParam('address', false);
+        if($address):
+        ?>
+        $('address').value = '<?php echo $address;?>';
+        doSearch();
+        <?php endif; // end load page with address search param?>
+    });
+
+<?php if ($_showSearch): ?>
+    Event.observe($('store_locator_form'), 'submit', doSearch);
+
+    $('locations-reset').observe('click', function(e){
+        Event.stop(e);
+        if (storeLocator) {
+            storeLocator.reset();
+        }
+    });
+<?php endif ?>
+
+})();
+</script>

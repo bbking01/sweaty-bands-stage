@@ -1,0 +1,239 @@
+/**
+ * FishPig_WordPress
+ * WordPress Integration for Magento eCommerce
+ * by FishPig
+ *
+ * http://fishpig.co.uk/wordpress-integration.html
+ *
+ */
+
+/**
+ * Search block
+ *
+ */
+.blog-search { padding: 5px; }
+input#blog-search { max-width: 90%; }
+
+/**
+ * General post (view and list)
+ *
+ */
+.post-date { font-style: italic; font-size: 98%; margin-bottom: 10px; }
+.post-meta { font-style: italic; }
+.post-entry { font-size: 110%; height: 1%; overflow: hidden; }
+.post-entry-with-image { height: 1%; overflow: hidden; }
+
+/**
+ * Blog homepage
+ *
+ */
+.blog-title.not-first-page { display: none; }
+.blog-title.with-tagline { margin-bottom: 10px; }
+.blog-tag-line { font-style: italic; margin-bottom: 20px; }
+
+/**
+ * Post list page
+ *
+ */
+.post-list li.item { margin-bottom: 20px; }
+.post-list h2 { line-height: 1em; margin-bottom: 4px; }
+
+/**
+ * Post view page
+ *
+ */
+.page-title.post-title { margin-bottom: 4px; }
+.post-view .post-meta { margin-bottom: 20px; }
+.post-view .post-skips { display: block; width: 100%; }
+.post-view .post-skips .post-skip-previous { margin-right: 10px; }
+
+/**
+ * Post comments
+ *
+ */
+.comments-wrapper h2 { margin-bottom: 10px; }
+.comment { height: 1%; overflow: hidden; margin-bottom: 10px; }
+.comment .gravatar { float: left; margin-right: 10px; }
+.comment .comment-meta { font-style: italic; font-weight: bold; margin-bottom: 10px; }
+.comment .comment-entry { font-size: 110%; }
+
+/**
+ * Author page
+ *
+ */
+.author-description { font-style: italic; margin-bottom: 20px; }
+
+/**
+ * PinterestRssWidget plugin
+ *
+ */
+
+
+.block-blog-pinterest li.item { text-align: center; }
+.block-blog-pinterest .follow { text-align: center; margin: 10px 0 15px; }
+
+.shortcode-pinterest {}
+.shortcode-pinterest ul { height: 1%; overflow: hidden; }
+.shortcode-pinterest li { list-style: none; padding: 0; margin: 0 10px 10px; float: left; }
+
+/**
+ * Alignment and captions
+ * Taken from default WordPress CSS file
+ *
+ */
+.alignleft { display: inline; float: left; margin-right: 1.625em; }
+.alignright { display: inline; float: right; margin-left: 1.625em; }
+.aligncenter { clear: both; display: block; margin-left: auto; margin-right: auto; }
+
+img[class*="align"],
+img[class*="wp-image-"],
+#content .gallery .gallery-icon img {/* Add fancy borders to all WordPress-added images but not things like badges and icons and the like */
+	border: 1px solid #ddd;
+	padding: 6px;
+}
+
+img[class*="align"],
+img[class*="wp-image-"],
+img[class*="attachment-"] {
+height: auto; /* Make sure images with WordPress-added height and width attributes are scaled correctly */
+}
+img.size-full,
+img.size-large {
+max-width: 97.5%;
+width: auto; /* Prevent stretching of full-size and large-size images with height and width attributes in IE8 */
+height: auto; /* Make sure images with WordPress-added height and width attributes are scaled correctly */
+}
+
+img.alignleft,
+img.alignright,
+img.aligncenter {
+margin-bottom: 1.625em;
+}
+
+.wp-caption {
+margin-top: 0.4em;
+}
+.wp-caption {
+background: #eee;
+margin-bottom: 1.625em;
+max-width: 96%;
+padding: 9px;
+}
+.wp-caption img {
+display: block;
+margin: 0 auto;
+max-width: 98%;
+border-color: #eee;
+}
+.wp-caption .wp-caption-text {
+color: #666;
+font-family: Georgia, serif;
+font-size: 12px;
+}
+.wp-caption .wp-caption-text {
+margin-bottom: 0.6em;
+padding: 10px 0 5px 40px;
+position: relative;
+}
+.wp-caption .wp-caption-text:before {
+color: #666;
+content: '\2014';
+font-size: 14px;
+font-style: normal;
+font-weight: bold;
+margin-right: 5px;
+position: absolute;
+left: 10px;
+top: 7px;
+}
+.wp-caption img {
+border-color: #eee;
+}
+.wp-caption a:focus img,
+.wp-caption a:active img,
+.wp-caption a:hover img {
+background: #fff;
+border-color: #ddd;
+}
+
+div.gallery { height: 1%; overflow: hidden; }
+.gallery-columns-2 dl.gallery-item { width: 50%; }
+.gallery-columns-3 dl.gallery-item { width: 33%; }
+.gallery-columns-4 dl.gallery-item { width: 25%; }
+.gallery-columns-5 dl.gallery-item { width: 20%; }
+
+dl.gallery-item { float: left; }
+
+.post-view ul.form-list { list-style: none outside none; }
+
+
+/**
+ * Yarpp thumbnails
+ * This is taken directly from the Yarpp plugin
+ */
+
+.yarpp-thumbnails-horizontal .yarpp-thumbnail, .yarpp-thumbnail-default, .yarpp-thumbnail-title {
+	display: inline-block;
+	*display: inline;
+}
+.yarpp-thumbnails-horizontal .yarpp-thumbnail {
+	border: 1px solid rgba(127,127,127,0.1);
+	width: 130px;
+	height: 170px;
+	margin: 5px;
+	margin-left: 0px;
+	vertical-align: top;
+}
+.yarpp-thumbnail > img, .yarpp-thumbnail-default {
+	width: 120px;
+	height: 120px;
+	margin: 5px;
+}
+.yarpp-thumbnails-horizontal .yarpp-thumbnail > img, .yarpp-thumbnails-horizontal .yarpp-thumbnail-default {
+	margin-bottom: 0px;
+	display: block;
+}
+.yarpp-thumbnails-horizontal .yarpp-thumbnail-title {
+	font-size: 1em;
+	max-height: 2.8em;
+	line-height: 1.4em;
+	margin: 7px;
+	margin-top: 0px;
+	width: 120px;
+	text-decoration: inherit;
+	overflow: hidden;
+}
+
+.yarpp-thumbnail-default {
+	overflow: hidden;
+}
+.yarpp-thumbnail-default > img.yarpp-thumbnail-default-wide {
+	height: 120px;
+	max-width: none;
+}
+.yarpp-thumbnail-default > img.yarpp-thumbnail-default-tall {
+	width: 120px;
+	max-height: none;
+}
+
+.page-title-bg {
+    background: url("../images/wordpress/Blog_Title_Bar_Pattern_Repeat.png");
+}
+
+.main-container {
+    background: url("../images/wordpress/Blog_Background_Pattern_Repeat.png");
+}
+
+.post-list ul#post-list li.item {
+    background: white;
+    padding: 20px;
+}
+
+.post-view {
+    background: white;
+    padding: 20px;
+}
+
+.col-main {
+    padding-top: 0px;
+}

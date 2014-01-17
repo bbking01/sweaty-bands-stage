@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <AW_Ajaxcatalog>
+            <codePool>local</codePool>
+            <active>true</active>
+        </AW_Ajaxcatalog>
+    </modules>
+</config>

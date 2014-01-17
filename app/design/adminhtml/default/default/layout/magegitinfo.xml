@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+* This file is part of the MAGEGITINFO project.
+*
+* Hackathon MageGitInfo is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License version 3 as
+* published by the Free Software Foundation.
+*
+* This script is distributed in the hope that it will be useful, but WITHOUT
+* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+* FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+* PHP version 5
+*
+* @category  MageGitInfo
+* @package   Hackathon_MageGitInfo
+* @author    Tom Kadwill <tomkadwill@gmail.com>
+* @author    Stephan Hoyer <ste.hoyer@gmail.com>
+* @author    André Herrn <info@andre-herrn.de>
+* @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+* @version   $Id:$
+* @since     0.1.0
+*/
+-->
+<layout>
+    <default>
+        <block type="magegitinfo/adminhtml_git_wrapper" name="magegitinfo_wrapper" template="magegitinfo/wrapper.phtml">
+            <block type="magegitinfo/adminhtml_git_branch" name="magegitinfo_branch" template="magegitinfo/git/branch.phtml" />
+            <block type="magegitinfo/adminhtml_git_status" name="magegitinfo_status" template="magegitinfo/git/status.phtml" />
+            <block type="magegitinfo/adminhtml_git_log" name="magegitinfo_log" template="magegitinfo/git/log.phtml" />
+        </block>
+        <reference name="head">
+            <action method="addCss"><name>magegitinfo.css</name></action>
+        </reference>
+    </default>
+    
+    <adminhtml_hackathon_magegitinfo_ajax_magegitupdate>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="magegitinfo/adminhtml_git_wrapper" name="magegitinfo_wrapper" template="magegitinfo/wrapper.phtml">
+                <block type="magegitinfo/adminhtml_git_branch" name="magegitinfo_branch" template="magegitinfo/git/branch.phtml" />
+                <block type="magegitinfo/adminhtml_git_status" name="magegitinfo_status" template="magegitinfo/git/status.phtml" />
+                <block type="magegitinfo/adminhtml_git_log" name="magegitinfo_log" template="magegitinfo/git/log.phtml" />
+            </block>
+        </block>
+    </adminhtml_hackathon_magegitinfo_ajax_magegitupdate>
+</layout>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Queldorei_Shopperslideshow>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Queldorei_Shopperslideshow>
+    </modules>
+</config> 

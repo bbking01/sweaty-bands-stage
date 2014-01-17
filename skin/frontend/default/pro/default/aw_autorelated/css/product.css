@@ -1,0 +1,78 @@
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Autorelated
+ * @copyright  Copyright (c) 2011 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ */
+
+.aw-arp-block {
+    background: #FFFFFF;
+    border-top: 1px solid #A9A9A9;
+    border-bottom: 1px solid #A9A9A9;
+    border-radius: 5px;
+}
+
+.aw-arp-block .block-title {
+    border-radius: 5px 5px 0 0;
+    background: #FAFAFA;
+}
+
+.aw-arp-block-content {
+    padding: 5px 0px 0px 5px;
+    overflow: hidden;
+    clear: both;
+}
+
+.aw-arp-item {
+    text-align: center;
+    width: 100px;
+    min-height: 100px;
+    display: -moz-inline-stack;
+    display: inline-block !important;
+    vertical-align: top;
+    margin: 5px;
+    zoom: 1;
+    *display: inline !important;
+    _height: 250px;
+    margin-bottom: 20px;
+}
+
+.aw-arp-block-content .aw-arp-addtocart>p {
+    margin-bottom: 5px;
+}
+
+.aw-arp-product-item {
+    margin: 0 0 20px;
+}
+
+.aw-arp-item-photo {
+    float: left;
+    margin-right: 10px;
+}
+
+.aw-arp-item-photo img {
+    border: 1px solid #A9A9A9;
+    width: 75px;
+}
+
+.aw-arp-item-text {
+    margin-left: 85px;
+}
+
+.footer .aw-arp-block-content li {
+    display: inline-block !important;
+    *display: inline !important;
+}
+
+.footer .aw-arp-block-content a {
+    color: #1E7EC8;
+}

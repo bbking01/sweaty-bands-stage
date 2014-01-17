@@ -1,0 +1,197 @@
+<?php
+$cms_id = $this->helper('shoppersettings')->getCurrentCmsPage();
+if ( !$cms_id ) {
+	$pageLayout = $this->getLayout()->getBlock('root')->getTemplate();
+	if ( strpos($pageLayout, '2columns') ) {
+		$grid_class = 'two_columns_' . Mage::getStoreConfig('shoppersettings/catalog/grid_columns_2col');
+	} else {
+		$grid_class = 'one_column_' . Mage::getStoreConfig('shoppersettings/catalog/grid_columns_1col');
+	}
+} else {
+	if ( $cms_id == 'shopper_home' ) {
+		$grid_class = 'one_column_' . Mage::getStoreConfig('shoppersettings/catalog/grid_columns_1col');
+	} else {
+		$grid_class = 'two_columns_' . Mage::getStoreConfig('shoppersettings/catalog/grid_columns_2col');
+	}
+}
+
+$_productCollection = $this->getProductCollection();
+$_helper = $this->helper('catalog/output');
+$helper = $this->helper('shoppersettings/image');
+$imgX = 252;
+$imgY = $helper->calculateHeight($imgX);
+$time = time() + mt_rand(0, 1000);
+?>
+<?php if($_productCollection->getSize()): ?>
+<div class="product-slider-container">
+    <div class="clearfix title-container">
+	    <h2><?php echo $this->__('New Products') ?></h2>
+        <a href="#" class="jcarousel-prev-horizontal" id="shopper_carousel_prev<?php echo $time; ?>"></a>
+        <a href="#" class="jcarousel-next-horizontal" id="shopper_carousel_next<?php echo $time; ?>"></a>
+    </div>
+    <ul id="sale_<?php echo $time; ?>" class="products-grid jcarousel-skin-tango clearfix <?php echo $grid_class; ?>">
+	    <?php foreach ($_productCollection as $_product): ?>
+        <li class="item">
+
+            <div class="regular">
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image">
+				    <?php echo $this->helper('shoppersettings')->getLabel($_product);  ?>
+                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX, $imgY) ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX*2, $imgY*2) ?>" width="<?php echo $imgX; ?>" height="<?php echo $imgY; ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+                </a>
+                <div class="product-info">
+                    <div class="button-container">
+					    <?php if($_product->isSaleable()): ?>
+					    <?php if (Mage::getStoreConfig('shoppersettings/ajax/cart')) : ?>
+						    <?php if ( !($_product->getTypeInstance(true)->hasRequiredOptions($_product) || $_product->isGrouped()) ) { ?>
+                                <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart ajax-cart" data-url="<?php echo $this->getAddToCartUrl($_product); ?>" data-id="<?php echo $_product->getId(); ?>"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+							    <?php } else { ?>
+                                <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart show-options" data-id="<?php echo $_product->getId(); ?>"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+							    <?php }  ?>
+						    <?php else: ?>
+                            <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+						    <?php endif; ?>
+					    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+					    <?php endif; ?>
+                    </div>
+				    <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                    <a class="product-name" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a>
+				    <?php echo $this->getPriceHtml($_product, true) ?>
+                </div>
+            </div>
+
+            <div class="hover">
+			    <?php if (Mage::getStoreConfig('shoppersettings/ajax/cart')) : //quick view button ?>
+                <a href='<?php echo $this->getUrl('ajax/index/options',array('product_id'=>$_product->getId()));?>' data-fancybox-group="gallery" class='fancybox quick-view' id='fancybox<?php echo $_product->getId()?>'><?php echo $this->__('quick view')?></a>
+			    <?php endif; ?>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>" class="product-image">
+				    <?php echo $this->helper('shoppersettings')->getLabel($_product);  ?>
+				    <?php
+				    $_product->load('media_gallery');
+				    $back_img = $_product->getMediaGalleryImages()->getItemByColumnValue('label', 'back');
+				    if ( $back_img ) : ?>
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $back_img->getFile())->resize($imgX, $imgY) ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'small_image', $back_img->getFile())->resize($imgX*2, $imgY*2) ?>" width="<?php echo $imgX; ?>" height="<?php echo $imgY; ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+					    <?php else : ?>
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX, $imgY) ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($imgX*2, $imgY*2) ?>" width="<?php echo $imgX; ?>" height="<?php echo $imgY; ?>" alt="<?php echo $this->htmlEscape($_product->getName()) ?>" />
+					    <?php endif; ?>
+                </a>
+                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->htmlEscape($_product->getName()) ?>">
+				    <?php echo $this->helper('shoppersettings/data')->priceFormat( $this->getPriceHtml($_product, true) ); ?>
+                </a>
+			    <?php $_productNameStripped = $this->stripTags($_product->getName(), null, true); ?>
+                <a class="product-name" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $_productNameStripped; ?>"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></a>
+			    <?php if($_product->getRatingSummary()){ echo $this->getReviewsSummaryHtml($_product); } ?>
+
+                <div class="button-container">
+				    <?php if($_product->isSaleable()): ?>
+
+				    <?php if (Mage::getStoreConfig('shoppersettings/ajax/cart')) : ?>
+
+					    <?php if ( !($_product->getTypeInstance(true)->hasRequiredOptions($_product) || $_product->isGrouped()) ) { ?>
+                            <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart ajax-cart" data-url="<?php echo $this->getAddToCartUrl($_product); ?>" data-id="<?php echo $_product->getId(); ?>"><span><span><em></em><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+						    <?php } else { ?>
+                            <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart show-options" data-id="<?php echo $_product->getId(); ?>"><span><span><em></em><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+						    <?php }  ?>
+
+					    <?php else: ?>
+                        <p><button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><em></em><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+					    <?php endif; ?>
+
+				    <?php else: ?>
+                    <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+				    <?php endif; ?>
+                </div>
+
+                <span class="ajax_loading" id='ajax_loading<?php echo $_product->getId()?>'><img src='<?php echo $this->getSkinUrl('images/ajax-loader.gif')?>'/></span>
+
+                <ul class="add-to-links">
+				    <?php if ($this->helper('wishlist')->isAllow()) : ?>
+                    <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist" data-id="<?php echo $_product->getId(); ?>"><span>+</span><?php echo $this->__('Add to Wishlist') ?></a></li>
+				    <?php endif; ?>
+				    <?php if ($_compareUrl=$this->getAddToCompareUrl($_product)) : ?>
+                    <li><a href="<?php echo $_compareUrl ?>" class="link-compare" data-id="<?php echo $_product->getId(); ?>"><span>+</span><?php echo $this->__('Add to Compare') ?></a></li>
+				    <?php endif; ?>
+                </ul>
+
+            </div>
+
+        </li>
+		<?php endforeach; ?>
+    </ul>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+
+
+    jQuery(document).ready(function($) {
+
+	    var carouselID = '#sale_<?php echo $time; ?>';
+	    var jc = null;
+
+	    //line up carousel items
+	    var lineUp = function()
+	    {
+		    var height = 0;
+		    $('li.item', carouselID).each(function(i,v){
+			    $('div.product-info', this).css('height', 'auto');
+			    var h = $('div.product-info', this).height();
+			    if ( h > height ) {
+				    height = h;
+			    }
+		    });
+		    $('li.item div.product-info', carouselID).height(height);
+	    }
+
+        var mycarousel_initCallback = function(carousel)
+        {
+	        if ( jc ) {
+		        return;
+	        }
+
+	        $('#shopper_carousel_next<?php echo $time; ?>').bind('click', function() {
+                carousel.next();
+                return false;
+            });
+            $('#shopper_carousel_prev<?php echo $time; ?>').bind('click', function() {
+                carousel.prev();
+                return false;
+            });
+
+	        if (typeof $(carouselID).parent().swipe !== 'undefined'){
+		        $(carouselID).parent().swipe({
+			        swipeLeft: function() { carousel.next(); },
+			        swipeRight: function() { carousel.prev(); },
+			        swipeMoving: function() {}
+		        });
+	        }
+
+            jc = carousel;
+        };
+
+	    var mycarousel_reloadCallback = function(carousel)
+	    {
+		    if ( !isResize('sale_<?php echo $time; ?>') ) return;
+		    carousel.list = $(carouselID);
+		    var li = $(carouselID).children('li');
+		    carousel.list.css(carousel.lt, "0px");
+		    carousel.list.css(carousel.wh, $(li.get(0)).outerWidth(!0) * li.size() + 100);
+		    carousel.first = 1;
+		    carousel.last = $(carouselID).parent().width() / $(li.get(0)).outerWidth(!0);
+		    lineUp();
+	    }
+
+        $(carouselID).jcarousel({
+            scroll: 1,
+            initCallback: mycarousel_initCallback,
+	        reloadCallback: mycarousel_reloadCallback,
+            buttonNextHTML: null,
+            buttonPrevHTML: null
+        });
+
+    });
+
+    //]]>
+</script>
+
+<?php endif ?>

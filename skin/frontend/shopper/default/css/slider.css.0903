@@ -1,0 +1,47 @@
+.jcarousel-skin-tango .jcarousel-container {
+}
+
+.jcarousel-skin-tango .jcarousel-direction-rtl {
+	direction: rtl;
+}
+
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+    margin:0;
+    width:1200px;
+    padding:0px;
+}
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+    width:1200px;
+}
+.home-main .jcarousel-skin-tango .jcarousel-container-horizontal {
+    width:900px;
+}
+.home-main .jcarousel-skin-tango .jcarousel-clip-horizontal {
+    width:900px;
+}
+
+.jcarousel-skin-tango .jcarousel-clip {
+    overflow:hidden;
+}
+.jcarousel-skin-tango .jcarousel-item {
+    width:252px;
+}
+
+.jcarousel-skin-tango .jcarousel-item-horizontal {
+	margin:0;
+    position:relative;
+}
+
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-item-horizontal {
+	margin-left:0;
+    margin-right: 0;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-next-horizontal, .jcarousel-prev-horizontal  {display:block; position:absolute; width:35px; height:35px; background:#fefefe url("../images/arrow_about.png") 0 0 no-repeat; -webkit-border-radius:100% !important; -moz-border-radius:100% !important; border-radius:100% !important; }
+.jcarousel-prev-horizontal {margin:-60px 0 0; right:55px; background-position:100% 0;}
+.jcarousel-next-horizontal {margin:-60px 0 0; right:15px;}
+.jcarousel-next-horizontal:hover {background-color:#97d2c9; background-position:0 100%;}
+.jcarousel-prev-horizontal:hover {background-color:#97d2c9; background-position:100% 100%;}

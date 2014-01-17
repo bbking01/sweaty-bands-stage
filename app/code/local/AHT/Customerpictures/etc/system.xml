@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <aht translate="label" module="customerpictures">
+            <label>AHT Modules</label>
+            <sort_order>10</sort_order>
+        </aht>
+    </tabs>
+    <sections>
+        <customerpictures translate="label" module="customerpictures">
+            <label>Customer Pictures</label>
+            <tab>aht</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General config</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<enabled translate="label">
+							<label>is Enabled</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_yesno</source_model>
+								<sort_order>0</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enabled>
+						
+						<limit translate="label">
+                            <label>Max upload file size</label>
+                            <frontend_type>text</frontend_type>
+							<comment>Megabyte</comment>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </limit>
+						
+						<desc translate="label">
+                            <label>Customer pictures short description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </desc>
+						
+						<email translate="label">
+							<label>Email template for coupon code</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_email_template</source_model>
+								<sort_order>4</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</email>
+						
+						<subject translate="label">
+                            <label>Email subject for coupon code</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </subject>
+						
+						<notice_email translate="label">
+							<label>Email notice template</label>
+								<frontend_type>select</frontend_type>
+								<source_model>adminhtml/system_config_source_email_template</source_model>
+								<sort_order>6</sort_order>
+								<show_in_default>1</show_in_default>
+								<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</notice_email>
+						
+						<notice_subject translate="label">
+                            <label>Email subject for notice</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </notice_subject>
+						
+						<sender translate="label">
+                            <label>Sender name</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender>
+						
+						<sendmail translate="label">
+                            <label>Sender Email</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sendmail>
+						
+                    </fields>
+                </general>
+				<user translate="label">
+                    <label>User page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<term translate="label">
+                            <label>Terms and Conditions</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </term>
+						
+                        <perpage translate="label">
+                            <label>Pictures per Page</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+							<comment>Comma-separated.</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </perpage>
+                        
+						<column translate="label">
+                            <label>Columns count</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </column>
+						
+						<width translate="label">
+                            <label>Picture width</label>
+                            <frontend_type>text</frontend_type>
+							<comment>Width of picture resize in grid.</comment>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+						
+						<height translate="label">
+                            <label>Picture height</label>
+                            <frontend_type>text</frontend_type>
+							<comment>Height of picture resize in grid.</comment>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>
+                    </fields>
+                </user>
+				
+				<page translate="label">
+                    <label>Customer pictures page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<title translate="label">
+                            <label>Page title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+						
+						<keyword translate="label">
+                            <label>Meta Keyword</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </keyword>
+						
+						<desc translate="label">
+                            <label>Meta Description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </desc>
+						
+						<perpage translate="label">
+                            <label>Pictures per Page</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+							<comment>Comma-separated.</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </perpage>
+                        
+						<column translate="label">
+                            <label>Columns count</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </column>
+						
+						<width translate="label">
+                            <label>Picture width</label>
+                            <frontend_type>text</frontend_type>
+							<comment>Width of picture resize in grid.</comment>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+						
+						<height translate="label">
+                            <label>Picture height</label>
+                            <frontend_type>text</frontend_type>
+							<comment>Height of picture resize in grid.</comment>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>
+                    </fields>
+                </page>
+				
+				<view translate="label">
+                    <label>Pictre view</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<width translate="label">
+                            <label>Picture width</label>
+                            <frontend_type>text</frontend_type>
+							<comment>Width of picture resize.</comment>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+						
+						<height translate="label">
+                            <label>Picture height</label>
+                            <frontend_type>text</frontend_type>
+							<comment>Height of picture resize.</comment>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>
+                    </fields>
+                </view>
+				
+				<facebook translate="label">
+                    <label>Facebook configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<appid translate="label">
+							<label>App ID/API Key</label>
+							<comment><![CDATA[ Get <a target="_blank" href="http://www.facebook.com/developers/createapp.php">Facebook API</a> access info.]]></comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>1</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</appid>
+						<appkey translate="label">
+							<label>App Secret</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>2</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</appkey>
+						<width translate="label">
+							<label>Facebook comment width</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>3</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</width>
+						<num translate="label">
+							<label>Facebook comment Number Posts</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>4</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</num>
+                    </fields>
+                </facebook>
+            </groups>
+        </customerpictures>
+    </sections>
+</config>

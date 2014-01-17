@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * package    Magestore_Customer
+ * copyright  Copyright (c) 2011 Vinai Kopp http://magestore.com/
+ * license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+	<modules>
+		<Magestore_Customer>
+			<version>0.3.3</version>
+		</Magestore_Customer>
+	</modules>
+	<global>
+		<rewrite>
+			<magestore_customer_account>
+			  <from><![CDATA[#^/account/#]]></from>
+			  <to>/customer/account/</to>
+			</magestore_customer_account>
+		</rewrite>
+	</global>
+    
+    
+    <frontend>
+       <routers>
+        <magestore_customer>
+        <use>standard</use>
+         <args>
+          <module>Magestore_Customer</module>
+          <frontName>customer</frontName>
+         </args>
+        </magestore_customer>
+       </routers>
+    </frontend>
+    
+</config>

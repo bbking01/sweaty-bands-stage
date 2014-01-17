@@ -1,0 +1,84 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @version    1.0.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+<div class="create fieldset">
+    <h2 class="legend"><?php echo $this->__("Create new report"); ?></h2>
+    <form id="create-report-form" method="post" action="<?php echo $this->getActionUrl();?>">
+        <div id="left-container" class="form-list">
+            <div id="report-type-container" class="row-container">
+                <?php echo $this->getReportTypeField(); ?>
+            </div>
+            <div id="date-period-container" class="row-container">
+                <?php echo $this->getReportDatePeriodField(); ?>
+            </div>
+            <div id="date-periodicity-container" class="row-container">
+                <div id="period-from-container">
+                    <?php echo $this->getPeriodFromField();?>
+                    <script type="text/javascript">
+                        //fix magento calendar bug in always time displaying
+                        calendarSetupObject.showsTime = false;
+                        Calendar.setup(calendarSetupObject);
+                    </script>
+                </div>
+                <div id="period-to-container">
+                    <?php echo $this->getPeriodToField();?>
+                    <script type="text/javascript">
+                        //fix magento calendar bug in always time displaying
+                        calendarSetupObject.showsTime = false;
+                        Calendar.setup(calendarSetupObject);
+                    </script>
+                </div>
+            </div>
+            <div id="detalization-container" class="row-container">
+                <?php echo $this->getDetalizationsField();?>
+            </div>
+        </div>
+        <div id="right-container" class="form-list">
+            <div id="campaigns-container" class="row-container">
+                <?php echo $this->getCampaignsField();?>
+            </div>
+        </div>
+        <br clear="all"/>
+    </form>
+</div>
+<div class="button-set">
+    <button class="button" id="create-report-btn">
+        <span><span><?php echo $this->__('Create Report'); ?></span></span>
+    </button>
+</div>
+<script type="text/javascript">
+    var config = {
+        formSpecified: <?php echo $this->isFormSpecified() ? 'true' : 'false';?>,
+        msg:{
+            reportCreating:'<?php echo $this->__('Report creating...');?>',
+            campaignNotSelected:'<?php echo $this->__('You must select at least one campaign');?>'
+        }
+    };
+    AWReportForm.initialize(config);
+</script>

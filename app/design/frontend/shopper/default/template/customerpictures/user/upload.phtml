@@ -1,0 +1,8 @@
+<div class="upload">
+	<div id="customer-upload">
+	</div>
+	<ul id="separate-upload-list"></ul>
+</div>
+<script type="text/javascript">        
+	window.onload = createUploader('images', 'customer-upload', 'separate-upload-list', '<?php echo $this->getUploadUrl('images') ?>');     
+</script>  

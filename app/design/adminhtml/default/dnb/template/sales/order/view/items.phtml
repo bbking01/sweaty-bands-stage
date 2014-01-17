@@ -1,0 +1,184 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+ function objectsIntoArray($arrObjData, $arrSkipIndices = array())
+	{
+		$arrData = array();
+		// if input is object, convert into array
+		if (is_object($arrObjData)) {
+			$arrObjData = get_object_vars($arrObjData);
+		}
+		
+		if (is_array($arrObjData)) {
+			foreach ($arrObjData as $index => $value) {
+				if (is_object($value) || is_array($value)) {
+					$value = objectsIntoArray($value, $arrSkipIndices); // recursive call
+				}
+				if (in_array($index, $arrSkipIndices)) {
+					continue;
+				}
+				$arrData[$index] = $value;
+			}
+		}
+		return $arrData;
+	}
+
+function grab_image($url,$imageName){
+	
+	$saveto = Mage::getBaseDir(). DS . 'designtool/uploads'.DS;	
+    $ch = curl_init ($url);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+    $raw=curl_exec($ch);
+	
+    curl_close ($ch);
+    if(file_exists($saveto . $imageName)){
+        unlink($saveto . $imageName);
+    }
+    //$fp = fopen($saveto);
+	$fp = fopen($saveto . $imageName, 'w');
+    fwrite($fp, $raw);
+    fclose($fp);
+	
+}	
+?>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);?>js/lightbox/js/scriptaculous.js?load=effects,builder"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);?>js/lightbox/js/lightbox.js">
+</script>
+<link rel="stylesheet" href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);?>js/lightbox/css/lightbox.css" type="text/css" media="screen" />
+<script>
+function mypopup(url)
+ {  
+   window.open(url,"Window1", "menubar=no,status=no,location=no,width=950,height=705,toolbar=no");
+ } 
+</script>
+<script language="javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);?>js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);?>js/ajaxfileupload.js"></script>
+
+<script>
+var JQ = jQuery.noConflict();
+	function ajaxFileUpload(item_id)
+	{		
+		JQ("#loading")
+		.ajaxStart(function(){
+			JQ(this).show();
+		})
+		.ajaxComplete(function(){
+			JQ(this).hide();
+		});
+
+	JQ.ajaxFileUpload
+		(
+			{
+				url:'<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);?>designtool/doajaxfileupload.php?item_id='+item_id,
+				secureuri:false,
+				fileElementId:item_id,
+				dataType: 'json',
+				success: function (data, status)
+				{					
+					if(typeof(data.error) != 'undefined')
+					{						
+						if(data.error != '')
+						{							
+							alert(data.error);
+						}else
+						{
+							document.getElementById('filename_'+ item_id).innerHTML = data.msg;
+								//code updated by bhagyashri starts
+							//document.getElementById('savefilename').value = data.msg;
+							document.getElementById('savefilename_'+ item_id).value = data.msg;
+							//code updated by bhagyashri ends
+						}
+					}
+				},
+					error: function (data, status, e)
+				{				
+					alert(e);
+				}
+			}
+		)
+		return false;
+	}
+</script>
+<?php $_order = $this->getOrder() ?>
+<div class="grid np">
+  <div class="hor-scroll">
+    <table cellspacing="0" class="data order-tables">
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+            <tr class="headings">
+    	            <th><?php echo $this->helper('sales')->__('Product') ?></th>
+				<!-- Start - If product Customized than it will show it's Front Image, back Image, Name & Number -->
+	            <th><span class="nobr"><?php echo $this->helper('sales')->__('Front Image') ?></span></th>
+				<th><span class="nobr"><?php echo $this->helper('sales')->__('Back Image') ?></span></th>
+				<th><span class="nobr"><?php echo $this->helper('sales')->__('Left Image') ?></span></th>
+				<th><span class="nobr"><?php echo $this->helper('sales')->__('Right Image') ?></span></th>
+				<th><span class="nobr"><?php echo $this->helper('sales')->__('Notes') ?></span></th>
+			<?php /*?>	<th><span class="nobr"><?php echo $this->helper('sales')->__('Name') ?></span></th>
+				<th><span class="nobr"><?php echo $this->helper('sales')->__('Number') ?></span></th><?php */?>
+				
+				<!-- End - If product Customized than it will show it's Front Image, back Image, Name & Number -->
+			
+				
+                <th><span class="nobr"><?php echo $this->helper('sales')->__('Item Status') ?></span></th>
+				
+                <th><span class="nobr"><?php echo $this->helper('sales')->__('Original Price') ?></span></th>
+                <th><?php echo $this->helper('sales')->__('Price') ?></th>
+                <th class="a-center"><?php echo $this->helper('sales')->__('Qty') ?></th>
+                <th><?php echo $this->helper('sales')->__('Subtotal') ?></th>
+                <th><span class="nobr"><?php echo $this->helper('sales')->__('Tax Amount') ?></span></th>
+                <th><span class="nobr"><?php echo $this->helper('sales')->__('Tax Percent') ?></span></th>
+                <th><span class="nobr"><?php echo $this->helper('sales')->__('Discount Amount') ?></span></th>
+                <th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Row Total') ?></span></th>
+				<!-- Start - If product Customized than it allows to Generate PDF File, Upload/Download PDF File, XML File downloadinf and SOURC File download - Naincy -->				
+				<th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Generate PNG File') ?></span></th>
+				<?php /*?><th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Upload/Download PDF File') ?></span></th><?php */?>
+				<th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Download Data File in XML Format') ?></span></th>
+				<th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Download Image File') ?></span></th>
+				<th class="last"><span class="nobr"><?php echo $this->helper('sales')->__('Download Vector') ?></span></th>
+				<!-- End - If product Customized than it allows to Generate PDF File, Upload/Download PDF File, XML File downloadinf and SOURC File download - Naincy -->
+            </tr>
+        </thead>
+        <?php $_items = $this->getItemsCollection() ?>
+        <?php $i=0;foreach ($_items as $_item):?>
+            <?php if ($_item->getParentItem()) continue; else $i++;?>
+            <tbody class="<?php echo $i%2?'even':'odd' ?>">
+                <?php echo $this->getItemHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+  </div>
+</div>
+<br />

@@ -1,0 +1,100 @@
+
+<?php $design = $this->getDesign(); 
+	  $path  = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'designtool/';	  
+	  $imgpath = $path.'saveimg/'; 
+	  
+	 $imageDir = Mage::getBaseDir(). DS .'designtool' . DS .'saveimg'. DS;
+?>
+<div class="page-title">
+    <h1><?php echo $this->__('Save Designs') ?></h1>
+</div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($design->getSize()): ?>
+<table class="data-table" id="my-orders-table" >
+    <thead>
+        <tr>
+            <th><?php echo $this->__('Design Name') ?></th>
+            <th><?php echo $this->__('Front Image') ?></th>
+            <th><?php echo $this->__('Back Image') ?></th>
+			<th><?php echo $this->__('Left Image') ?></th>
+            <th><?php echo $this->__('Right Image') ?></th>	
+			<th><?php echo $this->__('Edit') ?></th>			
+            <th><?php echo $this->__('Action') ?></th>
+        </tr>
+    </thead>
+        <?php foreach($design as $item):?>
+		
+    <tr>
+		<td>
+			<a href="<?php echo Mage::getBaseUrl().'design/index/index/design_id/'.$item->getDesign_id()?>"><?php echo urldecode($item->getDesign_name()); ?></a>
+		</td>	
+		<td>
+		<?php if (file_exists($imageDir.$item->getFrontImage())): ?>
+		<?php 
+		list($width, $height, $type, $attr) = getimagesize($imageDir.$item->getFrontImage());
+			/* $imageObj = new Varien_Image($imageDir.$item->getFrontImage());
+			$width = $imageObj->getOriginalWidth();
+			$height = $imageObj->getOriginalHeight();	 */		
+		?>
+		<img src="<?php echo $imgpath.$item->getFrontImage() ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?>  />
+		<?php endif;?>
+			
+		</td>
+		<td>
+		<?php if (file_exists($imageDir.$item->getBackImage())): ?>
+		<?php 
+		list($width, $height, $type, $attr) = getimagesize($imageDir.$item->getBackImage());
+			/*  $imageObj = new Varien_Image($imageDir.$item->getBackImage());
+			$width = $imageObj->getOriginalWidth();
+			$height = $imageObj->getOriginalHeight(); */
+		?>
+		<img src="<?php echo $imgpath.$item->getBackImage() ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?>  />
+		<?php endif;?>		
+		</td>
+		<td>
+		<?php if (file_exists($imageDir.$item->getLeftImage())): ?>
+		<?php 
+		list($width, $height, $type, $attr) = getimagesize($imageDir.$item->getLeftImage());
+			/* $imageObj = new Varien_Image($imageDir.$item->getLeftImage());
+			$width = $imageObj->getOriginalWidth();
+			$height = $imageObj->getOriginalHeight(); */			
+		?>
+		<img src="<?php echo $imgpath.$item->getLeftImage() ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?> />
+		<?php endif;?>	
+		
+		</td>
+		<td>
+		<?php if (file_exists($imageDir.$item->getRightImage())): ?>
+		<?php 
+		list($width, $height, $type, $attr) = getimagesize($imageDir.$item->getRightImage());
+			/* $imageObj = new Varien_Image($imageDir.$item->getRightImage());
+			$width = $imageObj->getOriginalWidth();
+			$height = $imageObj->getOriginalHeight(); */
+		?>
+		<img src="<?php echo $imgpath.$item->getRightImage() ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?> />
+		<?php endif;?>	
+		
+		</td>
+		<td>
+			<a href="<?php echo Mage::getBaseUrl().'design/index/index/design_id/'.$item->getDesign_id()?>"><?php echo $this->__('Edit') ?></a>
+		</td>
+		<td>
+			<a href="#" onclick="return deleteDesign('<?php echo $item->getDesign_id() ?>')" class="red-link"><?php echo $this->__('Remove') ?></a>
+		</td>
+	</tr>
+ <?php endforeach ?>
+ </table>
+<?php else: ?>
+    <p><?php echo $this->__('No Design Available.'); ?></p>
+<?php endif; ?>
+
+<?php //echo $this->getPagerHtml(); ?>
+<script type="text/javascript">
+    function deleteDesign(designId) {
+        if(confirm('<?php echo $this->__('Are you sure you want to delete this design?') ?>')) {
+            window.location='<?php echo $this->getUrl("design/index/designdelete") ?>id/'+designId;
+        }
+        return false;
+    }
+</script>
+<?php echo $this->getPagerHtml(); ?>

@@ -1,0 +1,36 @@
+<div class="my-account">
+	<div class="page-title">
+		<h1><?php echo $this->__('Customer pictures terms and conditions') ?></h1>
+	</div>
+	<div class="term-content">
+		<?php echo $this->getTermAndConditions() ?>
+	</div>
+	<form action="<?php echo $this->getTermAction() ?>" method ="POST" name="acceptTerm" id="form-validate">
+		<div class="fieldset">
+			<ul class="form-list">
+				<li class="control">
+					<div>
+						<ul>
+							<li style="margin-left: 20px">
+								<span>
+									<input type="checkbox" name="terms_conditions" value="1" id="terms_conditions" class="validate-one-required-by-name" />
+										<label for="terms_conditions" style="margin-left: 5px"><?php echo $this->__('I agree to the terms of use') ?></label>
+								</span>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="buttons-set">
+			<button class="button" title="Agree" type="submit">
+				<span><span><?php echo $this->__('Agree') ?></span></span>
+			</button>
+		</div>
+	</form>
+	<script type="text/javascript">
+		//<![CDATA[ 
+			var dataForm = new VarienForm('form-validate', true); 
+		//]]> 
+	</script>
+</div>

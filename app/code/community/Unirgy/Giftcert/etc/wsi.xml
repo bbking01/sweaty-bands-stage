@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:typens="urn:{{var wsdl.name}}"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  name="{{var wsdl.name}}"
+                  targetNamespace="urn:{{var wsdl.name}}">
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:{{var wsdl.name}}">
+            <xsd:complexType name="ugiftcertEntity">
+                <xsd:sequence>
+                    <xsd:element name="cert_number" type="xsd:string"/>
+                    <xsd:element name="currency_code" type="xsd:string"/>
+                    <xsd:element name="pin" type="xsd:string"/>
+                    <xsd:element name="status" type="xsd:string"/>
+                    <xsd:element name="expire_at" type="xsd:string"/>
+                    <xsd:element name="recipient_name" type="xsd:string"/>
+                    <xsd:element name="recipient_email" type="xsd:string"/>
+                    <xsd:element name="recipient_address" type="xsd:string"/>
+                    <xsd:element name="recipient_message" type="xsd:string"/>
+                    <xsd:element name="sender_name" type="xsd:string"/>
+                    <xsd:element name="store_id" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ugiftcertEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray"
+                                 type="typens:ugiftcertEntity"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ugiftcertUpdateEntity">
+                <xsd:sequence>
+                    <xsd:element name="cert_number" type="xsd:string"/>
+                    <xsd:element name="currency_code" type="xsd:string"/>
+                    <xsd:element name="pin" type="xsd:string"/>
+                    <xsd:element name="status" type="xsd:string"/>
+                    <xsd:element name="expire_at" type="xsd:string"/>
+                    <xsd:element name="recipient_name" type="xsd:string"/>
+                    <xsd:element name="recipient_email" type="xsd:string"/>
+                    <xsd:element name="recipient_address" type="xsd:string"/>
+                    <xsd:element name="recipient_message" type="xsd:string"/>
+                    <xsd:element name="sender_name" type="xsd:string"/>
+                    <xsd:element name="store_id" type="xsd:int"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ugiftcertUpdateEntityArray">
+                <xsd:sequence>
+                    <xsd:element minOccurs="0" maxOccurs="unbounded" name="complexObjectArray"
+                                 type="typens:ugiftcertUpdateEntity"/>
+                </xsd:sequence>
+            </xsd:complexType>
+
+            <xsd:element name="ugiftcertListRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string"/>
+                        <xsd:element minOccurs="0" maxOccurs="1" name="filters" type="typens:filters"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ugiftcertListResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="typens:ugiftcertEntityArray"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ugiftcertUpdateRequestParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="sessionId" type="xsd:string"/>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="data" type="typens:ugiftcertUpdateEntityArray"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="ugiftcertUpdateResponseParam">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element minOccurs="1" maxOccurs="1" name="result" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="ugiftcertListRequest">
+        <wsdl:part name="parameters" element="typens:ugiftcertListRequestParam"/>
+    </wsdl:message>
+    <wsdl:message name="ugiftcertListResponse">
+        <wsdl:part name="parameters" element="typens:ugiftcertListResponseParam"/>
+    </wsdl:message>
+    <wsdl:message name="ugiftcertUpdateRequest">
+        <wsdl:part name="parameters" element="typens:ugiftcertUpdateRequestParam"/>
+    </wsdl:message>
+    <wsdl:message name="ugiftcertUpdateResponse">
+        <wsdl:part name="parameters" element="typens:ugiftcertUpdateResponseParam"/>
+    </wsdl:message>
+    <wsdl:portType name="{{var wsdl.handler}}PortType">
+        <wsdl:operation name="ugiftcertList">
+            <wsdl:documentation>Retrieve gift certificates by filters (optional)</wsdl:documentation>
+            <wsdl:input message="typens:ugiftcertListRequest"/>
+            <wsdl:output message="typens:ugiftcertListResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ugiftcertUpdate">
+            <wsdl:documentation>Update certificate</wsdl:documentation>
+            <wsdl:input message="typens:ugiftcertUpdateRequest"/>
+            <wsdl:output message="typens:ugiftcertUpdateResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ugiftcertList">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ugiftcertUpdate">
+            <soap:operation soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

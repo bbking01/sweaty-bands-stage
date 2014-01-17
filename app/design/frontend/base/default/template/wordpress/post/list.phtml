@@ -1,0 +1,63 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php $posts = $this->getPosts() ?>
+<?php if (count($posts) > 0): ?>
+	<?php if ($this->helper('wordpress/plugin_shareThis')->canDisplayOnPost()): ?>
+		<?php echo $this->helper('wordpress/plugin_shareThis')->getJavascriptHtml() ?>
+	<?php endif; ?>
+	<div class="post-list">
+		<ul id="post-list">
+			<?php foreach($posts as $post): ?>
+				<?php $author = $post->getAuthor() ?>
+				<li class="item">
+					<h2><a href="<?php echo $post->getPermalink() ?>" title="<?php echo $this->escapeHtml($post->getPostTitle()) ?>"><?php echo $this->escapeHtml($post->getPostTitle()) ?></a></h2>
+					<p class="post-date on"><?php echo $this->__('Posted on %s', $post->getPostDate()) ?></p>
+					<div class="post-entry entry<?php if ($post->getFeaturedImage): ?> post-entry-with-image<?php endif; ?>">
+						<?php if ($post->isViewableForVisitor()): ?>
+							<?php if ($featuredImage = $post->getFeaturedImage()): ?>
+								<div class="featured-image left">
+									<a href="<?php echo $post->getPermalink() ?>" title="<?php echo $this->escapeHtml($post->getPostTitle()) ?>"><img src="<?php echo $featuredImage->getFullSizeImage() ?>" alt="<?php echo $this->escapeHtml($post->getPostTitle()) ?>"/></a>
+								</div>
+							<?php endif; ?>
+							<?php if ($this->displayExcerptInFeed() || $post->hasMoreTag()): ?>
+								<?php echo $post->getPostExcerpt() ?>
+							<?php else: ?>
+								<?php echo $post->getPostContent() ?>
+							<?php endif; ?>
+						<?php else: ?>
+							<?php echo $this->getPasswordProtectHtml($post) ?>
+						<?php endif; ?>
+					</div>
+					<p class="post-meta details">
+						<?php $categories = $post->getParentCategories() ?>
+						<?php if (count($categories) > 0): ?>
+							<span><?php echo $this->__('Posted in') ?> </span> 
+							<?php $it = count($categories) ?>
+							<?php foreach($categories as $category): ?><a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a><?php if (--$it > 0): ?>, <?php endif; ?><?php endforeach; ?>
+						<?php endif; ?>
+						<?php $tags = $post->getTags() ?>
+						<?php if (count($tags) > 0): ?>
+							<span><?php echo (count($categories) == 0) ? $this->__('Tagged with') : $this->__('and tagged with') ?> </span> 
+							 <?php $it = count($tags) ?>
+							 <?php foreach($tags as $tag): ?>	<a href="<?php echo $tag->getUrl() ?>"><?php echo $this->escapeHtml($tag->getName()) ?></a><?php if (--$it > 0): ?>, <?php endif; ?><?php endforeach; ?>
+						<?php endif; ?>
+						<?php echo $this->__('by') ?> <a href="<?php echo $author->getUrl() ?>"><?php echo $this->escapeHtml($author->getDisplayName()) ?></a>. 
+						<?php if ($post->getCommentCount() > 0): ?>
+							<span><a href ="<?php echo $post->getPermalink() ?>#comments"><?php echo $post->getCommentCount() ?> <?php if ($post->getCommentCount() == 1): ?><?php echo $this->__('Reply') ?><?php else: ?><?php echo $this->__('Replies') ?><?php endif; ?></a></span>
+						<?php endif; ?>
+					</p>
+					<?php if ($this->helper('wordpress/plugin_shareThis')->canDisplayOnPost()): ?>
+						<div class="sharethis-icons" id="sharethis-icons-<?php echo $post->getId() ?>"><?php echo $this->helper('wordpress/plugin_shareThis')->getIcons($post) ?></div>
+					<?php endif; ?>
+				</li>
+			<?php endforeach; ?>
+		</ul>
+		<?php echo $this->getPagerHtml() ?>
+	</div>
+<?php endif; ?>

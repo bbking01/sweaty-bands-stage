@@ -1,0 +1,41 @@
+
+<layout version="0.1.0">
+    <adminhtml_customer_edit>
+        <reference name="customer_edit_tabs">
+             <action method="addTab"><name>storecredit_tab</name><block>customercredits/adminhtml_customer_edit_tab_customercredit</block></action>
+        </reference>
+    </adminhtml_customer_edit>
+    <adminhtml_customerbalance_store>
+        <block type="core/text_list" name="root">
+		<block type="customercredits/adminhtml_customer_edit_tab_customercredit_balance" name="customercredit.balance" template="customercredits/storebalance.phtml"/>
+		</block>
+    </adminhtml_customerbalance_store>
+    <adminhtml_sales_order_create_load_block_billing_method>       
+         <reference name="billing_method">
+           <reference name="form">
+        		  <action method="setTemplate">
+                			<template>customercredits/sales/order/create/billing/method/form.phtml</template>
+            			</action>
+        		</reference>
+        	</reference>        
+    </adminhtml_sales_order_create_load_block_billing_method>
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="data">
+        	<reference name="billing_method">
+        		<reference name="form">
+        		  <action method="setTemplate">
+                			<template>customercredits/sales/order/create/billing/method/form.phtml</template>
+            			</action>
+        		</reference>
+        	</reference>
+        </reference>
+   </adminhtml_sales_order_create_load_block_data>
+   <adminhtml_sales_order_create_index>
+       <reference name="billing_method">
+           <reference name="head">            
+               <action method="addJs"><file>customercredits/adminhtml/customercredit.js</file></action>
+           </reference>          
+           <block type="adminhtml/sales_order_create_billing_method_form" template="customercredits/sales/order/create/billing/method/form.phtml" name="form" />
+       </reference>
+    </adminhtml_sales_order_create_index>   
+</layout>

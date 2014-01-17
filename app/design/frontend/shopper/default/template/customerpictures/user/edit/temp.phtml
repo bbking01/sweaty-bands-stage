@@ -1,0 +1,109 @@
+<?php 
+	$customerId = Mage::getSingleton('customer/session')->getId();
+	$imageName = Mage::getSingleton('core/session')->getImageName();
+	$imageUrl = Mage::getBaseDir('media').DS."customerpictures".DS."images".DS.$customerId.DS.$imageName;
+	list($width, $height, $type, $attr) = getimagesize($imageUrl);
+?>
+<script type="text/javascript">
+	jQuery(document).ready(function() { 
+			jQuery(window).load(function(){
+			var api = jQuery.Jcrop('#cropbox',{
+			onChange: updateCoords,
+			onSelect: updateCoords,
+			boxWidth: 300, 
+			boxHeight: 400
+		  }); 
+		  /*
+		  jQuery.ajax({
+			  url: '<?php echo $this->getBaseUrl() ?>customerpictures/index/percent/ho/<?php echo $h ?>/x/<?php echo $x ?>/y/<?php echo $y ?>/h/<?php echo $height ?>/w/<?php echo $w ?>/hresize/'+jQuery('#cropbox').height(),
+			  dataType: 'json',
+			  success: function(responseJSON) {
+				api.animateTo([responseJSON["x"],responseJSON["y"],responseJSON["w"],responseJSON["h"]]);
+			  }
+			});
+		  */
+		  api.animateTo([0,0,<?php echo $width ?>,<?php echo $height ?> ]);
+		  var isCtrl = false;
+			jQuery(document).keyup(function (e) {
+				api.setOptions({ aspectRatio: 0 });
+				api.focus();
+				if(e.which == 17) isCtrl=false;
+			}).keydown(function (e) {
+				if(e.which == 17) isCtrl=true;
+				if(e.which == 81 && isCtrl == true) {
+					api.setOptions({ aspectRatio: 1 });
+					api.focus();
+				}
+			});
+		});
+		}); 
+</script>
+<div class="my-account">
+	<div class="edit-container">
+		<div class="main-image">
+			<img src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)."customerpictures/images/".$customerId."/".$imageName ?>" alt="<?php echo $this->__('Image Uploaded')?>" id="cropbox"/>
+		</div>
+		<div class="image-info">
+			<div class="top-main">
+				<?php echo $this->getChildHtml('avatar') ?>
+			</div>
+			<div class="image-form">
+				<form action="<?php echo $this->getEditImageAction() ?>" method="POST" name="editForm" id="form-validate">
+					<div class="fieldset">
+						<input type="hidden" name="image[image_name]" value="<?php echo $imageName ?>"/>
+						<ul>
+							<li>
+								<div class="field picture-title">
+									<label class="required" for="image:title"><?php echo $this->__('Picture Title') ?><em>*</em></label>
+									<div class="input-box">
+										<input type="text" class="input-text required-entry" name="image[image_title]" id="image:title" maxlength="100"/>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="field picture-description">
+									<label for="image:description"><?php echo $this->__('Picture Description') ?></label>
+									<div class="input-box">
+										<textarea name="image[image_description]" id="image:description" maxlength="300"></textarea>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<input type="hidden" id="x" name="image[position_x]" value="0"/>
+					<input type="hidden" id="y" name="image[position_y]" value="0"/>
+					<input type="hidden" id="w" name="image[position_w]" value="<?php echo $width ?>"/>
+					<input type="hidden" id="h" name="image[position_h]" value="<?php echo $height ?>"/>
+					<div class="buttons-set">
+						<button class="button" type="button" onclick="cancelImage();">
+							<span><span><?php echo $this->__('Cancel') ?></span></span>
+						</button>
+						
+						<button class="button" type="submit">
+							<span><span><?php echo $this->__('Save') ?></span></span>
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="clearer"></div>
+	</div>
+	<script type="text/javascript">
+		//<![CDATA[ 
+			var dataForm = new VarienForm('form-validate', true); 
+		//]]> 
+		
+		function cancelImage(){
+			if (confirm("Are you sure ?")) {
+				var url = '<?php echo $this->getCancelImage($imageName) ?>';
+				new Ajax.Request(url, {
+				  method: 'get',
+				  onSuccess: function(transport) {
+					window.location = '<?php echo $this->getUrl('customerpictures/user') ?>';
+				  }
+				});
+			}
+		}
+
+	</script>
+</div>

@@ -1,0 +1,9 @@
+<?php $_product = $this->getProduct(); ?>
+<?php $buttonTitle = $this->__('Add to Gym Bag'); ?>
+<?php if($_product->isSaleable()): ?>
+<div class="add-to-cart">
+    <span class="ajax_loading" id='ajax_loader'><img src='<?php echo $this->getSkinUrl('images/ajax-loader.gif')?>'/></span>
+    <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+    <?php echo $this->getChildHtml('', true, true) ?>
+</div>
+<?php endif; ?>

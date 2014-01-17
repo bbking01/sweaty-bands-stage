@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <awajaxcatalog translate="label" module="awajaxcatalog">
+            <label>Ajax Catalog</label>
+            <tab>awall</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1500</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general>
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <comment></comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>						
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </enabled>
+                        <action_type translate="label">
+                            <label>Action Type</label>
+                            <comment></comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>						
+                            <source_model>awajaxcatalog/system_config_source_actiontype</source_model>
+                        </action_type>
+                        <backtotop_enabled translate="label">
+                            <label>Show 'Back to Top' link</label>
+                            <comment></comment>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>						
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                        </backtotop_enabled>
+                        <backtotop_label translate="label">
+                            <label>Frontend 'Back to Top' link label</label>
+                            <comment>If this field is not filled, the 'Back to Top' string is used</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </backtotop_label>
+                    </fields>	
+                </general>
+            </groups>
+        </awajaxcatalog>
+    </sections>
+</config>

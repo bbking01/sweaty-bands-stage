@@ -1,0 +1,167 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magestore_Clipartmanagement>
+            <version>0.1.0</version>
+        </Magestore_Clipartmanagement>
+    </modules>
+    <frontend>
+        <routers>
+            <clipartmanagement>
+                <use>standard</use>
+                <args>
+                    <module>Magestore_ClipartManagement</module>
+                    <frontName>clipartmanagement</frontName>
+                </args>
+            </clipartmanagement>
+        </routers>
+        <layout>
+            <updates>
+                <clipartmanagement>
+                    <file>clipartmanagement.xml</file>
+                </clipartmanagement>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<clipartmanagement>
+				<use>admin</use>
+				<args>
+					<module>Magestore_Clipartmanagement</module>
+					<frontName>clipartmanagement</frontName>
+				</args>
+			</clipartmanagement>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<magestore translate="title" module="clipartmanagement">
+				<children>
+					<clipartmanagement module="clipartmanagement">
+						<title>Manage Cliparts</title>
+						<sort_order>30</sort_order>               
+						
+						<children>
+							<clipartimport module="clipartmanagement">
+								<title>Import Cliparts</title>
+								<sort_order>0</sort_order>
+								<action>clipartmanagement/adminhtml_clipartimport</action>
+							</clipartimport>
+						</children>
+						
+						<children>
+							<clipartcategory module="clipartmanagement">
+								<title>Manage Clipart Category</title>
+								<sort_order>1</sort_order>
+								<action>clipartmanagement/adminhtml_clipartcategory</action>
+							</clipartcategory>
+						</children>
+						<children>
+							<clipart module="clipartmanagement">
+								<title>Manage Clipart</title>
+								<sort_order>2</sort_order>
+								<action>clipartmanagement/adminhtml_clipart</action>
+							</clipart>
+						</children>				
+											
+					</clipartmanagement>
+				</children>
+			</magestore>
+		</menu>
+		
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<magestore>
+                            <children>
+								<clipartmanagement>
+									<title>Manage Cliparts</title>
+									<sort_order>10</sort_order>
+									<children>
+										<clipartcategory translate="title" module="clipartmanagement"> 
+											<title>Manage Category</title>
+											<sort_order>0</sort_order>
+										</clipartcategory>
+									</children>	
+									<children>
+										<clipart translate="title" module="clipartmanagement"> 
+											<title>Manage Clipart</title>
+											<sort_order>2</sort_order>
+										</clipart>
+									</children>		
+									<children>
+										<clipartimport module="clipartmanagement">
+											<title>Import Cliparts</title>
+											<sort_order>0</sort_order>											
+										</clipartimport>
+									</children>
+								</clipartmanagement>
+							</children>
+                        </magestore>
+                    </children>						
+				</admin>
+			</resources>
+		</acl>
+		<layout>
+			<updates>
+				<clipartmanagement>
+					<file>clipartmanagement.xml</file>
+				</clipartmanagement>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <clipartmanagement>
+                <class>Magestore_Clipartmanagement_Model</class>
+                <resourceModel>clipartmanagement_mysql4</resourceModel>
+            </clipartmanagement>
+            <clipartmanagement_mysql4>
+                <class>Magestore_Clipartmanagement_Model_Mysql4</class>
+                <entities>
+                    <clipart>
+                        <table>clipart_management</table>
+                    </clipart>
+					<clipartcategory>
+                        <table>clipart_category</table>
+                    </clipartcategory>
+                </entities>
+            </clipartmanagement_mysql4>
+        </models>
+        <resources>
+            <clipartmanagement_setup>
+                <setup>
+                    <module>Magestore_Clipartmanagement</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </clipartmanagement_setup>
+            <clipartmanagement_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </clipartmanagement_write>
+            <clipartmanagement_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </clipartmanagement_read>
+        </resources>
+        <blocks>
+            <clipartmanagement>
+                <class>Magestore_Clipartmanagement_Block</class>
+            </clipartmanagement>
+        </blocks>
+        <helpers>
+            <clipartmanagement>
+                <class>Magestore_Clipartmanagement_Helper</class>
+            </clipartmanagement>
+        </helpers>
+    </global>
+</config>

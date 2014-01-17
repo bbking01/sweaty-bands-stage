@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Unirgy_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Unirgy
+ * @package    Unirgy_StoreLocator
+ * @copyright  Copyright (c) 2008 Unirgy LLC
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Unirgy
+ * @package    Unirgy_StoreLocator
+ * @author     Boris (Moshe) Gurevich <moshe@unirgy.com>
+ */
+-->
+<config>
+    <modules>
+        <Unirgy_StoreLocator>
+            <version>2.1.4</version>
+            <usimpleup remote="http://download.unirgy.com/simple/client_api/version/"
+                changelog="http://unirgy.com/support/portal/announcements"/>
+        </Unirgy_StoreLocator>
+    </modules>
+    <global>
+        <models>
+            <ustorelocator>
+                <class>Unirgy_StoreLocator_Model</class>
+                <resourceModel>ustorelocator_mysql4</resourceModel>
+            </ustorelocator>
+            <ustorelocator_mysql4>
+                <class>Unirgy_StoreLocator_Model_Mysql4</class>
+                <entities>
+                    <location>
+                        <table>ustorelocator_location</table>
+                    </location>
+                </entities>
+            </ustorelocator_mysql4>
+        </models>
+        <resources>
+            <ustorelocator_setup>
+                <setup>
+                    <module>Unirgy_StoreLocator</module>
+                    <class>Unirgy_StoreLocator_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ustorelocator_setup>
+            <ustorelocator_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ustorelocator_write>
+            <ustorelocator_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ustorelocator_read>
+        </resources>
+        <helpers>
+            <ustorelocator>
+                <class>Unirgy_StoreLocator_Helper</class>
+            </ustorelocator>
+        </helpers>
+        <blocks>
+            <ustorelocator>
+                <class>Unirgy_StoreLocator_Block</class>
+            </ustorelocator>
+        </blocks>
+        <ustorelocator>
+            <private_fields></private_fields>
+        </ustorelocator>
+    </global>
+    <frontend>
+        <routers>
+            <ustorelocator>
+                <use>standard</use>
+                <args>
+                    <module>Unirgy_StoreLocator</module>
+                    <frontName>ustorelocator</frontName>
+                </args>
+            </ustorelocator>
+        </routers>
+        <translate>
+            <modules>
+                <Unirgy_StoreLocator>
+                    <files>
+                        <default>Unirgy_StoreLocator.csv</default>
+                    </files>
+                </Unirgy_StoreLocator>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <ustorelocator module="Unirgy_StoreLocator">
+                    <file>ustorelocator.xml</file>
+                </ustorelocator>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <ustorelocatoradmin>
+                <use>admin</use>
+                <args>
+                    <module>Unirgy_StoreLocator</module>
+                    <frontName>ustorelocatoradmin</frontName>
+                </args>
+            </ustorelocatoradmin>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <cms>
+                <children>
+                    <ustorelocator translate="title" module="ustorelocator">
+                        <title>Store Locations</title>
+                        <action>ustorelocatoradmin/adminhtml_location/</action>
+                    </ustorelocator>
+                </children>
+            </cms>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <cms>
+                            <children>
+                                <ustorelocator>
+                                    <title>Store Locations</title>
+                                </ustorelocator>
+                            </children>
+                        </cms>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ustorelocator>
+                                            <title>Store Locations</title>
+                                        </ustorelocator>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Unirgy_StoreLocator>
+                    <files>
+                        <default>Unirgy_StoreLocator.csv</default>
+                    </files>
+                </Unirgy_StoreLocator>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <ustorelocator>
+            <general>
+                <!--<google_geo_url><![CDATA[http://maps.google.com/maps/geo]]></google_geo_url>-->
+                <distance_units>mi</distance_units>
+                <api_version>3</api_version>
+                <num_results>20</num_results>
+                <show_search>1</show_search>
+                <show_map>0</show_map>
+                <scale_icon>0</scale_icon>
+                <use_geo_address>0</use_geo_address>
+                <min_zoom>10</min_zoom>
+                <search_radius_options>25,100,200</search_radius_options>
+                <upload_overwrite>1</upload_overwrite>
+                <no_result>40,-100</no_result>
+            </general>
+        </ustorelocator>
+    </default>
+</config>

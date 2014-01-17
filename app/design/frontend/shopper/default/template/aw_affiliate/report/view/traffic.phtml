@@ -1,0 +1,96 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @version    1.0.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @copyright  Copyright (c) 2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @var $this AW_Affiliate_Block_Report_View_Traffic
+ */
+
+?>
+<?php if ($this->getItems()) : ?>
+<a id="download-as-csv-link" href="<?php echo $this->getDownloadAsCsvUrl();?>"
+   title="<?php echo $this->__('Download as CSV');?>"><?php echo $this->__('Download as CSV');?></a>
+<table class="data-table" id="my-traffic-table" width="625px;">
+    <thead>
+    <tr>
+        <th><?php echo $this->__('Traffic Source') ?></th>
+        <th><?php echo $this->__('Hits') ?></th>
+        <th><?php echo $this->__('Sales') ?></th>
+        <th title="<?php echo $this->__('Conversion rate') ?>"><?php echo $this->__('CR, %') ?></th>
+        <th><?php echo $this->__('Profit (%s)', $this->getDefaultCurrencySymbol()) ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->getItems() as $item) : ?>
+    <tr>
+        <td class="tdleft"><?php echo $item['ts_name'] ?></td>
+        <td class="tdright"><?php echo $item['hits'] ?></td>
+        <td class="tdright"><?php echo $item['sales'] ?></td>
+        <td class="tdright"><?php echo $item['cr'] ?></td>
+        <td class="tdright"><?php echo $item['profit'] ?></td>
+    </tr>
+    <?php endforeach ?>
+    <?php if ($this->getMaxRangesLimitExceeded()) : ?>
+    <tr>
+        <td class="tdcenter" colspan="5">
+            <strong><?php echo $this->__('Ranges count limit exceeded') ?></strong>
+        </td>
+    </tr>
+    <?php endif ?>
+    </tbody>
+    <?php if ($totals = $this->getTotals()) : ?>
+    <tfoot>
+    <tr>
+        <td class="tdleft"><?php echo $this->__('Total') ?></td>
+        <td class="tdright"><?php echo $totals['hits'] ?></td>
+        <td class="tdright"><?php echo $totals['sales'] ?></td>
+        <td class="tdright"><?php echo $totals['cr'] ?></td>
+        <td class="tdright"><?php echo $totals['profit'] ?></td>
+    </tr>
+    </tfoot>
+    <?php endif ?>
+</table>
+<?php else : ?>
+<div class="no-records">
+    <?php echo $this->__('No transactions found');?>
+</div>
+<?php endif ?>

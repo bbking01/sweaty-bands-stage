@@ -1,0 +1,98 @@
+.page-title{
+    margin-bottom: 10px;
+}
+
+#top-info-container {
+    height: 140px;
+}
+
+.report {
+    width: 40%;
+    float:right;
+}
+
+.buttons-set {
+    margin-top:25px;
+}
+
+.fieldset {
+    padding: 22px 15px 12px 20px;
+}
+
+.withdrawal-top-container {
+    height: 40px;
+}
+
+#withdrawal_request {
+    float:right;
+}
+
+/* +++ Summary Block */
+.summary.fieldset {
+    width: 40%;
+    float:left;
+}
+
+.summary.fieldset li{
+    height:25px;
+}
+
+.summary.fieldset li span.title{
+    color: #666666;
+    font-weight: bold;
+    float:left;
+    min-width: 200px;
+}
+/* --- Summary Block */
+
+.no-campaign{
+    text-align:center;
+    width: 100%;
+    padding-bottom: 7px;
+}
+
+/* +++ Withdrawal request form */
+
+#withdrawal-request-form-container {
+    display:none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 900 !important;
+}
+
+#withdrawal-request-form {
+    width:400px;
+    border-radius: 5px;
+    position: fixed;
+    z-index:200 !important;
+    background:#fff;
+    padding:15px;
+    border:1px solid #ccc;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+}
+
+#aw-affiliate-waiting-block {
+    display: none;
+}
+
+.aw-overlay-popup{
+    background-color:#000000;
+    opacity:0.6;
+    filter:Alpha(Opacity=60);
+    width:100%;
+    height:100%;
+}
+
+#withdrawal-request-form .fieldset,#withdrawal-request-form fieldset.group-select{margin:0;}
+#withdrawal-request-form fieldset.group-select{width:600px;padding:22px 0 12px 10px;}
+#withdrawal-request-form .buttons-set,#withdrawal-request-form .button-set{margin:0;}
+#withdrawal-request-form .button-set{width:610px}
+#withdrawal-request-form .input-box{text-align:left;width:350px;}
+#withdrawal-request-form .currency{float:right}
+#withdrawal-request-form textarea{width:355px;}
+#withdrawal-request-form span.notice{font-size:10px;color:#2F2F2F;}
+/* --- Withdrawal request form */

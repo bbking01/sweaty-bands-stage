@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to sub@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_Base
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+-->
+    <I95DevConnect_Base>
+        <paymentmethods>
+            <Checkmo>
+		<classname>Checkmo</classname>
+	    </Checkmo>
+	    <Authorizenet>
+		<classname>Authorizenet</classname>
+	    </Authorizenet>
+	    <Purchaseorder>
+		<classname>Purchaseorder</classname>
+	    </Purchaseorder>
+	    <Ccsave>
+		<classname>Ccsave</classname>
+	    </Ccsave>
+	    <Cashondelivery>
+		<classname>Cashondelivery</classname>
+	    </Cashondelivery>
+	    <Creditlimits>
+		<classname>Creditlimits</classname>
+	    </Creditlimits>
+	    <Customercredits>
+		<classname>Customercredits</classname>
+	    </Customercredits>
+	    <Paypal_standard>
+		<classname>PaypalStandard</classname>
+	    </Paypal_standard>
+	    <Paypal_express>
+		<classname>PaypalExpressCheckout</classname>
+	    </Paypal_express>
+	    <Paypal_direct>
+		<classname>PaypalDirect</classname>
+	    </Paypal_direct>
+	    <Paypaluk_express>
+		<classname>PaypalExpressUK</classname>
+	    </Paypaluk_express>
+	    <Verisign>
+		<classname>PaypalPayflowPro</classname>
+	    </Verisign>
+	    <M2epropayment>
+	    <classname>M2epropayment</classname>
+           </M2epropayment>
+        </paymentmethods>
+        <subscriptiondetails>       
+	    <customerId>5f58c49a-2254-47ed-a512-45284baaffa3</customerId>
+	    <subscriptionKey>f717f76317c944cddfc72f128f1c34ed</subscriptionKey>
+        </subscriptiondetails>
+		<logs>
+		<files>system,exception</files>
+		<encryption>1</encryption>
+		</logs>
+    </I95DevConnect_Base>

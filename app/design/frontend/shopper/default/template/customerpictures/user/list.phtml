@@ -1,0 +1,58 @@
+<?php $_imageCollection = $this->getListImages() ?>
+<?php $_collectionSize = count($_imageCollection) ?>
+<?php $_columnCount = $this->getColumnCount(); ?>
+<?php if($_collectionSize>0): ?>
+	<?php echo $this->getChildHtml('toolbar') ?>
+	<?php $i=0; foreach ($_imageCollection as $image): ?>
+	<?php $_image = Mage::getModel('customerpictures/images')->load($image->getId()) ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <ul class="products-grid images-grid" style="width:<?php echo ($this->getWidth()+1)*$_columnCount?>px">
+        <?php endif ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>" style="position:relative; width:<?php echo $this->getWidth()+1?>px">
+                <a class="product-image" href="<?php echo $this->getImageLink($_image->getId()) ?>" title="<?php echo $_image->getImageTitle()?>" style="width:<?php echo $this->getWidth()?>px; height:<?php echo $this->getHeight()?>px">
+					<img src="<?php echo $this->getImageUrl($_image->getImageName(), $_image->getUserId())?>" alt="<?php echo $_image->getImageTitle()?>" />
+				</a>
+				
+				<div class="image-control">
+					<?php if($this->getRequest()->getControllerName()=='user'): ?>
+						<div class="facebook-like-count">
+							<?php echo $this->__('Facebook like: ') ?>
+							<?php Mage::helper('customerpictures/data')->getFacebookLike($_image->getId()) ?>
+						</div>
+						<?php if($_image->getWinnerTime()==''): ?>
+						<div class="control">
+							<a class="first" href="<?php echo $this->getDeleteImageUrl($image->getId()) ?>" onclick="return confirm('Are you sure you would like to delete this picture ?');" title="<?php echo $this->__('Delete') ?>"><?php echo $this->__('Delete') ?></a>
+							<?php if($_image->getUserStatus()==0):?>
+								<a href="<?php echo $this->getHideImageUrl($image->getId()) ?>" title="<?php echo $this->__('Hide') ?>"><?php echo $this->__('Hide') ?></a>
+							<?php else: ?>
+								<a href="<?php echo $this->getShowImageUrl($image->getId()) ?>" title="<?php echo $this->__('Show') ?>"><?php echo $this->__('Show') ?></a>
+							<?php endif ?>
+						</div>
+						<?php endif ?>
+					<?php else: ?>
+					<div class="facebook-like-count">
+						<?php if($_image->getWinnerTime()!=''): ?>
+						<?php echo $this->__('Facebook like: ') ?>
+						<?php Mage::helper('customerpictures/data')->getFacebookLike($_image->getId()) ?>
+						<?php else: ?>
+						<iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $this->getUrl('customerpictures/index/view').'id/'.$_image->getId() ?>&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+						<?php endif ?>
+					</div>
+					<?php endif ?>
+				</div>
+				<?php if($this->getRequest()->getControllerName()=='user'): ?>
+				<div class="picture-status">
+					<?php echo $this->getPictureStatus($_image->getId())?>
+				</div>
+				<?php endif ?>
+				
+				
+				
+            </li>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+        <?php endif ?>
+	<?php endforeach ?>
+	<?php echo $this->getChildHtml('toolbar') ?>
+        <script type="text/javascript">decorateGeneric($$('ul.images-grid'), ['odd','even','first','last'])</script>
+<?php endif ?>

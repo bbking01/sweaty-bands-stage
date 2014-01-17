@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Grow Development - Base Admin Module
+ *
+ * @category   Growdevelopment
+ * @package    Growdevelopment_Base
+ * @copyright  Copyright (c) 2012 Grow Development (http://www.growdevelopment.com)
+ * @license    http://www.growdevelopment.com/docs/eula.txt
+ * @author     Daniel Espinoza <modules@growdevelopment.com>
+ */
+-->
+<config>
+	<tabs>
+		<growdevbase module="growdevbase">
+			<label>Grow Development</label>
+			<sort_order>500</sort_order>
+		</growdevbase>
+	</tabs>
+	<sections>
+		<growdevbase translate="label" module="growdevbase">
+			<tab>growdevbase</tab>
+			<label>Module Support</label>
+			<frontend_type>text</frontend_type>
+			<sort_order>999</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+                <support translate="label">
+                    <label>Contact Support</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+					<comment>
+						<![CDATA[
+								<p>Thank you for your purchase of this module!</p>
+								<strong>To get support on our modules, please go to <a href="http://www.growdevelopment.com/support" target="_blank">our site</a>.</strong>
+						]]>
+					</comment>
+                </support>
+			</groups>
+		</growdevbase>
+	</sections>
+</config>

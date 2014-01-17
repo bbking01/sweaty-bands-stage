@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<fontmanagement_adminhtml_fontimport_index>
+        <reference name="content">
+            <block type="fontmanagement/adminhtml_fontimport" name="fontimport" />
+        </reference>
+    </fontmanagement_adminhtml_fontimport_index>
+	<fontmanagement_adminhtml_fontcategory_index>
+        <reference name="content">
+            <block type="fontmanagement/adminhtml_fontcategory" name="fontcategory" />
+        </reference>
+    </fontmanagement_adminhtml_fontcategory_index>
+    <fontmanagement_adminhtml_addfont_index>
+        <reference name="content">
+            <block type="fontmanagement/adminhtml_addfont" name="addfont" />
+        </reference>
+    </fontmanagement_adminhtml_addfont_index>
+</layout>

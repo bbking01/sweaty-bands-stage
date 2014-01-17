@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<widgets>
+    <like_button type="fbintegrator/like" translate="name description" module="fbintegrator">
+        <name>Facebook: Like button</name>
+        <description>Lets a user share your content with friends on Facebook.</description>
+    </like_button>
+    <connect_button type="fbintegrator/connect" translate="name description" module="fbintegrator">
+        <name>Facebook: Login button</name>
+        <description>Login button allows users to easily sign up for your website with their Facebook account.</description>
+    </connect_button>
+</widgets> 

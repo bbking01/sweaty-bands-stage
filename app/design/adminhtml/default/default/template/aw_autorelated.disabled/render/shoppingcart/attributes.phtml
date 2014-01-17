@@ -1,0 +1,188 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Autorelated
+ * @version    2.3.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Autorelated
+ * @copyright  Copyright (c) 2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @var $this AW_Autorelated_Block_Adminhtml_Blocks_Shoppingcart_Edit_Tabs_Relatedproducts_Attributes
+ */
+
+$htmlId = $this->getElement()->getHtmlId();
+$htmlName = $this->getElement()->getName();
+
+?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td class="grid tier">
+        <table cellspacing="0" class="border" id="attributes_table">
+            <colgroup>
+                <col width="350"/>
+                <col width="130"/>
+                <col width="170"/>
+                <col width="50"/>
+            </colgroup>
+            <thead>
+            <tr class="headings">
+                <th><?php echo $this->__('Attribute') ?></th>
+                <th><?php echo $this->__('Condition') ?></th>
+                <th/>
+                <th/>
+            </tr>
+            <tr id="<?php echo $htmlId ?>_add_template" class="template no-display">
+                <td class="nobr">
+                    <select disabled="no-template" name="<?php echo $htmlName ?>[__index__][ATTR]"
+                            id="attr_row___index___ATTR">
+                        <?php foreach ($this->getProductAttributes() as $k => $v) : ?>
+                        <option value="<?php echo $k ?>"><?php echo $v ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </td>
+                <td>
+                    <select disabled="no-template" name="<?php echo $htmlName ?>[__index__][CONDITION]"
+                            id="attr_row___index___CONDITION">
+                        <?php foreach ($this->getAttributeConditions() as $k => $v) : ?>
+                        <option value="<?php echo $k ?>"><?php echo $v ?></option>
+                        <?php endforeach ?>
+                    </select>
+                </td>
+                <td><?php echo $this->__("as current product one") ?></td>
+                <td class="last">
+                    <input type="hidden" name="<?php echo $htmlName ?>[__index__][delete]" class="delete"
+                           disabled="no-template" value=""/>
+                    <button title="Delete email" class="scalable delete icon-btn delete-product-option"
+                            onclick="attributesControl.deleteItem(event);return false">
+                        <span>Delete</span>
+                    </button>
+                </td>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <td></td>
+                <td colspan="3" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+            </tfoot>
+            <tbody id="<?php echo $htmlId ?>_container">
+            <?php $index = 0; ?>
+            <?php foreach ($this->getValues() as $value) : ?>
+            <tr>
+                <td class="nobr">
+                    <select name="<?php echo $htmlName ?>[<?php echo $index ?>][ATTR]"
+                            id="attr_row_<?php echo $index ?>_ATTR">
+                        <?php foreach ($this->getProductAttributes() as $k => $v) : ?>
+                        <option value="<?php echo $k ?>"<?php if (strcmp($k, $value['ATTR']) === 0) : ?>
+                                selected="selected"<?php endif ?>>
+                            <?php echo $v ?>
+                        </option>
+                        <?php endforeach ?>
+                    </select>
+                </td>
+                <td>
+                    <select name="<?php echo $htmlName ?>[<?php echo $index ?>][CONDITION]"
+                            id="attr_row_<?php echo $index ?>_CONDITION">
+                        <?php foreach ($this->getAttributeConditions() as $k => $v) : ?>
+                        <option value="<?php echo $k ?>"<?php if (\strcmp($k, $value['CONDITION']) === 0) : ?>
+                                selected="selected"<?php endif ?>>
+                            <?php echo $v ?>
+                        </option>
+                        <?php endforeach ?>
+                    </select>
+                </td>
+                <td><?php echo $this->__("as current product one") ?></td>
+                <td class="last">
+                    <input type="hidden" name="<?php echo $htmlName ?>[<?php echo $index ?>][delete]" class="delete"
+                           value=""/>
+                    <button title="Delete email" class="scalable delete icon-btn delete-product-option"
+                            onclick="attributesControl.deleteItem(event);return false" type="button">
+                        <span>Delete</span>
+                    </button>
+                </td>
+            </tr>
+                <?php $index++ ?>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+        <script type="text/javascript">
+            //<![CDATA[
+
+            var attributesControl = {
+                itemsCount: <?php echo count($this->getValues()) ?>,
+                deleteButton:false,
+
+                addItem:function () {
+                    var data = {};
+                    data.ATTR = '';
+                    data.CONDITION = '';
+                    data.index = this.itemsCount++;
+                    if (arguments.length == 2) {
+                        data.ATTR = arguments[0];
+                        data.CONDITION = arguments[1];
+                    }
+
+                    var s = '<tr>' + $('<?php echo $htmlId ?>_add_template').innerHTML.replace(/__index__/g, '#{index}').replace(/\sdisabled="?no-template"?/g, ' ').replace(/disabled/g, ' ').replace(/="'([^']*)'"/g, '="$1"') + '</tr>';
+
+                    var template = new Template(s);
+
+                    Element.insert($('<?php echo $htmlId ?>_container'), {'bottom':template.evaluate(data)});
+                    $('attr_row_' + data.index + '_ATTR').value = data.ATTR;
+                    $('attr_row_' + data.index + '_CONDITION').value = data.CONDITION;
+                    maxItemsCount++;
+                },
+
+                deleteItem:function (event) {
+                    var tr = Event.findElement(event, 'tr');
+                    if (tr) {
+                        Element.select(tr, '.delete').each(function (elem) {
+                            elem.value = '1'
+                        });
+                        Element.select(tr, ['input', 'select']).each(function (elem) {
+                            elem.hide()
+                        });
+                        Element.hide(tr);
+                        Element.addClassName(tr, 'no-display template');
+                    }
+                }
+            }
+            var maxItemsCount = <?php echo count($this->getValues()) ?>;
+            //]]>
+        </script>
+    </td>
+</tr>

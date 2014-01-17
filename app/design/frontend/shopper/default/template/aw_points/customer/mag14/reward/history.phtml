@@ -1,0 +1,73 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+
+<?php if ($this->isEnabled()): ?>
+    <div  id="aw_points-history-box" >
+        <?php $transactions = $this->getTransactions(); ?>
+        <?php if ($transactions->getSize()): ?>
+            <h4><?php echo $this->__('Transactions History') ?></h4>
+            <?php echo $this->getPagerHtml(); ?>
+            <table class="data-table" id="points-history-table">
+                <col class="id" />
+                <col class="points" />
+                <col class="comment" />
+                <col class="date" />
+                <thead>
+                    <tr>
+                        <th><?php echo $this->__('ID') ?></th>
+                        <th><?php echo $this->__('Points') ?></th>
+                        <th><?php echo $this->__('Comment') ?></th>
+                        <th><?php echo $this->__('Date') ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($transactions as $transaction): ?>
+                        <?php $balanceChange = $transaction->getBalanceChange(); ?>
+                        <tr>
+                            <td><?php echo $transaction->getId(); ?></td>
+                            <td style="text-align: right;"><?php echo ($balanceChange > 0 ? "+" . $balanceChange : $balanceChange); ?></td>
+                            <td><?php echo $this->__($transaction->getActionInstance()->getCommentHtml(AW_Points_Model_Actions_Abstract::FRONTEND)); ?></td>
+                            <td>
+                                <?php echo $this->formatDate($transaction->getChangeDate(), 'short', true); ?>
+                                <div class="aw-expiration-in-table">
+                                    <?php if ($transaction->getExpirationDate())
+                                        echo $this->__('Expires on %s', $this->formatDate($transaction->getExpirationDate(), 'short', true)) ?>
+                                </div>
+                            </td>
+                        </tr>
+        <?php endforeach; ?>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('points-history-table');</script>
+            <?php echo $this->getPagerHtml(); ?>
+    <?php endif ?>
+    </div>
+    <?php
+ endif ?>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <AHT_Customerpictures>
+            <active>true</active>
+            <codePool>local</codePool>
+        </AHT_Customerpictures>
+    </modules>
+</config> 

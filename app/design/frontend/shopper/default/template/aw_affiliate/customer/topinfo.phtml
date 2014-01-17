@@ -1,0 +1,56 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @version    1.0.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @copyright  Copyright (c) 2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @var $this AW_Affiliate_Block_Customer_Topinfo
+ */
+?>
+<div id="top-info-container">
+    <?php echo $this->getChildHtml('awaffiliate_customer_account_summary');?>
+    <?php echo $this->getChildHtml('awaffiliate_customer_account_report');?>
+</div>
+<?php if ($campaignDescription = $this->getCurrentCampaignDescription()) : ?>
+<div class="fieldset">
+    <h2 class="legend"><?php echo $this->__('Description'); ?></h2>
+    <div class="row"><?php echo $campaignDescription ?></div>
+</div>
+<?php endif ?>

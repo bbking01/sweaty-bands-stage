@@ -1,0 +1,76 @@
+<?php
+/**
+ * Webtex
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Webtex EULA that is bundled with
+ * this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.webtex.com/LICENSE-1.0.html
+ *
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@webtex.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extension
+ * to newer versions in the future. If you wish to customize the extension
+ * for your needs please refer to http://www.webtex.com/ for more information
+ * or send an email to sales@webtex.com
+ *
+ * @category   Webtex
+ * @package    Webtex_CustomerGroupsPrice
+ * @copyright  Copyright (c) 2010 Webtex (http://www.webtex.com/)
+ * @license    http://www.webtex.com/LICENSE-1.0.html
+ */
+
+/**
+ * Customer Groups Price extension
+ *
+ * @category   Webtex
+ * @package    Webtex_CustomerGroupsPrice
+ * @author     Webtex Dev Team <dev@webtex.com>
+ */
+?>
+
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass   = $this->getElement()->getClass() ?>
+<?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_readonly    = $this->getElement()->getReadonly() ?>
+<?php $_showWebsite = $this->isShowWebsiteColumn(); ?>
+<?php $_editWebsite = $this->isAllowChangeWebsite(); ?>
+<?php $_priceValueValidation = $this->getPriceValidation('validate-greater-than-zero'); ?>
+<?php $data = $this->getProduct()->getData($this->getAttribute()->getName()); ?>
+
+<?php $_showWebsite = $this->isShowWebsiteColumn(); ?>
+<?php $_showWebsite= $this->isMultiWebsites(); ?>
+<?php if($this->getProduct()->getTypeId() != 'bundle'): ?>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+    <?php foreach(Mage::helper('customergroupsprice')->getCustomerGroups() as $id => $group): ?>
+            <tr>
+                <td class="label"><?php echo $this->__('Price for ') . $group . $this->__(' Group') ?></td>
+                <td>
+                    <input class="<?php echo $_htmlClass ?>" value="<?php echo isset($data[$id]) ? $data[$id] : ''; ?>" type="text" id="<?php echo $_htmlId ?>_<?php echo $id ?>" name="<?php echo $_htmlName ?>[<?php echo $id ?>]"/>
+                </td>
+            </tr>
+    <?php endforeach ?>
+	<tr>
+		<td>&nbsp;</td>
+	</tr>
+	<?php foreach(Mage::helper('customergroupsprice')->getCustomerGroups() as $id => $group): ?>
+			<?php
+			$specPrices = Mage::getModel('customergroupsprice/specialprices');
+			$price = $specPrices->loadByGroup($this->getProduct()->getId(), $id);
+			?>
+            <tr>
+                <td class="label"><?php echo $this->__('Special Price for ') . $group . $this->__(' Group') ?></td>
+                <td>
+                    <input class="<?php echo $_htmlClass ?>" value="<?php echo $price->getPrice() ? $price->getPrice() : ''; ?>" type="text" id="<?php echo $_htmlId ?>_<?php echo $id ?>" name="<?php echo $_htmlName ?>[special][<?php echo $id ?>]"/>
+                </td>
+            </tr>
+    <?php endforeach ?>
+ <?php endif; ?>

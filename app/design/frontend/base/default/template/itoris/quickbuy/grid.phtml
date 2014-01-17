@@ -1,0 +1,275 @@
+<?php
+/**
+ * ITORIS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the ITORIS's Magento Extensions License Agreement
+ * which is available through the world-wide-web at this URL:
+ * http://www.itoris.com/magento-extensions-license.html
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sales@itoris.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extensions to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to the license agreement or contact sales@itoris.com for more information.
+ *
+ * @category   ITORIS
+ * @package    ITORIS_QUICKBUY
+ * @copyright  Copyright (c) 2012 ITORIS INC. (http://www.itoris.com)
+ * @license    http://www.itoris.com/magento-extensions-license.html  Commercial License
+ */
+
+?>
+<?php
+
+$cat = Mage::getResourceModel('catalog/category_collection')->addFieldToFilter('name', 'Wholesale Shop ');
+$parentCategoryId = $cat->getFirstItem()->getEntityId();
+
+$categories = Mage::getModel('catalog/category')
+    ->getCollection()
+    ->addFieldToFilter('parent_id', array('eq'=>$parentCategoryId))
+    ->addFieldToFilter('is_active', array('eq'=>'1'))
+    ->addAttributeToSelect('name')
+    ->addAttributeToSelect('entity_id')
+    ->addAttributeToSort('name', 'ASC');
+$categories->getData();          
+
+/************** DCS: TEST
+           foreach ($categories as $category)
+            {
+               $name = $category->getName();    
+               $id = $category->getEntityId();  
+             echo "name ".$category->getName()." id ".$id."<br/>";
+               $subcategory = Mage::getModel('catalog/category')->getCollection()
+                   ->addFieldToFilter('parent_id', array('eq'=>$id))
+                   ->addFieldToFilter('is_active', array('eq'=>'1'))
+                   ->addAttributeToSelect('name')
+                   ->addAttributeToSort('name', 'ASC');
+                   $subcategory->getData();
+                   foreach ($subcategory as $subcat)
+                       {
+						   $sname = $subcat->getName();
+						   echo "name ".$sname."<br/>";
+					   }
+             
+             }//END_FOREACH 
+
+******************/
+
+/**************
+$collection = Mage::getModel('customer/customer')
+        ->getCollection()
+        ->addAttributeToSelect('*')
+        ->addFieldToFilter('group_id', 33);
+    foreach($collection as $member)
+    {
+		echo $member->getName().'  '.$member->getEmail()."<br/><br/><br/>";
+		
+	}
+*****************/        
+// exit;       
+
+
+
+
+
+
+
+
+
+
+
+
+$blLoggedIn=false;
+
+
+if($customer = Mage::getSingleton('customer/session')->isLoggedIn() ) {
+$customer = Mage::getSingleton('customer/session');
+//DCS: note getCustomerGroup - method added to itoris_quickbuy data.php
+$groupName = Mage::helper('itoris_quickbuy')->getCustomerGroup($customer);
+
+//echo $groupName;
+$groupId = Mage::helper('customer')->getCustomer()->getGroupId();
+// Mage::helper('itoris_quickbuy')->getGroupPrice();
+
+
+  if ( strcmp ( 'PalmBeachTan', $groupName) == 0  ||
+       strcmp ( 'Wholesale50', $groupName) == 0  ||
+       strcmp ( 'Wholesale60', $groupName) == 0  ||
+       strcmp ( 'Wholesale100', $groupName) == 0  ||       
+       strcmp ( 'LearningExpress', $groupName) == 0   
+  
+  ){
+	$blLoggedIn=true;  
+ // echo "Equal: Yes\n";
+}
+else{
+  //echo "Equal: No\n";
+  $blLoggedIn=false;
+}
+    
+
+/*
+    $customer = Mage::getSingleton('customer/session')->getCustomer();
+    $fullname = $customer->getName();
+    $firstname = $customer->getFirstname();
+    $lastname = $customer->getLastname();
+    $email = $customer->getEmail();
+    echo "$fullname  groupid: $email $groupId $group_id"."<br/>";
+*/
+    
+    
+    $blLoggedIn=true;
+
+}else{
+	echo "You are not logged in! <br/>";
+}
+
+
+//TEST
+//$blLoggedIn=true;
+
+
+?>
+	            
+				
+<?php
+//echo "get store ID: ";
+$allStores = Mage::app()->getStores();
+foreach ($allStores as $_eachStoreId => $val)
+{  if ("Wholesale Store"== Mage::app()->getStore($_eachStoreId)->getName()) {
+      $_storeId = Mage::app()->getStore($_eachStoreId)->getId();
+       break;
+   }
+}
+?> 
+
+<?php 
+if($blLoggedIn):
+?> 
+ <div id="qb">
+
+
+	<div class="logo"></div>
+	<div class="hr">
+		<div class="rback"></div>
+	</div>
+    <div class="title"><?php echo $this->__('Selected Products') ?></div>
+	<div class="note no-selection"><?php echo $this->__('None. Please search products below') ?></div>
+	<div class="precart" style="display:none;">
+		<div class="cart-list">
+		</div>
+		<div class="buttons">
+			<div class="add-to-cart"></div>
+		</div>
+	</div>
+
+	<div class="view-cart"></div>	
+	<div class="search">
+		<div class="title"><?php echo $this->__('Search Products') ?></div>
+		<div class="note"><?php echo $this->__('You can search products by SKU, Title, Description or Category') ?></div>
+		<div class="search-block">
+			<input class="text" type="text" />
+			<div class="button-search"></div>
+		</div>
+ <!-- DCS: -->
+		<div class="title"><?php echo $this->__('Search Categories') ?></div>
+		<div class="note"><?php echo $this->__('You can search products by these Categories. Please note some categories have a lot of products, could take a while...') ?></div>		
+		<div class="search-block">
+		
+		<select id="category" class="select" name="category">
+		 echo "storeid $_storeId <br/>";	
+		<option selected>Please Choose a Category</option>
+		<?php
+			
+           //$categories = Mage::getModel('catalog/category')->getCollection()->addAttributeToSelect('*');
+           //$categories->addStoreFilter($_storeId);
+           //$categories->addAttributeToSort('name', 'ASC');
+           
+           
+           foreach ($categories as $category)
+            {
+               $name = $category->getName();      
+               $id = $category->getEntityId();
+             echo "<option value=".$category->getName().">".$category->getName()."</option>";
+                $subcategory = Mage::getModel('catalog/category')->getCollection()
+                   ->addFieldToFilter('parent_id', array('eq'=>$id))
+                   ->addFieldToFilter('is_active', array('eq'=>'1'))
+                   ->addAttributeToSelect('name')
+                   ->addAttributeToSort('name', 'ASC');
+                   $subcategory->getData();
+                   foreach ($subcategory as $subcat)
+                       {
+						   $sname = $subcat->getName();
+						   echo "<option value=".$sname.">".$sname."</option>";
+					   }
+             }//END_FOREACH 
+        ?>
+        </select>
+  
+       </div>	
+<br/>
+<!-- DCS: -->		
+		
+		
+<!---------Display Search Results ------------------>		
+		
+		<div id="qb-no-products"></div>
+		<div id="qb-search" >
+			<table class="grid">
+				<colgroup>
+					<col class="col-sel">
+					<col>
+					<col class="col-category">
+					<col class="col-sku">
+					<col class="col-price">
+					<col class="col-image">
+				</colgroup>
+				<thead class="thead">
+				<tr>
+					<th class="first"><div class="ctitle"><?php echo $this->__('Sel') ?></div></th>
+					<th id="qb-grid-product"><div class="rborder"></div><div id="qb-order-image" class="order-asc"></div><div class="ltitle"><?php echo $this->__('Product') ?></div></th>
+					<th id="qb-grid-category"><div class="rborder"></div><div class="ltitle"><?php echo $this->__('Category') ?></div></th>
+					<th id="qb-grid-sku"><div class="rborder"></div><div class="ltitle"><?php echo $this->__('SKU') ?></div></th>
+					<th id="qb-grid-price"><div class="rborder"></div><div class="ltitle"><?php echo $this->__('Price') ?></div></th>
+					<th><div class="ctitle"><?php echo $this->__('Preview') ?></div></th>
+				</tr>
+				</thead>
+				<tbody class="content"></tbody>
+			</table>
+			<div class="paging">
+				<div class="count"></div>
+				<div class="delimiter"></div>
+				<div class="pager"></div>
+				<div class="limit">
+					<span><?php echo $this->__('Show') . ' ' ?></span>
+					<div class="dropdown">
+						<div class="value">5</div>
+						<div class="arrow"></div>
+						<div class="options-box">
+							<div class="options"></div>
+						</div>
+					</div>
+					<span><?php echo ' ' . $this->__('per page') ?></span>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php endif; ?>	
+	
+	<?php
+		$selectedData = Mage::helper('itoris_quickbuy/search')->getSelectedProducts();
+		$products = $selectedData['products'];
+		$selectedProductsIds = $selectedData['selected_products'];
+
+	?>
+	<script type="text/javascript">
+		document.observe('dom:loaded', function() {
+			qbForm = new Itoris.QuickBuy(<?php echo $this->getUrlsJson() ?>, <?php echo $this->getTranslatesJson() ?>, <?php echo $products ?>, <?php echo $selectedProductsIds ?>, <?php echo $this->getConfigJson() ?>);
+		});
+	</script>
+</div>

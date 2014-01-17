@@ -1,0 +1,266 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <fbintegrator translate="label" module="fbintegrator">
+            <label>Facebook Link</label>
+            <tab>awall</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>10</sort_order>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                    </fields>
+                </general>
+                <app translate="label">
+                    <label>Application</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>20</sort_order>
+                    <frontend_model>fbintegrator/adminhtml_system_config_form_fieldset</frontend_model>
+                    <fields>
+                        <api_key translate="label">
+                            <label>App ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </api_key>
+                        <secret translate="label">
+                            <label>App Secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </secret>
+                    </fields>
+                </app>
+                <wall translate="label">
+                    <label>Wall Post</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>30</sort_order>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <post_message translate="label comment">
+                            <label>Customer Wall update</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Publish a post into the stream on the user's Facebook Page's Wall and News Feed.&lt;br /&gt;Available variables:&lt;br /&gt;&lt;b&gt;{items_count}&lt;/b&gt; - number of items purchased&lt;br /&gt;&lt;b&gt;{store_link}&lt;/b&gt; - link to your store</comment>
+                        </post_message>
+                        <post_link_template translate="label comment">
+                            <label>Action template</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[<span class="required">Required field.</span> Available variables:<br><b>{items_count}</b> - number of items purchased<br><b>{item_name}</b> - item name<br><b>{item_price}</b> - item price<br><b>{item_link}</b> - link to the item purchased<br><b>{store_link}</b> - link to your store]]></comment>
+                            <validate>required-entry</validate>
+                        </post_link_template>
+                        <items_count translate="label comment">
+                            <label>Number of items to post</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>0 - all items</comment>
+                        </items_count>
+                        <picture translate="label">
+                            <label>Post product image</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </picture>
+                        <wishlist_share_message translate="label comment">
+                            <label>Customer Wishlist Share Wall update</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Publish a wishlist into the stream on the user's Facebook Page's Wall. <br />Available variables:<br /><b>{store_link}</b>  -  link to your store<br /><b>{wishlist_link}</b>  -  link to customer's Wishlist]]></comment>
+                        </wishlist_share_message>
+                    </fields>
+                </wall>
+                <like translate="label">
+                    <label>Like button</label>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <sort_order>40</sort_order>
+                    <fields>
+                        <enabled translate="label comment">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <position translate="label comment">
+                            <label>Position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>fbintegrator/system_config_backend_source_position</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </position>
+                        <laystyle translate="label comment">
+                            <label>Layout Style</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>fbintegrator/system_config_backend_source_laystyle</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Determines the size and amount of social context next to the button]]></comment>
+                        </laystyle>
+                        <face translate="label comment">
+                            <label>Show Faces</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Show profile pictures below the button.]]></comment>
+                        </face>
+                        <width translate="label comment">
+                            <label>Width</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[The width of the plugin, in pixels]]></comment>
+                        </width>
+                        <verb translate="label comment">
+                            <label>Verb to display</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>fbintegrator/system_config_backend_source_verb</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[The verb to display in the button]]></comment>
+                        </verb>
+                        <font translate="label comment">
+                            <label>Font</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>fbintegrator/system_config_backend_source_font</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </font>
+                        <color translate="label comment">
+                            <label>Color Scheme</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>fbintegrator/system_config_backend_source_color</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </color>
+                        <send translate="label comment">
+                            <label>Send Button</label>
+                            <comment>Show Send Button</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </send>
+                    </fields>
+                </like>
+            </groups>
+        </fbintegrator>
+
+        <points translate="label" module="fbintegrator">
+            <label><![CDATA[Points & Rewards]]></label>
+            <tab>awall</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <earning_points translate="label">
+                    <fields>
+                        <fb_like_points translate="label">
+                            <label><![CDATA[For <a href="http://ecommerce.aheadworks.com/magento-extensions/facebook-link.html" target="_blank">Facebook</a> Like]]></label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fb_like_points>
+                        <fb_like_delay translate="label">
+                            <label>Delay between Facebook Likes, seconds</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>96</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fb_like_delay>
+                        <fb_like_max_like_count translate="label">
+                            <label>Max Facebook Like count</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>97</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fb_like_max_like_count>
+                        <fb_like_time translate="label">
+                            <label>Facebook Like time limit, seconds</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>98</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fb_like_time>
+                    </fields>
+                </earning_points>
+            </groups>
+        </points>
+    </sections>
+</config>

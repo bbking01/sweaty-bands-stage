@@ -1,0 +1,22 @@
+<?php
+
+$installer = $this;
+
+$setup = new Mage_Eav_Model_Entity_Setup('core_setup');
+$installer->startSetup();
+
+$entityTypeId = Mage::getModel('eav/entity')
+    ->setType('catalog_product')  // This can be any eav_entity_type code
+    ->getTypeId();
+$attrSet = Mage::getModel('eav/entity_attribute_set');
+
+$attrSetCollection = $attrSet->getCollection();
+$attrSetCollection
+    ->addFieldToFilter('entity_type_id', array('eq' => $entityTypeId))
+    ->addFieldToFilter('attribute_set_name', array('eq' => 'Default')); // This can be any attribute set you might want to clone
+
+echo $defaultAttrSet = $attrSetCollection->getFirstItem();
+echo $defaultAttrSetId = $defaultAttrSet->getAttributeSetId();
+die();
+
+$installer->endSetup();

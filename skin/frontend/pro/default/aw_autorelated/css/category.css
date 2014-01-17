@@ -1,0 +1,54 @@
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Autorelated
+ * @copyright  Copyright (c) 2011 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ */
+
+.aw-arp-block-content {
+    padding: 5px 0px 0px 5px;
+    overflow: hidden;
+    clear: both;
+}
+
+.aw-arp-item {
+    text-align: center;
+    width: 100px;
+    min-height: 100px;
+    display: -moz-inline-stack;
+    display: inline-block !important;
+    vertical-align: top;
+    margin: 5px;
+    zoom: 1;
+    *display: inline !important;
+    _height: 250px;
+    margin-bottom: 20px;
+}
+
+.aw-arp-item img {
+    border: 1px solid #A9A9A9;
+    width: 75px;
+    margin-bottom: 10px;
+}
+
+.aw-arp-block-content .aw-arp-addtocart>p {
+    margin-bottom: 5px;
+}
+
+.footer .aw-arp-block-content li {
+    display: inline-block !important;
+    *display: inline !important;
+}
+
+.footer .aw-arp-block-content a {
+    color: #1E7EC8;
+}

@@ -1,0 +1,88 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @version    1.0.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @copyright  Copyright (c) 2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @var $this AW_Affiliate_Block_Customer_Campaigns
+ */
+?>
+<div class="campaings fieldset">
+    <h2 class="legend"><?php echo $this->__("Campaigns"); ?></h2>
+    <?php if ($this->getCampaignCollection()->getSize()) : ?>
+    <?php echo $this->getChildHtml('pager'); ?>
+    <table class="data-table" id="my-campaigns-table">
+        <col width="30%"/>
+        <col width="12%"/>
+        <col width="19%"/>
+        <col width="19%"/>
+        <col width="20%"/>
+
+        <thead>
+        <tr>
+            <th><?php echo $this->__('Name') ?></th>
+            <th><?php echo $this->__('Rate') ?></th>
+            <th><?php echo $this->__('Earnings') ?></th>
+            <th><?php echo $this->__('Status') ?></th>
+            <th><?php echo $this->__('Action') ?></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($this->getCampaignCollection() as $item) : ?>
+        <tr>
+            <td><?php echo $item->getName() ?></td>
+            <td><?php echo $this->getRate($item) ?></td>
+            <td><?php echo $this->getTotalAmountByCampaignId($item->getId());  ?></td>
+            <td><?php echo $this->getCampaignStatusLabel($item->getStatus()) ?></td>
+            <td>
+                <span class="nobr">
+                    <a href="<?php echo $this->getUrlToCampaignView($item->getId()) ?>"><?php echo $this->__('View') ?></a>
+                </span>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php echo $this->getChildHtml('pager'); ?>
+    <script type="text/javascript">decorateTable('my-campaigns-table')</script>
+    <?php else: ?>
+    <div class="no-campaign"><?php echo $this->__('Campaigns were not found'); ?></div>
+    <?php endif; ?>
+</div>

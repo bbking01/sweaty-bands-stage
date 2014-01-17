@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Growdevelopment_Storelocations>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Growdevelopment_Storelocations>
+            <depends>
+                <Growdevelopment_Base/>
+            </depends>
+	</modules>
+</config>

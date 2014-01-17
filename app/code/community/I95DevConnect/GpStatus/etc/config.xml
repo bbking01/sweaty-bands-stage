@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sub@i95dev.com so we can send you a copy immediately.
+ *
+ * @category
+ * @package        I95DevConnect_GpStatus
+ * @Description    i95devconnet status config file to extend the core files
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2013 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+<config>
+    <modules>
+        <I95DevConnect_GpStatus>
+            <version>0.1.0</version>
+        </I95DevConnect_GpStatus>
+    </modules>
+    <frontend>
+        <routers>
+            <gpstatus>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_GpStatus</module>
+                    <frontName>gpstatus</frontName>
+                </args>
+            </gpstatus>
+        </routers> 
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <I95DevConnect_GpStatus_Adminhtml before="Mage_Adminhtml">I95DevConnect_GpStatus_Adminhtml</I95DevConnect_GpStatus_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+
+        <layout>
+            <updates>
+                <GpStatus>
+                    <file>gpstatus.xml</file>
+                </GpStatus>
+            </updates>
+        </layout>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <I95DevConnect_GpStatus>
+                                            <title>I95devConnect</title>
+                                        </I95DevConnect_GpStatus>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>  
+    
+    <global>
+        <blocks>
+
+            <gpstatus>
+                <class>I95DevConnect_GpStatus_Block</class>
+            </gpstatus>
+            <adminhtml>
+                <rewrite>
+                    <page_header>I95DevConnect_GpStatus_Block_Adminhtml_Page_Header</page_header>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <helpers>
+            <I95DevConnect_GpStatus>
+                <class>I95DevConnect_GpStatus_Helper</class>
+            </I95DevConnect_GpStatus>
+            <gpstatus>
+                <class>I95DevConnect_GpStatus_Helper</class>
+            </gpstatus>
+        </helpers>
+    </global>
+</config>

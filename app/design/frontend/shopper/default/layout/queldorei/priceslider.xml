@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<layout version="0.2.0">
+    <priceslider_slider_view>
+        <reference name="root">
+            <action method="setTemplate"><template>queldorei/priceslider/slider_root.phtml</template></action>
+        </reference>
+        <reference name="root">
+            <block type="priceslider/mainslider" name="main" template="queldorei/priceslider/slider_content_wrapper.phtml">
+                <block type="priceslider/slider" name="content" as="content" template="queldorei/priceslider/slider_content.phtml">
+                    <block type="priceslider/tool" name="toolbar" as="toolbar" template="queldorei/priceslider/slider_toolbar.phtml">
+                        <block type="priceslider/pager" name="slider_pager" as="slider_pager" template="queldorei/priceslider/slider_pager.phtml"/>
+                    </block>
+                </block>
+            </block>
+        </reference>
+    </priceslider_slider_view>
+    <catalog_category_layered translate="label">
+        <label>Catalog Category (Anchor)</label>
+        <reference name="catalog.leftnav">
+            <action method="setTemplate" ifconfig="shoppersettings/ajax/priceslider"><template>queldorei/priceslider/slider_layered_nav.phtml</template></action>
+        </reference>
+        <reference name="head">
+            <action method="addCss" ifconfig="shoppersettings/ajax/priceslider"><stylesheet>css/ui-lightness/jquery-ui-1.8.23.custom.css</stylesheet></action>
+            <action method="addJs" ifconfig="shoppersettings/ajax/priceslider"><script>queldorei/jquery-1.8.2.min.js</script></action>
+			<action method="addJs" ifconfig="shoppersettings/ajax/priceslider"><script>queldorei/jquery.noconflict.js</script></action>
+            <action method="addJs" ifconfig="shoppersettings/ajax/priceslider"><script>queldorei/jquery-ui-1.8.23.custom.min.js</script></action>
+	        <action method="addJs" ifconfig="shoppersettings/ajax/priceslider"><script>queldorei/jquery.ui.touch-punch.min.js</script></action>
+            <action method="addJs" ifconfig="shoppersettings/ajax/priceslider"><script>queldorei/jquery.priceslider.js</script></action>
+            <action method="addJs" ifconfig="shoppersettings/ajax/priceslider"><script>queldorei/jquery.cookie.js</script></action>
+            <action method="addJs" ifconfig="shoppersettings/ajax/priceslider"><script>queldorei/jquery.blockUI.js</script></action>
+        </reference>
+    </catalog_category_layered>
+</layout> 

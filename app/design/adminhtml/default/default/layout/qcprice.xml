@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <qcprice_adminhtml_qcprice_index>
+        <reference name="content">
+            <block type="qcprice/adminhtml_qcprice" name="qcprice" />
+        </reference>
+    </qcprice_adminhtml_qcprice_index>
+	<qcprice_adminhtml_qrange_index>
+        <reference name="content">
+            <block type="qcprice/adminhtml_qrange" name="qrange" />
+        </reference>
+    </qcprice_adminhtml_qrange_index>
+</layout>

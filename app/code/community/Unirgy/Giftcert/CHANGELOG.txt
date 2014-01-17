@@ -1,0 +1,139 @@
+===== 2.0.7 =====
+  * fixed refund process when there are certificates involved
+  * fixed non working report export
+  * fixed wrong setup string
+  * changed grid export to match import column headers
+===== 2.0.6 =====
+  * added option to disable coupon usage on per certificate base
+  * fixed bug in onestep observer
+  * made some UI changes
+===== 2.0.5 =====
+  * added some events to import process
+===== 2.0.4 =====
+  * Fixed potential order failure if expire days are too many, instead of throwing exception, set date to null, which is forever
+  * Fixed send on bug that will send already sent certificates
+  * fixed bug when scheduled certificates have no amount.
+===== 2.0.3 =====
+  * Fixed small bugs and typos
+  * Added set customerGroups to cert model
+  * Changed logic of removing certificate codes, not to throw an exception.
+  * Changed default values for some settings to be enabled, removed unused setting fields.
+  * updated en_US csv file.
+  * updated some product page styles to match default ones
+  * changed some code to add more 1.4.1.1 compatibility
+  * fixed send on save algorithm
+  * Updated locale file to include all strings
+  * fixed SQL foreign key error when saving certificate
+  * changed error messages for PDF preview not to raise exceptions
+===== 2.0.2 =====
+  * fixed potential bug in update file 1.2.2, it affects installations which miss 'default' product attribute set
+  * fixed possible injection bug caused by non escaped custom options values in Magento admin
+  * restored ability to show only enabled delivery option (either email, post or both)
+  * fix for bad formatted xml in config.xml, it caused exception when rendering invoice and credit memo totals
+  * fix, updated frontend and server validation for posted data
+===== 2.0.1 =====
+  * fixed bug with installer for older Magento rleases
+  * fixed bug in email scheduling
+===== 2.0.0 =====
+  * added option to disallow coupons alongside certificates
+  * fixed option to use certificate only on the store from which it was bought
+  * fixed, refunded orders now restore certificate amounts
+  * added option to limit certificate usage to specific customer group
+  * added option to schedule sending, now customer can choose when to send purchased certificate email
+  * added dedicated certificate input box, it can be used next to coupons box. It has to be manually added to cart template
+  * added option to configure url for balance check page
+  * added certificate usage reports
+  * fixed multiple small issues
+  * added option for each gift product or certificate to have their own email template, certificate inherit product settings
+  * changed how PDF settings are used. Now same PDF template can be assigned to multiple certificates.
+===== 1.2.3 =====
+  * fixed a bug for 1.6.2, which causes a block to be rendered in email template
+  * Fix a bug in 1.7, when retrieving media path
+  * fixed bug with quote endless loop if anything triggers collect totals during quote load
+===== 1.2.2 =====
+  * fixed bug with getConditions method not found
+  * added experimental option to exclude some totals from gift certificate coverage (shipping, tax etc)
+===== 1.2.1 =====
+  * fixed PDF website/store level configuration problem
+  * fixed notices of undefined indexes in some occasions
+  * fixed a bug with empty initial PDF settings,like after import
+  * added auto disabling PDF form inputs when use default is checked.
+  * fixed a bug, where added comments are not listed in history tab. Also a bug when certificate id is actually its code
+
+===== 1.2.0 =====
+  * Updated license handling to support Unirgy Installer
+
+===== 1.1.4 =====
+  * added an option to set allowed domains, this allows to have module not interfere with multiple domains on the same installation
+  * added global override checkbox for PDF settings on certificate and product level
+  * added strftime formatting option for expire_at field
+  * fixed pdf printout text positioning
+  * fixed pdf printout font variants
+  * fixed email issue when adding user to history
+
+===== 1.1.3 =====
+  * Improved pdf settings page
+  * Added pdf settings to each certificate
+  * Added pdf settings when creating certificates, allowing to batch set PDF settings
+  * Added conditions settings when creating certificates
+  * Added pdf settings to gift certificate products, all certificates from that product inherit them
+  * Added conditions settings to gift certificate products, all certificates from that product inherit them
+  * Updated us locale file.
+  * added ability to capture orders when paid completely with certificates
+  * added conditions check upon each time cart page is reloaded, to avoid breaking conditions after certificate is applied
+  * fixed issues with One step checkout module
+  * fixed some translation calls to other modules that were not correct
+  * fixed error when using one fixed amount for certificate, it was being converted to integer always
+
+===== 1.1.2 =====
+  * Fix layered navigation with negative prices.
+  * Added minimal possible price to product.
+  * Fix showing Gift Certificate total even when no GC used
+  * Fix customer frontend invoice details do not show GC used information
+  * Fix, when purchasing multiple certificates of same kind, only one PDF is sent
+  * Fix, changed PDF settings fieldset name construction
+  * Fix, typos in some files
+  * Fix, OnestepObserver, was preventing non certificates to be used
+  * Fix, sidebar cart block shows total 0 with giftcerts
+  * Improvement, cleaned up some code in Observer.php
+  * Fix, filtering by certificate ID is causing an error.
+  * Fix, wrong setup resource string used in sql update file
+  * Refactored email sending process
+  * Fixed faulty logic for PDFs
+  * Changed install file
+
+===== 1.1.1 =====
+  * Fix for certificate collection addHistory method which was adding
+  all imported certificates to collection at all times.
+
+===== 1.1.0 =====
+  * Added import capabilities.
+  * Fixed PDF draw text error
+
+===== 1.0.2 =====
+  * Fixed PDF settings page for Magento 1.4.0.1 and earlier
+  * Fixed fatal error of non existing Link form element.
+
+===== 1.0.1 =====
+  * Added OnestepCheckout observer, supporting OnestepCheckout extension
+  * Added convenience method for removing certificate from quote.
+  * Fixed update checkout payment methods to work with 1.4, 1.6rc1 as well.
+  * Fixed some checks added to make sure _title() controller method exists. 1.3 compatibility fix
+  * Fixed added try catch block for PDF download link, up until 1.4.1 there is no Varien Link element
+  * Fixed added method_exist check to PDF settings form, fix for Magento before 1.4.2
+  * Fixed PDF page size for older ZF PDF versions.
+  * Fixed paypal checkout for Magento version 1.4.1.1 and earlier
+
+===== 1.0.0 =====
+  * Added external API interface
+  * Added PDF printout option
+  * Added conditions for gift certificates
+  * Added 'Save and Send' button
+  * Added editing GC product after it has been added to cart, preserves previously configured values
+  * Changed, remove order id field when admin creates certificate
+  * Fixed compatibility with CE 1.5.1 and CE 1.6rc1
+  * Fixed problem with payment method display when order is fully covered by GC
+  * Fixed PayPal express error, amount mismatch
+  * Fixed PayPal standard error, discount not transferred
+  * Fixed Authorize.net error, discount not transferred
+  * Fixed Configuring certificate to use currency other than configured currencies triggers fatal error

@@ -1,0 +1,110 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+<?php
+$summaryForCustomer = $this->getSummaryForCustomer();
+$textForPoints = Mage::helper('points/config')->getPointUnitName();
+?>
+<?php if($this->hasMethods()): ?>
+<div id="order-billing_method_form">
+    <dl class="payment-methods">
+    <?php if ($this->pointsSectionAvailable()): ?>
+        <dt>
+        <input type="checkbox" name="payment[use_points]" id="use_points" checked="checked" onchange="pointsAmountChanged()"/>
+        <label for="use_points"><?php echo $this->__('Use my %s', $textForPoints) ?></label>
+        </dt>
+        <dt>
+        <input type="text" name="payment[points_amount]" id="points_amount" onchange="pointsAmountChanged()" />
+        <label for="points_amount"><?php echo Mage::helper('points')->__('of %s %s (%s) available', $summaryForCustomer->getPoints(), $textForPoints, $this->getMoneyForPoints()) ?></label>
+        </dt>
+    <?php endif; ?>
+    <?php
+        $_methods       = $this->getMethods();
+        $_methodsCount  = count($_methods);
+        $_counter = 0;
+    ?>
+    <?php foreach ($_methods as $_method): $_code = $_method->getCode(); $_counter++; ?>
+        <dt>
+        <?php if ($_methodsCount > 1): ?>
+            <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if($this->getSelectedMethodCode()==$_code): ?> checked="checked"<?php endif; ?> <?php if ($_counter == $_methodsCount) : ?>class="validate-one-required-by-name"<?php endif;?>/>
+        <?php else :?>
+            <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" /></span>
+        <?php endif;?>
+
+            <label for="p_method_<?php echo $_code ?>"><?php echo $_method->getTitle() ?></label>
+        </dt>
+        <dd>
+            <?php echo $this->getChildHtml('payment.method.'.$_code) ?>
+        </dd>
+    <?php endforeach; ?>
+    </dl>
+</div>
+<script type="text/javascript">order.setPaymentMethod('<?php echo $this->getSelectedMethodCode() ?>')</script>
+<?php if ($this->pointsSectionAvailable()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var customerPoints = <?php echo $summaryForCustomer->getPoints() ?>;
+        var neededPoints = <?php echo $this->getNeededPoints() ?>;
+        var limitedPoints = <?php echo $this->getLimitedPoints() ?>;
+
+        $('use_points').disabled = $('points_amount').disabled = false;
+        if (typeof(order.awPointsAvailable) == 'undefined') {
+            order.awPointsAvailable = Math.abs(Math.min(customerPoints, neededPoints, limitedPoints)).toFixed(0);
+        }
+        $('points_amount').value = order.awPointsAvailable;
+
+        var pointsAmountChanged = function(){
+            $('use_points').disabled = $('points_amount').disabled = false;
+            order.awPointsAvailable = $('points_amount').value;
+            if (isNaN(order.awPointsAvailable)) order.awPointsAvailable = 0;
+            order.awPointsAvailable = Math.min(Math.abs(order.awPointsAvailable), customerPoints, neededPoints, limitedPoints);
+            $('points_amount').value = Math.abs(order.awPointsAvailable).toFixed(0);
+            new Ajax.Request(<?php echo Zend_Json::encode($this->urlToPointsSave()); ?>, {
+                method: 'get',
+                parameters: {
+                    use_points: $('use_points').getValue(),
+                    points_amount: $('points_amount').getValue()
+                },
+                onSuccess: function() {
+                    order.loadArea(['totals'], true);
+                }
+            });
+        }
+        var oldSwitch = payment.switchMethod;
+        payment.switchMethod = function(method) {
+            oldSwitch(method);
+            $('use_points').disabled = $('points_amount').disabled = false;
+        }
+        //]]>
+    </script>
+<?php endif; ?>
+<?php else: ?>
+    <div><?php echo Mage::helper('sales')->__('No Payment Methods') ?></div>
+<?php endif; ?>
+

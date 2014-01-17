@@ -1,0 +1,93 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ */
+?>
+<?php $custom_tab = Mage::getModel('cms/block')
+	->setStoreId( Mage::app()->getStore()->getId() )
+	->load('shopper_custom_tab'); ?>
+
+<div class="product-tabs-container clearfix">
+
+	<ul class="product-tabs">
+	    <?php foreach ($this->getTabs() as $_index => $_tab): ?>
+	        <?php if($this->getChildHtml($_tab['alias'])): ?>
+	            <li id="product_tabs_<?php echo $_tab['alias'] ?>" class="<?php echo !$_index?' first':(($_index==count($this->getTabs())-1)?' last':'')?>"><a href="#"><?php echo $_tab['title']?></a></li>
+	        <?php endif; ?>
+	    <?php endforeach; ?>
+	    <?php if($custom_tab->getIsActive()): ?>
+	        <li id="product_tabs_custom"><a href="#"><?php echo $custom_tab->getTitle(); ?></a></li>
+	    <?php endif; ?>
+	</ul>
+	<?php foreach ($this->getTabs() as $_index => $_tab): ?>
+	    <?php if($this->getChildHtml($_tab['alias'])): ?>
+			<h2 id="product_acc_<?php echo $_tab['alias'] ?>" class="tab-heading"><a href="#"><?php echo $_tab['title']?></a></h2>
+	        <div class="product-tabs-content tabs-content" id="product_tabs_<?php echo $_tab['alias'] ?>_contents"><?php echo $this->getChildHtml($_tab['alias']) ?></div>
+	    <?php endif; ?>
+	<?php endforeach; ?>
+	<?php if($custom_tab->getIsActive()): ?>
+		<h2 id="product_acc_custom" class="tab-heading"><a href="#"><?php echo $custom_tab->getTitle();?></a></h2>
+	    <div class="product-tabs-content tabs-content" id="product_tabs_custom_contents"><?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_custom_tab')->toHtml() ?></div>
+<?php endif; ?>
+
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+Varien.Tabs = Class.create();
+Varien.Tabs.prototype = {
+  initialize: function(selector) {
+    var self=this;
+    $$(selector+' a').each(this.initTab.bind(this));
+	this.showContent($$(selector+' a')[0]);
+  },
+
+  initTab: function(el) {
+      el.href = 'javascript:void(0)';
+      el.observe('click', this.showContent.bind(this, el));
+  },
+
+  showContent: function(a) {
+    var li = $(a.parentNode), ul = $(li.parentNode);
+    ul.select('li', 'ol').each(function(el){
+      var contents = $(el.id+'_contents');
+      if (el==li) {
+        el.addClassName('active');
+        contents.show();
+      } else {
+        el.removeClassName('active');
+        contents.hide();
+      }
+    });
+  }
+}
+new Varien.Tabs('.product-tabs');
+//]]>
+</script>

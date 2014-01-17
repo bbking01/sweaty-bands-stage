@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <magestore translate="title" module="clipartmanagement">
+            <title>Personalize</title>
+            <sort_order>15</sort_order>
+            <children>
+                <clipartmanagement module="clipartmanagement">
+					<title>Manage Cliparts</title>
+					<sort_order>30</sort_order>               
+					
+					<children>
+						<clipartcategory module="clipartmanagement">
+							<title>Manage Clipart Category</title>
+							<sort_order>0</sort_order>
+							<action>clipartmanagement/adminhtml_clipartcategory</action>
+						</clipartcategory>
+					</children>
+					<children>
+						<clipart module="clipartmanagement">
+							<title>Manage Clipart</title>
+							<sort_order>1</sort_order>
+							<action>clipartmanagement/adminhtml_clipart</action>
+						</clipart>
+					</children>				
+										
+				</clipartmanagement>
+            </children>
+        </magestore>
+    </menu>
+</config>

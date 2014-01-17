@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<customer_account>
+		<reference name="left">
+			<block type="amperm/description" name="amperm_description" after="customer_account_navigation" template="amperm/description.phtml">
+				<action method="setPlacement"><placement>customer</placement></action>
+			</block>
+		</reference>
+	</customer_account>
+	<checkout_onepage_index>
+		<reference name="right">
+			<block type="amperm/description" name="amperm_description" after="customer_account_navigation" template="amperm/description.phtml">
+				<action method="setPlacement"><placement>checkout</placement></action>
+			</block>
+		</reference>
+	</checkout_onepage_index>
+	<checkout_onepage_success>
+		<reference name="right">
+			<block type="amperm/description" name="amperm_description" after="customer_account_navigation" template="amperm/description.phtml">
+				<action method="setPlacement"><placement>checkout</placement></action>
+			</block>
+		</reference>
+	</checkout_onepage_success>
+	<checkout_onepage_failure>
+		<reference name="right">
+			<block type="amperm/description" name="amperm_description" after="customer_account_navigation" template="amperm/description.phtml">
+				<action method="setPlacement"><placement>checkout</placement></action>
+			</block>
+		</reference>
+	</checkout_onepage_failure> 
+</layout>

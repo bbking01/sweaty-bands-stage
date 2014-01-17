@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<widgets>
+    <custom_block type="awautorelated/widget_block" translate="name description" module="awautorelated">
+        <name>AW Automatic Related Products Block</name>
+        <is_email_compatible>0</is_email_compatible>
+        <parameters>
+            <block_id type="complex">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Block</label>
+                <type>label</type>
+                <sort_order>10</sort_order>
+                <helper_block>
+                    <type>awautorelated/adminhtml_widget_blockchooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select block...</open>
+                        </button>
+                    </data>
+                </helper_block>
+            </block_id>
+            <product_id translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Product</label>
+                <description>This field should be filled if block type is "Product Page block"</description>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_product_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Product...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>20</sort_order>
+            </product_id>
+            <category_id translate="label">
+                <visible>1</visible>
+                <required>0</required>
+                <label>Category</label>
+                <description>This field should be filled if block type is "Category Page block"</description>
+                <type>label</type>
+                <helper_block>
+                    <type>adminhtml/catalog_category_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Category...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>30</sort_order>
+            </category_id>
+        </parameters>
+    </custom_block>
+</widgets>

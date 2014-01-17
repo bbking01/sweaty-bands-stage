@@ -1,0 +1,76 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+
+
+<div class="page-head">
+    <h3><?php echo $this->getTitle() ?></h3>
+</div>
+<form id="aw_sendinvitation"  action="" method="post">
+    <fieldset>
+        <?php if ($maxPerSend = (int) $this->getMaxInvitationsPerSend()): ?>
+            <div class="aw_legend"><?php echo $this->__('Invite your friends by entering their email addresses below'); ?></div>
+            <ul class="form-list">
+                <li>
+                    <label for="email_1">
+                        <em class="required">*</em>&nbsp;1:
+                    </label>                        
+                    <input tabindex="1" name="email[]" id="email_1" title="<?php echo $this->__('Email') ?>" value="" class="required-entry input-text validate-email aw_points_input" type="text" />
+                </li>                
+                <?php for ($_index = 2; $_index <= $maxPerSend; $_index++): ?>
+                    <li>
+                        <label for="email_<?php echo $_index ?>">
+                            <?php echo $_index; ?>:
+                        </label>                      
+                        <input tabindex="<?php echo $_index ?>" name="email[]" id="email_<?php echo $_index ?>" title="<?php echo $this->__('Email') ?>" value="" class="input-text validate-email aw_points_input" type="text" />
+                    </li>
+                <?php endfor; ?>
+                <li>
+                    <label for="message"><?php echo $this->__('Message'); ?>: </label>                        
+                    <textarea tabindex="<?php echo $_index + 1 ?>" name="message" id="message" title="<?php echo $this->__('Message') ?>"  class="input-text aw_points_input" rows="5" cols="5"></textarea>
+                </li>
+            </ul>
+            <p class="required">* Required Fields</p>
+        <?php endif; ?>                 
+        <div class="button-set">
+            <button type="submit" title="<?php echo $this->__('Send invitation') ?>" class="form-button">
+                <span>
+                    <span>
+                        <?php echo $this->__('Send invitation') ?>
+                    </span>
+                </span>
+            </button>
+            <p class="left"><a href="<?php echo $this->getBackUrl(); ?>"><small>&laquo; </small><?php echo $this->__('Back to Invitations') ?></a></p>
+        </div>
+    </fieldset>
+</form>
+<script type="text/javascript">
+    var contactForm = new VarienForm('aw_sendinvitation', true);
+</script>
+

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <gallery_admin_admin_gallery_index>
+        <reference name="content">
+		    <block type="gallery/admin_gallery" name="gallery" />
+        </reference>
+    </gallery_admin_admin_gallery_index>  
+  
+    <gallery_admin_admin_album_index>
+        <reference name="content">		
+            <block type="gallery/admin_album" name="album" />
+        </reference>
+    </gallery_admin_admin_album_index>
+	
+	<gallery_admin_admin_album_edit>
+        <reference name="left">
+            <block type="adminhtml/store_switcher" name="store_switcher" template="store/switcher.phtml" />
+        </reference>
+    </gallery_admin_admin_album_edit>
+	
+	<gallery_admin_admin_ideasimport_index>
+        <reference name="content">
+		    <block type="gallery/admin_ideasimport" name="ideasimport" />
+        </reference>
+    </gallery_admin_admin_ideasimport_index>	
+	
+</layout>

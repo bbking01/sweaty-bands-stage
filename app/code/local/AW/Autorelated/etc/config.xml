@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <AW_Autorelated>
+            <version>2.3.1</version><platform>ce</platform>
+        </AW_Autorelated>
+    </modules>
+    <crontab>
+        <jobs>
+            <aw_arp_cron>
+                <schedule>
+                    <cron_expr>*/5 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>awautorelated/cache::run</model>
+                </run>
+            </aw_arp_cron>
+        </jobs>
+    </crontab>
+    <frontend>
+        <layout>
+            <updates>
+                <awautorelated module="AW_Autorelated">
+                    <file>aw_autorelated.xml</file>
+                </awautorelated>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <AW_Autorelated>
+                    <files>
+                        <default>AW_Autorelated.csv</default>
+                    </files>
+                </AW_Autorelated>
+            </modules>
+        </translate>
+    </frontend>
+    <global>
+        <helpers>
+            <awautorelated>
+                <class>AW_Autorelated_Helper</class>
+            </awautorelated>
+        </helpers>
+        <models>
+            <awautorelated>
+                <class>AW_Autorelated_Model</class>
+                <resourceModel>awautorelated_mysql4</resourceModel>
+            </awautorelated>
+            <awautorelated_mysql4>
+                <class>AW_Autorelated_Model_Mysql4</class>
+                <entities>
+                    <blocks>
+                        <table>aw_arp_blocks</table>
+                    </blocks>
+                    <rule>
+                        <table>aw_arp_rule</table>
+                    </rule>
+                </entities>
+            </awautorelated_mysql4>
+            <salesrule>
+                <rewrite>
+                    <rule_condition_product_found>AW_Autorelated_Model_Salesrule_Rule_Condition_Product_Found</rule_condition_product_found>
+                </rewrite>
+            </salesrule>
+        </models>
+        <resources>
+            <awautorelated_setup>
+                <setup>
+                    <module>AW_Autorelated</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </awautorelated_setup>
+            <awautorelated_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </awautorelated_write>
+            <awautorelated_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </awautorelated_read>
+        </resources>
+        <blocks>
+            <awautorelated>
+                <class>AW_Autorelated_Block</class>
+            </awautorelated>
+        </blocks>
+        <events>
+            <controller_action_layout_render_before_checkout_cart_index>
+                <observers>
+                    <awauterelated_rc>
+                        <class>awautorelated/observer</class>
+                        <method>replaceCrossselsBlock</method>
+                    </awauterelated_rc>
+                </observers>
+            </controller_action_layout_render_before_checkout_cart_index>
+        </events>
+    </global>
+    <admin>
+        <routers>
+            <awautorelated_admin>
+                <use>admin</use>
+                <args>
+                    <module>AW_Autorelated</module>
+                    <frontName>admin_awautorelated</frontName>
+                </args>
+            </awautorelated_admin>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <catalog>
+                <children>
+                    <awautorelated module="awautorelated">
+                        <title>Automatic Related Products</title>
+                        <sort_order>10</sort_order>
+                        <children>
+                            <new module="awautorelated">
+                                <title>Add Block</title>
+                                <sort_order>10</sort_order>
+                                <action>awautorelated_admin/adminhtml_blocksgrid/new</action>
+                            </new>
+                            <manage module="awautorelated">
+                                <title>Manage Blocks</title>
+                                <sort_order>20</sort_order>
+                                <action>awautorelated_admin/adminhtml_blocksgrid/list</action>
+                            </manage>
+                            <settings module="awautorelated">
+                                <title>Configuration</title>
+                                <sort_order>30</sort_order>
+                                <action>adminhtml/system_config/edit/section/awautorelated</action>
+                            </settings>
+                        </children>
+                    </awautorelated>
+                </children>
+            </catalog>
+        </menu>
+        <enterprise>
+            <admingws>
+                <collection_load_before>
+                    <awautorelated__blocks_collection>addStoreFilter</awautorelated__blocks_collection>
+                </collection_load_before>
+            </admingws>
+        </enterprise>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <awautorelated module="awautorelated">
+                                    <title>Automatic Related Products</title>
+                                    <sort_order>10</sort_order>
+                                    <children>
+                                        <new module="awautorelated">
+                                            <title>Manage Blocks</title>
+                                            <sort_order>10</sort_order>
+                                        </new>
+                                        <manage module="awautorelated">
+                                            <title>View Blocks</title>
+                                            <sort_order>20</sort_order>
+                                        </manage>
+                                        <settings module="awautorelated">
+                                            <title>Settings Quick Link</title>
+                                            <sort_order>30</sort_order>
+                                        </settings>
+                                    </children>
+                                </awautorelated>
+                            </children>
+                        </catalog>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <awautorelated>
+                                            <title>Automatic Related Products section</title>
+                                        </awautorelated>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <layout>
+            <updates>
+                <awautorelated module="awautorelated">
+                    <file>aw_autorelated.xml</file>
+                </awautorelated>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <AW_Autorelated>
+                    <files>
+                        <default>AW_Autorelated.csv</default>
+                    </files>
+                </AW_Autorelated>
+            </modules>
+        </translate>
+    </adminhtml>
+    <default>
+        <awautorelated>
+            <general>
+                <replacenative>0</replacenative>
+                <pcount>10</pcount>
+            </general>
+        </awautorelated>
+    </default>
+    <phpunit>
+        <suite>
+            <modules>
+                <AW_Autorelated/>
+            </modules>
+        </suite>
+    </phpunit>
+</config>

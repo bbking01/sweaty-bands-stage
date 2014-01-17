@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!--
+/**
+* i95Dev.com
+* 
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95devconnect.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95devconnect.com so we can send you a copy immediately.
+*
+* @category       
+* @package       I95DevConnect_CashOnDelivery
+* @Description    
+* @author         I95DevConnect
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95devconnect.com/LICENSE-M1.txt
+*/
+-->
+<config>
+    <modules>
+        <I95DevConnect_CashOnDelivery>
+            <version>0.1.0</version>
+        </I95DevConnect_CashOnDelivery>
+    </modules>
+	  <frontend>
+         <layout>
+            <updates>
+                <cashondelivery>
+                    <file>cashondelivery.xml</file>
+                </cashondelivery>
+            </updates>
+        </layout>
+		</frontend> 
+
+		<global>
+        <models>
+            <i95devconnect_cashondelivery>
+                <class>I95DevConnect_CashOnDelivery_Model</class>
+            </i95devconnect_cashondelivery>
+			</models>
+			
+            <helpers>
+            <i95devconnect_cashondelivery>
+                <class>I95DevConnect_CashOnDelivery_Helper</class>
+            </i95devconnect_cashondelivery>
+        </helpers>
+			</global>
+     <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <i95devconnect_cashondelivery>
+                                            <title>Cash On Delivery</title>
+                                        </i95devconnect_cashondelivery>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+    </adminhtml>
+	<default>
+        <payment>
+           <cashondelivery>
+            <!-- by default this payment method is inactive -->
+            <active>1</active>
+            <!-- model to handle logic for this payment method -->
+            <model>i95devconnect_cashondelivery/cashondelivery</model>
+            <!-- order status for new orders paid by this payment method -->
+            <order_status>pending</order_status>
+            <!-- default title for payment checkout page and order view page -->
+            <title>Cash On Delivery</title>
+            </cashondelivery>
+        </payment>
+    </default>
+  
+</config>

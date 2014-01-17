@@ -1,0 +1,23 @@
+<!--@subject Your withdrawal request #{{var request_id}} succeeded! @-->
+<!--@vars
+{"store url=\"\"":"Store Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:50px; padding:0;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td valign="top" style="padding:20px 0 20px 0">
+                Dear {{var customer_firstname}} {{var customer_lastname}}!<br><br>
+                Your request #{{var request_id}} for {{var amount_in_currency}} is marked as succeded.<br>
+                If you have any questions please contact administrator.
+                It can be viewed at <a href="{{var link_to_withdrawal}}">affiliate page</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

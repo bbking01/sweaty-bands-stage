@@ -1,0 +1,14 @@
+id1:
+ message: "Invitation for aw@example.com has been sent."
+id2:
+ message: "Invitation for aw@example.com is not sent. Please try later."
+id3:
+ message: "Invitation for email: aw@example.com has already been  registered"
+id4:
+ message: "Customer with email: aw@example.com has already been  registered"
+id5:
+ message: null
+id6:
+ message: null
+id7:
+ message: null

@@ -1,0 +1,91 @@
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ *
+ * @category   AW
+ * @package    AW_Ajaxcatalog
+ * @copyright  Copyright (c) 2011 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/LICENSE-M1.txt
+ */ 
+
+.awac-button {
+    height: 40px;
+    margin-top: 7px;
+    text-align: center;
+}
+
+.awac-button  .button-label-container {
+    height: 30px;
+    width: 300px;
+}
+
+.awac-button .button-label {
+    background: url("../images/button-bkg.png") repeat-x scroll 0 2px #EEEEEE;
+    border-color: #CCCCCC #999999 #999999 #CCCCCC;
+    border-style: solid;
+    border-width: 1px;
+    cursor: pointer;
+    height: 24px;
+    margin-top: 14px;
+    padding-top: 5px;
+    text-align: center;
+    width: 300px;
+}
+
+.awac-button.hidden * {
+    display: none;
+}
+
+.awac-button .button-label span {
+    font-size: 14px;
+}
+
+.awac-button .button-label span.loading {
+    display: none;
+}
+
+.awac-button .button-label.loading span.loading {
+    display: block;
+}
+
+.awac-button .button-label.loading span.label {
+    display: none;
+}
+
+.robot-link {
+    position: absolute;
+    left: -1000px;
+}
+
+.awac-loader {
+    text-align: center;
+    margin-top: 7px;
+}
+
+.awac-loader .loader-label {
+    display: none;
+}
+
+.awac-loader  .loader-label.loading {
+    display: block;
+}
+
+.awac-loader .loader-label img.loading {
+    background: url("../images/ajax-loader.gif") no-repeat scroll 0 0 transparent;    
+    width: 16px;
+    height: 16px;
+}
+
+.awac-catalog-container .c-list {
+    padding-top: 0px;    
+}
+
+.awac-catalog-container {
+    padding-top: 10px;
+}

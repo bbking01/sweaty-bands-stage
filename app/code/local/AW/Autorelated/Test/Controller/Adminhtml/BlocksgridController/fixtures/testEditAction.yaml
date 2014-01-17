@@ -1,0 +1,6 @@
+tables:
+ awautorelated/blocks:
+  - id: 1
+    type: 1
+  - id: 2
+    type: 2

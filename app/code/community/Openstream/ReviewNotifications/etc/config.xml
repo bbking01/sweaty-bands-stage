@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Openstream_ReviewNotifications>
+			<version>0.0.1</version>
+		</Openstream_ReviewNotifications>
+	</modules>
+    <global>
+		<helpers>
+			<reviewnotifications>
+				<class>Openstream_ReviewNotifications_Helper</class>
+			</reviewnotifications>
+		</helpers>
+		<template>
+			<email>
+				<reviewnotifications_admin_notification_email_template translate="label" module="reviewnotifications">
+					<label>New review notification (admin)</label>
+					<file>reviewnotifications_admin_notification_template.html</file>
+					<type>html</type>
+				</reviewnotifications_admin_notification_email_template>
+			</email>
+		</template>
+	</global>
+    <frontend>
+    	<events>
+			<review_save_before>
+				<observers>
+					<openstream_reviewnotifications_observer>
+						<type>singleton</type>
+						<class>Openstream_ReviewNotifications_Model_Observer</class>
+						<method>sendNewReviewNotification</method>
+					</openstream_reviewnotifications_observer>
+				</observers>
+			</review_save_before>
+		</events>
+    </frontend>
+</config>

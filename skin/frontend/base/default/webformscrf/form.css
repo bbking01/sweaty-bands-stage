@@ -1,0 +1,12 @@
+.webformscrf-onepage-fieldset{
+	padding:3px 5px;
+	font-weight:bold;
+	margin:10px 0;
+	width:525px;
+	background:#eee;
+	color:#666;
+}
+
+.std ul,.std ul ul {
+	list-style-type: none;
+}

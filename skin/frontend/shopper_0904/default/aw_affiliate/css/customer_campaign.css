@@ -1,0 +1,65 @@
+.error-messages{
+    text-align:center;
+    margin-bottom: 5px;
+    padding: 5px 0px;
+    border:1px solid #f16048 !important;
+    color:#df280a !important;
+    background:#faebe7;
+}
+
+.generate-link{
+    position: relative;
+}
+
+.generate-link .legend{
+    z-index: 220;
+}
+.generate-link input{
+    width:98%;
+}
+
+.generate-link textarea{
+     width: 50%;
+     height: 70px;
+ }
+
+ .generate-link label{
+     display: block;
+ }
+
+.generate-link .row{
+    margin-bottom: 10px;
+}
+
+.generate-link .button-set{
+    margin-bottom: 25px;
+}
+
+/* ++ Overlay --- */
+.aw-overlay-popup{
+    background-color:#000000;
+    opacity:0.6;
+    filter:Alpha(Opacity=60);
+    width:100%;
+    height:100%;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 190;
+}
+
+#waiting-message {
+    width:200px;
+    height: 55px;
+    border-radius: 5px;
+    position: absolute;
+    z-index:200 !important;
+    background-color:#fff;
+    background-image: url('../images/ajax-loader.gif');
+    background-position: center 37px;
+    background-repeat: no-repeat;
+    padding:15px;
+    border:1px solid #ccc;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+}

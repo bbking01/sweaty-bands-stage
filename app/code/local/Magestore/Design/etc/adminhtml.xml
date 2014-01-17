@@ -1,0 +1,138 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestorento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magestorento to newer
+ * versions in the future. If you wish to customize Magestorento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   Magestore
+ * @package    Magestore_Design
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+
+<config>
+    <modules>
+        <Magestore_Design>
+            <version>0.3.0</version>
+        </Magestore_Design>
+    </modules>
+
+	<frontend>
+	    <routers>
+				<design>
+					<use>standard</use>
+					<args>
+						<module>Magestore_Design</module>
+						<frontName>design</frontName>
+					</args>
+				</design>
+			</routers>
+        <layout>
+            <updates>
+                <design>
+                    <file>design.xml</file>
+                </design>
+            </updates>
+        </layout>
+    </frontend>   
+	<admin>
+        <routers>
+            <design_admin>
+                <use>admin</use>
+                <args>
+                    <module>Magestore_Design</module>
+                    <frontName>design_admin</frontName>
+                </args>
+            </design_admin>
+        </routers>
+    </admin>
+    <global>
+		
+    <models>
+            <design>
+                <class>Magestore_Design_Model</class>
+                <resourceModel>design_mysql4</resourceModel>
+            </design>
+            <design_mysql4>
+                <class>Magestore_Design_Model_Mysql4</class>                
+				<entities>
+				<savedesign>
+					<table>save_design</table>
+				</savedesign>
+				<userimage>
+					<table>user_cliparts</table>
+				</userimage>
+				</entities>
+            </design_mysql4>
+        </models>
+        <resources>
+            
+			<design_setup>
+                <setup>
+                    <module>Magestore_Design</module>
+			    	<class>Magestore_Design_Model_Resource_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </design_setup>
+			
+            <design_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </design_write>
+            <design_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </design_read>
+        </resources>
+        <blocks>
+            <design>
+                <class>Magestore_Design_Block</class>
+            </design>
+        </blocks>
+        <helpers>
+            <design>
+                <class>Magestore_Design_Helper</class>
+            </design>
+        </helpers>
+    </global>
+	<acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <designtool_options translate="title" module="design">
+                                        <title>Designtool Configurations</title>
+                                        <sort_order>50</sort_order>
+                                    </designtool_options>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

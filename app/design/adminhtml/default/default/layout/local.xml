@@ -1,0 +1,8 @@
+<layout>
+    <default>
+<!-- Prevent magento from complaining about security
+     DCS -->
+        <remove name="notification_security" />
+        <remove name="notification_survey" />
+    </default>
+</layout>

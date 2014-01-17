@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<config>
+	<modules>
+        <Magestore_Checkoutcart>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Magestore_Checkoutcart>
+	</modules>	
+	<modules>
+		<Magestore_Sales>
+			<active>true</active>
+			<codePool>local</codePool>
+		</Magestore_Sales>
+	</modules>	
+</config>

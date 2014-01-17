@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magestore_Designideamanagement extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Magestore
+ * @package		Magestore_Designideamanagement
+ * @copyright  	Copyright (c) 2013
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<gallery translate="title" module="gallery">
+										<title>Manage Designidea</title>
+									</gallery>
+								</children>
+							</config>
+						</children>
+					</system>
+					<magestore>
+						<children>
+							<gallery translate="title" module="gallery">
+								<title>Manage Designidea</title>
+								<children>
+									<albums translate="title" module="gallery">
+										<title>Manage Ideas Categories</title>
+									</albums>
+									<photos translate="title" module="gallery">
+										<title>Manage Ideas</title>
+									</photos>
+									<import translate="title" module="gallery">
+										<title>Import Design Ideas/ Category</title>										
+									</import>
+								</children>
+							</gallery>
+						</children>
+					</magestore>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<menu>
+		<magestore>
+			<children>
+				<gallery translate="title" module="gallery">
+					<title>Manage Designidea</title>
+					<sort_order>100</sort_order>
+					<depends>
+						<module>Magestore_Gallery</module>
+					</depends>
+					<children>
+						<albums translate="title" module="gallery">
+							<title>Manage Ideas Categories</title>
+							<action>gallery_admin/admin_album</action>
+							<sort_order>0</sort_order>
+						</albums>
+						<photos translate="title" module="gallery">
+							<title>Manage Ideas</title>
+							<action>gallery_admin/admin_gallery</action>
+							<sort_order>10</sort_order>
+						</photos>
+						<import module="gallery">
+								<title>Import Design Ideas/ Category</title>
+								<sort_order>20</sort_order>
+								<action>gallery_admin/admin_ideasimport</action>
+						</import>
+					</children>
+				</gallery>
+			</children>
+		</magestore>
+	</menu>
+</config>

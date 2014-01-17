@@ -1,0 +1,81 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @version    1.0.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+
+/**
+ * @var $this AW_Affiliate_Block_Customer_Withdrawal_Form
+ */
+
+?>
+<div id="withdrawal-request-form-container">
+    <div class="aw-overlay-popup"></div>
+    <form action="<?php echo $this->getAction() ?>" method="post" id="withdrawal-request-form" enctype="multipart/form-data">
+        <div id="aw-affiliate-waiting-block">
+            <span><?php echo $this->__("Request will be saved..."); ?> </span>
+        </div>
+        <div class="fieldset">
+            <h2 class="legend"><?php echo Mage::helper('awaffiliate')->__('Withdrawal Request')?></h2>
+            <ul class="form-list">
+                <li>
+                    <label class="required" for="amount"><em>*</em><?php echo Mage::helper('awaffiliate')->__('Amount')?></label>
+                    <div class="input-box">
+                        <span class="currency""><?php echo $this->getCurrencyCode(); ?></span>
+                        <input type="text" class="input-text required-entry validate-greater-than-zero" value="<?php echo $this->getDefaultAmount(); ?>" title="<?php echo Mage::helper('awaffiliate')->__('Amount')?>" id="amount" name="amount">
+                    </div>
+                </li>
+                <li>
+                    <label class="required" for="amount"><?php echo Mage::helper('awaffiliate')->__('Details')?></label>
+                    <div class="input-box">
+                        <textarea class="input-text" title="<?php echo Mage::helper('awaffiliate')->__('Details')?>" id="details" name="details"><?php echo $this->getDefaultDetails();?></textarea>
+                        <span class="notice"><?php echo $this->__('Please, provide additional information, such as payment method');?>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="buttons-set">
+            <p class="required"><?php echo Mage::helper('awaffiliate')->__('* Required Fields')?></p>
+            <button id="withdrawal-request-form-submit" class="button" title="<?php echo Mage::helper('awaffiliate')->__('Submit')?>" type="button">
+                <span><span><?php echo Mage::helper('awaffiliate')->__('Submit')?></span></span>
+            </button>
+            <button id="withdrawal-request-form-cancel" class="button" title="<?php echo Mage::helper('awaffiliate')->__('Cancel')?>" type="button">
+                <span><span><?php echo Mage::helper('awaffiliate')->__('Cancel')?></span></span>
+            </button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        var config = {
+            container: 'withdrawal-request-form-container',
+            form: 'withdrawal-request-form',
+            waitingBlock: 'aw-affiliate-waiting-block',
+            cancelEl: 'withdrawal-request-form-cancel',
+            submitEl: 'withdrawal-request-form-submit',
+            ajaxJsError: '<?php echo $this->__('Error occurred');?>'
+        };
+        AWWithdrawalRequest.initialize(config);
+    </script>
+</div>

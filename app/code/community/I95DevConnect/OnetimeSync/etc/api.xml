@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_OnetimeSync
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <api>
+        <resources>
+            <i95devconnect_onetimesync translate="title"  module="I95DevConnect_OnetimeSync">
+                <model>I95DevConnect_OnetimeSync_Model_Onetimesync_Api</model>
+                <title>Request i95DevConnect Extension data</title>
+                <acl>I95DevConnect/OnetimeSync</acl>
+                <methods>
+		            <apiInfo translate="title" module="I95DevConnect_OnetimeSync">
+	                    <title>Retrieve cart data</title>
+       	                <method>apiInfo</method>
+                    </apiInfo>
+                    <updateProduct translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Updates product</title>
+                        <method>updateProduct</method>
+                    </updateProduct>
+                    <createProduct translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Creates product</title>
+                        <method>createProduct</method>
+                    </createProduct>
+                    <createCustomer translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Creates Customer</title>
+                        <method>createCustomer</method>
+                    </createCustomer>
+                    <createOrder translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Creates Order</title>
+                        <method>createOrder</method>
+                    </createOrder>
+                    <updateTierPrice translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Update the Tier price</title>
+                        <method>updateTierPrice</method>
+                    </updateTierPrice>
+                    <updateTierPrices translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Update the Tier prices</title>
+                        <method>updateTierPrices</method>
+                    </updateTierPrices>
+                    <createCustomers translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Create Customers</title>
+                        <method>createCustomers</method>
+                    </createCustomers>
+                    <getConfig translate="title" module="I95DevConnect_OnetimeSync">
+		                 <title>Retrieve Magento Config details</title>
+		                 <method>getConfig</method>
+		            </getConfig>
+		            <getLastRecord translate="title" module="I95DevConnect_OnetimeSync">
+		                 <title>Retrieve last updated product details</title>
+		                 <method>getLastRecord</method>
+		            </getLastRecord>	
+                    <createProducts translate="title" module="I95DevConnect_OnetimeSync">
+		                  <title>Creates products</title>
+		                  <method>createProducts</method>
+		    		</createProducts>
+			 		<createOrders translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Creates orders</title>
+						<method>createOrders</method>
+					</createOrders>
+                                        <completeOrders translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Creates orders</title>
+						<method>completeOrders</method>
+					</completeOrders>
+          			<createCustomerGroups translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Create CustomerGroups</title>
+                        <method>createCustomerGroups</method>
+          			</createCustomerGroups>
+           			<createPriceLevels translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Create PriceLevels</title>
+                        <method>createPriceLevels</method>
+          			</createPriceLevels> 
+                    <orderStatusUpdate translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Updates the Order Status</title>
+						<method>orderStatusUpdate</method>
+		    		</orderStatusUpdate>
+                    <createInvoice translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Create new invoice for target order</title>
+						<method>createInvoice</method>
+		    		</createInvoice>
+                    <createShipment translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Create new shipment for target order</title>
+						<method>createShipment</method>
+		    		</createShipment>
+		    		<createInvoices translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Create new invoice for target order</title>
+						<method>createInvoices</method>
+		    		</createInvoices>
+                    <createShipments translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Create new shipment for target order</title>
+						<method>createShipments</method>
+		    		</createShipments>
+		    		<orderStatusUpdates translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Updates the Order Status</title>
+						<method>orderStatusUpdates</method>
+		    		</orderStatusUpdates>
+ 		    		<createCustomerGroup translate="title" module="I95DevConnect_OnetimeSync">
+						<title>Create Customer Group</title>
+						<method>createCustomerGroup</method>
+		    		</createCustomerGroup>
+                    <createProductGp translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Creates product Gp</title>
+                        <method>createProductGp</method>
+                    </createProductGp>
+                    <createCustomerGp translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Creates Customer Gp</title>
+                        <method>createCustomerGp</method>
+                    </createCustomerGp>
+                    <createOrderGp translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Creates Order Gp</title>
+                        <method>createOrderGp</method>
+                    </createOrderGp>
+		    		<getToken translate="title" module="I95DevConnect_OnetimeSync">
+		        		<title>Retrieve Token from the database</title>
+						<method>getToken</method>
+		    		</getToken>
+		    		<updateProducts translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>Updates product</title>
+                        <method>updateProducts</method>
+                    </updateProducts>
+		    		<testShipment translate="title" module="I95DevConnect_OnetimeSync">
+		        		<title>Create test shipment for target order</title>
+						<method>testShipment</method>
+		    		</testShipment> 
+                </methods>
+            </i95devconnect_onetimesync>
+        </resources>
+        <resources_alias>
+            <onetimesyncconnect>i95devconnect_onetimesync</onetimesyncconnect>
+        </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <onetimesyncconnect>i95devConnect</onetimesyncconnect>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <i95dev translate="title" module="I95DevConnect_OnetimeSync">
+                    <title>I95Dev</title>
+                    <sort_order>100</sort_order>
+                    <onetimesyncconnect translate="title" module="I95DevConnect_OnetimeSync">
+                        <title>I95dev OnetimeSync</title>
+                        <sort_order>100</sort_order>
+                        <allaccess translate="title" module="I95DevConnect_OnetimeSync">
+                            <title>Core functionality required by all users.</title>
+                            <sort_order>10</sort_order>
+                        </allaccess>
+                        <owneraccess translate="title" module="I95DevConnect_OnetimeSync">
+                            <title>Functions accessible only for owner.</title>
+                            <sort_order>50</sort_order>
+                        </owneraccess>
+                    </onetimesyncconnect>
+                </i95dev>
+            </resources>
+        </acl>
+    </api>
+</config>

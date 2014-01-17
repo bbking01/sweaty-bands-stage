@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+<root>
+    <cms>
+        <pages>
+            <item>
+                <title>Shopper Home page - banners</title>
+                <identifier>shopper_home</identifier>
+                <content><![CDATA[
+<div class="homepage-banners row clearfix ">
+<div class="grid_6"><a href="//queldorei.com/"><img src="{{media url="queldorei/shopper/banner_548_277.jpg"}}" alt="Premium Magento themes" /></a></div>
+<div class="grid_6">
+<a href="//queldorei.com/">
+<div class="content">
+<strong>Lorem Ipsum<br/> Dolor sit Amen</strong>
+<div class="border"></div>
+<p>'60s-inspired bangles, pendants,</p>
+<p>and head piecesfrom Nicole</p>
+<button class="button button_white" onclick="window.location='{{store url=''}}'"><span><span>Learn more</span></span></button>
+</div>
+<img src="{{media url="queldorei/shopper/banner_548_277.jpg"}}" alt="Premium Magento themes" />
+</a>
+</div>
+</div>
+{{block type="shoppersettings/product_list" category_id="12" num_products="8" template="catalog/product/featured_products.phtml"}}
+                ]]></content>
+                <is_active>1</is_active>
+                <sort_order>0</sort_order>
+                <stores>
+                    <item>0</item>
+                </stores>
+                <root_template>one_column</root_template>
+            </item>
+            <item>
+                <title>Shopper Home page - right column</title>
+                <identifier>shopper_home_2col</identifier>
+                <content><![CDATA[
+<div class="home-main">
+{{block type="shoppersettings/product_list" category_id="12" num_products="6" template="catalog/product/featured_products.phtml"}}
+</div>
+<div class="home-right">
+{{block type="cms/block" block_id="shopper_banners_slideshow" }}
+{{block type="newsletter/subscribe" template="newsletter/subscribe_home.phtml" }}
+</div>
+<div class="clear"></div>
+                ]]></content>
+                <is_active>1</is_active>
+                <sort_order>0</sort_order>
+                <stores>
+                    <item>0</item>
+                </stores>
+                <root_template>one_column</root_template>
+            </item>
+            <item>
+                <title>Shopper Home page - left column</title>
+                <identifier>shopper_home_2col_left</identifier>
+                <content><![CDATA[
+<div class="home-left-col clearfix">
+<div class="home-main">{{block type="shoppersettings/product_list" category_id="12" num_products="6" template="catalog/product/featured_products.phtml"}}</div>
+<div class="home-left">{{block type="cms/block" block_id="shopper_banners_slideshow" }} {{block type="newsletter/subscribe" template="newsletter/subscribe_home.phtml" }} {{block type="shoppersettings/bestsellers" template="queldorei/bestsellers.phtml" }}</div>
+</div></div>
+                ]]></content>
+                <is_active>1</is_active>
+                <sort_order>0</sort_order>
+                <stores>
+                    <item>0</item>
+                </stores>
+                <root_template>one_column</root_template>
+            </item>
+            <item>
+                <title>Shopper No Route page</title>
+                <identifier>shopper_no_route</identifier>
+                <content><![CDATA[
+                    <div class="page-head-alt">
+                    <h3>Whoops, our bad...</h3>
+                    </div>
+                    <dl> <dt>The page you requested was not found, and we have a fine guess why.</dt> <dd>
+                    <ul class="disc">
+                    <li>If you typed the URL directly, please make sure the spelling is correct.</li>
+                    <li>If you clicked on a link to get here, the link is outdated.</li>
+                    </ul>
+                    </dd> </dl>
+                    <p>&nbsp;</p>
+                    <dl> <dt>What can you do?</dt> <dd>Have no fear, help is near! There are many ways you can get back on track with Magento Demo Store.</dd> <dd>
+                    <ul class="buttons">
+                    <li><button class="button" onclick="history.go(-1);"><span><span>Go back</span></span></button></li>
+                    <li><button class="button" onclick="window.location='{{store url=""}}'"><span><span>Store Home</span></span></button></li>
+                    <li><button class="button" onclick="window.location='{{store url="customer/account"}}'"><span><span>My Account</span></span></button></li>
+                    </ul>
+                    </dd></dl>]]></content>
+                <is_active>1</is_active>
+                <sort_order>0</sort_order>
+                <stores>
+                    <item>0</item>
+                </stores>
+                <root_template>one_column</root_template>
+            </item>
+        </pages>
+        <blocks>
+            <item>
+                <title>Shopper Store Logo</title>
+                <identifier>shopper_logo</identifier>
+                <content><![CDATA[<img src="{{media url="queldorei/shopper/logo.png"}}" alt="Shopper Store" />]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Footer banners</title>
+                <identifier>shopper_footer_banners</identifier>
+                <content><![CDATA[
+<div class="row clearfix">
+	<div class="grid_6">
+		<a href="//queldorei.com/" title="free shipping on orders over $100"><img src="{{media url="queldorei/shopper/footer_banner_1.png"}}" alt="" /></a>
+	</div>
+	<div class="grid_6">
+		<a href="//queldorei.com" title="call us! toll free 8-800-123-1234"><img src="{{media url="queldorei/shopper/footer_banner_2.png"}}" alt="" /></a>
+	</div>
+</div>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Footer Contact</title>
+                <identifier>shopper_footer_contact</identifier>
+                <content><![CDATA[
+<h4>Contacts</h4>
+<div class="block-content">
+<p>Lingeries Store</p>
+<p>34 New Clity 5655, Excel Tower</p>
+<p>OPG Rpad, 4538FH</p>
+<hr>
+<p>+1 800 123 1234</p>
+<hr>
+<p><a href="mail@lipsum.com">mail@lipsum.com</a></p>
+<ul class="social">
+	<li><a class="twitter" href="http://twitter.com/queldorei" target="social"><span>Twitter</span></a></li>
+	<li><a class="facebook" href="http://facebook.com/queldorei" target="social"><span>Facebook</span></a></li>
+	<li><a class="email" href="mailto:mail@lipsum.com"><span>Email</span></a></li>
+	<li><a class="google" href="http://plus.google.com/u/0/111109476451145065018" target="social"><span>Google</span></a></li>
+</ul>
+</div>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Footer Information</title>
+                <identifier>shopper_footer_information</identifier>
+                <content><![CDATA[
+<h4>Information</h4>
+<div class="block-content">
+<ul>
+	<li>Veritatis et quasi architecto</li>
+	<li>Beatae vitae dicta sunt explicabo</li>
+	<li>Nemo enim ipsam voluptatem quia</li>
+	<li>Voluptas sit aspernatur</li>
+	<li>Aut odit aut , sed quia consequunt</li>
+	<li>Umagni dolores eos qui ratione</li>
+	<li>Voluptatem sequi nesciunt.</li>
+</ul>
+</div>
+            ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Footer Links</title>
+                <identifier>shopper_footer_links</identifier>
+                <content><![CDATA[
+<ul class="links">
+	<li><a href="{{store url=''}}" title="About Us">About Us</a></li>
+	<li class="separator">&nbsp;</li>
+	<li><a href="{{store url=''}}" title="Delivery & Returns">Delivery & Returns</a></li>
+	<li class="separator">&nbsp;</li>
+	<li><a href="{{store url=''}}" title="Terms & Conditions">Terms & Conditions</a></li>
+	<li class="separator">&nbsp;</li>
+	<li><a href="{{store url='contacts'}}" title="Contact Us">Contact Us</a></li>
+</ul>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Custom block</title>
+                <identifier>shopper_navigation_block</identifier>
+                <content><![CDATA[
+                <table>
+<tbody>
+<tr>
+<td width="215"><center><img src="{{media url="queldorei/shopper/i01.png"}}" alt="" /><br /><br />
+<h1>RESPONSIVE <br />DESIGN</h1>
+<br /> This theme looks great not only on desktops but also on devices.</center></td>
+<td width="10">
+<p>&nbsp;</p>
+</td>
+<td width="215"><center><img src="{{media url="queldorei/shopper/i02.png"}}" alt="" /><br /><br /><center>
+<h1>UNLIMITED <br />COLORS</h1>
+<br />Control every pixel of your theme! You can even set different colors for categories.</center></center></td>
+<td width="10">
+<p>&nbsp;</p>
+</td>
+<td width="215"><center><img src="{{media url="queldorei/shopper/i03.png"}}" alt="" /><br /><br /><center>
+<h1>CUSTOM <br />ADMIN OPTIONS</h1>
+<br />This theme comes with powerful admin module and lots of awesome features.</center></center></td>
+</tr>
+</tbody>
+</table>
+<p>&nbsp;</p>
+<hr /><center><a href="http://queldorei.com/">See Full Features List</a></center>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Empty Category block</title>
+                <identifier>shopper_empty_category</identifier>
+                <content><![CDATA[
+<center>
+<p><img class="retina" src="{{media url="queldorei/shopper/shop_icon.png"}}" alt="" /></p>
+<br />
+<h1>WOOPS!</h1>
+<h2>There are no products matching the selection.</h2>
+<p>&nbsp;</p>
+* This is a static CMS block displayed if category is empty. <br />You can put your own content here.<br /><br />
+<p><button class="button" onclick="window.location='{{store url=''}}'"><span><span>back to main</span></span></button></p>
+</center>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Empty Cart block</title>
+                <identifier>shopper_empty_cart</identifier>
+                <content><![CDATA[
+<center>
+<p><img class="retina" src="{{media url="queldorei/shopper/shop_icon.png"}}" alt="" /></p>
+<br />
+<h1>WOOPS!</h1>
+<h2>There are no products matching the selection.</h2>
+<p>&nbsp;</p>
+* This is a static CMS block displayed if shopping cart is empty. <br />You can put your own content here.<br /><br />
+<p><button class="button" onclick="window.location='{{store url=''}}'"><span><span>back to main</span></span></button></p>
+</center>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper After Tabs</title>
+                <identifier>shopper_after_tabs</identifier>
+                <content><![CDATA[<p class="dotted-border">This is a static CMS block displayed if category is empty. You can put your own content here.</p>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Custom Tab</title>
+                <identifier>shopper_custom_tab</identifier>
+                <content><![CDATA[<p><strong>Lorem Ipsum</strong><span>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span></p>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Cart Promotion</title>
+                <identifier>shopper_cart_promotion</identifier>
+                <content><![CDATA[<div class="cart-promotion">Place your promotion here</div>]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Newsletter text</title>
+                <identifier>shopper_newsletter_text</identifier>
+                <content><![CDATA[Lorem ipsum dolor sit amen, dolor imun ra adlip ulissys]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Product Addthis block</title>
+                <identifier>shopper_product_addthis</identifier>
+                <content><![CDATA[
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_preferred_1"></a>
+<a class="addthis_button_preferred_2"></a>
+<a class="addthis_button_preferred_3"></a>
+<a class="addthis_button_preferred_4"></a>
+<a class="addthis_button_compact"></a>
+<a class="addthis_counter addthis_bubble_style"></a>
+</div>
+<script type="text/javascript" src="//s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f574ddc5bcdccbc"></script>
+<!-- AddThis Button END -->
+                        ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Slideshow sideblock</title>
+                <identifier>shopper_banners_slideshow</identifier>
+                <content><![CDATA[
+<div class="block block-slideshow">
+    <div class="block-content">
+		<div class="block-slider">
+			<ul class="slides">
+				<li>
+				    <strong>Lorem Dolor Sit</strong>
+					<p>Lorem ipsum dolor sit amen, dolor imun ra adlip ulissys lorem ipsum dolor sit amen</p>
+					<img src="{{media url="queldorei/shopper/block/230_1.jpg"}}" alt="" />
+					<button class="button button_white" onclick="window.location='{{store url=''}}'"><span><span>Learn more</span></span></button>
+				</li>
+				<li>
+				    <strong>Ipsumimum Dolor Sit</strong>
+					<img src="{{media url="queldorei/shopper/block/230_2.jpg"}}" alt="" />
+					<button class="button button_white" onclick="window.location='{{store url=''}}'"><span><span>Learn more</span></span></button>
+				</li>
+				<li>
+				    <strong>Ipsumimum Dolor</strong>
+					<p>Lorem ipsum dolor sit amen, dolor imun ra adlip ulissys lorem ipsum dolor sit amen</p>
+					<img src="{{media url="queldorei/shopper/block/230_3.jpg"}}" alt="" />
+				</li>
+			</ul>
+		</div>
+    </div>
+</div>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+            <item>
+                <title>Shopper Additional Product block</title>
+                <identifier>shopper_product_additional</identifier>
+                <content><![CDATA[
+<div class="block block-product-additional">
+    <div class="block-title">
+        <strong><span>Lorem Ipsumimum Dolor Sit</span></strong>
+    </div>
+    <div class="block-content">
+		<p>Lorem ipsum dolor sit amen, dolor imun ra adlip ulissys lorem ipsum dolor sit amen</p>
+		<img src="{{media url="queldorei/shopper/block/230_3.jpg"}}" alt="" />
+    </div>
+</div>
+                ]]></content>
+                <is_active>1</is_active>
+                <stores>
+                    <item>0</item>
+                </stores>
+            </item>
+        </blocks>
+    </cms>
+</root>

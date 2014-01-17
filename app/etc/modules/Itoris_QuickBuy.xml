@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Itoris_QuickBuy>
+			<active>true</active>
+			<codePool>local</codePool>
+			<depends>
+                <Mage_Tag/>
+            </depends>
+		</Itoris_QuickBuy>
+	</modules>
+</config>

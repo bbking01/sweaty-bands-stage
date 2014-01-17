@@ -1,0 +1,161 @@
+.create {
+    margin-bottom: 10px;
+}
+
+.create label {
+    min-width: 100%;
+}
+
+.row-container {
+    height: 50px;
+}
+
+#campaigns-container.row-container {
+    height: auto;
+}
+
+#left-container {
+    width: 55%;
+    float: left;
+}
+
+#left-container select {
+    width: 150px;
+}
+
+#date-periodicity-container {
+    height: 30px;
+    display: none;
+}
+
+#date-periodicity-container input {
+    padding: 1px;
+    width: 55px;
+}
+
+input#period-from, input#period-to {
+    text-align: center;
+}
+
+#date-periodicity-container label {
+    min-width: 100%;
+}
+
+#date-periodicity-container div {
+    width: 29%;
+    float: left;
+    padding-bottom: 7px;
+}
+
+#right-container {
+    width: 45%;
+    float: left;
+}
+
+#campaigns-container select {
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#campaigns-container select option {
+    border-bottom: 1px solid #DDDDDD;
+    padding: 3px 4px;
+}
+
+.button-set {
+    text-align: right;
+}
+
+#download-as-csv-link {
+    float: right;
+}
+
+#chart_container {
+    float: left;
+}
+
+.no-records {
+    text-align: center;
+    margin-top: 35px;
+}
+
+.error-messages {
+    text-align: center;
+    margin-top: 15px;
+    padding: 15px 0px;
+    border: 1px solid #f16048 !important;
+    color: #df280a !important;
+    background: #faebe7;
+}
+
+.report {
+    position: relative;
+    min-height: 100px;
+}
+
+.report .legend {
+    z-index: 220;
+}
+
+#report-container {
+    overflow: hidden;
+    width: 625px;
+}
+
+#report-container th {
+    text-align: center;
+}
+
+#report-container td.tdright {
+    text-align: right;
+}
+
+#report-container td.tdright {
+    text-align: right;
+}
+
+#report-container td.tdcenter {
+    text-align: center;
+}
+
+#report-container td.tdleft {
+    text-align: left;
+}
+
+#download-as-csv-link {
+    margin-bottom: 5px;
+}
+
+/* ++ Overlay --- */
+.aw-overlay-popup {
+    background-color: #000000;
+    opacity: 0.6;
+    filter: Alpha(Opacity = 60);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 190;
+}
+
+#waiting-message {
+    width: 200px;
+    height: 55px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 200 !important;
+    background-color: #fff;
+    background-image: url('../images/ajax-loader.gif');
+    background-position: center 37px;
+    background-repeat: no-repeat;
+    padding: 15px;
+    border: 1px solid #ccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+/* ++ Z_Index fix */
+.calendar {
+    z-index: 220;
+}

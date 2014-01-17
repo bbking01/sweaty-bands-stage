@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>awajaxcatalog/script.js</script></action>
+            <action method="addJs"><script>awajaxcatalog/base64.js</script></action>
+            <action method="addCss"><name>awajaxcatalog/css/styles.css</name></action>
+        </reference>
+    </default>
+</layout>

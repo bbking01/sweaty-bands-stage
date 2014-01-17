@@ -1,0 +1,30 @@
+#aw_popup_wraper {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: #000000;
+}
+
+#aw_popup_window {
+    position: fixed;
+    overflow: hidden;
+    z-index: 1000;
+    background: #ffffff;
+    top: 0px;
+    left: 0px;
+    border: solid 1px;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+#aw_popup_title {
+    font-weight: bold;
+}
+
+#aw_popup_close_btn {
+    cursor: pointer;
+    float: right;
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<widgets>
+    <points_customer_widget type="points/customer_widget" translate="name description" module="points"> 
+        <name>AW Points Balance</name>
+        <description>Adds widget with current points balance</description>  
+        <parameters>
+            <title>
+                <label>Widget Title</label>
+                <type>text</type>
+                <visible>1</visible>
+                <required>0</required>
+            </title>           
+        </parameters>    
+    </points_customer_widget>
+</widgets> 

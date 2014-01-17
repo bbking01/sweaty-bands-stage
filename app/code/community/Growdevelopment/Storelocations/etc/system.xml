@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Grow Development - Store Locations Pro
+ *
+ * @category   Growdevelopment
+ * @package    Growdevelopment_StoreLocations
+ * @copyright  Copyright (c) 2012 Grow Development (http://www.growdevelopment.com)
+ * @license    http://www.growdevelopment.com/docs/eula.txt
+ * @author     Daniel Espinoza <modules@growdevelopment.com>
+ *
+ */
+-->
+<config>
+	<sections>
+		<growdevstorelocations translate="label" module="growdevstorelocations">
+			<tab>growdevbase</tab>
+			<label>Store Locations</label>
+			<frontend_type>text</frontend_type>
+			<sort_order>999</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>	
+			<groups>
+                <storelocationsconfig translate="label">
+                    <label>Locations Search Page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+					<fields>
+						<grow_search_active translate="label">
+							<label>Enable Search Page</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</grow_search_active>
+						<grow_page_layout translate="label">
+                            <label>Page Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </grow_page_layout>
+						<grow_base_zoom translate="label">
+							<label>Base Zoom</label>
+							<frontend_type>select</frontend_type>
+                            <source_model>storelocation/system_config_googlezoom</source_model>			
+							<comment>Zoom level for initial address on store location page. 1=Far, 19=Close</comment>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_base_zoom>
+						<grow_miles_or_km translate="label">
+							<label>Units for Radius</label>
+							<frontend_type>select</frontend_type>
+                            <source_model>storelocation/system_config_milesorkm</source_model>
+                            <comment>Display Miles or Kilometers on the store locator page</comment>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_miles_or_km>
+					</fields>                    
+                </storelocationsconfig>
+                <locationsconfig translate="label">
+                    <label>Locations Listing Page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<grow_listing_active translate="label">
+							<label>Enable Listing Page</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>5</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</grow_listing_active>
+						<grow_listing_page_layout translate="label">
+                            <label>Page Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </grow_listing_page_layout>
+						<grow_display_limiter translate="label">
+							<label>Display Limiter</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_display_limiter>
+						<grow_locations_display>
+							<label>Locations Display Style</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>storelocation/system_config_listMode</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_locations_display>
+						<grow_locations_sort>
+							<label>Default Sort</label>
+							<frontend_type>select</frontend_type>
+							<source_model>storelocation/system_config_locationssort</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_locations_sort>
+						<grow_per_page>
+							<label>Locations Per Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>storelocation/system_config_locationsperpage</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_per_page>
+					</fields>                    
+                </locationsconfig>
+                <locationsdetailsconfig translate="label">
+                    <label>Locations Details Page</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+					<fields>
+						<grow_details_page_layout translate="label">
+                            <label>Page Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </grow_details_page_layout>
+						<grow_show_map>
+							<label>Show Map</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_show_map>
+						<grow_show_directions>
+							<label>Show "Get Directions" link</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>0</show_in_website>
+							<show_in_store>0</show_in_store>
+						</grow_show_directions>
+					</fields>
+				</locationsdetailsconfig>
+			</groups>
+		</growdevstorelocations>
+	</sections>
+</config>

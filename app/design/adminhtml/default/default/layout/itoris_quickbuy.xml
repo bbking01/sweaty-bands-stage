@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<itoris_quickbuy_admin_settings_index>
+		<reference name="head">
+			<action method="setTitle">
+				<params>Settings / Itoris Quick Buy / Itoris Extensions / Magento Admin</params>
+			</action>
+			<action method="addJs">
+				<name>itoris/quickbuy/admin/js/settings.js</name>
+			</action>
+		</reference>
+		<reference name="left">
+            <block type="itoris_quickbuy/admin_config_switcher" name="switcher"/>
+        </reference>
+		<reference name="menu">
+			<action method="setActive">
+				<params>system</params>
+			</action>
+		</reference>
+	</itoris_quickbuy_admin_settings_index>
+</layout>

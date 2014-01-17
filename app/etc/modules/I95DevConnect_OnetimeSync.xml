@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <I95DevConnect_OnetimeSync>
+            <active>false</active>
+            <codePool>community</codePool>
+           </I95DevConnect_OnetimeSync>
+    </modules>
+</config>

@@ -1,0 +1,6 @@
+id1:
+ is_subscribed: true
+ message_code: "The subscription has been saved"
+id2:
+ is_subscribed: false
+ message_code: "The subscription has been removed"

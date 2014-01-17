@@ -1,0 +1,12 @@
+id1:
+ enabled: false
+ is_logged_in: false
+id2:
+ enabled: false
+ is_logged_in: true
+id3:
+ enabled: true
+ is_logged_in: false
+id4:
+ enabled: true
+ is_logged_in: true

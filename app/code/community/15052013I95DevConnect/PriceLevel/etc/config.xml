@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to sub@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_Base
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <modules>
+        <I95DevConnect_PriceLevel>
+            <version>0.1.0</version>
+        </I95DevConnect_PriceLevel>
+    </modules>
+    <frontend>
+        <routers>
+            <PriceLevel>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_PriceLevel</module>
+                    <frontName>pricelevel</frontName>
+                </args>
+            </PriceLevel>
+        </routers>
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <I95DevConnect_PriceLevel_Adminhtml before="Mage_Adminhtml">I95DevConnect_PriceLevel_Adminhtml</I95DevConnect_PriceLevel_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <global>
+      <helpers>
+            <I95DevConnect_PriceLevel>
+                <class>I95DevConnect_PriceLevel_Helper</class>
+            </I95DevConnect_PriceLevel>
+        </helpers>
+        <blocks>
+            <I95DevConnect_PriceLevel>
+                <class>I95DevConnect_PriceLevel_Block</class>
+            </I95DevConnect_PriceLevel>
+            <adminhtml>
+	        <rewrite>
+		    <catalog_product_edit_tab_price_tier>I95DevConnect_PriceLevel_Block_Adminhtml_Catalog_Product_Edit_Tab_Price_Tier</catalog_product_edit_tab_price_tier>
+		</rewrite>
+                <rewrite>
+                    <customer_group_grid>I95DevConnect_PriceLevel_Block_Adminhtml_Customer_Group_Grid</customer_group_grid>    
+                    <customer_group_edit_form>I95DevConnect_PriceLevel_Block_Adminhtml_Customer_Group_Edit_Form</customer_group_edit_form>
+                </rewrite>
+	    </adminhtml>
+        </blocks>
+        <models>
+            <I95DevConnect_PriceLevel>
+                <class>I95DevConnect_PriceLevel_Model</class>
+                <resourceModel>pricelevel_mysql4</resourceModel>
+            </I95DevConnect_PriceLevel>
+            
+            <pricelevel_mysql4>
+                <class>I95DevConnect_PriceLevel_Model_Mysql4</class>
+                <entities>
+                    <pricelevel>
+                        <table>i95dev_pricelevels</table>
+                    </pricelevel>
+                </entities>
+
+                <class>I95DevConnect_PriceLevel_Model_Mysql4</class>
+                <entities>
+                    <mapping>
+                        <table>i95dev_pricelevels_mapping</table>
+                    </mapping>
+                </entities>
+            </pricelevel_mysql4>
+        </models>
+
+        <resources>
+            <pricelevel_setup>
+                <setup>
+                    <module>I95DevConnect_PriceLevel</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pricelevel_setup>
+        </resources>
+    </global>
+    <adminhtml>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <I95DevConnect_PriceLevel>
+                                            <title>I95devConnect</title>
+                                        </I95DevConnect_PriceLevel>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+       <menu>
+            <customer module="I95DevConnect_PriceLevel">
+                <children>
+                    <pricelevels module="I95DevConnect_PriceLevel">
+                        <title>Manage Price Levels</title>
+                        <sort_order>500</sort_order>
+                        <action>adminhtml/pricelevel</action>
+                    </pricelevels>
+                </children>
+            </customer>
+        </menu>
+    </adminhtml>
+</config>

@@ -1,0 +1,35 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php $items = $this->getFeedItems() ?>
+<?php if (count($items) > 0): ?>
+	<div class="block block-blog block-blog-pinterest">
+		<?php if ($title = $this->getTitle()): ?>
+			<div class="block-title">
+				<strong><span><?php echo $this->__($title) ?></span></strong>
+			</div>
+		<?php endif; ?>
+		<div class="block-content">
+			<ul id="<?php echo $this->getListId() ?>">
+			<?php foreach($items as $item): ?>
+				<li class="item" style="width: <?php echo $this->getThumbWidth() ?>px;">
+					<a href="<?php echo $item->getLink() ?>" title="<?php echo $item->getAnchorTitle() ?>"<?php if ($this->getTarget() === 'newwindow'): ?> target="_blank"<?php endif; ?>>	<img src="<?php echo $item->getThumbnailUrl() ?>" alt="<?php echo $this->escapeHtml($item->getTitle()) ?>"  style="max-width:<?php echo $this->getThumbWidth() ?>px;"/></a>
+					<?php if ($this->canDisplayTitle()): ?>
+						<div class="title"><a href="<?php echo $item->getLink() ?>" title="<?php echo $item->getAnchorTitle() ?>"><?php echo $this->escapeHtml($item->getTitle()) ?></a></div>
+					<?php endif; ?>
+				</li>
+			<?php endforeach; ?>
+			</ul>
+			<?php if ($this->displayFollowOnPinterest()): ?>
+				<div class="follow">
+					<a href="<?php echo $this->getPinterestUserUrl() ?>" target="_blank" title="<?php echo $this->__('Follow on Pinterest') ?>"><img src="<?php echo $this->getFollowOnPinterestImageUrl() ?>" alt="<?php echo $this->__('Follow on Pinterest') ?>" /></a>
+				</div>
+			<?php endif; ?>
+		</div>
+	</div>
+<?php endif; ?>

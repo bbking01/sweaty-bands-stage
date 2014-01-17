@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to sub@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_Base
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <modules>
+        <I95DevConnect_Base>
+            <version>0.1.3</version>
+        </I95DevConnect_Base>
+    </modules>
+    <frontend>
+        <routers>
+            <Base>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_Base</module>
+                    <frontName>base</frontName>
+                </args>
+            </Base>
+        </routers>
+        <layout>
+            <updates>
+                <Base>
+                    <file>Base.xml</file>
+                </Base>
+            </updates>
+        </layout>
+        <events>
+            <model_save_after>
+                <observers>
+                    <i95dev_model_save_after>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>hookToModelSaveAfter</method>
+                    </i95dev_model_save_after>
+                </observers>
+            </model_save_after>
+        </events>
+    </frontend>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <I95DevConnect_Base_Adminhtml before="Mage_Adminhtml">I95DevConnect_Base_Adminhtml</I95DevConnect_Base_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <global>
+        <helpers>
+            <I95DevConnect_Base>
+                <class>I95DevConnect_Base_Helper</class>
+            </I95DevConnect_Base>
+        </helpers>
+        <blocks>
+            <I95DevConnect_Base>
+                <class>I95DevConnect_Base_Block</class>
+            </I95DevConnect_Base>
+            <payment>
+                <rewrite>
+                    <form_checkmo>I95DevConnect_Base_Block_GP_Payment_Form_Checkmo</form_checkmo>
+                </rewrite>
+                <rewrite>
+                    <info_checkmo>I95DevConnect_Base_Block_GP_Payment_Info_Checkmo</info_checkmo>
+                </rewrite>
+            </payment>
+            <adminhtml>
+                <rewrite>
+                    <customer_grid>I95DevConnect_Base_Block_GP_Adminhtml_Customer_Grid</customer_grid>
+                </rewrite>
+		  <rewrite>
+                    <customer_edit_tab_addresses>I95DevConnect_Base_Block_GP_Adminhtml_Customer_Edit_Tab_Addresses</customer_edit_tab_addresses>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <models>
+            <I95DevConnect_Base>
+                <class>I95DevConnect_Base_Model</class>
+            </I95DevConnect_Base>
+			<payment>
+				<rewrite>
+					<method_checkmo>I95DevConnect_Base_Model_Payment_Method_Checkmo</method_checkmo>
+				</rewrite>
+                                <rewrite>
+					<method_ccsave>I95DevConnect_Base_Model_Payment_Method_Ccsave</method_ccsave>
+				</rewrite>
+			</payment>
+            <Base_LogBase>
+                <class>I95DevConnect_Base_Model_LogBase</class>
+                <resourceModel>base_logbase_mysql4</resourceModel>
+            </Base_LogBase>
+            <base_logbase_mysql4>
+                <class>I95DevConnect_Base_Model_Logbase_Mysql4</class>
+                <entities>
+                    <log>
+                        <table>I95DevConnect_service_log</table>
+                    </log>
+                </entities>
+            </base_logbase_mysql4>
+            <core>
+		<rewrite>
+		    <translate>I95DevConnect_Base_Model_Core_Translate</translate>
+		</rewrite>
+	     </core>
+        </models>
+        <events>
+            <controller_action_postdispatch>
+                <observers>
+                    <i95devconnect_controller_action_after>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>hookToControllerActionPostDispatch</method>
+                    </i95devconnect_controller_action_after>
+                </observers>
+            </controller_action_postdispatch>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <i95devconnect_block_html_before>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>hookToBlockHtmlBefore</method>
+                    </i95devconnect_block_html_before>
+                </observers>
+            </core_block_abstract_to_html_before>
+            <controller_action_layout_load_before>
+                <observers>
+                    <i95devconnect_block_layout_before>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>prepareLayoutBefore</method>
+                    </i95devconnect_block_layout_before>
+                </observers>
+            </controller_action_layout_load_before>
+            <checkout_onepage_controller_success_action>
+                <observers>
+                    <i95devconnect_checkout_onepage_controller_success_action>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>i95devCheckoutSubmitAllAfter</method>
+                    </i95devconnect_checkout_onepage_controller_success_action>
+                </observers>
+            </checkout_onepage_controller_success_action>
+		</events>
+        <resources>
+            <base_setup>
+                <setup>
+                    <module>I95DevConnect_Base</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </base_setup>
+        </resources>
+              <template>
+			<email>
+				<sales_order_total_mismatch_template translate="label" module="sales">
+					<label>Order Total mis-match</label>
+					<file>sales/order_total_mismatch.html</file>
+					<type>html</type>
+				</sales_order_total_mismatch_template>
+                                <sales_customer_fail_update_template translate="label" module="sales">
+					<label>Customer Fail update</label>
+					<file>sales/customer_fail_update.html</file>
+					<type>html</type>
+				</sales_customer_fail_update_template>
+                                <sales_order_fail_update_template translate="label" module="sales">
+					<label>Order Fail update</label>
+					<file>sales/order_fail_update.html</file>
+					<type>html</type>
+				</sales_order_fail_update_template>
+                                <sales_tracking_number_template translate="label" module="sales">
+					<label>Order Fail update</label>
+					<file>sales/tracking_number.html</file>
+					<type>html</type>
+				</sales_tracking_number_template>
+				<sales_subscription_fail_template translate="label" module="sales">
+                                        <label>Subscription Fail Notice to Admin</label>
+                                        <file>sales/i95devconnect_subscription_fail.html</file>
+                                        <type>html</type>
+                                </sales_subscription_fail_template>
+			</email>
+		</template>
+
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <Base>
+                    <file>Baseadmin.xml</file>
+                </Base>
+            </updates>
+        </layout>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <I95DevConnect_Base>
+                                            <title>I95devConnect</title>
+                                        </I95DevConnect_Base>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+		<!-- Router events in admin-->
+        <events>
+            <!-- dispatching custom event for the magento Controller Event -->
+            <adminhtml_customer_save_after>
+                <observers>
+                    <i95devconnect_base>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>adminhtmlCustomerSaveAfter</method>
+                    </i95devconnect_base>
+                </observers>
+            </adminhtml_customer_save_after>
+            <customer_group_save_before>
+                <observers>
+                    <i95devconnect_base_customer_group_save_before>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>customerGroupSaveBefore</method>
+                    </i95devconnect_base_customer_group_save_before>
+                </observers>
+            </customer_group_save_before>
+            <customer_group_save_after>
+                <observers>
+                    <i95devconnect_base_customer_group>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>customerGroupSaveAfter</method>
+                    </i95devconnect_base_customer_group>
+                </observers>
+            </customer_group_save_after>
+            <checkout_submit_all_after>
+                <observers>
+                    <i95devconnect_checkout_submit_all_after>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Base_Model_Observers_Router</class>
+                        <method>adminorder</method>
+                    </i95devconnect_checkout_submit_all_after>
+              </observers>
+          </checkout_submit_all_after>
+        </events>
+        <translate>
+            <modules>
+                <I95DevConnect_Base>
+                    <files>
+                        <default>I95DevConnect_Base.csv</default>
+                    </files>
+                </I95DevConnect_Base>
+            </modules>
+        </translate>
+    </adminhtml>
+    <system>
+	<filesystem>
+	     <locale>{{app_dir}}/code/community/I95DevConnect/Base/template</locale>
+	</filesystem>
+    </system>
+    <crontab>
+        <jobs>
+           <I95DevConnect_Base>
+		        <schedule><cron_expr>* * * * *</cron_expr></schedule>
+		<run><model>I95DevConnect_Base/Logcleaning_Logclean::cleanlog</model> </run>
+            </I95DevConnect_Base>   
+        </jobs>
+    </crontab>
+</config>

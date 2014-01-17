@@ -1,0 +1,67 @@
+<div>
+    <ul class="messages">
+        <li style="margin-top:11px;" class="notice-msg">
+            <ul>
+                <li>Save template changes before creating the template.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<?php 
+$user = "admin";
+$swf = "designStudio";
+$path = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'designtool/';	
+
+$templateId = $this->getRequest()->getParam('id');
+$isAddStoreCode = Mage::getStoreConfig('web/url/use_store');
+$current_store = Mage::app()->getWebsite(true)->getDefaultStore()->getCode();
+
+//To get first product id 
+//$designtoolAttributeSetId = 9;
+
+$designtoolAttrSetName = "Designtool";
+//Get Attribute set Id from Attribute set name
+$designtoolAttributeSetId = Mage::getModel('eav/entity_attribute_set')
+					->load($designtoolAttrSetName, 'attribute_set_name')
+					->getAttributeSetId();
+					
+$productCollection = Mage::getResourceModel('catalog/product_collection')							
+					->AddFieldToFilter('is_customizable', 1)
+					->AddFieldToFilter('status', 1)
+					->addAttributeToFilter('type_id', 'configurable')
+					->addAttributeToFilter('attribute_set_id',$designtoolAttributeSetId)
+					->addAttributeToSelect('*');
+
+Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($productCollection);
+$productCollection = $productCollection->getFirstItem();		
+$productId = $productCollection->getEntityId();
+
+?>
+<div class="flashwidth" style="z-index:99">
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+<script type='text/javascript' src='<?php echo $path ?>script/swfobject.js'></script>
+
+<script type='text/javascript'>
+var flashvars = {};
+
+	flashvars.productid= '<?php echo $productId; ?>';	
+	flashvars.template_id= '<?php echo $templateId; ?>';
+	flashvars.user= '<?php echo $user; ?>';	
+	flashvars.isAddStore = '<?php echo $isAddStoreCode; ?>';
+	flashvars.storeCode = '<?php echo $current_store; ?>';
+
+var parameters = {};
+parameters.salign = 'tl';
+parameters.wmode = 'transparent';
+var attributes = {};
+attributes.allowscriptaccess = "always";
+attributes.name = "flashObj";
+attributes.id = "flashObj";
+
+swfobject.embedSWF('<?php echo $path.$swf ?>.swf?t=<?php echo date('Y-m-d H:i:s'); ?>', 'designStudioDiv', '100%', '610', '10.0.0', false, flashvars, parameters, attributes);
+</script>
+
+<div id='designStudioDiv'>
+<p>This page requires Adobe Flash Player, which you can download free at <a href="http://get.adobe.com/flashplayer/">http://get.adobe.com/flashplayer/</a></p>
+</div>
+</div>

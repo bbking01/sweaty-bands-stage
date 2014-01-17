@@ -1,0 +1,819 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_item = $this->getItem();
+$order = Mage::getModel('sales/order')->load($_item->getOrder_id());
+$store_id = $order->getstore_id();
+$store_code = Mage::app()->getStore($store_id)->getCode();
+ ?>
+ <?php		
+	$product_option = $_item->getProductOptions();	
+
+	$imgpath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB);	
+	$imageDir = Mage::getBaseDir(). DS;	
+	$j = 0;
+	$number = array();
+	$name = array();
+	$show = 0;	
+	if(isset($product_option['info_buyRequest']['dataxml']) and $product_option['info_buyRequest']['dataxml'] != '')
+	{
+		
+		$xml123 = simplexml_load_string($product_option['info_buyRequest']['dataxml']);	
+		$xml = objectsIntoArray($xml123);			
+		
+		if(isset($xml['front']) and $xml['front'] != '')
+			$front_img = 'designtool/saveimg/'.$xml['front'];
+		else
+			$front_img = 'images/no_icon.gif';
+			
+		if(isset($xml['back']) and $xml['back'] != '')
+			$back_img = 'designtool/saveimg/'.$xml['back'];
+		else
+			$back_img = 'images/no_icon.gif';
+			
+		if(isset($xml['left']) and $xml['left'] != '')
+			$left_img = 'designtool/saveimg/'.$xml['left'];
+		else
+			$left_img = 'images/no_icon.gif';
+			
+		if(isset($xml['right']) and $xml['right'] != '')
+			$right_img = 'designtool/saveimg/'.$xml['right'];
+		else
+			$right_img = 'images/no_icon.gif';
+		
+		$show = 1;
+		$pdfdata_xml=$product_option['info_buyRequest']['pdfdata'];
+		$data = simplexml_load_string($pdfdata_xml);
+		foreach ($data->savecode->accPrizing as $key => $value )
+		{	
+			$value = ( array ) $value ;		
+			$number[$j] = trim ( $value [ 'pNumber' ]  );
+			$name[$j] = trim ( $value [ 'pName' ] );						
+			$pSize[$j] = trim ( $value [ 'pSize' ] );						
+			$j++;			
+		}
+	
+	}
+	else
+	{
+		$front_img = 'media/catalog/product'.Mage::getModel('catalog/product')->load($_item->getProductId())->getThumbnail();
+        $back_img = '';
+	}
+	
+	$filepath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'designtool/';		
+	$upload = 'uploads/';	
+	$xml_file = 'designtool/xml_files/';	
+	$pdf_file = 'designtool/pdf_files/';
+	
+	if(isset($product_option['info_buyRequest']['sourcefile']) and $product_option['info_buyRequest']['sourcefile'] != '')
+	{				
+		$source_file = array();
+		$source_file = simplexml_load_string($product_option['info_buyRequest']['sourcefile']);
+	}else
+	{
+		$source_file = array();
+	}			
+	$j = 1;		
+	?>
+<?php $this->setPriceDataObject($_item) ?>
+<tr class="border">
+    <td class="giftmessage-single-item">
+        <?php if ($this->canDisplayContainer()): ?>
+        <div id="<?php echo $this->getHtmlId() ?>" class="item-container">
+        <?php endif; ?>
+        <?php if ($this->canDisplayGiftmessage()): ?>
+        <div class="item-text">
+            <?php echo $this->getColumnHtml($_item, 'name') ?>
+              <div class="action-link-holder">
+                <a class="action-link" href="#" onclick="return giftMessagesController.toogleGiftMessage('<?php echo $this->getHtmlId() ?>')">
+                <span class="default-text">
+                  <span class="add"<?php if($this->getMessage()->getId()): ?> style="display:none;"<?php endif;?>><?php echo $this->helper('sales')->__('Add Gift Messsage') ?></span>
+                  <span class="edit"<?php if(!$this->getMessage()->getId()): ?> style="display:none;"<?php endif;?>><?php echo $this->helper('sales')->__('Edit Gift Messsage') ?></span></span><span class="close-text" style="display:none;"><?php echo $this->helper('sales')->__('Save and Close Message') ?></span></a>
+              </div>
+        </div>
+        <div class="gift-form" style="display:none;" id="<?php echo $this->getFieldId('edit') ?>">
+        <form id="<?php echo $this->getFieldId('form') ?>" action="<?php echo $this->getSaveUrl() ?>">
+            <div class="entry-edit">
+                <fieldset>
+                    <input type="hidden" id="<?php echo $this->getFieldId('type') ?>" name="<?php echo $this->getFieldName('type') ?>" value="order_item" />
+                    <span class="field-row">
+                        <label for="<?php echo $this->getFieldId('sender') ?>"><?php echo $this->helper('sales')->__('From Name') ?></label><br />
+                        <input class="input-text" type="text" id="<?php echo $this->getFieldId('sender') ?>" name="<?php echo $this->getFieldName('sender') ?>" value="<?php echo $this->htmlEscape($this->getMessage()->getSender()) ?>" />
+                    </span>
+                    <span class="field-row">
+                        <label for="<?php echo $this->getFieldId('recipient') ?>"><?php echo $this->helper('sales')->__('To Name') ?></label><br />
+                        <input class="input-text" type="text" id="<?php echo $this->getFieldId('recipient') ?>" name="<?php echo $this->getFieldName('recipient') ?>"  value="<?php echo $this->htmlEscape($this->getMessage()->getRecipient()) ?>" />
+                    </span>
+                    <div class="clear"></div>
+                    <span class="field-row last">
+                        <label for="<?php echo $this->getFieldId('message') ?>"><?php echo $this->helper('sales')->__('Gift Message') ?></label><br />
+                        <textarea id="<?php echo $this->getFieldId('message') ?>" onchange="giftMessagesController.toogleRequired('<?php echo $this->getFieldId('message') ?>', ['<?php echo $this->getFieldId('sender') ?>','<?php echo $this->getFieldId('recipient') ?>']);" name="<?php echo $this->getFieldName('message') ?>" rows="3" cols="5"><?php echo $this->htmlEscape($this->getMessage()->getMessage()) ?></textarea>
+                    </span>
+                </fieldset>
+            </div>
+        </form>
+        </div>
+        <?php else: ?>
+        <div class="item-text">
+            <?php echo $this->getColumnHtml($_item, 'name') ?>
+        </div>
+        <?php endif; ?>
+        <?php if ($this->canDisplayContainer()): ?>
+        </div>
+        <?php endif ?>
+		<!--For Name and Number	Start	-->
+		<?php if (count($xml['nameData'])>0): ?>
+		<?php
+		if(!array_key_exists('0', $xml['nameData']['data'])){
+			$nameNumberData[0] = $xml['nameData']['data'];
+		}
+		else
+		{
+			$nameNumberData = $xml['nameData']['data'];
+		}		
+		?>
+		<dl class="">
+		<dt>Name / Number</dt>
+		<?php foreach($nameNumberData as $key => $value): ?>
+			<dd>
+			<?php if(count($value['names']) > 0):?>
+			<?php echo  $value['names']; ?>
+			<?php endif ?>	
+			<?php echo " / ";?>
+			<?php if(count($value['numbers']) > 0):?>
+			<?php echo  $value['numbers']; ?>
+			<?php endif ?>	
+			<?php //echo  $value['names']." / ".$value['numbers']; ?>
+			<?php echo "<br />"; ?>
+			</dd>		
+		<?php endforeach; ?>	
+		</dl>
+		<?php endif ?>	
+		<!--For Name and Number	end	-->	
+    </td>
+	
+	<td>
+		<?php // Show Front image -		
+		if($front_img != '' and file_exists($imageDir.$front_img)) { ?>
+		<?php list($width, $height, $type, $attr) = getimagesize($imageDir.$front_img);	?>
+		<a href="<?php echo $imgpath.$front_img; ?>" rel="lightbox[roadtrip]" title="Front Image">
+		<img src="<?php echo $imgpath.$front_img; ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?> /> </a>
+		<?php } ?>
+	</td>
+	<td>
+		<?php // Show Back image - 
+		if($back_img != '' and file_exists($imageDir.$back_img)) { ?>
+		<?php list($width, $height, $type, $attr) = getimagesize($imageDir.$back_img);	?>
+		<a href="<?php  echo $imgpath.$back_img; ?>" rel="lightbox[roadtrip]" title="Back Image">
+		<img src="<?php echo $imgpath.$back_img; ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?> /></a>
+		<?php } ?>
+	</td>
+	<td>
+		<?php // Show Left image - 
+		if($left_img != '' and file_exists($imageDir.$left_img)) { ?>
+		<?php list($width, $height, $type, $attr) = getimagesize($imageDir.$left_img);	?>
+		<a href="<?php echo $imgpath.$left_img; ?>" rel="lightbox[roadtrip]" title="Left Image">
+		<img src="<?php echo $imgpath.$left_img; ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?> /> </a>
+		<?php } ?>
+	</td>
+	<td>
+		<?php // Show Right image - 
+		if($right_img != '' and file_exists($imageDir.$right_img)) { ?>
+		<?php list($width, $height, $type, $attr) = getimagesize($imageDir.$right_img);	?>
+		<a href="<?php  echo $imgpath.$right_img; ?>" rel="lightbox[roadtrip]" title="Right Image">
+		<img src="<?php echo $imgpath.$right_img; ?>" <?php echo ($width>$height)? "width=100" : "height=100"; ?> /></a>
+		<?php } ?>
+	</td>
+	
+	<td>
+		<?php  
+		$orderId = $_item->getOrder_id();
+		$order = Mage::getModel('sales/order')->load($orderId);
+		 
+		$Customer_id = $order->getCustomer_id();
+		
+		$comment = $xml['comment'];
+				
+		if(count($comment)>0)
+		{
+			echo $comment;
+		}
+		?>
+		
+	</td>	
+	
+	<td class="a-center"><?php echo $_item->getStatus() ?></td>
+    <td class="a-right"><?php echo $this->displayPriceAttribute('original_price') ?></td>
+    <td class="a-right">
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
+            <span class="price-excl-tax">
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+                    <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
+                <?php endif; ?>
+
+                <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+                    <?php
+                    echo $this->displayPrices(
+                        $_item->getBasePrice()+$_item->getBaseWeeeTaxAppliedAmount()+$_item->getBaseWeeeTaxDisposition(),
+                        $_item->getPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition()
+                    );
+                    ?>
+                <?php else: ?>
+                    <?php echo $this->displayPrices($_item->getBasePrice(), $_item->getPrice()) ?>
+                <?php endif; ?>
+
+
+                <?php if (Mage::helper('weee')->getApplied($_item)): ?>
+                    <br />
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): ?>
+                        <small>
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_amount'], $tax['amount']); ?></span>
+                        <?php endforeach; ?>
+                        </small>
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                            <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_amount_incl_tax'], $tax['amount_incl_tax']); ?></small></span>
+                        <?php endforeach; ?>
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
+                        <small>
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_amount_incl_tax'], $tax['amount_incl_tax']); ?></span>
+                        <?php endforeach; ?>
+                        </small>
+                    <?php endif; ?>
+
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+                        <br />
+                        <span class="nobr"><?php echo Mage::helper('weee')->__('Total'); ?>:<br />
+                        <?php
+                        echo $this->displayPrices(
+
+                            $_item->getBasePrice()+$_item->getBaseWeeeTaxAppliedAmount()+$_item->getBaseWeeeTaxDisposition(),
+                            $_item->getPrice()+$_item->getWeeeTaxAppliedAmount()+$_item->getWeeeTaxDisposition()
+                        );
+                        ?>
+                        </span>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </span>
+            <br />
+        <?php endif; ?>
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceInclTax()): ?>
+            <span class="price-incl-tax">
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+                    <span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
+                <?php endif; ?>
+                <?php $_incl = $this->helper('checkout')->getPriceInclTax($_item); ?>
+                <?php $_baseIncl = $this->helper('checkout')->getBasePriceInclTax($_item); ?>
+
+                <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+                    <?php echo $this->displayPrices($_baseIncl+$_item->getBaseWeeeTaxAppliedAmount(), $_incl+$_item->getWeeeTaxAppliedAmount()); ?>
+                <?php else: ?>
+                    <?php echo $this->displayPrices($_baseIncl-$_item->getBaseWeeeTaxDisposition(), $_incl-$_item->getWeeeTaxDisposition()) ?>
+                <?php endif; ?>
+
+                <?php if (Mage::helper('weee')->getApplied($_item)): ?>
+                    <br />
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): ?>
+                        <small>
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_amount'], $tax['amount']); ?></span>
+                        <?php endforeach; ?>
+                        </small>
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                            <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_amount_incl_tax'], $tax['amount_incl_tax']); ?></small></span>
+                        <?php endforeach; ?>
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
+                        <small>
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_amount_incl_tax'], $tax['amount_incl_tax']); ?></span>
+                        <?php endforeach; ?>
+                        </small>
+                    <?php endif; ?>
+
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+                        <br />
+                        <span class="nobr"><?php echo Mage::helper('weee')->__('Total'); ?>:<br /> <?php echo $this->displayPrices($_baseIncl+$_item->getBaseWeeeTaxAppliedAmount(), $_incl+$_item->getWeeeTaxAppliedAmount()); ?></span>
+                    <?php endif; ?>
+                <?php endif; ?>
+            </span>
+        <?php endif; ?>
+
+    </td>
+   
+
+
+	<td><?php echo $this->getColumnHtml($_item, 'qty') ?></td>
+	<td class="a-right">
+
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceExclTax()): ?>
+
+            <span class="price-excl-tax">
+
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+
+                    <span class="label"><?php echo $this->__('Excl. Tax'); ?>:</span>
+
+                <?php endif; ?>
+
+
+
+                <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+
+                    <?php
+
+                    echo $this->displayPrices(
+
+                        $_item->getBaseRowTotal()+$_item->getBaseWeeeTaxAppliedRowAmount()+$_item->getBaseWeeeTaxRowDisposition(),
+
+                        $_item->getRowTotal()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()
+
+                    );
+
+                    ?>
+
+                <?php else: ?>
+
+                    <?php echo $this->displayPrices($_item->getBaseRowTotal(), $_item->getRowTotal()) ?>
+
+                <?php endif; ?>
+
+
+
+
+
+                <?php if (Mage::helper('weee')->getApplied($_item)): ?>
+
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): ?>
+
+                        <small>
+
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_row_amount'], $tax['row_amount']); ?></span>
+
+                        <?php endforeach; ?>
+
+                        </small>
+
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+
+                            <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_row_amount_incl_tax'], $tax['row_amount_incl_tax']); ?></small></span>
+
+                        <?php endforeach; ?>
+
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
+
+                        <small>
+
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_row_amount_incl_tax'], $tax['row_amount_incl_tax']); ?></span>
+
+                        <?php endforeach; ?>
+
+                        </small>
+
+                    <?php endif; ?>
+
+
+
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+
+                        <br />
+
+                        <span class="nobr"><?php echo Mage::helper('weee')->__('Total'); ?>:<br />
+
+                        <?php
+
+                        echo $this->displayPrices(
+
+                            $_item->getBaseRowTotal()+$_item->getBaseWeeeTaxAppliedRowAmount()+$_item->getBaseWeeeTaxRowDisposition(),
+
+                            $_item->getRowTotal()+$_item->getWeeeTaxAppliedRowAmount()+$_item->getWeeeTaxRowDisposition()
+
+                        );
+
+                        ?>
+
+                        </span>
+
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
+            </span>
+
+            <br />
+
+        <?php endif; ?>
+
+        <?php if ($this->helper('tax')->displaySalesBothPrices() || $this->helper('tax')->displaySalesPriceInclTax()): ?>
+
+            <span class="price-incl-tax">
+
+                <?php if ($this->helper('tax')->displaySalesBothPrices()): ?>
+
+                    <span class="label"><?php echo $this->__('Incl. Tax'); ?>:</span>
+
+                <?php endif; ?>
+
+                <?php $_incl = $this->helper('checkout')->getSubtotalInclTax($_item); ?>
+
+                <?php $_baseIncl = $this->helper('checkout')->getBaseSubtotalInclTax($_item); ?>
+
+                <?php if (Mage::helper('weee')->typeOfDisplay($_item, array(0, 1, 4), 'sales')): ?>
+
+                    <?php echo $this->displayPrices($_baseIncl+$_item->getBaseWeeeTaxAppliedRowAmount(), $_incl+$_item->getWeeeTaxAppliedRowAmount()); ?>
+
+                <?php else: ?>
+
+                    <?php echo $this->displayPrices($_baseIncl-$_item->getBaseWeeeTaxRowDisposition(), $_incl-$_item->getWeeeTaxRowDisposition()) ?>
+
+                <?php endif; ?>
+
+
+
+
+
+                <?php if (Mage::helper('weee')->getApplied($_item)): ?>
+
+
+
+                    <br />
+
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 1, 'sales')): ?>
+
+                        <small>
+
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_row_amount'], $tax['row_amount']); ?></span>
+
+                        <?php endforeach; ?>
+
+                        </small>
+
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+
+                            <span class="nobr"><small><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_row_amount_incl_tax'], $tax['row_amount_incl_tax']); ?></small></span>
+
+                        <?php endforeach; ?>
+
+                    <?php elseif (Mage::helper('weee')->typeOfDisplay($_item, 4, 'sales')): ?>
+
+                        <small>
+
+                        <?php foreach (Mage::helper('weee')->getApplied($_item) as $tax): ?>
+
+                            <span class="nobr"><?php echo $tax['title']; ?>: <?php echo $this->displayPrices($tax['base_row_amount_incl_tax'], $tax['row_amount_incl_tax']); ?></span>
+
+                        <?php endforeach; ?>
+
+                        </small>
+
+                    <?php endif; ?>
+
+
+
+                    <?php if (Mage::helper('weee')->typeOfDisplay($_item, 2, 'sales')): ?>
+
+                        <br /><span class="nobr"><?php echo Mage::helper('weee')->__('Total'); ?>:<br /> <?php echo $this->displayPrices($_baseIncl+$_item->getBaseWeeeTaxAppliedRowAmount(), $_incl+$_item->getWeeeTaxAppliedRowAmount()); ?></span>
+
+                    <?php endif; ?>
+
+                <?php endif; ?>
+
+            </span>
+
+        <?php endif; ?>
+
+        </span>
+
+    </td>
+    <td class="a-right"><?php echo $this->displayPriceAttribute('tax_amount') ?></td>
+    <td class="a-right"><?php echo $this->displayTaxPercent($_item) ?></td>
+    <td class="a-right"><?php echo $this->displayPriceAttribute('discount_amount') ?></td>
+    <td class="a-right">
+        <?php echo $this->displayPrices(
+            $_item->getBaseRowTotal() - $_item->getBaseDiscountAmount() + $_item->getBaseTaxAmount() + $_item->getBaseWeeeTaxAppliedRowAmount(),
+            $_item->getRowTotal() - $_item->getDiscountAmount() + $_item->getTaxAmount() + $_item->getWeeeTaxAppliedRowAmount()
+        ); ?>
+    </td>
+	<td class="a-right">				
+		<?php // Show DesignTool load link - Naincy
+		if($show == 1) {?>
+			<a href="javascript:mypopup('<?php echo $filepath; ?>generate_pdf.php?order_id=<?php echo $_item->getId(); ?>&store_code=<?php echo $store_code ; ?>&store_id=<?php echo $store_id; ?>')">Generate Images</a>
+		<?php } ?>
+		<div class="input-box">
+		<?php
+		$vectorImagePath = 'designtool/saveimg/';
+		
+		$frontImage = "front_".$_item->getId().".png";
+		$backImage = "back_".$_item->getId().".png";
+		$leftImage = "left_".$_item->getId().".png";
+		$rightImage = "right_".$_item->getId().".png";		
+		
+		?>
+		<?php if(file_exists($vectorImagePath.$frontImage)): ?>
+			<a href="<?php echo $filepath; ?>download.php?printjpg=<?php echo $frontImage?>"><?php echo $frontImage; ?></a>	<br/>	
+		<?php endif; ?>
+		<?php if(file_exists($vectorImagePath.$backImage)): ?>
+			<a href="<?php echo $filepath; ?>download.php?printjpg=<?php echo $backImage?>"><?php echo $backImage; ?></a><br/>		
+		<?php endif; ?>
+		<?php if(file_exists($vectorImagePath.$leftImage)): ?>
+			<a href="<?php echo $filepath; ?>download.php?printjpg=<?php echo $leftImage?>"><?php echo $leftImage; ?></a><br/>		
+		<?php endif; ?>
+		<?php if(file_exists($vectorImagePath.$rightImage)): ?>
+			<a href="<?php echo $filepath; ?>download.php?printjpg=<?php echo $rightImage?>"><?php echo $rightImage; ?></a><br/>		
+		<?php endif; ?>
+		</div>
+	</td>	
+	
+	<td class="a-right">
+		<?php
+					if($show == 1) {?>
+						<?php 
+						$myFile = '';
+													
+						$myFile = "order-".$_item->getId()."-".$_item->getOrderId().".xml";				
+						
+						if(!file_exists($xml_file.$myFile))
+						{	
+							$filename = 'designtool/xml_files/'.$myFile;							
+							$fh = fopen($filename, 'w');
+							$data = '<?xml version="1.0" encoding="iso-8859-1"?>';
+							$pdfdata = $product_option['info_buyRequest']['pdfdata'];
+							fwrite($fh, $data);						
+							fwrite($fh, $pdfdata);								
+							fclose($fh);	
+						}
+						
+						if(file_exists($xml_file.$myFile))
+						{ ?>
+							<a href="<?php echo $filepath; ?>download.php?file_name=<?php echo $myFile?>"><?php echo $myFile; ?></a><?php
+						} 
+					} ?>
+	</td>
+	<td class="a-left">
+		
+		<?php
+		$orderId = $_item->getOrder_id();
+		$order = Mage::getModel('sales/order')->load($orderId);
+		
+		$customerId = $order->getCustomer_id();		
+		$hdData = simplexml_load_string($product_option['info_buyRequest']['pdfdata']);	
+		$hd = objectsIntoArray($hdData);
+		$uploadedImagePath = Mage::getBaseDir(). DS . 'designtool/uploads'. DS;
+		$imageId = 'bitmap';
+		foreach($hd['savecode']['front'] as $id => $val){
+		
+			if (strpos($id,$imageId) !== false)
+			{		
+				foreach($hd['savecode']['front'][$id] as $id => $val)
+				{	
+					if ($id !== '@attributes') {
+						$imageDetails = $val['@attributes'];
+					} else {
+						$imageDetails = $val;
+					}
+					
+					
+					$imageArrayFront = explode('uploads/',$imageDetails['image']);
+					if($imageArrayFront!='')
+					{
+						$imageInfo = pathinfo($imageDetails['image']);
+						$imageName = $imageInfo['basename'];	
+						$importedImagePath =  Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName;
+						if($imageName != '' and !file_exists(Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName))
+						{
+							copy($imageDetails['image'], $importedImagePath);
+						}
+						// if($imageName != '' and file_exists(Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName))
+						// {
+							// grab_image($imageDetails['image'],$imageName);
+						// }
+							
+						$imageArrayFront = explode('uploads/',$importedImagePath);
+					}
+					if(file_exists($uploadedImagePath.$imageArrayFront[1]))
+					{
+						$sourceFrontImage[] = $imageArrayFront[1];
+						$imageName = $imageArrayFront[1];
+						
+						$resource = Mage::getSingleton('core/resource');
+						$read = $resource->getConnection('core_read');     
+						$q = "SELECT vectorname FROM `user_cliparts` where customer_id  = '".$customerId."' and imgname = '".$imageName."'";
+						$data = $read->fetchAll($q); 								
+						$vectorname = $data[0]['vectorname'];
+						if(isset($vectorname))					
+						 $vectorimage[] = $vectorname;
+					}
+				}
+			}
+		}		
+		
+		foreach($hd['savecode']['back'] as $id => $val){
+			if (strpos($id,$imageId) !== false)
+			{		
+				foreach($hd['savecode']['back'][$id] as $id => $val)
+				{	
+					if ($id !== '@attributes') {
+						$imageDetails = $val['@attributes'];
+					} else {
+						$imageDetails = $val;
+					}
+					
+					$imageArrayBack = explode('uploads/',$imageDetails['image']);
+					if($imageArrayBack!='')
+					{
+						$imageInfo = pathinfo($imageDetails['image']);
+						$imageName = $imageInfo['basename'];	
+						$importedImagePath =  Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName;
+						if($imageName != '' and !file_exists(Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName))
+						{
+							copy($imageDetails['image'], $importedImagePath);
+						}
+							
+						$imageArrayBack = explode('uploads/',$importedImagePath);
+					}
+					if(file_exists($uploadedImagePath.$imageArrayBack[1]))
+					{
+					$sourceBackImage[] = $imageArrayBack[1];
+					$imageName = $imageArrayBack[1];
+					
+					$resource = Mage::getSingleton('core/resource');
+					$read = $resource->getConnection('core_read');     
+					$q = "SELECT vectorname FROM `user_cliparts` where customer_id  = '".$customerId."' and imgname = '".$imageName."'";
+					$data = $read->fetchAll($q); 								
+					$vectorname = $data[0]['vectorname'];
+					if(isset($vectorname))
+					
+					 $vectorimage[] = $vectorname;
+					}
+				}
+			}
+		}
+		
+		foreach($hd['savecode']['left'] as $id => $val){
+			if (strpos($id,$imageId) !== false)
+			{		
+				foreach($hd['savecode']['left'][$id] as $id => $val)
+				{	
+					if ($id !== '@attributes') {
+						$imageDetails = $val['@attributes'];
+					} else {
+						$imageDetails = $val;
+					}				
+					
+					$imageArrayLeft = explode('uploads/',$imageDetails['image']);
+					if($imageArrayLeft!='')
+					{
+						$imageInfo = pathinfo($imageDetails['image']);
+						$imageName = $imageInfo['basename'];			
+						$importedImagePath =  Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName;
+						if($imageName != '' and !file_exists(Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName))
+						{
+							copy($imageDetails['image'], $importedImagePath);
+						}							
+						$imageArrayLeft = explode('uploads/',$importedImagePath);
+					}
+					if(file_exists($uploadedImagePath.$imageArrayLeft[1]))
+					{
+						$sourceLeftImage[] = $imageArrayLeft[1];
+						$imageName = $imageArrayLeft[1];
+						
+						$resource = Mage::getSingleton('core/resource');
+						$read = $resource->getConnection('core_read');     
+						$q = "SELECT vectorname FROM `user_cliparts` where customer_id  = '".$customerId."' and imgname = '".$imageName."'";
+						$data = $read->fetchAll($q); 								
+						$vectorname = $data[0]['vectorname'];
+						if(isset($vectorname))
+						
+						 $vectorimage[] = $vectorname;
+					}
+				}
+			}
+		}
+		
+		foreach($hd['savecode']['right'] as $id => $val){
+			if (strpos($id,$imageId) !== false)
+			{		
+				foreach($hd['savecode']['right'][$id] as $id => $val)
+				{	
+					if ($id !== '@attributes') {
+						$imageDetails = $val['@attributes'];
+					} else {
+						$imageDetails = $val;
+					}
+
+					$imageArrayRight = explode('uploads/',$imageDetails['image']);
+					if($imageArrayRight!='')
+					{
+						$imageInfo = pathinfo($imageDetails['image']);
+						$imageName = $imageInfo['basename'];							
+						$importedImagePath =  Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName;
+						if($imageName != '' and !file_exists(Mage::getBaseDir(). DS . 'designtool/uploads'. DS . $imageName))
+						{
+							copy($imageDetails['image'], $importedImagePath);
+						}	
+						$imageArrayRight = explode('uploads/',$importedImagePath);
+					}
+					if(file_exists($uploadedImagePath.$imageArrayRight[1]))
+					{
+						$sourceRightImage[] = $imageArrayRight[1];
+						$imageName = $imageArrayRight[1];
+						
+						$resource = Mage::getSingleton('core/resource');
+						$read = $resource->getConnection('core_read');     
+						$q = "SELECT vectorname FROM `user_cliparts` where customer_id  = '".$customerId."' and imgname = '".$imageName."'";
+						$data = $read->fetchAll($q); 								
+						$vectorname = $data[0]['vectorname'];
+						if(isset($vectorname))
+						
+						 $vectorimage[] = $vectorname;
+					}
+				}
+			}
+		}
+		
+	?>	
+	<?php	$cnt = count($sourceFrontImage); ?>
+	<?php for($l=0;$l<$cnt;$l++) { ?>
+		<a target="_blank" href="<?php echo $filepath; ?>download.php?image_name=<?php echo $sourceFrontImage[$l]?>"><?php echo $sourceFrontImage[$l];?></a><br />  
+	<?php } ?>
+	
+	<?php		
+	$cnt = count($sourceBackImage);
+	for($m=0;$m<$cnt;$m++)
+	{
+	?>
+		<a target="_blank" href="<?php echo $filepath; ?>download.php?image_name=<?php echo $sourceBackImage[$m]?>"><?php echo $sourceBackImage[$m];?></a><br />  
+	<?php
+	}
+	?>
+	
+	<?php	
+	$cnt = count($sourceLeftImage);
+	for($m=0;$m<$cnt;$m++)
+	{
+	?>
+		<a target="_blank" href="<?php echo $filepath; ?>download.php?image_name=<?php echo $sourceLeftImage[$m]?>"><?php echo $sourceLeftImage[$m];?></a><br />  
+	<?php
+	}
+	?>
+	
+	<?php	
+	$cnt = count($sourceRightImage);
+	for($m=0;$m<$cnt;$m++)
+	{
+	?>
+		<a target="_blank" href="<?php echo $filepath; ?>download.php?image_name=<?php echo $sourceRightImage[$m]?>"><?php echo $sourceRightImage[$m];?></a><br />  
+	<?php
+	}
+	?>
+	
+	</td>	
+	<td class="a-left last">
+		<?php
+			$cnt = count($vectorimage);
+			for($k=0;$k<$cnt;$k++)
+			{
+			?>
+					<a target="_blank" href="<?php echo $filepath; ?>download.php?image_name=<?php echo $vectorimage[$k]?>"><?php echo $vectorimage[$k];?></a><br />  
+			<?php
+			}
+		?>
+		
+	</td>
+	
+</tr>

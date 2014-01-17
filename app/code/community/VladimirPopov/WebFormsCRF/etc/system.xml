@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<webformscrf>
+			<label>Customer Registration Form</label>
+			<tab>webforms_tab</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>200</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<registration translate="label comment">
+					<comment></comment>
+					<label>Customer Registration Form</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable translate="label comment">
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<form translate="label comment">
+							<comment><![CDATA[Replace default registration form]]></comment>
+							<label>Registration web-form</label>
+							<frontend_type>select</frontend_type>
+							<source_model>webforms/webforms</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</form>
+						<address>
+							<comment><![CDATA[Add address profile fields to registration form]]></comment>
+							<label>Create address profile on registration</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</address>
+					</fields>
+				</registration>
+				<captcha translate="label comment">
+					<comment></comment>
+					<label>Captcha Settings</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<registration translate="label comment">
+							<comment></comment>
+							<label>Show captcha on registration</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</registration>
+						<checkout translate="label comment">
+							<comment></comment>
+							<label>Show captcha on checkout</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</checkout>
+					</fields>
+				</captcha>
+			</groups>
+		</webformscrf>
+	</sections>
+</config>

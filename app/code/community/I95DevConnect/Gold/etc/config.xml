@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_Base
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <modules>
+        <I95DevConnect_Gold>
+            <version>0.1.1</version>
+        </I95DevConnect_Gold>
+    </modules>
+    <frontend>
+        <routers>
+            <Gold>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_Gold</module>
+                    <frontName>goldconnect</frontName>
+                </args>
+            </Gold>
+        </routers>
+        <layout>
+            <updates>
+                <Gold>
+                    <file>gold.xml</file>
+                </Gold>
+            </updates>
+        </layout>
+    </frontend>
+    <global>
+
+        <helpers>
+            <I95DevConnect_Gold>
+                <class>I95DevConnect_Gold_Helper</class>
+            </I95DevConnect_Gold>
+        </helpers>
+        <blocks>
+        </blocks>
+        
+        <models>
+            <I95DevConnect_Gold>
+                <class>I95DevConnect_Gold_Model</class>
+            </I95DevConnect_Gold>
+        </models>
+        <events>
+            <sales_order_invoice_save_after>
+                <observers>
+                    <i95dev_i95devconnect_observer_invoice>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Gold_Model_Observers_Observer</class>
+                        <method>salesOrderInvoicePay</method>
+                    </i95dev_i95devconnect_observer_invoice>
+                </observers>
+            </sales_order_invoice_save_after>
+            <sales_order_shipment_save_after>
+                <observers>
+                    <i95dev_i95devconnect_observer_shipment>
+                        <class>I95DevConnect_Gold_Model_Observers_Observer</class>
+                        <method>salesOrderShipmentSaveAfter</method>
+                    </i95dev_i95devconnect_observer_shipment>
+                </observers>
+            </sales_order_shipment_save_after> 
+            <i95dev_order_status_update_after>
+                <observers>
+                    <i95dev_i95devconnect_observer_orderstatus>
+                        <class>I95DevConnect_Gold_Model_Observers_Observer</class>
+                        <method>orderStatusUpdateAfter</method>
+                    </i95dev_i95devconnect_observer_orderstatus>
+                </observers>
+            </i95dev_order_status_update_after>
+        </events>
+        <resources>
+            <gold_setup>
+                <setup>
+                    <module>I95DevConnect_Gold</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </gold_setup>
+        </resources>
+    </global>
+  <!-- To display Gp to Magento Error report Menu on Magento admin side for Gold package -->
+    <adminhtml>
+         <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <errorreport>
+ 
+                                            <title>Errorreport</title>
+ 
+                                        </errorreport>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <I95DevConnect_Errorreport>
+                            <title>Errorreport</title>
+ 
+                            <sort_order>16</sort_order>
+                        </I95DevConnect_Errorreport>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+          <menu>
+			<report module="errorreport">
+				<children>
+					<errorreport module="errorreport">
+						<title>I95Dev Error Report</title>
+						<sort_order>500</sort_order>
+				      	  <children>
+						 <gptomag module="errorreport">
+						    <title>Target to Magento Report</title>
+						    <sort_order>500</sort_order>
+					        <action>adminhtml/report_errorreport</action>
+					        </gptomag>
+				        </children>
+					</errorreport>
+				</children>
+			</report>
+		</menu> 
+        <layout>
+            <updates>
+                <Gold>
+                    <file>Goldadmin.xml</file>
+                </Gold>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

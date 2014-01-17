@@ -1,0 +1,66 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Page_Block_Html_Topmenu
+ */
+?>
+<?php $_menu = $this->getHtml('level-top') ?>
+<?php if($_menu): ?>
+<?php $config = Mage::getStoreConfig('shoppersettings', Mage::app()->getStore()->getId()); ?>
+<div class="nav-container">
+    <div class="nav-top-title"><div class="icon"><span></span><span></span><span></span></div><a href="#"><?php echo $this->__('Navigation'); ?></a></div>
+    <ul id="nav">
+        <?php if ($config['navigation']['home']): ?>
+        <li class="level0 level-top">
+            <a href="<?php echo $this->getBaseUrl(); ?>"><span><?php echo $this->__('Home'); ?></span></a>
+        </li>
+        <?php endif; ?>
+        <?php
+        echo $_menu;
+	    $custom_tab = Mage::getModel('cms/block')
+		    ->setStoreId( Mage::app()->getStore()->getId() )
+		    ->load('shopper_navigation_block');
+        if($custom_tab->getIsActive()) {
+	        $style = 'style="width:'.$config['navigation']['custom_block_width'].'px"';
+	        if ($config['navigation']['use_wide_navigation']) {
+		        $style = '';
+	        }
+            echo '
+            <li class="level0 level-top parent custom-block">
+                <a href="#" class="level-top">
+                    <span>'.$custom_tab->getTitle().'</span>
+                </a>
+                <ul class="level0"><li '.$style.'>'.$this->getLayout()->createBlock('cms/block')->setBlockId('shopper_navigation_block')->toHtml().'</li></ul>
+            </li>';
+        }
+        ?>
+    </ul>
+</div>
+<?php endif ?>

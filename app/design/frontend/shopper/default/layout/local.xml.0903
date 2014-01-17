@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout>
+	<default>
+
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/2columns-left.phtml</template>
+				<action method="setIsHandle">
+					<applied>1</applied>
+				</action>
+			</action>
+		</reference>
+
+		<!-- Remove callouts and rarely used stuff -->
+		<remove name="right.poll"/>
+		<remove name="right.permanent.callout"/>
+		<remove name="left.permanent.callout"/>
+		<remove name="paypal.partner.right.logo"/>
+		<remove name="cart_sidebar"/>
+
+		<!-- add the local stylesheet & js -->
+		<reference name="head">
+			<action ifconfig="shoppersettings/navigation/use_navigation" method="removeItem">
+				<type>js</type>
+				<name>varien/menu.js</name>
+				<params />
+			</action>
+            <action method="addCss"><stylesheet>css/slider.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/local.css</stylesheet></action>
+            <action ifconfig="shoppersettings/navigation/use_wide_navigation" method="addItem" ><type>skin_css</type><name>css/wide_navigation.css</name><params/></action>
+			<action ifconfig="shoppersettings/design/responsive" method="addItem"><type>skin_css</type><name>css/responsive.css</name></action>
+			<action method="addCss"><stylesheet>css/mobile.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/animation.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/settings.css</stylesheet></action>
+			<action method="addCss"><stylesheet>css/captions.css</stylesheet></action>
+			<action ifconfig="shoppersettings/design/override_css" method="addItem"><type>skin_css</type><name>css/override.css</name></action>
+
+            <action method="addItem"><type>js</type><name>queldorei/html5shiv.js</name><params/><if>lt IE 9</if></action>
+			<action method="addJs"><script>queldorei/jquery-1.8.2.min.js</script></action>
+			<action method="addJs"><script>queldorei/jquery.noconflict.js</script></action>
+            <action method="addItem"><type>js</type><name>queldorei/swipe.js</name><params/><if>!IE</if></action>
+            <action method="addJs"><script>queldorei/jquery.masonry.min.js</script></action>
+			<action ifconfig="shoppersettings/ajax/totop" method="addJs"><script>queldorei/jquery.ui.totop.js</script></action>
+			<action method="addJs"><script>queldorei/jquery.anystretch.min.js</script></action>
+			<action method="addJs"><script>queldorei/jquery.mousewheel.js</script></action>
+			<!--<action method="addJs"><script>queldorei/jquery.fitvid.js</script></action>-->
+			<action method="addJs"><script>queldorei/jquery.easing.js</script></action>
+            <action method="addJs"><script>queldorei/jquery.flexslider-min.js</script></action>
+			<action method="addJs"><script>queldorei/jquery.jcarousel.min.js</script></action>
+			<action method="addJs"><script>queldorei/jquery.hoverIntent.min.js</script></action>
+            <action method="addItem"><type>skin_js</type><script>js/script.js</script></action>
+		</reference>
+
+		<!-- add currency and cart block in header -->
+		<reference name="header">
+            <block type="cms/block" name="theme_logo" as="theme_logo">
+                <action method="setBlockId"><block_id>shopper_logo</block_id></action>
+            </block>
+            <block type="directory/currency" name="currency_top" as="currencyTop"
+			       template="directory/currency-top.phtml"/>
+			<block type="checkout/cart_sidebar" name="cart_top" as="cartTop" template="checkout/cart/cart-top.phtml">
+                <action method="addItemRender"><type>simple</type><block>checkout/cart_item_renderer</block><template>checkout/cart/sidebar/default.phtml</template></action>
+                <action method="addItemRender"><type>grouped</type><block>checkout/cart_item_renderer_grouped</block><template>checkout/cart/sidebar/default.phtml</template></action>
+                <action method="addItemRender"><type>configurable</type><block>checkout/cart_item_renderer_configurable</block><template>checkout/cart/sidebar/default.phtml</template></action>
+                <block type="core/text_list" name="cart_sidebar.extra_actions" as="extra_actions" translate="label" module="checkout">
+                    <label>Shopping Cart Sidebar Extra Actions</label>
+                </block>
+            </block>
+            <block type="catalog/product_compare_sidebar" name="catalog.compare.top" as="compareTop" template="catalog/product/compare/top.phtml"/>
+
+
+            <block type="shoppersettings/navigation" name="queldorei.topnav" as="topShopperMenu"
+			       template="queldorei/navigation/top.phtml"/>
+            <block type="shopperslideshow/slideshow" name="slideshow" as="slideshow"
+			       template="queldorei/slideshow.phtml"/>
+		</reference>
+
+		<reference name="top.links">
+            <!--<remove name="wishlist_link"/>-->
+			<remove name="checkout_cart_link"/>
+			<block type="checkout/links" name="checkout_cart_link_custom">
+				<action method="addCheckoutLink"></action>
+			</block>
+		</reference>
+
+		<reference name="right">
+			<remove name="right.poll" />
+			<action method="unsetChild"><name>catalog.compare.sidebar</name></action>
+			<action method="unsetChild"><name>right.reports.product.viewed</name></action>
+			<action method="unsetChild"><name>right.reports.product.compared</name></action>
+		</reference>
+
+		<reference name="left">
+			<remove name="currency"/>
+
+            <block type="core/template" name="shopper_slideshow_wrapper" as="shopper_slideshow_wrapper" template="queldorei/block_slideshow.phtml" before="-" >
+                <block type="cms/block" name="shopper_banners_slideshow" as="shopper_banners_slideshow" before="-">
+                    <action method="setBlockId"><block_id>shopper_banners_slideshow</block_id></action>
+                </block>
+            </block>
+
+            <block type="poll/activePoll" name="left.poll">
+                <action method="setPollTemplate"><template>poll/active.phtml</template><type>poll</type></action>
+                <action method="setPollTemplate"><template>poll/result.phtml</template><type>results</type></action>
+            </block>
+			<action method="insert">
+				<blockName>catalog.compare.sidebar</blockName>
+				<sublingName>left.poll</sublingName>
+				<after>0</after>
+			</action>
+            <action method="insert">
+                <blockName>right.reports.product.compared</blockName>
+                <sublingName>tags_popular</sublingName>
+                <after>0</after>
+            </action>
+			<action method="insert">
+				<blockName>right.reports.product.viewed</blockName>
+				<sublingName>tags_popular</sublingName>
+				<after>0</after>
+			</action>
+
+            <action method="unsetChild" ifconfig="shoppersettings/design/hide_compare">
+                <name>catalog.compare.sidebar</name>
+            </action>
+            <action method="unsetChild" ifconfig="shoppersettings/design/hide_compare">
+                <name>right.reports.product.compared</name>
+            </action>
+		</reference>
+
+		<reference name="footer">
+			<remove name="cms_footer_links"/>
+			<block type="cms/block" name="shopper_footer_links" as="shopper_footer_links">
+                <action method="setBlockId"><block_id>shopper_footer_links</block_id></action>
+            </block>
+		</reference>
+
+	</default>
+
+	<catalog_category_default translate="label">
+		<reference name="left">
+            <block type="shoppersettings/navigation" name="queldorei.left.category" before="-" template="queldorei/navigation/left.phtml"/>
+            <block type="shoppersettings/bestsellers" name="queldorei.left.bestsellers" after="queldorei.left.category" template="queldorei/bestsellers.phtml"/>
+			<action method="unsetChild"><alias>catalog.leftnav</alias></action>
+		</reference>
+	</catalog_category_default>
+
+	<catalog_category_layered translate="label">
+		<reference name="left">
+            <block type="shoppersettings/navigation" name="queldorei.left.category" before="-" template="queldorei/navigation/left.phtml"/>
+            <block type="shoppersettings/bestsellers" name="queldorei.left.bestsellers" after="queldorei.left.category" template="queldorei/bestsellers.phtml"/>
+		</reference>
+	</catalog_category_layered>
+
+	<catalogsearch_result_index translate="label">
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/2columns-left.phtml</template>
+			</action>
+		</reference>
+		<reference name="left">
+            <block type="shoppersettings/bestsellers" name="queldorei.left.bestsellers" template="queldorei/bestsellers.phtml"/>
+		</reference>
+	</catalogsearch_result_index>
+
+	<catalogsearch_advanced_index translate="label">
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/2columns-left.phtml</template>
+			</action>
+		</reference>
+	</catalogsearch_advanced_index>
+
+	<catalogsearch_advanced_result translate="label">
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/2columns-left.phtml</template>
+			</action>
+		</reference>
+		<reference name="left">
+            <block type="shoppersettings/bestsellers" name="queldorei.left.bestsellers" before="-" template="queldorei/bestsellers.phtml"/>
+		</reference>
+	</catalogsearch_advanced_result>
+
+	<catalog_product_view translate="label">
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/1column.phtml</template>
+			</action>
+            <action method="unsetChild"><name>global_messages</name></action>
+		</reference>
+
+		<reference name="right">
+			<action method="unsetChild" ><name>catalog.product.related</name></action>
+        </reference>
+
+		<reference name="product.info">
+                <action method="insert"><blockName>global_messages</blockName></action>
+                <action method="unsetChild"><name>additional</name></action>
+                <block type="cms/block" name="queldorei_product_additional">
+                    <action method="setBlockId"><block_id>shopper_product_additional</block_id></action>
+                </block>
+                <block type="cms/block" name="shopper_product_addthis">
+                    <action method="setBlockId"><block_id>shopper_product_addthis</block_id></action>
+                </block>
+                <block type="catalog/product_list_upsell" name="product.info.upsell2" as="upsell_products2" template="catalog/product/list/upsell2.phtml">
+                    <action method="setColumnCount"><columns>4</columns></action>
+                    <action method="setItemLimit"><type>upsell</type><limit>44</limit></action>
+                </block>
+                <block type="catalog/product_list_related" name="content.product.related" as="content_related" template="catalog/product/list/related_content.phtml"/>
+        </reference>
+
+		<reference name="product.info.additional">
+            <action method="unsetChild" ><name>product_tag_list</name></action>
+			<block type="catalog/product_view_tabs" name="product.info.tabs" as="info_tabs">
+                <action method="setTemplate" ><template>catalog/product/view/tabs.phtml</template></action>
+                <action method="addTab" translate="title" module="catalog" ><alias>description_tabbed</alias><title>Description</title><block>catalog/product_view_description</block><template>catalog/product/view/description.phtml</template></action>
+                <action method="addTab" translate="title" module="catalog" ><alias>additional_tabbed</alias><title>Additional</title><block>catalog/product_view_attributes</block><template>catalog/product/view/attributes.phtml</template></action>
+                <action method="addTab" translate="title" module="tag" ><alias>tags_tabbed</alias><title>Tags</title><block>tag/product_list</block><template>tag/list.phtml</template></action>
+                <action method="addTab" translate="title" module="review" ><alias>review_tabbed</alias><title>Reviews</title><block>review/product_view_list</block><template>review/product_info_review.phtml</template></action>
+            </block>
+		</reference>
+
+        <reference name="product.info.options.wrapper.bottom">
+            <action method="unsetChild"><name>product.info.addto</name></action>
+            <action ifconfig="shoppersettings/labels/clone_price" method="unsetChild"><name>prices</name></action>
+        </reference>
+
+        <reference name="product.info.upsell">
+            <action method="setItemLimit"><type>upsell</type><limit>44</limit></action>
+        </reference>
+
+	</catalog_product_view>
+
+	<reviews>
+	    <reference name="root">
+	        <action method="setTemplate"><template>page/1column.phtml</template></action>
+	    </reference>
+	</reviews>
+
+	<review_product_list>
+	    <reference name="root">
+	        <action method="setTemplate"><template>page/1column.phtml</template></action>
+	    </reference>
+	</review_product_list>
+
+    <contacts_index_index translate="label">
+        <reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+    </contacts_index_index>
+
+    <customer_account>
+        <reference name="left">
+            <action method="unsetChild"><name>catalog.compare.sidebar</name></action>
+        </reference>
+    </customer_account>
+
+    <catalog_product_compare_index>
+        <reference name="head">
+            <action method="removeItem"><type>skin_css</type><name>css/responsive.css</name></action>
+        </reference>
+    </catalog_product_compare_index>
+
+    <wishlist_index_configure translate="label">
+        <reference name="head">
+            <action method="removeItem"><type>skin_js</type><name>js/ajaxwishlist/ajaxwishlist.js</name></action>
+        </reference>
+        <reference name="product.info.options.wrapper.bottom">
+            <action method="unsetChild"><name>product.info.addto</name></action>
+        </reference>
+    </wishlist_index_configure>
+
+    <!-- to make ajax popup compatible with Brim FPC -->
+    <ajax_index_options>
+        <update handle="brim_pagecache_default" />
+    </ajax_index_options>
+
+</layout>

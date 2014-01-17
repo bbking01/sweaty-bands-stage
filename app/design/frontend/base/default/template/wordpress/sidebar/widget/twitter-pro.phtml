@@ -1,0 +1,42 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<div class="block block-blog block-blog-twitter">
+	<?php if ($title = $this->getTitle()): ?>
+		<div class="block-title">
+			<strong><span><?php echo $this->__($title) ?></span></strong>
+		</div>
+	<?php endif; ?>
+	<div class="block-content">
+		<?php $tweets = $this->getTweets() ?>
+		<?php if ($tweets): ?>
+			<ul>
+				<?php foreach($tweets as $tweet): ?>
+					<li class="item">
+						<p class="tw-content"><?php echo $tweet->getTweet() ?></p> 
+						<p class="tw-meta">
+							<span class="time-meta"><?php echo $tweet->getTimeSinceTweet() ?> </span> 
+							<?php if ($tweet->getFrom()): ?>
+								<span class="from-meta"><?php echo $tweet->getFrom() ?></span> 
+							<?php endif; ?>
+						</p>
+						<?php if ($tweet->getIntents()): ?>
+							<p class="tw-intents">
+								<?php foreach($tweet->getIntents() as $type => $intent): ?>
+									<span class="tw-intent-<?php echo $type ?>"><?php echo $intent ?> </span>
+								<?php endforeach; ?>
+							</p>
+						<?php endif; ?>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php else: ?>
+		
+		<?php endif; ?>
+	</div>
+</div>

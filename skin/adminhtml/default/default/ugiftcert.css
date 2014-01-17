@@ -1,0 +1,19 @@
+.ugiftcert_pdf td{ vertical-align: middle;}
+/*.ugiftcert_pdf td.value-ugc {width: 125px; text-align: right;}*/
+.ugiftcert_pdf input.short-text { width: 65px !important;}
+.ugiftcert_pdf input.med-text { width: 100px !important; }
+/*.ugiftcert_pdf .ugc-img {width: 326px;}*/
+.ugiftcert_pdf .color-preview{width:16px; height:16px; border:1px solid #000; display: inline-block; vertical-align: middle;}
+
+/*.ugiftcert_pdf .system-fieldset-sub-head { width: 150px;}*/
+
+/*.ugiftcert_pdf .scope-label {font-size: 9px; width: 100px; color: #6F8992;}*/
+/*.ugiftcert_pdf .use-default {font-size: 9px; width: 115px; color: #333333;}*/
+
+.ugiftcert_pdf .weight-select { width: 70px;}
+
+.img-preview { text-align: center;}
+/*.ugiftcert_pdf tr.even {background-color: #E7EFEF}*/
+
+/*.ugiftcert_pdf table {border-collapse: collapse;}*/
+/*.ugiftcert_pdf th, .ugiftcert_pdf td {padding: 10px 0 10px 5px}*/

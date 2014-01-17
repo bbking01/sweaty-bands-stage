@@ -1,0 +1,29 @@
+.stars {
+	padding:1px 0;
+	width:80px;
+}
+
+.stars-bar {
+	list-style:none;
+	margin: 0px;
+	padding:0px;
+	height: 16px;
+	position: relative;
+	background: url(stars.png) top left repeat-x;		
+}
+
+.stars-bar li{
+	padding:0px;
+	margin:0px;
+	/*\*/
+	float: left;
+	/* */
+}
+
+.stars-bar li.stars-value {
+	background: url(stars.png) left bottom;
+	position: absolute;
+	height: 16px;
+	display: block;
+	z-index: 1;
+}

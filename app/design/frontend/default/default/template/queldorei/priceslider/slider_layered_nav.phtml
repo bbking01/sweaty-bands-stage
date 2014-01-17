@@ -1,0 +1,76 @@
+<?php if ($this->canShowBlock()):
+$max = Mage::getModel('catalog/layer_filter_price');
+$slider_max = $maxPrice = $max->getMaxPriceInt()+1;
+$slider_min = 0;
+if ( isset($_COOKIE['queldorei_priceslider_min']) && $_COOKIE['queldorei_priceslider_min'] > $slider_min ) {
+    $slider_min = $_COOKIE['queldorei_priceslider_min'];
+}
+if ( isset($_COOKIE['queldorei_priceslider_max']) && $_COOKIE['queldorei_priceslider_max'] > $slider_min && $_COOKIE['queldorei_priceslider_max'] < $slider_max ) {
+    $slider_max = $_COOKIE['queldorei_priceslider_max'];
+}
+?>
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <?php echo $this->getStateHtml() ?>
+        <?php if ($this->canShowOptions()): ?>
+        <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
+        <dl id="narrow-by-list">
+            <?php $_filters = $this->getFilters() ?>
+            <?php foreach ($_filters as $_filter): ?>
+            <?php //var_dump($_filter); ?>
+            <?php if ($_filter->getItemsCount()): ?>
+                <dt><?php echo $this->__($_filter->getName()) ?></dt>
+                <dd><?php echo $_filter->getHtml() ?></dd>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <dt><?php echo $this->__('Price Slider') ?></dt>
+            <dd>
+                <div id="slider"></div>
+                <div class="f-left" id="slider-min"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . $slider_min; ?></div>
+                <div class="f-right" id="slider-max"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol() . $slider_max; ?></div>
+                <div class="clearer"></div>
+            </dd>
+        </dl>
+        <script type="text/javascript">decorateDataList('narrow-by-list')</script>
+        <?php endif; ?>
+    </div>
+</div>
+<input id="max-price" type="hidden" name="max-price" value="<?php echo $maxPrice; ?>">
+<input id="slider-baseurl" type="hidden" name="slider-baseurl" value="<?php echo Mage::getBaseUrl();?>">
+<input id="category" type="hidden" value="<?php $arr = $this->getRequest()->getParams('id', false); echo $arr['id']; ?>">
+<script type="text/javascript">
+    jQuery(function($){
+
+		var $currency = '<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>';
+	
+        function reloadProducts() {
+            var ids = $("#category").val();
+            var slidervalue = jQuery("#slider").slider('values');
+            var correctbaseurl = $('#slider-baseurl').val() + 'priceslider/slider/view?min=' + slidervalue[0] + '&max=' + slidervalue[1] + '&id=' + ids;
+            $('div.col-main').block({ message:null, overlayCSS: {opacity:0.16} });
+            $('.col-main').first().load(correctbaseurl, function(){
+                $('div.col-main').unblock();
+            });
+        }
+
+        $("#slider").slider({range:true,
+            min:0,
+            max:$("#max-price").val(),
+            values:[<?php echo $slider_min; ?>, <?php echo $slider_max; ?>],
+            slide:function (event, ui) {
+                $("#slider-min").html($currency+ui.values[0]);
+                $("#slider-max").html($currency+ui.values[1]);
+            },
+            create:function (event, ui) { reloadProducts(); },
+            stop:function (event, ui) {
+                $.cookie("queldorei_priceslider_min", ui.values[0], { path: '/' });
+                $.cookie("queldorei_priceslider_max", ui.values[1], { path: '/' });
+                reloadProducts();
+            }
+        });
+    });
+</script>
+<?php endif; ?>

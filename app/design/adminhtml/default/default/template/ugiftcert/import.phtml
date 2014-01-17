@@ -1,0 +1,62 @@
+<?php
+/* @var $this Unirgy_Giftcert_Block_Adminhtml_Import */
+?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td style="<?php echo $this->getHeaderWidth() ?>"><?php echo $this->getHeaderHtml() ?></td>
+            <td class="form-buttons"><?php echo $this->getButtonsHtml() ?></td>
+        </tr>
+    </table>
+</div>
+<div class="form">
+    <?php echo $this->getChildHtml('form');?>
+    <script type="text/javascript">
+        editForm = new varienForm('edit_form');
+    </script>
+</div>
+<div class="uploader">
+    <div class="grid">
+        <table cellspacing="0" class="data border" id="upload-grid" width="100%">
+            <thead>
+            <tr class="headings">
+                <th><?php echo Mage::helper('catalog')->__('Uploaded files') ?></th>
+            </tr>
+            </thead>
+            <tbody id="upload-container">
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="100" class="last" style="padding:8px">
+                    <?php echo $this->getChildHtml('uploader') ?>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script type="text/javascript">
+        <?php echo $this->getUploader()->getJsObjectName() ?>.onFilesComplete = function (files) {
+            $('upload-container').innerHTML = '';
+            files.each(function(item) {
+                if (!item.response.isJSON()) {
+                    try {
+                        console.log(item.response);
+                    } catch (e2) {
+                        alert(item.response);
+                    }
+                    return;
+                }
+                var response = item.response.evalJSON();
+                if (response.error || !response.file) {
+                    return;
+                }
+                addUploadedFile(response.file);
+            });
+        }
+
+        function addUploadedFile(file) {
+            $('upload-container').insert('<tr><td>' + file + '</td></tr>');
+        }
+    </script>
+</div>

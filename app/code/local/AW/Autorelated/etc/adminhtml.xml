@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <menu>
+        <catalog>
+            <children>
+                <awautorelated module="awautorelated">
+                    <title>Automatic Related Products</title>
+                    <sort_order>10</sort_order>
+                    <children>
+                        <new module="awautorelated">
+                            <title>Add Block</title>
+                            <sort_order>10</sort_order>
+                            <action>awautorelated_admin/adminhtml_blocksgrid/new</action>
+                        </new>
+                        <manage module="awautorelated">
+                            <title>Manage Blocks</title>
+                            <sort_order>20</sort_order>
+                            <action>awautorelated_admin/adminhtml_blocksgrid/list</action>
+                        </manage>
+                        <settings module="awautorelated">
+                            <title>Configuration</title>
+                            <sort_order>30</sort_order>
+                            <action>adminhtml/system_config/edit/section/awautorelated</action>
+                        </settings>
+                    </children>
+                </awautorelated>
+            </children>
+        </catalog>
+    </menu>
+    <enterprise>
+        <admingws>
+            <collection_load_before>
+                <awautorelated__blocks_collection>addStoreFilter</awautorelated__blocks_collection>
+            </collection_load_before>
+        </admingws>
+    </enterprise>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow everything</title>
+            </all>
+            <admin>
+                <children>
+                    <catalog>
+                        <children>
+                            <awautorelated module="awautorelated">
+                                <title>Automatic Related Products</title>
+                                <sort_order>10</sort_order>
+                                <children>
+                                    <new module="awautorelated">
+                                        <title>Manage Blocks</title>
+                                        <sort_order>10</sort_order>
+                                    </new>
+                                    <manage module="awautorelated">
+                                        <title>View Blocks</title>
+                                        <sort_order>20</sort_order>
+                                    </manage>
+                                    <settings module="awautorelated">
+                                        <title>Settings Quick Link</title>
+                                        <sort_order>30</sort_order>
+                                    </settings>
+                                </children>
+                            </awautorelated>
+                        </children>
+                    </catalog>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <awautorelated>
+                                        <title>Automatic Related Products section</title>
+                                    </awautorelated>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <layout>
+        <updates>
+            <awautorelated module="awautorelated">
+                <file>aw_autorelated.xml</file>
+            </awautorelated>
+        </updates>
+    </layout>
+</config>

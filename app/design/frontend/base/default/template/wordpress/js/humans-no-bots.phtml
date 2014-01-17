@@ -1,0 +1,12 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php if (Mage::helper('wordpress')->isPluginEnabled('HumansNotBots')): ?>
+	<script type="text/javascript" src="<?php echo $this->helper('wordpress')->getUrl() ?>wp-content/plugins/humansnotbots/humansnotbots.js"></script>
+	<script type="text/javascript">HumansNotBots("<?php echo $this->helper('wordpress')->getWpOption('replacement_method') ?>", "AT", "DOT");</script>
+<?php endif; ?>

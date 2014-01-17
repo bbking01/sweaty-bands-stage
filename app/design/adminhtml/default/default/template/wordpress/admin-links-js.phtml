@@ -1,0 +1,17 @@
+<?php
+/**
+ *
+ *
+ */
+?>
+<script type="text/javascript">
+//<![CDATA[
+	document.observe('dom:loaded', function() {
+		$('nav').select('li.parent.level1').each(function(l, ind) {
+			if (l.innerHTML.indexOf('WordPress') >= 0) {
+				l.select('li.level2 a').invoke('writeAttribute', 'target', '_blank');
+			}
+		});
+	});
+//]]>
+</script>

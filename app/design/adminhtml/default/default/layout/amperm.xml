@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_sales_order_index>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>uid</columnId>
+                <arguments module="amperm" translate="header">
+                    <header>Dealer</header>
+                    <type>options</type>
+                    <index>uid</index>
+                    <renderer>amperm/adminhtml_renderer_dealer</renderer>
+                </arguments>
+                <after>entity_id</after>
+            </action>
+        </reference>
+    </adminhtml_sales_order_index>
+
+    <adminhtml_sales_order_grid>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>uid</columnId>
+                <arguments module="amperm" translate="header">
+                    <header>Dealer</header>
+                    <type>options</type>
+                    <index>uid</index>
+                    <renderer>amperm/adminhtml_renderer_dealer</renderer>
+                </arguments>
+                <after>entity_id</after>
+            </action>
+        </reference>
+    </adminhtml_sales_order_grid>
+</layout>

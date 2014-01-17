@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <customerpictures_index_index>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/customerpictures" name="customerpictures" template="customerpictures/customerpictures.phtml">
+				<block type="customerpictures/images" name="customerpictures.winner" as="current-winner" template="customerpictures/user/winner.phtml" />
+				<block type="customerpictures/images_list" name="customerpictures.list" as="list" template="customerpictures/user/list.phtml">
+					<block type="customerpictures/images_toolbar" name="customerpictures.toolbar" as="toolbar" template="customerpictures/user/list/toolbar.phtml" />
+				</block>
+			</block>
+        </reference>
+    </customerpictures_index_index>
+
+	<customerpictures_index_view>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+			<block type="customerpictures/images" name="customerpictures" template="customerpictures/facebook/head.phtml"/>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/images" name="customerpictures" template="customerpictures/view.phtml">
+				<block type="customerpictures/images" name="customerpictures.avatar" as="avatar" template="customerpictures/user/avatar.phtml"/>
+			</block>
+        </reference>
+    </customerpictures_index_view>
+
+	<customerpictures_index_winner>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/images" name="customerpictures" template="customerpictures/view/winner.phtml">
+				<block type="customerpictures/images_list" name="customerpictures.list" as="list" template="customerpictures/user/list.phtml">
+					<block type="customerpictures/images_toolbar" name="customerpictures.toolbar" as="toolbar" template="customerpictures/user/list/toolbar.phtml" />
+				</block>
+			</block>
+        </reference>
+    </customerpictures_index_winner>
+
+	<customerpictures_index_user>
+		<reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/images" name="customerpictures" template="customerpictures/view/user.phtml">
+				<block type="customerpictures/images" name="customerpictures.avatar" as="avatar" template="customerpictures/user/avatar.phtml"/>
+				<block type="customerpictures/images_list" name="customerpictures.list" as="list" template="customerpictures/user/list.phtml">
+					<block type="customerpictures/images_toolbar" name="customerpictures.toolbar" as="toolbar" template="customerpictures/user/list/toolbar.phtml" />
+				</block>
+			</block>
+        </reference>
+    </customerpictures_index_user>
+
+	<customer_account>
+        <reference name="customer_account_navigation">
+            <action ifconfig="customerpictures/general/enabled" method="addLink" translate="label" module="sales"><name>customerpictures</name><path>customerpictures/user/</path><label>Customer pictures</label></action>
+        </reference>
+    </customer_account>
+
+	<!--User Home Page-->
+	<customerpictures_user_index>
+		<update handle="customer_account"/>
+
+		<reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/fileuploader.js</name><params/></action>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/user" name="customerpictures" template="customerpictures/user/customerpictures.phtml">
+				<block type="customerpictures/images" name="customerpictures.avatar" as="avatar" template="customerpictures/user/avatar.phtml"/>
+				<block type="customerpictures/images" name="customerpictures.upload" as="upload" template="customerpictures/user/upload.phtml"/>
+				<block type="customerpictures/images_list" name="customerpictures.list" as="list" template="customerpictures/user/list.phtml">
+					<block type="customerpictures/images_toolbar" name="customerpictures.toolbar" as="toolbar" template="customerpictures/user/list/toolbar.phtml" />
+				</block>
+			</block>
+        </reference>
+    </customerpictures_user_index>
+
+
+	<!--Terms and conditions page-->
+	<customerpictures_user_terms>
+		<update handle="customer_account"/>
+		<reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+		<reference name="head">
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/user" name="customerpictures.terms" template="customerpictures/user/terms.phtml" />
+        </reference>
+    </customerpictures_user_terms>
+
+	<customerpictures_user_temp>
+		<update handle="customer_account"/>
+		<reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/jquery.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/Jcrop.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/application.js</name><params/></action>
+			<action method="addCss"><stylesheet>customerpictures/Jcrop.css</stylesheet></action>
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/images" name="customerpictures.temp" template="customerpictures/user/edit/temp.phtml">
+				<block type="customerpictures/images" name="customerpictures.avatar" as="avatar" template="customerpictures/user/avatar.phtml"/>
+			</block>
+        </reference>
+    </customerpictures_user_temp>
+
+	<customerpictures_user_editpicture>
+		<update handle="customer_account"/>
+		<reference name="root">
+            <action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+        </reference>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/jquery.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/Jcrop.min.js</name><params/></action>
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/application.js</name><params/></action>
+			<action method="addCss"><stylesheet>customerpictures/Jcrop.css</stylesheet></action>
+            <action method="addCss"><stylesheet>customerpictures/main.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="customerpictures/images" name="customerpictures.edit" template="customerpictures/user/edit.phtml">
+				<block type="customerpictures/images" name="customerpictures.avatar" as="avatar" template="customerpictures/user/avatar.phtml"/>
+			</block>
+        </reference>
+    </customerpictures_user_editpicture>
+</layout> 

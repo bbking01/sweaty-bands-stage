@@ -1,0 +1,77 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php $post = $this->getPost() ?>
+<?php if ($post): ?>
+	<?php $helper = $this->helper('wordpress') ?>
+	<?php $author = $post->getAuthor() ?>
+	<?php if ($this->helper('wordpress/plugin_shareThis')->canDisplayOnPost()): ?>
+		<?php echo $this->helper('wordpress/plugin_shareThis')->getJavascriptHtml() ?>
+	<?php endif; ?>
+	<div class="blog-title page-title">
+		<img src="/sweatybands/media/images/blog_title_bar.png"/ >
+	</div>
+	<div class="post-view">
+		<h1><?php echo $this->escapeHtml($post->getPostTitle()) ?></h1>
+		<p class="post-date when">
+			<?php echo $this->__('Posted on %s', $post->getPostDate()) ?>
+		</p>
+		<div class="post-entry entry std<?php if ($post->getFeaturedImage): ?> post-entry-with-image<?php endif; ?>">
+			<?php if ($post->isViewableForVisitor()): ?>
+				<?php if ($featuredImage = $post->getFeaturedImage()): ?>
+					<div class="featured-image left"><img src="<?php echo $featuredImage->getFullSizeImage() ?>" alt="<?php echo $this->escapeHtml($post->getPostTitle()) ?>"/></div>
+				<?php endif; ?>
+				<?php echo $post->getPostContent() ?>
+			<?php else: ?>
+				<?php echo $this->getPasswordProtectHtml() ?>
+			<?php endif; ?>
+		</div>
+		<?php if ($this->helper('wordpress/plugin_shareThis')->canDisplayOnPost()): ?>
+				<div class="sharethis-icons" id="sharethis-icons-<?php echo $post->getId() ?>"><?php echo $this->helper('wordpress/plugin_shareThis')->getIcons($post) ?></div>
+		<?php endif; ?>
+		<div class="post-meta details">
+			<div>
+			<?php $categories = $post->getParentCategories() ?>
+			<?php if (count($categories) > 0): ?>
+				<span><?php echo $this->__('This entry was posted in') ?> </span>
+				<?php $it = count($categories) ?>
+				<?php foreach($categories as $category): ?><a href="<?php echo $category->getUrl() ?>"><?php echo $category->getName() ?></a><?php if (--$it > 0): ?>, <?php endif; ?><?php endforeach; ?>
+			<?php endif; ?>
+			<?php $tags = $post->getTags() ?>
+			<?php if (count($tags) > 0): ?>
+				<span><?php echo (count($categories) == 0) ? $this->__('This post was tagged with') : $this->__('and was tagged with') ?> </span> 
+				 <?php $it = count($tags) ?>
+				 <?php foreach($tags as $tag): ?><a href="<?php echo $tag->getUrl() ?>"><?php echo $tag->getName() ?></a><?php if (--$it > 0): ?>, <?php endif; ?><?php endforeach; ?>
+			<?php endif; ?>
+			<?php echo $this->__('by') ?> <a href="<?php echo $author->getUrl() ?>"><?php echo $this->escapeHtml($author->getDisplayName()) ?></a>. 
+			<?php if (false): ?>
+				<?php /** This is hidden by default. Remove the above if (and relevant endif) to display */ ?>
+				<?php if ($post->getCommentCount() == 0): ?>
+					<span><?php echo $this->__('There have been %s0 comments%s', '<a href="'.$post->getPermalink().'#respond">', '</a>') ?></span>
+				<?php else: ?>
+					<span><?php echo $this->__('There have been %s%s comment(s)%s', '<a href="'.$post->getPermalink().'#comments">', $post->getCommentCount(), '</a>') ?></span>
+				<?php endif; ?>
+			<?php endif; ?>
+			</div>
+			<div class="previous-next">
+			<?php if ($this->canDisplayPreviousNextLinks()): ?>
+			<span class="post-skips">
+				<?php if (($previous = $post->getPreviousPost()) !== false): ?>
+					<a href="<?php echo $previous->getPermalink() ?>" class="post-skip post-skip-previous" title="<?php echo $this->escapeHtml($previous->getPostTitle()) ?>">&larr; <?php echo $this->__('Previous Post') ?></a>
+				<?php endif; ?>
+				<?php if (($next = $post->getNextPost()) !== false): ?>
+					<a href="<?php echo $next->getPermalink() ?>" class="post-skip post-skip-next" title="<?php echo $this->escapeHtml($next->getPostTitle()) ?>"><?php echo $this->__('Next Post') ?> &rarr;</a>
+				<?php endif; ?>
+			</span>
+			<?php endif; ?>
+			</div>
+		</div>
+		<?php echo $this->getChildHtml('related_posts') ?>
+		<?php echo $this->getCommentsHtml() ?>
+	</div>
+<?php endif; ?>

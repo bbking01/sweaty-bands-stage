@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config>
+	<global>
+		<models>
+			<sales>
+				<rewrite>
+					<quote>Magestore_Sales_Model_Quote</quote>					
+				</rewrite>														
+			</sales>			
+		</models>
+	</global>
+</config>

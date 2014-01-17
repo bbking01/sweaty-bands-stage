@@ -1,0 +1,42 @@
+-
+  - 1
+  - 'aw@example.com'
+  - 'message'
+  - true
+  - false
+-
+  - 2
+  - 'aw@example.com'
+  - 'message'
+  - false
+  - false
+-
+  - 3
+  - 'aw@example.com'
+  - 'message'
+  - false
+  - 10
+-
+  - 4
+  - 'aw@example.com'
+  - 'message'
+  - false
+  - 20
+-
+  - 5
+  - 'aw@example.com'
+  - null
+  - true
+  - false
+-
+  - 6
+  - 'awexample.com'
+  - 'message'
+  - true
+  - false
+-
+  - 7
+  - null
+  - null
+  - true
+  - false

@@ -1,0 +1,42 @@
+<?php
+/**
+  *
+  *
+  */
+?>
+<?php if ($this->getRequest()->getParam('section') == 'wordpress' && $this->isAclValid() && Mage::helper('wordpress')->isEnabled()): ?>
+	<?php if ($results = $this->getChildHtml('wp_test_results')): ?>
+		<div class="content-header">
+			<table cellspacing="0">
+				<tbody>
+					<tr>
+						<td>
+							<h3><?php echo $this->__('WordPress Integration') ?></h3>
+						</td>
+						<td class="form-buttons">
+							<p style="font-size: 1.25em; line-height: 1.25em; margin: 0.3em 0.5em 0 0;">
+							<?php if ($this->helper('wordpress/system')->integrationHasErrors()): ?>
+								Need help configuring WordPress Integration? <a href="http://fishpig.co.uk/wordpress-integration-setup.html" style="color: #000;" target="_blank"><?php echo $this->__('Let FishPig do it') ?></a>!
+							<?php else: ?>
+								<?php $rand = rand(1, 5) ?>
+								<?php if ($rand === 1): ?>
+									Help keep WordPress Integration free by <a href="http://fishpig.co.uk/wordpress-integration.html#customer-reviews" style="color: #000;" target="_blank">leaving a review</a>!
+								<?php elseif ($rand === 2): ?>
+									Make Magento Faster with <a href="http://fishpig.co.uk/magento-optimisation-extension.html" target="_blank" style="color:#000;">Opti</a>. Full Page Caching, Minify HTML/CSS/Inline JS and more!
+								<?php elseif ($rand === 3): ?>
+									Increase your blog conversion rates with <a href="http://fishpig.co.uk/magento-wordpress-contact-form-7-integration.html" target="_blank" style="color:#000;">Contact Form 7</a>.
+								<?php elseif ($rand === 4): ?>
+									Add Lightbox JS affects to your blog with <a href="http://fishpig.co.uk/wordpress-integration-nextgen-gallery.html" target="_blank" style="color:#000;">NextGEN Gallery</a>.
+								<?php endif; ?>
+							<?php endif; ?>
+							</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="fp-integration-test-results" style="margin-bottom:20px;">
+			<?php echo $results ?>
+		</div>
+	<?php endif; ?>
+<?php endif; ?>

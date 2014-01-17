@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_Silver
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt/
+-->
+<config>
+    <modules>
+        <I95DevConnect_Silver>
+            <version>0.1.0</version>
+        </I95DevConnect_Silver>
+    </modules>
+    <frontend>
+        <routers>
+            <Silver>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_Silver</module>
+                    <frontName>silverconnect</frontName>
+                </args>
+            </Silver>
+        </routers>
+        <layout>
+            <updates>
+                <Silver>
+                    <file>Silver.xml</file>
+                </Silver>
+            </updates>
+        </layout>
+        <events>
+		
+        </events>
+    </frontend>
+    <admin>
+
+    </admin>
+    <global>
+
+        <helpers>
+            <I95DevConnect_Silver>
+                <class>I95DevConnect_Silver_Helper</class>
+            </I95DevConnect_Silver>
+        </helpers>
+        <blocks>
+			
+        </blocks>
+        <models>
+            <I95DevConnect_Silver>
+                <class>I95DevConnect_Silver_Model</class>
+            </I95DevConnect_Silver>
+           
+        </models>
+        <controllers>
+
+        </controllers>
+<!-- Globlal Events-->
+        <events>
+		
+            <i95dev_adminhtml_customer_save_after>
+                <observers>
+                    <i95DevConnect_Silver_adminhtml_customer_save_after>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Silver_Model_Observers_Observer</class>
+                        <method>saveAdminCustomer</method>
+                    </i95DevConnect_Silver_adminhtml_customer_save_after>
+                </observers>
+            </i95dev_adminhtml_customer_save_after> 
+            <i95dev_create_customer_after>
+                <observers>
+                    <i95DevConnect_Silver_create_customer_after>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Silver_Model_Observers_Observer</class>
+                        <method>handleCustomerRegistration</method>
+                    </i95DevConnect_Silver_create_customer_after>
+                </observers>
+            </i95dev_create_customer_after> 
+            <i95dev_create_customer_address_after>
+                <observers>
+                    <i95DevConnect_Silver_create_customer_address_after>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Silver_Model_Observers_Observer</class>
+                        <method>createCustomerAddress</method>
+                    </i95DevConnect_Silver_create_customer_address_after>
+                </observers>
+            </i95dev_create_customer_address_after>
+            <i95dev_checkout_submit_all_after>
+                <observers>
+                    <i95DevConnect_Silver_checkout_submit_all_after>
+                        <type>singleton</type>
+                        <class>I95DevConnect_Silver_Model_Observers_Observer</class>
+                        <method>createOrder</method>
+                    </i95DevConnect_Silver_checkout_submit_all_after>
+                </observers>
+            </i95dev_checkout_submit_all_after>
+        </events>
+        <resources>
+            <Silver_setup>
+                <setup>
+                    <module>I95DevConnect_Silver</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </Silver_setup>
+        </resources>
+    </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <Silver>
+                    <file>Silveradmin.xml</file>
+                </Silver>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>

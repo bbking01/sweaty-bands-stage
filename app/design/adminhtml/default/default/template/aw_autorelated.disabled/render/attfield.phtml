@@ -1,0 +1,132 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Autorelated
+ * @version    2.3.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+$conditions = Mage::getModel('awautorelated/source_block_common_attributes_condition');
+$conditions = $conditions->toOptionArray();
+$att = Mage::getModel('salesrule/rule_condition_product')->loadAttributeOptions()->getAttributeOption();
+unset($att['quote_item_price']);
+unset($att['quote_item_qty']);
+unset($att['quote_item_row_total']);
+$i = 1;
+?>
+<?php if ($this->getValues()): ?>
+    <?php foreach ($this->getValues() as $sAtt): ?>
+        <div id="condition-row-<?php echo $i ?>" style="margin:0 0 10px;width:700px;">
+            <select name="general[<?php echo $i ?>][att]" id="general-<?php echo $i ?>-att" style="width:250px;">
+                <option value=""><?php echo $this->__('Select Attribute'); ?></option>
+                <?php foreach ($att as $value => $name): ?>
+                    <option <?php echo ($sAtt['att'] == $value) ? 'selected' : '' ?> value="<?php echo $value ?>"><?php echo $name ?></option>
+                <?php endforeach; ?>
+            </select>
+            &nbsp;
+            <select name="general[<?php echo $i ?>][condition]" id="general-<?php echo $i ?>-condition" style="width:250px;">
+                <option value=""><?php echo $this->__('Select Condition');?></option>
+                <?php foreach ($conditions as $con): ?>
+                    <option <?php echo ($sAtt['condition'] == $con['value']) ? 'selected' : '' ?> value="<?php echo $con['value'] ?>"><?php echo $con['label'] ?></option>
+                <?php endforeach; ?>
+            </select>
+            &nbsp;
+            <label><?php echo $this->__("as current product's one"); ?></label>
+            &nbsp;
+            <span class="rule-param rule-param-new-child">
+                <a style="color:#FAFAFA;" class="label add-condition-row" id="add-condition-row-plus-<?php echo $i ?>" href="javascript:addConditionRow(<?php echo $i ?>)">
+                    <img title="Add" alt="" class="rule-param-add v-middle" src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_add.gif', array('_area' => 'adminhtml')) ?>">
+                </a>
+            </span>
+            &nbsp;
+            <?php if ($i == 1): ?>
+                <span class="rule-param">
+                    <a title="Reset Conditions" class="rule-param-remove remove-condition-row" href="javascript:resetCondition(<?php echo $i ?>)">
+                        <img class="v-middle" alt="" src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif', array('_area' => 'adminhtml')) ?>">
+                    </a>
+                </span>
+            <?php endif; ?>
+            <?php if ($i > 1): ?>
+                <span class="rule-param">
+                    <a title="Remove" class="rule-param-remove remove-condition-row" href="javascript:removeConditionRow(<?php echo $i ?>)">
+                        <img class="v-middle" alt="" src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif', array('_area' => 'adminhtml')) ?>">
+                    </a>
+                </span>
+            <?php endif; ?>
+        </div>
+        <?php $i++; ?>
+    <?php endforeach; ?>
+
+<?php endif; ?>
+<?php while ($i < 50): ?>
+    <div id="condition-row-<?php echo $i ?>" style="margin:0 0 10px;width:700px;display:<?php echo ($i > 1) ? 'none' : 'block' ?>">
+        <select name="general[<?php echo $i ?>][att]" id="general-<?php echo $i ?>-att" style="width:250px;">
+            <option value=""><?php echo $this->__('Select Attribute'); ?></option>
+            <?php foreach ($att as $value => $name): ?>
+                <option value="<?php echo $value ?>"><?php echo $name ?></option>
+            <?php endforeach; ?>
+        </select>
+        &nbsp;
+        <select name="general[<?php echo $i ?>][condition]" id="general-<?php echo $i ?>-condition" style="width:250px;">
+             <option value=""><?php echo $this->__('Select Condition'); ?></option>
+            <?php foreach ($conditions as $con): ?>
+                <option value="<?php echo $con['value'] ?>"><?php echo $con['label'] ?></option>
+            <?php endforeach; ?>
+        </select>
+        &nbsp;
+        <label><?php echo $this->__("as current product one"); ?></label>
+        &nbsp;
+        <span class="rule-param rule-param-new-child">
+            <a style="color:#FAFAFA;" class="label add-condition-row" id="add-condition-row-plus-<?php echo $i ?>" href="javascript:addConditionRow(<?php echo $i ?>)">
+                <img title="Add" alt="" class="rule-param-add v-middle" src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_add.gif', array('_area' => 'adminhtml')) ?>">
+            </a>
+        </span>
+        &nbsp;
+        <?php if ($i > 1): ?>
+            <span class="rule-param">
+                <a title="Remove" class="rule-param-remove remove-condition-row" href="javascript:removeConditionRow(<?php echo $i ?>)">
+                    <img class="v-middle" alt="" src="<?php echo Mage::getDesign()->getSkinUrl('images/rule_component_remove.gif', array('_area' => 'adminhtml')) ?>">
+                </a>
+            </span>
+        <?php endif; ?>
+    </div>
+    <?php $i++; ?>
+<?php endwhile; ?>
+<script type="text/javascript">
+    function addConditionRow(id){
+        $('condition-row-' + (id + 1)).setStyle({display: 'block'});
+        $('add-condition-row-plus-' + id).addClassName('hidden');
+    }
+    function removeConditionRow(id){
+        resetCondition(id);
+        $('condition-row-' + id).setStyle({display: 'none'});
+        $('add-condition-row-plus-' + (id - 1)).removeClassName('hidden');
+    }
+    function resetCondition(id){
+        $('general-' + id + '-att').clear();
+        $('general-' + id + '-condition').clear();
+    }
+</script>
+<style type="text/css">
+    .hidden{display:none;}
+</style>

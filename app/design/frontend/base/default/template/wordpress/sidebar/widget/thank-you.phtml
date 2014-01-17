@@ -1,0 +1,19 @@
+<?php
+/**
+ * @category    Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     http://fishpig.co.uk/license.txt
+ * @author      Ben Tideswell <help@fishpig.co.uk>
+ */
+?>
+<?php if (Mage::getStoreConfigFlag('wordpress/module/thankyou')): ?>
+<div class="block block-blog block-thank-you">
+	<div class="block-content">
+		<ul >
+			<li class="item">
+				<em><?php echo $this->__('Proudly powered by ') ?></em><br /><a href="http://fishpig.co.uk/wordpress-integration.html" onclick="this.target='_blank';"><?php echo $this->__('Magento WordPress Integration') ?></a>
+			</li>
+		</ul>
+	</div>
+</div>
+<?php endif; ?>

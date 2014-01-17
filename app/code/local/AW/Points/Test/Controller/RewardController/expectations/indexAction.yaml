@@ -1,0 +1,20 @@
+id1:
+ enabled: true
+ is_logged_in: true
+ is_subscribe: true
+id2:
+ enabled: false
+ is_logged_in: false
+ is_subscribe: false
+id3:
+ enabled: false
+ is_logged_in: true
+ is_subscribe: false
+id4:
+ enabled: true
+ is_logged_in: false
+ is_subscribe: false
+id5:
+ enabled: true
+ is_logged_in: true
+ is_subscribe: false

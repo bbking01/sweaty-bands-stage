@@ -1,0 +1,118 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+<?php
+$summaryForCustomer = $this->getSummaryForCustomer();
+$textForPoints = Mage::helper('points/config')->getPointUnitName();
+$defaultValue = Mage::app()->getRequest()->getParam('payment[points_amount]');
+?>
+
+<dl class="sp-methods" id="checkout-payment-method-load">
+    <?php if ($this->pointsSectionAvailable()): ?>
+        <dt>
+        <input type="checkbox" name="payment[use_points]" id="use_points" checked="checked" />
+        <label for="use_points"><?php echo $this->__('Use my %s', $textForPoints) ?></label>
+        </dt>
+        <dt>
+        <input type="text" name="payment[points_amount]" value ="<?php echo $defaultValue; ?>" id="points_amount" onchange="pointsAmountChanged()" />
+        <label for="points_amount"><?php echo Mage::helper('points')->__('of %s %s (%s) available', $summaryForCustomer->getPoints(), $textForPoints, $this->getMoneyForPoints()) ?></label>
+        </dt>
+    <?php endif; ?>
+
+    <?php foreach ($this->getMethods() as $_method): $_code = $_method->getCode() ?>
+        <dt>
+        <?php if (sizeof($this->getMethods()) > 1): ?>
+            <input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" title="<?php echo $this->htmlEscape($_method->getTitle()) ?>" onclick="payment.switchMethod('<?php echo $_code ?>')"<?php if ($this->getSelectedMethodCode() == $_code): ?> checked="checked"<?php endif; ?> class="radio" />
+        <?php else: ?>
+            <span class="no-display"><input id="p_method_<?php echo $_code ?>" value="<?php echo $_code ?>" type="radio" name="payment[method]" checked="checked" class="radio" /></span>
+            <?php endif; ?>
+        <label for="p_method_<?php echo $_code ?>"><?php echo $this->getMethodTitle($_method) ?> <?php echo $this->getMethodLabelAfterHtml($_method) ?></label>
+        </dt>
+        <?php if ($html = $this->getPaymentMethodFormHtml($_method)): ?>
+            <dd>
+                <?php echo $html; ?>
+            </dd>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</dl>
+<?php echo $this->getChildChildHtml('additional'); ?>
+<script type="text/javascript">
+    //<![CDATA[
+<?php echo $this->getChildChildHtml('scripts'); ?>
+    payment.init();
+    //]]>
+</script>
+
+<?php if ($this->pointsSectionAvailable()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var customerPoints = <?php echo $summaryForCustomer->getPoints() ?>;
+        var neededPoints = <?php echo $this->getNeededPoints() ?>;
+        var limitedPoints = <?php echo $this->getLimitedPoints() ?>;
+                            
+        $('use_points').disabled = $('points_amount').disabled = false;
+        $('points_amount').value = Math.abs(Math.min(customerPoints, neededPoints, limitedPoints)).toFixed(0);
+            
+        var pointsAmountChanged = function(){
+            var points_amount = $('points_amount').value;
+            if (isNaN(points_amount)) points_amount = 0;
+            points_amount = Math.min(Math.abs(points_amount), customerPoints, neededPoints, limitedPoints);
+            
+            $('points_amount').value = Math.abs(points_amount).toFixed(0);
+        }
+                            
+        Event.observe(window, 'load', function()
+        {
+            if (payment) {
+                payment.copySave = payment.save;
+                payment.anyPaymentMethodChecked = function() {
+                    var methods = document.getElementsByName('payment[method]');
+                    for (var i=0; i<methods.length; i++) {
+                        if (methods[i].checked) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                                    
+                payment.save = function() {
+                    var quoteBaseGrandTotalInPoints = <?php echo $this->getBaseGrandTotalInPoints() ?>;
+                    if (quoteBaseGrandTotalInPoints > $('points_amount').value 
+                        && !payment.anyPaymentMethodChecked())      {
+                        alert(Translator.translate('Please specify payment method.'));
+                        return false;
+                    } else  {
+                        return payment.copySave();
+                    }
+                }
+            }
+        });
+        //]]>
+    </script>
+<?php endif; ?>

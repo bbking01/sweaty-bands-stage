@@ -1,0 +1,28 @@
+<!--@subject New withdrawal request from {{var customer_firstname}} {{var customer_lastname}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url"}
+@-->
+
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:50px; padding:0;">
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr>
+            <td valign="top" style="padding:20px 0 20px 0">
+                Dear administrator!<br><br>
+                You have new withdrawal request ({{var amount_in_currency}}) from {{var customer_firstname}} {{var customer_lastname}} <{{var customer_email}}><br>
+                {{depend request_details}}
+                Here are additional details provided by affiliate:<br>
+                <div style="margin:10px;">
+                {{var request_details}}<br>
+                </div>
+                {{/depend}}
+                It can be processed at <a href="{{var link_to_withdrawal}}">manage affiliate page</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>

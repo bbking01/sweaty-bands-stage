@@ -1,0 +1,12 @@
+id1:
+ body_contains: "Magento Commerce"
+ request_route: "points/index/noRoute"
+id2:
+ body_contains: "Magento Commerce"
+ request_route: "points/index/noRoute"
+id3:
+ body_contains: "Home Page"
+ request_route: "points/index/infopage"
+id4:
+ body_contains: "404 Not Found"
+ request_route: "points/index/infopage"

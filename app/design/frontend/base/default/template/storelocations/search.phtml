@@ -1,0 +1,245 @@
+<?php
+/**
+ * Grow Development - Store Locations Pro
+ *
+ * @category   Growdevelopment
+ * @package    Growdevelopment_StoreLocations
+ * @copyright  Copyright (c) 2012 Grow Development (http://www.growdevelopment.com)
+ * @license    http://www.growdevelopment.com/docs/eula.txt
+ * @author     Daniel Espinoza <modules@growdevelopment.com>
+ *
+ */
+?>
+<?php 
+	// Display the map search page
+?>
+<div class="store-location-search">
+
+	<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+
+	<div class="page-title">
+	    <h1><?php echo Mage::helper('growdevstorelocations')->__('Store Locator') ?></h1>
+	</div>
+
+	<form id="store_location_search">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('growdevstorelocations')->__('Search by Address or Postal Code') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="search_address" class="required"><em>*</em><?php echo Mage::helper('growdevstorelocations')->__('Address or Postal Code') ?></label>
+                    <div class="input-box">
+                        <input name="search_address" id="search_address" title="<?php echo Mage::helper('growdevstorelocations')->__('Search by address') ?>" value="" class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="radius" class="required"><em>*</em><?php echo Mage::helper('growdevstorelocations')->__('Radius') ?></label>
+                    <div class="input-box">
+                    	<?php 
+                    	$radius_setting = Mage::getStoreConfig('growdevstorelocations/storelocationsconfig/grow_miles_or_km'); 
+                    	$metric = ($radius_setting == 'mi') ? 'Miles' : 'Kilometers'; ?>
+                    	<select name="radius" id="radius" class="input-select">
+                    		<option value="25" selected>25 <?php echo $metric ?></option>
+                    		<option value="50">50 <?php echo $metric ?></option>
+                    		<option value="100">100 <?php echo $metric ?></option>
+                    		<option value="200">200 <?php echo $metric ?></option>
+                    	</select>
+                    </div>
+                </div>
+               <div class="field">
+                    <div class="input-select">
+                    	<button id="btn_search" onclick="return false;" class="button"><span><span><?php echo Mage::helper('growdevstorelocations')->__('Search') ?></span></span></button>
+ 					</div>
+ 				</div>                
+            </li>
+		</ul>
+	</div>
+	</form>
+	
+	<div id="locations-and-map">
+		<div id="locations" class="locations">
+			<ul>
+			</ul>
+		</div>
+		<div id="map_container" class="map wide">
+			<div id="map_canvas" style="width: 100%; height: 530px;"></div>
+		</div>
+	</div>
+    
+
+
+</div>
+<?php
+	// setup map
+	$base_address = Mage::getStoreConfig('growdevstorelocations/storelocationsconfig/grow_base_address');
+	$base_zoom = Mage::getStoreConfig('growdevstorelocations/storelocationsconfig/grow_base_zoom');
+	$units = Mage::getStoreConfig('growdevstorelocations/storelocationsconfig/grow_miles_or_km');
+?>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+    <script type="text/javascript">
+	    jQuery.noConflict(); 
+	    
+		jQuery(document).ready(function(){
+			var map;
+			var geocoder;
+			var address;
+			var location;
+			var markersArray = [];
+			var infowindow;
+
+			// Initial setup of the map on the page
+			function init() {
+			  			  
+			  // Create Map
+			  location = new google.maps.LatLng(25,0);
+			  
+			  var myOptions = {
+			  		center: location,
+			  		zoom: 2,
+			  		mapTypeId: google.maps.MapTypeId.ROADMAP
+			  };
+			  map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			  geocoder = new google.maps.Geocoder();
+			}
+
+			// defaultMap() callback for setDefault Map()
+			// add the given address to the map and set base zoom
+			function defaultMap(results, status) {
+			  
+			  removeMarkers();
+			  if (status != google.maps.GeocoderStatus.OK) {
+				alert("Sorry, we were unable to geocode that address");
+			  } else {
+				var point = results[0].geometry.location;					
+				
+				map.setCenter(point,<?php echo $base_zoom ?>);
+				addMarker(point);
+			  }
+			}
+			
+			// Adds the overlays to the map and keeps track of them in the markersArray
+			function addMarker(location) {
+	  			var marker = new google.maps.Marker({
+	    			position: location,
+	    			map: map
+	  			});
+	  			markersArray.push(marker);
+			}
+			
+			// Deletes all markers
+			function removeMarkers() {
+			 	if (markersArray.length != 0 ) {
+			    	for (i=0; i < markersArray.length; i++) {
+			      		markersArray[i].setMap(null);
+			    	}
+			    	markersArray = new Array();
+			  	}
+			}
+				
+			// Set map to search address and show locations within radius
+			function locationSearch(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+	        		var lat = results[0].geometry.location.lat();
+	        		var long = results[0].geometry.location.lng();
+					var radius = jQuery('#radius option:selected').val();
+					
+	        		removeMarkers();
+	        		map.setCenter(results[0].geometry.location);	
+	        		//addMarker(results[0].geometry.location);
+	        		
+	        		jQuery('#locations ul').empty();
+
+	        		// get locations 
+	        		jQuery.ajax({
+	        			url: '<?php echo $this->getUrl('store-locations/search/search'); ?>?lat='+lat+'&lng='+long+'&radius='+radius+'&unit=<?php echo $units; ?>',
+	        			dataType: 'xml',
+	        			success: function(response){
+	        			
+	        				var bounds = new google.maps.LatLngBounds(); 
+	        				
+	        				jQuery('#locations ul').empty();
+	        				
+	        				if (0 < jQuery(response).find('marker').size()){	        				
+		        				jQuery(response).find('marker').each(function(){
+		        					var themarker = jQuery(this);
+		        					var point = new google.maps.LatLng(
+		        						parseFloat(themarker.find('latitude').text()),
+		        						parseFloat(themarker.find('longitude').text())
+		        						);
+		        					var storename = themarker.find('storename').text();
+		        					var street = themarker.find('street').text();
+		        					var city = themarker.find('city').text();
+		        					var state = themarker.find('state').text();
+		        					var postalcode = themarker.find('postalcode').text();
+		        					var country = themarker.find('country').text();
+		        					var phone = themarker.find('phone').text();
+		        					var url = themarker.find('url').text();
+		        					var lat = themarker.find('latitude').text();
+		        					var lng = themarker.find('longitude').text();
+	
+		        					// add to list
+		        					var listhtml = "<li>" 
+		        							   + "<strong>" + storename + "</strong>"
+		        							   + "<p>" + street + "<br/>"
+		        							   + city + ", " + state + " " + postalcode + "<br/>"
+		        							   + country + "<br/>"
+		        							   + phone + "<br/>"
+		        							   + "<a href=\"" + url + "\" target=\"blank\">" + url + "</a><br/>"
+		        							   + "</p>"
+		        							   + "</li>";
+		        					jQuery('#locations ul').append(listhtml);
+	
+		        					// add to map
+									var themarker = new google.maps.Marker({
+									    animation: google.maps.Animation.DROP,
+									    map: map,
+									    position: point
+									}); 
+									// set bounds
+									bounds.extend(point);
+	
+				   					var infohtml = "<div class='info-blob'>" 
+			        							   + "<strong>" + storename + "</strong>"
+			        							   + "<p>" + street + "<br/>"
+			        							   + city + ", " + state + " " + postalcode + "<br/>"
+			        							   + country + "<br/>"
+			        							   + phone + "<br/>"
+			        							   + "<a href=\"" + url + "\">" + url + "</a><br/>"
+			        							   + "</p>"
+			        							   + "</div>";
+			        							   								
+									google.maps.event.addListener(themarker, "click", function() {
+									    if (infowindow) infowindow.close();
+									    infowindow = new google.maps.InfoWindow({content: infohtml});
+									    infowindow.open(map, themarker);
+									});
+		        					
+		        				});
+								jQuery('#locations-and-map .locations').show();
+								jQuery('#map_container').removeClass('wide');
+		        				map.fitBounds(bounds); 	
+								google.maps.event.trigger(map, "resize");
+	        				} else {
+	        					alert('No locations found');
+	        				}
+	        			}
+      				});
+	        					
+	        	} else {
+	        		alert ("No locations found"); 
+	        		//alert("Status Code:" + status);
+	        	}
+			}
+			
+			// search for the given address
+			jQuery('#btn_search').click(function(){
+				var address = jQuery('#search_address').attr('value');
+				var radius = jQuery('#radius option:selected').val();
+				geocoder.geocode( { 'address': address}, locationSearch);
+			})
+
+			init();
+		});
+    </script>

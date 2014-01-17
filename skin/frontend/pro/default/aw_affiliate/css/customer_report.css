@@ -1,0 +1,126 @@
+.awreport .fields .field label {width: 70px;}
+.awreport .fields .field select {width: 230px; margin-bottom: 5px;}
+.awreport .fields .field input {width: 210px; margin-bottom: 5px; border:1px solid #C7C7C7;}
+.awreport .fields .field a {width: 20px; margin-bottom: 5px;}
+
+.awcampaigns {padding-left: 90px;}
+.awcampaigns label {margin-left: -95px;}
+.awcampaigns select {margin-left: -10px;}
+
+.create {
+    height: 250px;
+    margin-bottom: 10px;
+}
+
+.create label {
+    min-width: 100%;
+}
+
+.row-container {
+    height: 50px;
+}
+
+
+.button-set {
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#download-as-csv-link {
+    float: right;
+}
+
+#chart_container {
+    float: left;
+}
+
+.no-records {
+    text-align: center;
+}
+
+.error-messages {
+    text-align: center;
+    margin-top: 15px;
+    padding: 15px 0px;
+    border: 1px solid #f16048 !important;
+    color: #df280a !important;
+    background: #faebe7;
+}
+
+.report {
+    position: relative;
+    min-height: 100px;
+}
+
+.report .legend {
+    z-index: 220;
+}
+
+#report-container {
+    overflow: hidden;
+    width: 690px;
+    padding-left: 11px;
+    padding-right: 11px;
+    padding-bottom: 10px;
+}
+#report-container #chart_container{
+    padding-bottom: 10px;
+}
+#report-container th {
+    text-align: center;
+}
+
+#report-container td.tdright {
+    text-align: right;
+}
+
+#report-container td.tdright {
+    text-align: right;
+}
+
+#report-container td.tdcenter {
+    text-align: center;
+}
+
+#report-container td.tdleft {
+    text-align: left;
+}
+
+#download-as-csv-link{
+    margin-bottom: 10px;
+}
+
+/* ++ Overlay --- */
+.aw-overlay-popup {
+    background-color: #000000;
+    opacity: 0.6;
+    filter: Alpha(Opacity = 60);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 190;
+}
+
+#waiting-message {
+    width: 200px;
+    height: 55px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 200 !important;
+    background-color: #fff;
+    background-image: url('../images/ajax-loader.gif');
+    background-position: center 37px;
+    background-repeat: no-repeat;
+    padding: 15px;
+    border: 1px solid #ccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+/* ++ Z_Index fix */
+.calendar {
+    z-index: 220;
+}

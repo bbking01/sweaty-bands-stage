@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect
+* @package        I95DevConnect_Base
+* @Description    
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <tabs>
+        <i95dev_connect_extensions translate="label" module="I95DevConnect_Base">
+            <label>I95DevConnect</label>
+            <sort_order>1000000</sort_order>
+        </i95dev_connect_extensions>
+    </tabs>
+    <sections>
+
+        <I95DevConnect_Base>
+            <label>I95Dev Connect Settings</label>
+            <tab>i95dev_connect_extensions</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <I95DevConnect_enabled_settings>
+                    <label>I95dev Extension</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <is_enabled>
+                            <label>Extension(Enabled)</label>
+                            <comment>To enable or disable the extension.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_enabled>
+                        <is_developermode>
+                            <label>Extension Developer(Enabled)</label>
+                            <comment>To enable or disable extensions developer mode.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_developermode>
+                    </fields>
+                </I95DevConnect_enabled_settings>
+                <I95DevConnect_settings>
+                    <label>I95DevConnect Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <target_url>
+                            <label>Webservice Url</label>
+                            <comment>To Handle All Requests.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </target_url>
+                        <custom_order_work_flow>
+				<label>Enable Custom Order Work Flow</label>
+				<comment>If enabled, Custom order flow process will be enabled</comment>
+				<frontend_type>select</frontend_type>
+				<source_model>adminhtml/system_config_source_yesno</source_model>
+				<sort_order>7</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+                        </custom_order_work_flow> 
+                        <tax_override_from_target>
+				<label>Enable Tax Override</label>
+				<comment>If enabled, Tax amount will overriden in reverse sync</comment>
+				<frontend_type>select</frontend_type>
+				<source_model>adminhtml/system_config_source_yesno</source_model>
+				<sort_order>8</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+                        </tax_override_from_target> 
+                    </fields>
+                </I95DevConnect_settings>
+
+                <I95DevConnect_cron_settings>
+                    <label>CRON Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>300</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <I95DevConnect_number_of_records_update>
+                            <label>Number of records</label>
+                            <comment>The number of records to update or sync, inventory for each time of cron run.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </I95DevConnect_number_of_records_update>
+                    </fields>
+                </I95DevConnect_cron_settings>
+            </groups>
+        </I95DevConnect_Base>
+    </sections>
+</config>

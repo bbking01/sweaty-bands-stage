@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sub@i95dev.com so we can send you a copy immediately.
+ *
+ * @category
+ * @package        I95DevConnect_GpStatus
+ * @Description    i95devconnet status system file for tabs in admin configurations menu
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2013 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+<config>
+    <tabs>
+        <i95dev_connect_extensions translate="label" module="I95DevConnect_GpStatus">
+            <label>I95Dev Extensions</label>
+            <sort_order>1000000</sort_order>
+        </i95dev_connect_extensions>
+    </tabs>
+    <sections>
+        <I95DevConnect_GpStatus>
+            <label>I95Dev Connect Status Settings</label>
+            <tab>i95dev_connect_extensions</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1000000</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <I95DevConnect_status_enabled_settings>
+                    <label>I95dev Status Extension</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <is_enabled>
+                            <label>Extension(Enabled)</label>
+                            <comment>To enable or disable the extension.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_enabled>
+                    </fields>
+                </I95DevConnect_status_enabled_settings>
+            </groups>
+        </I95DevConnect_GpStatus>
+    </sections>
+</config>

@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<AW_Searchautocomplete>
+			<version>3.2.2</version><platform>ce</platform>
+		</AW_Searchautocomplete>
+	</modules>
+	<frontend>
+		<routers>
+			<aw_searchautocomplete>
+				<use>standard</use>
+				<args>
+					<module>AW_Searchautocomplete</module>
+					<frontName>searchautocomplete</frontName>
+				</args>
+			</aw_searchautocomplete>
+		</routers>
+		<layout>
+			<updates>
+				<searchautocomplete module="AW_Searchautocomplete">
+					<file>searchautocomplete.xml</file>
+				</searchautocomplete>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<AW_Searchautocomplete>
+					<files>
+						<default>AW_Searchautocomplete.csv</default>
+					</files>
+				</AW_Searchautocomplete>
+			</modules>
+		</translate>
+	</frontend>
+
+	<global>
+        <blocks>
+			<searchautocomplete>
+				<class>AW_Searchautocomplete_Block</class>
+			</searchautocomplete>
+		</blocks>
+		<helpers>
+			<searchautocomplete>
+				<class>AW_Searchautocomplete_Helper</class>
+			</searchautocomplete>
+		</helpers>
+		<models>
+			<searchautocomplete>
+				<class>AW_Searchautocomplete_Model</class>
+			</searchautocomplete>
+		</models>
+	</global>
+
+	<adminhtml>
+		<acl>
+			<resources>
+				<all>
+					<title>Allow Everything</title>
+				</all>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<searchautocomplete>
+											<title>aheadWorks - Search Autocomplete and Suggest Section</title>
+										</searchautocomplete>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+		<translate>
+			<modules>
+				<AW_Searchautocomplete>
+					<files>
+						<default>AW_Searchautocomplete.csv</default>
+					</files>
+				</AW_Searchautocomplete>
+			</modules>
+		</translate>
+	</adminhtml>
+
+	<default>
+		<searchautocomplete>
+			<interface>
+				<show_top_x>10</show_top_x>
+                <show_out_of_stock>0</show_out_of_stock>
+				<open_in_new_window>0</open_in_new_window>
+				<searchable_attributes>name</searchable_attributes>
+				<thumbnail_size>75</thumbnail_size>
+				<header>Most relevant matches are shown. Click Search for more items</header>
+				<footer></footer>
+				<preloader_image></preloader_image>
+				<item_template><![CDATA[<img src="{thumbnail_url}" style="float:left; margin:3px 8px 0 0;" />
+<strong>{name}</strong>
+<p style="font-size:0.9em;line-height:1.4em;margin:2px 0 0;">{short_description}</p>]]></item_template>
+				<query_delay>500</query_delay>
+                <advsearch_integration>0</advsearch_integration>
+			</interface>
+		</searchautocomplete>
+	</default>
+    
+     <phpunit>
+        <suite>
+            <modules>
+                <AW_Searchautocomplete />
+            </modules>
+        </suite>
+    </phpunit>    
+    
+    
+    
+
+</config>

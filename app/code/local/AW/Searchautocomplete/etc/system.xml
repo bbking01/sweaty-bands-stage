@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<searchautocomplete translate="label" module="searchautocomplete">
+			<label>Search Autocomplete and Suggest</label>
+			<tab>awall</tab>
+			<frontend_type>text</frontend_type>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<interface translate="label">
+					<label>Interface Settings</label>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+
+						<show_top_x translate="label">
+							<label>Show products</label>
+							<comment>Number of products to display</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</show_top_x>
+
+						<show_out_of_stock translate="label">
+							<label>Show out of stock products</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</show_out_of_stock>
+
+						<open_in_new_window translate="label">
+							<label>Open link in a new window</label>
+							<comment>It works for the mouse click, but not for the "Enter" button pressing</comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</open_in_new_window>
+
+						<item_template translate="label">
+							<label>Search result item template</label>
+							<frontend_type>textarea</frontend_type>
+							<comment><![CDATA[All product attributes listed above are accessible by the <em>{attribute_name}</em> construction.<br />Additional variables:<br /><em>{product_url}</em>&nbsp;- link to product page<br /><em>{thumbnail_url}</em>&nbsp;- product thumbnail URL]]></comment>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</item_template>
+
+						<thumbnail_size translate="label">
+							<label>Thumbnail width (px)</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</thumbnail_size>
+
+						<header translate="label">
+							<label>Search results header</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</header>
+
+						<footer translate="label">
+							<label>Search results footer</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</footer>
+
+						<preloader_image translate="label">
+							<label>Preloader image</label>
+							<frontend_type>image</frontend_type>
+							<backend_model>adminhtml/system_config_backend_image</backend_model>
+							<upload_dir config="system/filesystem/media" scope_info="1">aw_searchautocomplete</upload_dir>
+							<base_url type="media" scope_info="1">aw_searchautocomplete</base_url>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</preloader_image>
+
+						<query_delay translate="label">
+							<label>Query delay</label>
+							<comment>In milliseconds, e.g. 500 means 0.5 of second</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</query_delay>
+
+                        <searchable_attributes translate="label">
+							<label>Search attributes</label>
+							<comment><![CDATA[Only attributes of <strong>text</strong> and <strong>varchar</strong> type are available]]></comment>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>searchautocomplete/source_product_attribute</source_model>
+							<sort_order>100</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+						</searchable_attributes>
+
+                        <advsearch_integration translate="label">
+							<label>Use Advanced Search as backend</label>
+							<comment><![CDATA[this option requires aheadWorks Advanced Search extension to be installed and configured properly.]]></comment>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>110</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</advsearch_integration>
+
+					</fields>
+				</interface>
+
+			</groups>
+		</searchautocomplete>
+	</sections>
+</config>

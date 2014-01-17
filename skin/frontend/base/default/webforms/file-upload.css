@@ -1,0 +1,35 @@
+.file-preview {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+	.file-preview h3 {
+		font-size:12px;
+	}
+	.file-preview li {
+		margin: 0;
+		padding: 10px 0;
+		margin: 0;
+		overflow: auto;
+		border-bottom: solid 1px #ccc;
+		position: relative;
+	}
+
+		.file-preview li img {
+			border: solid 1px #999;
+			border-radius:3px;
+			padding: 3px;
+			margin: 0 10px 0 0;
+			display: block;
+			float: left;
+		}
+
+.file-cancel{
+	cursor: pointer;
+}
+
+.file-progress{
+	font-size:90%;
+	color:#777;
+}

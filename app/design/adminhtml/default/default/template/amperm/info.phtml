@@ -1,0 +1,31 @@
+<?php if ('sales_order' == Mage::app()->getRequest()->getControllerName()): ?>
+<form method="post" id="amperm_form" action="<?php echo $this->getSubmitUrl()?>">
+<tr>
+    <td class="label" colspan="2"><textarea style="width:350px;" id="amperm_txt" name="amperm[txt]"></textarea></td>
+</tr>
+<tr>
+    <?php $assignedDealer = $this->getAssignedDealer($this->getOrderId()); ?>
+    <?php $currDealer = $this->getCurrentDealer(); ?>
+    <td class="label"><button class="scalable" onclick="$('amperm_form').submit();" type="button">
+        <span>Assign To</span></button>
+        <input name="form_key" type="hidden" value="<?php echo Mage::getSingleton('core/session')->getFormKey() ?>" /> 
+        <input type="hidden" name="amperm[order_id]" value="<?php echo $this->getOrderId() ?>" />
+        <input type="hidden" name="amperm[old_dealer]" value="<?php echo $assignedDealer ?>" />
+    </td>
+    <td class="value"><select name="amperm[new_dealer]"  style="width:150px">
+        <option value="0"><?php echo $this->__('Admin')?></option>
+    	<?php foreach ($this->getDealers() as $k => $v){  ?>
+    	   <option value="<?php echo $k?>" <?php if ($k == $assignedDealer) echo 'selected="true"' ?> ><?php echo $v?></option>
+    	<?php } ?>
+    </select>
+    </td>
+</tr>
+<tr>
+    <td class="label" colspan="2"><ul class="note-list">
+    <?php foreach ($this->getMessages($this->getOrderId()) as $mes){  ?>
+        <li><strong><?php echo $mes->getCreatedAt() ?></strong><br/><?php echo $this->escapeHtml($mes->getTxt()) ?></li>
+    <?php } ?>
+    <ul></td>
+</tr>
+</form>
+<?php endif; ?>

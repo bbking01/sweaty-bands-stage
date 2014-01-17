@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Queldorei_Priceslider>
+            <version>0.1.0</version>
+        </Queldorei_Priceslider>
+    </modules>
+    <global>
+		<blocks>
+			<priceslider>
+				<class>Queldorei_Priceslider_Block</class>
+			</priceslider>
+		</blocks>
+   </global>
+   <frontend>
+        <routers>
+            <priceslider>
+                <use>standard</use>
+                <args>
+                    <module>Queldorei_Priceslider</module>
+                    <frontName>priceslider</frontName>
+                </args>
+            </priceslider>
+        </routers>  
+		 <layout>
+            <updates>
+                <priceslider>
+                    <file>queldorei/priceslider.xml</file>
+                </priceslider>
+            </updates>
+        </layout>
+    </frontend>
+</config>

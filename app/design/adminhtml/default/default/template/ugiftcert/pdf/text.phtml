@@ -1,0 +1,199 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: pp
+ * Date: 11-11-11
+ * Time: 20:47
+ */
+
+/* @var $this Unirgy_Giftcert_Block_Adminhtml_Pdf_Edit_Tab_Text */
+?>
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_hlp = Mage::helper('ugiftcert');?>
+<?php $_note = $this->getElement()->getNote(); ?>
+<tr>
+    <td>&nbsp;</td>
+    <td>
+        <ul id="text_notes" class="messages">
+        <?php if($_note): ?>
+            <li class="notice-msg">
+                <ul>
+                    <li>
+                        <?php echo $_note;?>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
+        </ul>
+    </td>
+</tr>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td colspan="10" class="grid text_settings">
+        <table cellspacing="0" class="data border" id="text_settings_table">
+            <col width="135" />
+            <col width="120" />
+            <col width="95" />
+            <col />
+            <col width="1" />
+            <thead>
+            <tr class="headings">
+                <th><?php echo $_hlp->__('Field') ?></th>
+                <th><?php echo $_hlp->__('Template') ?></th>
+                <th><?php echo $_hlp->__('X position') ?></th>
+                <th><?php echo $_hlp->__('Y position') ?></th>
+                <th><?php echo $_hlp->__('Font size') ?></th>
+                <th><?php echo $_hlp->__('Font variant') ?></th>
+                <th><?php echo $_hlp->__('Color') ?></th>
+                <th class="last"><?php echo $_hlp->__('Action') ?></th>
+            </tr>
+            </thead>
+            <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="10" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            if(typeof Validation != undefined) {
+                Validation.add('validate-html-color', 'Please enter valid HTML color value in hexadecimal form. For example #F00 or #FF0000 or FF0000 or F00', function(v){
+                    return Validation.get('IsEmpty').test(v) ||  /^(#)?([0-9a-fA-F]{3})([0-9a-fA-F]{3})?$/.test(v);
+                });
+            }
+            var textRowTemplate = '<tr id="text_settings_row_{{index}}">'
+                + '<td><select class="required-entry u-pdf-field-type" name="<?php echo $_htmlName ?>[{{index}}][field]" value="{{field}}" id="text_settings_row_{{index}}_field" >'
+                    <?php foreach($this->getFieldTypes() as $id => $field):?>
+                    + '  <option value="<?php echo $id ?>"><?php echo $this->jsQuoteEscape($_hlp->escape($field)) ?></option>'
+                    <?php endforeach;?>
+                + '</select></td>'
+                + '<td><input class="required-entry" type="text" name="<?php echo $_htmlName ?>[{{index}}][template]" value="{{template}}" id="text_settings_row_{{index}}_template" /></td>'
+                + '<td><input class="short-text required-entry validate-number" type="text" name="<?php echo $_htmlName ?>[{{index}}][x_pos]" value="{{x_pos}}" id="text_settings_row_{{index}}_x_pos" /></td>'
+                + '<td><input class="short-text required-entry validate-number" type="text" name="<?php echo $_htmlName ?>[{{index}}][y_pos]" value="{{y_pos}}" id="text_settings_row_{{index}}_y_pos" /></td>'
+                + '<td><input class="short-text required-entry validate-greater-than-zero" type="text" name="<?php echo $_htmlName ?>[{{index}}][font_size]" value="{{font_size}}" id="text_settings_row_{{index}}_font_size" /></td>'
+                + '<td><select class="required-entry weight-select" name="<?php echo $_htmlName ?>[{{index}}][font_variant]" id="text_settings_row_{{index}}_font_variant">'
+                    <?php foreach ($this->getFontVariants() as $id => $variant): ?>
+                    + '  <option value="<?php echo $id ?>"><?php echo $this->jsQuoteEscape($_hlp->escape($variant)) ?></option>'
+                    <?php endforeach ?>
+                + '</select></td>'
+                + '<td><input class="short-text color-picker required-entry validate-html-color" type="text" name="<?php echo $_htmlName ?>[{{index}}][color]" value="{{color}}" id="text_settings_row_{{index}}_color"/></td>'
+                + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="text_settings_row_{{index}}_delete" />'
+                + '<button title="<?php echo Mage::helper("catalog")->__("Delete entry") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="text_settings_row_{{index}}_delete_button" onclick="return textControl.deleteItem(event);">'
+                + '<span><?php echo Mage::helper("catalog")->__("Delete") ?></span></button></td>'
+                + '</tr>';
+
+            var dateTemplate = '<label title="<?php echo $this->__('Use <b>strftime()</b> format');?>">'
+                + '<input type="checkbox" name="<?php echo $_htmlName ?>[{{index}}][date]" id="text_settings_row_{{index}}_date" value="1">'
+                + '&nbsp;<?php echo $this->__('Use <b>strftime()</b> format');?></label>';
+            var dateNote = '<?php echo $this->__('If using strftime() format, you are allowed to use only <a href="http://php.net/strftime">strftime()</a> compatible format.');?>';
+            var textControl = {
+                template: new Template(textRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                dateTemplate: new Template(dateTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                itemsCount: 0,
+                addItem : function () {
+                    var data = {
+                        field: 'other',
+                        template: '%s',
+                        x_pos: 0,
+                        y_pos: 0,
+                        font_size: '<?php echo $this->getDefaultFontSize() ?>',
+                        font_variant: '<?php echo $this->getDefaultFontVariant() ?>',
+                        color: '<?php echo $this->getDefaultColor() ?>'
+                    };
+                    this.itemsCount++
+
+                    if(arguments.length > 0) {
+                        data = arguments[0];
+                    } else {
+                        data.isNew = true;
+                    }
+                    data.index = this.itemsCount;
+
+
+                    Element.insert($('<?php echo $_htmlId ?>_container'), {
+                        bottom : this.template.evaluate(data)
+                    });
+
+                    $('text_settings_row_' + data.index + '_field').value = data.field;
+                    $('text_settings_row_' + data.index + '_font_variant').value = data.font_variant;
+
+                    if(data.isNew) {
+                        var col_id = 'text_settings_row_' + data.index + '_color';
+                        var co = $(col_id);
+                        var preview = col_id + '-preview';
+                        co.insert({before: '<span>#</span>'}).insert({after:'<div class="color-preview" id="' + preview + '"></div>'});
+                        var cp = new colorPicker(co, {color: '#' + data.color, previewElement: preview});
+                    }
+
+                    if (data.isDate != undefined) {
+                        this.addDate('text_settings_row_' + data.index + '_template', data)
+                    }
+
+                    if (data.date) {
+                        $("text_settings_row_" + data.index + "_date").writeAttribute('checked','checked');
+                    }
+                    $('text_settings_row_' + data.index).select('input', 'select').each(function(el){
+                        Event.observe(el, 'change', el.setHasChanges.bind(el));
+                        if (el.hasClassName('u-pdf-field-type')) {
+                            el.observe('change', function(e){
+                                var value = $F(this);
+                                var el = $(this);
+                                var id = el.identify().replace(/^.*_(\d+)_.*$/, "$1");
+                                var data = {index: id}
+                                if(value == 'expire_at') {
+                                    textControl.addDate('text_settings_row_' + data.index + '_template', data);
+                                } else {
+                                    var dateInput = $('text_settings_row_' + data.index + '_template').previous('label');
+                                    if(dateInput)
+                                        dateInput.remove();
+                                }
+                            });
+                        }
+                    });
+                },
+                addDate: function(el, data) {
+                    // element is date type
+                    $(el).insert({before: this.dateTemplate.evaluate(data)});
+                    if($('date-note') == undefined) {
+                        $('text_notes').insert('<li class="notice-msg"><ul><li id="date-note">' + dateNote + '</li></ul></li>');
+                    }
+                },
+                disableElement: function(el) {
+                    el.disabled = true;
+                    el.addClassName('disabled');
+                },
+                deleteItem: function(event) {
+                    var tr = Event.findElement(event, 'tr');
+                    if (tr) {
+                        Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+                        Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+                        Element.hide(tr);
+                        Element.addClassName(tr, 'no-display template');
+                    }
+                    return false;
+                }
+            };
+            <?php foreach ($this->getValues() as $_item): ?>
+                textControl.addItem({
+                    field: '<?php echo $_item['field'];?>',
+                    template: '<?php echo addslashes(str_replace('\\', '\\\\', $_item['template']));?>',
+                    x_pos: '<?php echo sprintf('%.4f', $_item['x_pos']*1);?>',
+                    y_pos: '<?php echo sprintf('%.4f', $_item['y_pos']*1);?>',
+                    font_size: '<?php echo (int)$_item['font_size'];?>',
+                    font_variant: '<?php echo $_item['font_variant'] ?>',
+                    color: '<?php echo $_item['color'] ?>'
+                    <?php if (Unirgy_Giftcert_Block_Adminhtml_Pdf_Edit_Tab_Text::isFieldDate($_item['field'])) : // if field is of date type?>
+                        , isDate: true
+                    <?php endif;?>
+                    <?php if (isset($_item['date']) && $_item['date']) : // if field uses date format ?>
+                        , date: true
+                    <?php endif;?>
+                    }
+                );
+            <?php endforeach; ?>
+            //]]>
+        </script>
+    </td></tr>

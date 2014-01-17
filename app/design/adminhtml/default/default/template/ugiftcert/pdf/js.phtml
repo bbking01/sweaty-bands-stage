@@ -1,0 +1,23 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: pp
+ * Date: 11-7-1
+ * Time: 19:30
+ */
+
+?>
+    <script type="text/javascript">
+        Event.observe(window, 'load', function(e){
+           $$('.color-picker').each(function(co){
+               var id = co.identify();
+               var color = co.getValue();
+               if(!color) {
+                   color = '000';
+               }
+               var preview = id + '-preview';
+               co.insert({before: '<span>#</span>'}).insert({after:'<div class="color-preview" id="' + preview + '"></div>'});
+               var cp = new colorPicker(co, {color: '#' + color, previewElement: preview});
+           });
+        });
+    </script>

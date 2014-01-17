@@ -1,0 +1,36 @@
+<?php
+/**
+ * i95Dev.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@i95dev.com so we can send you a copy immediately.
+ *
+ * @category
+ * @package        I95Dev_I95DevConnect
+ * @Description    To View the customer id for ofline customers
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2012 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+?>
+
+<?php
+$targetCustId = $this->getTargetCustomerId();
+?>
+
+<table cellspacing="0" class="form-list">
+
+    <tr>
+        <td class="label"><label for="_gpsync"><?php echo 'GP Customer ID'; ?></label></td>
+        <td class="value"><?php echo $targetCustId; ?></td>
+        <td id="note_subscription"><small>&nbsp;</small></td>
+    </tr>
+
+</table>

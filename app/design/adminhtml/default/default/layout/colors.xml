@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <colors_adminhtml_colors_index>
+        <reference name="content">
+            <block type="colors/adminhtml_colors" name="colors" />
+        </reference>
+    </colors_adminhtml_colors_index>
+</layout>

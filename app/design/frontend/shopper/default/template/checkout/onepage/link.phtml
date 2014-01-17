@@ -1,0 +1,88 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *PalmBeachTan 
+ * Wholesale60 
+ *LearningExpress 
+ *   
+ */
+ 
+ // Check if costomer is logged in and a wholesale customer
+  global $blWholeSale;
+   global $blCheckout;
+ $blWholeSale=false;
+if(Mage::getModel('customer/session')->isLoggedIn())
+{
+// Get group Id
+$groupId = Mage::getModel('customer/session')->getCustomerGroupId();
+
+$group = Mage::getModel('customer/group')->load($groupId);
+
+if ($group->getCode() == 'Wholesale50' ||
+    $group->getCode() == 'Wholesale60' ||
+    $group->getCode() == 'Wholesale100' ||
+    $group->getCode() == 'LearningExpress' ||
+    $group->getCode() == 'PalmBeachTan')
+    {
+    $blWholeSale=true;
+    }
+
+}
+ 
+ $blCheckout=true;
+ 
+
+ 
+ if ($blWholeSale)
+ {
+ 
+ //$quote = Mage::getSingleton('checkout/session')->getQuote();
+ $quote = Mage::getModel('checkout/cart')->getQuote();
+ //$cartItems = $quote->getAllVisibleItems();
+ $cartItems = $quote->getAllItems();
+ $totalPrice=0;
+ foreach ($cartItems as $item) {
+	if($sku!=$item->getSku())
+	{
+   //echo $item->getName()." ".$item->getQty()."   ".$item->getPrice()."<br/>";
+   //echo "<br/>";
+    
+     $totalPrice+=$item->getPrice()*$item->getQty();
+    
+    } 
+     }
+  //echo "totalPrice: $totalPrice <br/>";
+  
+  if ($totalPrice < 150 ) $blCheckout=false;
+  else $blCheckout=true;
+ }
+ 
+ 
+?>
+
+
+
+<?php if ($this->isPossibleOnepageCheckout()): ?>
+
+<?php if ($blWholeSale): ?>
+<?php //WHOLESALE ?>
+  <?php if ($blCheckout): ?>
+      <button type="button" title="<?php echo $this->__('Proceed to Checkout') ?>" class="button btn-proceed-checkout btn-checkout
+         <?php if ($this->isDisabled()):?> no-checkout<?php endif; ?>"
+         <?php if ($this->isDisabled()):?> disabled="disabled"<?php endif; ?> onclick="window.location='<?php echo $this->getCheckoutUrl() ?>';"><span><span>
+	     <?php echo $this->__('Proceed to Checkout') ?></span></span></button>
+   <?php else:?>
+       <h4 style="color:red">Wholesale accounts are limited to purchases over $150.00.</h4>
+   <?php endif?>    
+<?php endif?>
+
+  <?php if (!$blWholeSale): ?>
+   <?php//RETAIL ?>
+      <button type="button" title="<?php echo $this->__('Proceed to Checkout') ?>" class="button btn-proceed-checkout btn-checkout
+         <?php if ($this->isDisabled()):?> no-checkout<?php endif; ?>"
+         <?php if ($this->isDisabled()):?> disabled="disabled"<?php endif; ?> onclick="window.location='<?php echo $this->getCheckoutUrl() ?>';"><span><span>
+	     <?php echo $this->__('Proceed to Checkout') ?></span></span></button>
+  <?php endif?>
+<?php endif?>

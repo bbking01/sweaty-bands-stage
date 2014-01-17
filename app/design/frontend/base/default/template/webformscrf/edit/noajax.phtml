@@ -1,0 +1,261 @@
+<div class="page-title">
+    <h1><?php echo $this->__('Edit Account Information') ?></h1>
+</div>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php
+$result = $this->getCustomerResult()->addFieldArray();
+$webform = $this->getWebform();
+$logic_rules = $webform->getLogic();
+if ($logic_rules)
+    $targets = $webform->_getLogicTarget();
+?>
+
+<form action="<?php echo $this->getUrl('customer/account/editPost', array('_secure' => true)) ?>" method="post"
+      name="webform_<?php echo $this->getWebform()->getId()?>" id="webform_<?php echo $this->getWebform()->getId()?>"
+      enctype="<?php echo $this->getEnctype()?>" class="webforms-<?php echo $this->getWebform()->getCode()?>">
+    <input type="hidden" name="webform_id" value="<?php echo $this->getWebform()->getId()?>"/>
+    <?php
+    if ($result->getId()) {
+        ?>
+        <input type="hidden" name="result_id" value="<?php echo $result->getId()?>"/>
+    <?php
+    }
+    ?>
+
+    <?php if (count($this->getWebform()->_getHidden())) {
+        foreach ($this->getWebform()->_getHidden() as $field) {
+            if ($result->getId()) {
+                $field->setData('result', $result);
+            }
+            echo $field->toHtml();
+        }
+    } ?>
+
+    <div class="fieldset">
+        <?php echo $this->getBlockHtml('formkey')?>
+        <h2 class="legend"><?php echo $this->__('Account Information') ?></h2>
+        <ul class="form-list">
+            <li class="fields">
+                <?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getCustomer())->toHtml() ?>
+            </li>
+            <li>
+                <label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+
+                <div class="input-box">
+                    <input type="text" name="email" id="email"
+                           value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>"
+                           title="<?php echo $this->__('Email Address') ?>"
+                           class="input-text required-entry validate-email"/>
+                </div>
+            </li>
+            <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
+            <?php if ($_dob->isEnabled()): ?>
+                <li><?php echo $_dob->setDate($this->getCustomer()->getDob())->toHtml() ?></li>
+            <?php endif ?>
+            <?php $_taxvat = $this->getLayout()->createBlock('customer/widget_taxvat') ?>
+            <?php if ($_taxvat->isEnabled()): ?>
+                <li><?php echo $_taxvat->setTaxvat($this->getCustomer()->getTaxvat())->toHtml() ?></li>
+            <?php endif ?>
+            <?php $_gender = $this->getLayout()->createBlock('customer/widget_gender') ?>
+            <?php if ($_gender->isEnabled()): ?>
+                <li><?php echo $_gender->setGender($this->getCustomer()->getGender())->toHtml() ?></li>
+            <?php endif ?>
+            <li class="control">
+                <input type="checkbox" name="change_password" id="change_password" value="1"
+                       onclick="setPasswordForm(this.checked)"
+                       title="<?php echo $this->__('Change Password') ?>"<?php if ($this->getCustomer()->getChangePassword() == 1): ?> checked="checked"<?php endif; ?>
+                       class="checkbox"/><label for="change_password"><?php echo $this->__('Change Password') ?></label>
+            </li>
+        </ul>
+    </div>
+    <div class="fieldset" style="display:none;">
+        <h2 class="legend"><?php echo $this->__('Change Password') ?></h2>
+        <ul class="form-list">
+            <li>
+                <label for="current_password" class="required"><em>*</em><?php echo $this->__('Current Password') ?>
+                </label>
+
+                <div class="input-box">
+                    <input type="password" title="<?php echo $this->__('Current Password') ?>" class="input-text"
+                           name="current_password" id="current_password"/>
+                </div>
+            </li>
+            <li class="fields">
+                <div class="field">
+                    <label for="password" class="required"><em>*</em><?php echo $this->__('New Password') ?></label>
+
+                    <div class="input-box">
+                        <input type="password" title="<?php echo $this->__('New Password') ?>"
+                               class="input-text validate-password" name="password" id="password"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="confirmation" class="required"><em>*</em><?php echo $this->__('Confirm New Password') ?>
+                    </label>
+
+                    <div class="input-box">
+                        <input type="password" title="<?php echo $this->__('Confirm New Password') ?>"
+                               class="input-text validate-cpassword" name="confirmation" id="confirmation"/>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Web-form -->
+
+    <?php
+    foreach (Mage::registry('fields_to_fieldsets') as $fieldset_id => $fieldset) {
+        ?>
+
+        <div id="fieldset_<?php echo $fieldset_id?>" class="fieldset fieldset-<?php echo $fieldset_id?>">
+
+            <?php    if (!empty($fieldset['name'])) { ?>
+                <h2 class="legend"><?php echo $fieldset['name']?></h2>
+            <?php }    ?>
+
+            <ul class="form-list">
+                <?php
+                $k = 0;
+                $j = 0;
+                $prev = false;
+                $fields_count = count($fieldset['fields']);
+                foreach ($fieldset['fields'] as $field) {
+
+                    $size_class = "fields";
+                    $field_class = "field";
+                    if ($field->getSize() == 'wide') {
+                        $size_class = "wide";
+                        $field_class = "";
+                    }
+
+                    ?>
+                    <?php if ($j % 2 == 0 || $field->getSize() == 'wide' || $prev->getSize() == 'wide') {
+                        $j = 0; ?>
+                        <?php if ($k > 1) { ?></li><?php } ?>
+                        <li <?php if ($size_class == 'wide') { ?>id="field_<?php echo $field->getId() ?>_row" <?php } ?>
+                        class="<?php echo $size_class ?> <?php if ($size_class == 'wide') { ?>webforms-fields-row-<?php echo $field->getId() ?><?php } ?>"
+                        <?php if ($size_class == 'wide' && $field->getData('logic_visibility') == VladimirPopov_WebForms_Model_Logic::VISIBILITY_HIDDEN) echo 'style="display:none"'; ?>>
+                    <?php } ?>
+                    <div id="field_<?php echo $field->getId()?>"
+                         class="<?php echo $field_class?> webforms-fields-<?php echo $field->getId()?><?php if ($field->getCode()) { ?> webforms-fields-<?php echo $field->getCode(); }?>">
+
+                        <?php if ($field->getType() != 'html') { ?>
+                            <label for="field_<?php echo $field->getId()?>"
+                                   <?php if($field->getRequired()){ ?>class="required"<?php }?>>
+
+                                <?php if ($field->getRequired()) { ?>
+                                    <em>*</em>
+                                <?php }?>
+
+                                <?php echo $field->getName()?>
+
+                            </label>
+                        <?php } ?>
+
+                        <div class="input-box">
+                            <?php
+                            if ($result->getId()) {
+                                $field->setData('result', $result);
+                            }
+                            echo $field->toHtml();
+                            ?>
+
+                            <?php if ($field->getComment()) { ?>
+                                <p class="webforms-fields-comment">
+                                    <?php echo nl2br($field->getComment())?>
+                                </p>
+                            <?php }?>
+
+                        </div>
+
+                    </div>
+                    <?php if ($k == $fields_count - 1) { ?>
+                        </li>
+                    <?php } ?>
+                    <?php
+                    $k++;
+                    $j++;
+                    $prev = $field;
+                }?>
+            </ul>
+
+        </div>
+
+    <?php
+    } // foreach 'fields_to_fieldsets'
+    ?>
+
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+
+        <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>">
+                <small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+        <button type="button" id="webform_<?php echo $this->getWebform()->getId()?>_submit_button"
+                onclick="webform_<?php echo $this->getWebform()->getId()?>_submit()"
+                title="<?php echo $this->__('Save') ?>" class="button">
+            <span><span><?php echo $this->__('Save') ?></span></span></button>
+		<span class="please-wait" id="webform_<?php echo $this->getWebform()->getId()?>_sending_data"
+              style="display:none;">
+				<img src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>"
+                     alt="<?php echo $this->__('Sending...') ?>" title="<?php echo $this->__('Sending...') ?>"
+                     class="v-middle"/><span
+                id="webform_<?php echo $this->getWebform()->getId()?>_progress_text"><?php echo $this->__('Sending...') ?></span>
+		</span>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    function setPasswordForm(arg) {
+        if (arg) {
+            $('current_password').up(3).show();
+            $('current_password').addClassName('required-entry');
+            $('password').addClassName('required-entry');
+            $('confirmation').addClassName('required-entry');
+
+        } else {
+            $('current_password').up(3).hide();
+            $('current_password').removeClassName('required-entry');
+            $('password').removeClassName('required-entry');
+            $('confirmation').removeClassName('required-entry');
+        }
+    }
+    <?php if($this->getCustomer()->getChangePassword()): ?>
+    setPasswordForm(true);
+    <?php endif; ?>
+    //]]>
+</script>
+<script>
+    <?php
+    foreach ($targets as $target) {
+        if (!$webform->getLogicTargetVisibility($target, $logic_rules, $result->getData("field"))) {
+    ?>
+    $('<?php echo $target["id"]?>').hide();
+    <?php
+        }
+    }
+    ?>
+</script>
+
+<?php echo $this->getLayout()->createBlock(
+    'core/template',
+    'webform_' . $this->getWebform()->getId() . '_submit_script',
+    array(
+        'webform' => $this->getWebform(),
+        'ajax' => false,
+        'template' => 'webforms/scripts/submit.phtml',
+    )
+)->toHtml();
+?>
+
+<?php if ($this->getWebform()->getLogic())
+    echo $this->getLayout()->createBlock(
+        'core/template',
+        'webform_' . $this->getWebform()->getId() . '_logic',
+        array(
+            'webform' => $this->getWebform(),
+            'template' => 'webforms/scripts/logic.phtml',
+        )
+    )->toHtml();
+?>

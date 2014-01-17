@@ -1,0 +1,8 @@
+<config>
+	<modules>
+		<IG_FlatShipping5>
+			<active>true</active>
+			<codePool>community</codePool>
+		</IG_FlatShipping5>
+	</modules>
+</config>

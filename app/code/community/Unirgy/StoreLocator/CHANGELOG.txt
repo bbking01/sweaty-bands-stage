@@ -1,0 +1,69 @@
+===== 2.1.4 =====
+  * fixed bug in layout for map page which caused nothing to be displayed
+===== 2.1.3 =====
+  * added back Google API key setting. It is optional but can be used to track usage.
+  * added layout chooser for map page.
+  * removed choosing geocoder url from settings since if it was stored before, it would not work with new google settings
+  * refactored import, added few events that are fired during import so that plugins can hook in and import 3rd party data
+    - store_location_import_row_validate - after SL validates imported data. Good to validate other data.
+    - store_location_import_row_insert_after - after row is saved in DB, it has row's ID as 'location_id' so that 3rd party data can use it for relations to saved location
+===== 2.1.2 =====
+  * added ability to reinstall module from within admin, not accessible via interface
+  * fixed not working google geocoder link
+===== 2.1.1 =====
+  * added mass action for location deletion and coordinate update
+  * fixed minor bugs
+===== 2.1.0 =====
+  * Improve import functionality by adding a delay to accommodate for Google requests per second limit
+  * Add pagination
+  * improve default location behavior
+  * make default map location configurable, will be used when there are no locations to show
+  * localize JS strings used.
+  * truly hide map when set so
+  * added loading indicator, 'images/opc-ajax-loader.gif'
+===== 2.0.2 =====
+  * added default zoom for new stores
+  * added region biasing after current store default country
+  * added locale aware number parsing of imported data
+  * fixed a bug in locations search function, when location name matches search term
+===== 2.0.1 =====
+  * Fixed potential security issue
+===== 2.0.0 =====
+  * moved main JavaScript code to js/storelocator/map.js
+  * Changed default address configuration to be selected via drop down
+  * added 100 px width/height limit of custom icons
+  * custom icon position changes from inline to floated according to dimension
+  * search radiuses configuration added
+  * migrated google api to v3, no API key required
+  * Add multi-store selection list
+  * Add location country option
+  * Add location tags
+  * add custom icon image input
+  * add option, to use or not marker label
+  * add initial zoom option
+  * add is featured option
+  * add custom url input, after save add URL rewrite
+  * add default sort criteria - Alpha, Distance
+  * add default sort direction
+  * add default country, if selected, on map load we show all locations in that country if not, we show all locations
+  * upload and import locations
+    fields:
+        required
+            title, address
+        optional
+            latitude, longitude, address_display, notes, website_url, phone, product_types, udropship_vendor, country, stores, icon, use_label, is_featured, zoom
+  * export locations
+  * provide directions to location
+  * add search by location name
+  * add search by location country
+  * order featured stores first
+  * add tag row filter
+
+===== 0.2.5 =====
+
+* Added events:
+  * ustorelocator_adminhtml_grid_prepare_columns
+  * ustorelocator_adminhtml_edit_prepare_form
+* Added cached helper->getLocation
+* Added permission for CMS > Store Locations
+* Added numbered markers

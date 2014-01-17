@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <qrange_adminhtml_qrange_index>
+        <reference name="content">
+            <block type="qrange/adminhtml_qrange" name="qrange" />
+        </reference>
+    </qrange_adminhtml_qrange_index>
+</layout>

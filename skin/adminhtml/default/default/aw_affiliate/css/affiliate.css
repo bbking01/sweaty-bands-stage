@@ -1,0 +1,90 @@
+/* ++new action stylization*/
+.aw-hidden-col {
+    display: none !important;
+    background: none !important;
+}
+
+.aw-hidden-col .side-col {
+    display: none;
+}
+
+.aw-hidden-col .main-col {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* --new action stylization */
+
+/* Balance Fieldset Forms*/
+#withdrawal-head, #profit-head {
+    width: 486px;
+}
+
+.custom_ajax_form {
+    width: 490px;
+    display: block;
+}
+
+.custom_ajax_form .validation-advice {
+    margin-left: 200px;
+}
+
+.custom_ajax_form .field-row {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+}
+
+.custom_ajax_form .field-row label {
+    width: 200px;
+}
+
+.custom_ajax_form .field-row input.input-text, .custom_ajax_form .field-row textarea {
+    width: 274px;
+}
+
+.custom_ajax_form .field-row textarea {
+    height: 10em;
+}
+
+.custom_ajax_form .field-row select {
+    width: 280px;
+}
+
+.custom_ajax_form .field-row #details {
+    display: block;
+    margin-left: 200px;
+    white-space: pre-line;
+    padding: 5px 0 5px 7px;
+    background-color: #DFDFDF;
+}
+
+.custom_ajax_form .field-row span {
+    padding-left: 7px;
+}
+
+.custom_ajax_form .field-row label span {
+    padding-left: 0px;
+}
+
+/*for hidden column*/
+.withdrawal-hidden {
+    display: none;
+}
+
+.aw-notice {
+    font-size: 9px;
+    padding-left: 10px !important;
+}
+
+.aw-note {
+    margin: 0;
+    padding: 0 0 0 13px;
+    background: url(../../images/note_bg.gif) 1px 6px no-repeat;
+    font-size: 11px;
+    margin-left: 200px;
+}
+
+#buttonsgeneral_description, #general_description {
+    min-width: 550px;
+}

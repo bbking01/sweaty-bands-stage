@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+    <customer_account_create>
+        <reference name="content">
+            <block type="webformscrf/form" name="webformscrf" template="webformscrf/register/default.phtml"/>
+        </reference>
+    </customer_account_create>
+
+    <customer_account_edit>
+        <reference name="content">
+            <block type="webformscrf/form" name="webformscrf" template="webformscrf/edit/default.phtml"/>
+        </reference>
+    </customer_account_edit>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>webformscrf/form.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.billing">
+            <action method="setTemplate">
+                <template>webformscrf/onepage/billing.phtml</template>
+            </action>
+            <block type="webformscrf/form" name="webformscrf.billing" template="webformscrf/onepage/default.phtml"/>
+        </reference>
+    </checkout_onepage_index>
+
+    <webformscrf_account_index>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="webformscrf/widget_form" name="webformscrf.account" template="webformscrf/form/default.phtml"/>
+        </reference>
+    </webformscrf_account_index>
+
+</layout> 

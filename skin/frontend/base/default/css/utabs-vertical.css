@@ -1,0 +1,63 @@
+div.tabbed {
+    width: 100%;
+    margin: 20px auto;
+    border: none;
+}
+
+/* DIV that holds each tab*/
+div.tab-content {
+    width: auto;
+    margin: 0 auto;
+    float: left;
+    display: inline;
+}
+
+/* Title of each tab, used when user don't have Javascript'*/
+div.tab-content h5 {
+    color: #414141;
+    border-bottom: solid 1px #cacaca;
+}
+
+div.tab-content h5 a {
+    color: #414141;
+    text-decoration: none;
+}
+
+/* Tab Bar, created via JS*/
+div#tab-bar {
+    padding: 10px 0 10px 0;
+    margin: 0 10px 20px 0;
+    width: 50px;
+    background: #ffffff;
+    border-right: solid 1px #414141;
+    float: left;
+    display: inline;
+}
+
+/* Single Tab */
+div#tab-bar div.mt-tab {
+    width: 30px;
+    position: relative;
+    text-align: center;
+    margin: 4px -1px 0 0;
+    cursor: pointer;
+    border: 1px solid #414141;
+    float: right;
+    display: inline;
+    color: #414141;
+    padding: 5px 5px 5px 15px;
+}
+
+/* Single Tab, when active */
+div#tab-bar div.mt-tab-active {
+    text-align: center;
+    margin: 4px -1px 0 0;
+    cursor: pointer;
+    border: 1px solid #414141;
+    border-right-color: #ffffff;
+    float: right;
+    display: inline;
+    color: Black;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+}

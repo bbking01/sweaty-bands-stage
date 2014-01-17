@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <PRODUCT_TYPE_ugiftcert>
+        <reference name="head">
+            <block type="ugiftcert/product_type" name="ugoftcertPro" as="ugoftcertPro" template="unirgy/giftcertpro/product/js.phtml"/>
+        </reference>
+    </PRODUCT_TYPE_ugiftcert>
+</layout>

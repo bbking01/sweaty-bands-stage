@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+      <config>
+          <modules>
+              <Magestore_Checkoutcart>
+                  <version>0.1.0</version>
+              </Magestore_Checkoutcart>
+          </modules>
+          <global>
+            <!-- This rewrite rule could be added to the database instead -->
+              <rewrite>
+                  <!-- This is an identifier for your rewrite that should be unique -->
+                  <!-- THIS IS THE CLASSNAME IN YOUR OWN CONTROLLER -->
+                  <magestore_checkoutcart_checkout_cart>
+                      <from><![CDATA[#^/checkout/cart/#]]></from>
+                      <to>/checkoutcart/checkout_cart/</to>
+                  </magestore_checkoutcart_checkout_cart>
+              </rewrite>
+			  <models>
+					<checkout>
+						<rewrite>
+							<cart>Magestore_Checkoutcart_Model_Cart</cart>
+						</rewrite>	
+					</checkout>
+				</models>
+				
+		
+		
+	</global>
+         <frontend>
+              <routers>
+                  <magestore_checkoutcart>
+                     	<use>standard</use>
+                      <args>
+                          <module>Magestore_Checkoutcart</module>
+                          <frontName>checkoutcart</frontName>
+                      </args>
+                  </magestore_checkoutcart>
+              </routers>
+          </frontend>
+      </config>   

@@ -1,0 +1,225 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Affiliate
+ * @version    1.0.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+/* @var $this AW_Affiliate_Block_Adminhtml_Campaign_Edit_Tab_Rate_Tier */
+?>
+<?php $_htmlId = $this->getElement()->getHtmlId() ?>
+<?php $_htmlClass = $this->getElement()->getClass() ?>
+<?php $_htmlName = $this->getElement()->getName() ?>
+<?php $_readonly = $this->getElement()->getReadonly() ?>
+<?php $_priceValueValidation = $this->getPriceValidation('validate-greater-than-zero validate-number'); ?>
+
+
+<tr>
+    <td class="label">
+        <?php echo $this->getElement()->getLabel() ?>
+        <?php if ($this->getElement()->getRequired()): ?><span class="required">*</span><?php endif;?>
+    </td>
+    <td colspan="10" class="grid tier">
+        <table cellspacing="0" class="data border" id="tiers_table">
+            <col width="120"/>
+            <col width="120"/>
+            <col width="120"/>
+            <col width="1"/>
+            <thead>
+            <tr class="headings">
+                <th><?php echo Mage::helper('awaffiliate')->__('Amount') ?></th>
+                <th><?php echo Mage::helper('awaffiliate')->__('Customer Group') ?></th>
+                <th><?php echo $this->getPriceColumnHeader(Mage::helper('awaffiliate')->__('Rate')) ?></th>
+                <th class="last"><?php echo Mage::helper('catalog')->__('Action') ?></th>
+            </tr>
+            </thead>
+            <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+            </tfoot>
+        </table>
+
+        <script type="text/javascript">
+            //<![CDATA[
+            var tierPriceCurRowTemplate = '<tr>'
+                + '<td class="nobr"><input style= "width:80px" class="<?php echo $_htmlClass ?> required-entry validate-zero-or-greater validate-number zero-or-greater" type="text" name="<?php echo $_htmlName ?>[{{index}}][amount]" value="{{amount}}" id="tier_price_cur_row_{{index}}_amount" />'
+                + ' <small class="nobr"><?php echo Mage::helper("catalog")->__("and above")?></small></td>'
+                + '<td><select class="<?php echo $_htmlClass ?> custgroup required-entry" name="<?php echo $_htmlName ?>[{{index}}][cust_group]" id="tier_price_cur_row_{{index}}_cust_group">'
+            <?php foreach ($this->getCustomerGroups() as $_groupId => $_groupName): ?>
+                + '<option value="<?php echo $_groupId ?>"><?php echo $this->jsQuoteEscape($this->htmlEscape($_groupName)) ?></option>'
+                <?php endforeach ?>
+                + '</select></td>'
+                + '<td><input class="<?php echo $_htmlClass ?> required-entry <?php echo $_priceValueValidation ?>" type="text" name="<?php echo $_htmlName ?>[{{index}}][rate]" value="{{rate}}" id="tier_price_cur_row_{{index}}_rate" /></td>'
+                + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="tier_price_row_cur_{{index}}_delete" />'
+                + '<button title="<?php echo Mage::helper("catalog")->__("Delete Tier") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="tier_price_cur_row_{{index}}_delete_button" onclick="return tierPriceCurControl.deleteItem(event);">'
+                + '<span><?php echo Mage::helper("catalog")->__("Delete") ?></span></button></td>'
+                + '</tr>';
+
+            var tierPriceCurControl = {
+                template:new Template(tierPriceCurRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                itemsCount:0,
+                addItem:function () {
+                <?php if ($_readonly): ?>
+                    if (arguments.length < 4) {
+                        return;
+                    }
+                    <?php endif; ?>
+                    var data = {
+                        group:'<?php echo $this->getDefaultCustomerGroup() ?>',
+                        amount:'',
+                        rate:'',
+                        readOnly:false,
+                        index:this.itemsCount++
+                    };
+
+                    if (arguments.length >= 4) {
+                        data.group = arguments[0];
+                        data.amount = arguments[1];
+                        data.rate = arguments[2];
+                    }
+                    if (arguments.length == 5) {
+                        data.readOnly = arguments[3];
+                    }
+
+                    Element.insert($('<?php echo $_htmlId ?>_container'), {
+                        bottom:this.template.evaluate(data)
+                    });
+
+                    $('tier_price_cur_row_' + data.index + '_cust_group').value = data.group;
+
+                    if (data.readOnly == '1') {
+                        ['cust_group', 'amount', 'rate', 'delete'].each(function (idx) {
+                            $('tier_price_cur_row_' + data.index + '_' + idx).disabled = true;
+                        });
+                        $('tier_price_cur_row_' + data.index + '_delete_button').hide();
+                    }
+
+                <?php if ($_readonly): ?>
+                    $('<?php echo $_htmlId ?>_container').select('input', 'select').each(this.disableElement);
+                    $('<?php echo $_htmlId ?>_container').up('table').select('button').each(this.disableElement);
+                    <?php else: ?>
+                    $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function (el) {
+                        Event.observe(el, 'change', el.setHasChanges.bind(el));
+                    });
+                    <?php endif; ?>
+                },
+                disableElement:function (el) {
+                    el.disabled = true;
+                    el.addClassName('disabled');
+                },
+                deleteItem:function (event) {
+                    var tr = Event.findElement(event, 'tr');
+                    if (tr) {
+                        Element.select(tr, '.delete').each(function (elem) {
+                            elem.value = '1'
+                        });
+                        Element.select(tr, ['input', 'select']).each(function (elem) {
+                            elem.hide()
+                        });
+                        Element.hide(tr);
+                        Element.addClassName(tr, 'no-display template');
+                    }
+                    return false;
+                },
+                deleteAllItems:function () {
+                    $$('#<?php echo $_htmlId ?>_container tr').each(function (el) {
+                        Element.select(el, '.delete').each(function (elem) {
+                            elem.value = '1'
+                        });
+                        Element.select(el, ['input', 'select']).each(function (elem) {
+                            elem.hide()
+                        });
+                        Element.hide(el);
+                        Element.addClassName(el, 'no-display template');
+                    });
+                    return false;
+                },
+                hideAllItems:function () {
+                    $$('#<?php echo $_htmlId ?>_container tr').each(function (el) {
+
+                        if (Element.hasClassName(el, 'no-display template'))
+                            return;
+                        Element.select(el, '.delete').each(function (elem) {
+                            elem.value = '1'
+                        });
+
+                        Element.select(el, ['input', 'text']).each(function (elem) {
+                            if(elem.type=='text'){
+                            elem.removeClassName('required-entry');
+                            elem.removeClassName('validate-greater-than-zero');
+                            elem.removeClassName('validate-number');
+                            elem.removeClassName('validate-zero-or-greater');
+                            elem.removeClassName('validate-greater-than-zero');
+                            }
+                        });
+
+                        Element.select(el, ['input', 'select']).each(function (elem) {
+                            elem.hide()
+                        });
+                        Element.hide(el);
+                    });
+                    return false;
+                },
+                showAllItems:function () {
+                    $$('#<?php echo $_htmlId ?>_container tr').each(function (el) {
+                        if (Element.hasClassName(el, 'no-display template'))
+                            return;
+                        Element.select(el, '.delete').each(function (elem) {
+                            elem.value = ''
+                        });
+                        Element.select(el, ['input', 'text']).each(function (elem) {
+                            if(elem.type=='text'){
+                            elem.addClassName('required-entry');
+                            elem.addClassName('validate-number');
+
+                                if (Element.hasClassName(elem, 'zero-or-greater')) {
+                                    elem.addClassName('validate-zero-or-greater');
+                                } else {
+                                    elem.addClassName('validate-greater-than-zero');
+                                }
+
+                            }
+                        });
+
+                        Element.select(el, ['input', 'select']).each(function (elem) {
+                            elem.show()
+                        });
+                        Element.show(el);
+                    });
+                    return false;
+                }
+            };
+            <?php foreach ($this->getValues() as $_item): ?>
+            tierPriceCurControl.addItem('<?php echo $_item['cust_group'] ?>', '<?php echo sprintf('%.2f', $_item['amount']) ?>', '<?php echo sprintf('%.2f', $_item['rate']) ?>', <?php echo (int)!empty($_item['readonly'])?>);
+                <?php endforeach; ?>
+            <?php if ($_readonly): ?>
+            $('<?php echo $_htmlId ?>_container').up('table').select('button')
+                .each(tierPriceCurControl.disableElement);
+                <?php endif; ?>
+            //]]>
+        </script>
+    </td>
+</tr>

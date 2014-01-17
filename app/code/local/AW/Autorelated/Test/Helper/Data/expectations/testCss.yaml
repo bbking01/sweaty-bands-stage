@@ -1,0 +1,11 @@
+pass1:
+ files:
+  - a.css
+  - b.css
+  - c.css
+pass2:
+ files:
+  - d.css
+pass3:
+ files:
+  - e.css

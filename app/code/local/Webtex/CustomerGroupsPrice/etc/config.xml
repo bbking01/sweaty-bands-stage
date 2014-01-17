@@ -1,0 +1,338 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Webtex
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Webtex EULA that is bundled with
+* this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://www.webtex.com/LICENSE-1.0.html
+*
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@webtex.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Do not edit or add to this file if you wish to upgrade the extension
+* to newer versions in the future. If you wish to customize the extension
+* for your needs please refer to http://www.webtex.com/ for more information
+* or send an email to sales@webtex.com
+*
+* @category   Webtex
+* @package    Webtex_CustomerGroupsPrice
+* @copyright  Copyright (c) 2010 Webtex (http://www.webtex.com/)
+* @license    http://www.webtex.com/LICENSE-1.0.html
+*/
+
+/**
+* Customer Groups Price extension
+*
+* @category   Webtex
+* @package    Webtex_CustomerGroupsPrice
+* @author     Webtex Dev Team <dev@webtex.com>
+*/
+-->
+<config>
+  <modules>
+    <Webtex_CustomerGroupsPrice>
+      <version>2.7.0</version>
+    </Webtex_CustomerGroupsPrice>
+  </modules>
+
+  <frontend>
+    <routers>
+      <customergroupsprice>
+	<use>standard</use>
+	<args>
+	  <module>Webtex_CustomerGroupsPrice</module>
+	  <frontName>customergroupsprice</frontName>
+	</args>
+      </customergroupsprice>
+    </routers>
+    <translate>
+      <modules>
+	<Webtex_CustomerGroupsPrice>
+	  <files>
+	    <default>Webtex_CustomerGroupsPrice.csv</default>
+	  </files>
+	</Webtex_CustomerGroupsPrice>
+      </modules>
+    </translate>
+    <layout>
+      <updates>
+	<customergroupsprice>
+	  <file>customergroupsprice.xml</file>
+	</customergroupsprice>
+      </updates>
+    </layout>
+  <events>
+     <catalog_product_get_final_price>
+            <observers>
+                <customergroupsprice>
+                    <class>customergroupsprice/observer</class>
+                    <method>processFrontFinalPrice</method>
+                </customergroupsprice>
+            </observers>
+        </catalog_product_get_final_price>
+      <sales_quote_product_add_after>
+          <observers>
+              <customergroupsprice>
+                  <class>customergroupsprice/observer</class>
+                  <method>processQuoteItem</method>
+              </customergroupsprice>
+          </observers>
+      </sales_quote_product_add_after>
+      <catalog_product_load_after>
+	<observers>
+	  <customergroupsprice>
+	    <class>customergroupsprice/observer</class>
+	    <method>frontProductLoadAfter</method>
+	  </customergroupsprice>
+	</observers>
+      </catalog_product_load_after>
+      <catalog_product_collection_load_after>
+	<observers>
+	  <customergroupsprice>
+	    <class>customergroupsprice/observer</class>
+	    <method>frontCollectionLoadAfter</method>
+	  </customergroupsprice>
+	</observers>
+      </catalog_product_collection_load_after>
+  </events>
+  </frontend>
+  <global>
+    <events>
+      <catalog_block_product_list_collection>
+	<observers>
+	  <customergroupsprice>
+	    <class>customergroupsprice/observer</class>
+	    <method>layeredPrice</method>
+	  </customergroupsprice>
+	  <customergroupsprice_price_order>
+	    <class>customergroupsprice/observer</class>
+	    <method>sortByPrice</method>
+	  </customergroupsprice_price_order>
+	</observers>
+      </catalog_block_product_list_collection>
+      <catalog_product_type_configurable_price>
+	<observers>
+	  <customergroupsprice>
+	    <class>customergroupsprice/observer</class>
+	    <method>configurablePrice</method>
+	  </customergroupsprice>
+	</observers>
+      </catalog_product_type_configurable_price>
+      <catalog_product_save_after>
+	<observers>
+	  <customergroupsprice>
+	    <class>customergroupsprice/observer</class>
+	    <method>productSaveAfter</method>
+	  </customergroupsprice>
+	</observers>
+      </catalog_product_save_after>
+      <catalog_product_view_config>
+	<observers>
+	  <customergroupsprice>
+	    <class>customergroupsprice/observer</class>
+	    <method>productPrice</method>
+	  </customergroupsprice>
+	</observers>
+      </catalog_product_view_config>
+    </events>
+    <rewrite>
+      <customergroupsprice_customer_group>
+	<from><![CDATA[#^/admin/customer_group/save/#]]></from>
+	<to>/customergroupsprice/group/save/</to>
+      </customergroupsprice_customer_group>
+    </rewrite>
+    <models>
+      <customergroupsprice>
+	<class>Webtex_CustomerGroupsPrice_Model</class>
+	<resourceModel>customergroupsprice_mysql4</resourceModel>
+      </customergroupsprice>
+      <customergroupsprice_mysql4>
+	<class>Webtex_CustomerGroupsPrice_Model_Mysql4</class>
+	<entities>
+	  <prices>
+	    <table>customergroupsprice_prices</table>
+	  </prices>
+	  <globalprices>
+	    <table>customergroupsprice_prices_global</table>
+	  </globalprices>
+	  <special_prices>
+	    <table>customergroupsprice_special_prices</table>
+	  </special_prices>
+	  <convert>
+	    <table>customergroupsprice_convert</table>
+	  </convert>
+	  <attribute_prices>
+	    <table>customergroupsprice_attribute_prices</table>
+	  </attribute_prices>
+	</entities>
+      </customergroupsprice_mysql4>
+      <catalog>
+	<rewrite>
+	  <product>Webtex_CustomerGroupsPrice_Model_Catalog_Product</product>
+	  <product_type_price>Webtex_CustomerGroupsPrice_Model_Catalog_Product_Type_Price</product_type_price>
+	  <product_type_configurable_price>Webtex_CustomerGroupsPrice_Model_Catalog_Product_Type_Configurable_Price</product_type_configurable_price>
+	  <product_attribute_backend_customergroupsprice>Webtex_CustomerGroupsPrice_Model_Catalog_Product_Attribute_Backend_Customergroupsprice</product_attribute_backend_customergroupsprice>
+	</rewrite>
+      </catalog>
+      <catalog_resource_eav_mysql4>
+	<rewrite>
+	  <layer_filter_price>Webtex_CustomerGroupsPrice_Model_Mysql4_Catalog_Layer_Filter_Price</layer_filter_price>
+	</rewrite>
+      </catalog_resource_eav_mysql4>
+      <resource>
+        <rewrite>
+            <product_collection>Webtex_CustomerGroupsPrice_Model_Resource_Product_Collection</product_collection>
+        </rewrite>
+      </resource>
+    </models>
+    <resources>
+      <customergroupsprice_setup>
+	<setup>
+	  <module>Webtex_CustomerGroupsPrice</module>
+	  <class>Webtex_CustomerGroupsPrice_Model_Mysql4_Setup</class>
+	</setup>
+	<connection>
+	  <use>core_setup</use>
+	</connection>
+      </customergroupsprice_setup>
+      <customergroupsprice_write>
+	<connection>
+	  <use>core_write</use>
+	</connection>
+      </customergroupsprice_write>
+      <customergroupsprice_read>
+	<connection>
+	  <use>core_read</use>
+	</connection>
+      </customergroupsprice_read>
+    </resources>
+    <blocks>
+      <customergroupsprice>
+	<class>Webtex_CustomerGroupsPrice_Block</class>
+      </customergroupsprice>
+      <catalog>
+	<rewrite>
+	  <product_view_type_configurable>Webtex_CustomerGroupsPrice_Block_Catalog_Product_View_Type_Configurable</product_view_type_configurable>
+	  <product_view>Webtex_CustomerGroupsPrice_Block_Catalog_Product_View</product_view>
+	  <product_price>Webtex_CustomerGroupsPrice_Block_Catalog_Product_Price</product_price>
+	  <layer_filter_price>Webtex_CustomerGroupsPrice_Block_Catalog_Layer_Filter_Price</layer_filter_price>
+	</rewrite>
+      </catalog>
+      <adminhtml>
+	<rewrite>
+	  <catalog_product_edit_tab_super_config>Webtex_CustomerGroupsPrice_Block_Adminhtml_Catalog_Product_Edit_Tab_Super_Config</catalog_product_edit_tab_super_config>
+	  <catalog_product_edit_tab_attributes>Webtex_CustomerGroupsPrice_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes</catalog_product_edit_tab_attributes>
+	  <customer_group_edit_form>Webtex_CustomerGroupsPrice_Block_Adminhtml_Customer_Group_Edit_Form</customer_group_edit_form>
+	  <sales_order_create_search_grid_renderer_price>Webtex_CustomerGroupsPrice_Block_Adminhtml_Renderer_Price</sales_order_create_search_grid_renderer_price>
+	</rewrite>
+      </adminhtml>
+      <bundle>
+	<rewrite>
+	  <adminhtml_catalog_product_edit_tab_attributes>Webtex_CustomerGroupsPrice_Block_Adminhtml_Catalog_Product_Edit_Tab_Attributes_Bundle</adminhtml_catalog_product_edit_tab_attributes>
+	  <catalog_product_price>Webtex_CustomerGroupsPrice_Block_Bundle_Catalog_Product_Price</catalog_product_price>
+	</rewrite>
+      </bundle>
+    </blocks>
+    <helpers>
+      <customergroupsprice>
+	<class>Webtex_CustomerGroupsPrice_Helper</class>
+      </customergroupsprice>
+    </helpers>
+  </global>
+
+  <adminhtml>
+  <events>
+   <catalog_product_get_final_price>
+            <observers>
+                <customergroupsprice>
+                    <class>customergroupsprice/observer</class>
+                    <method>processBackFinalPrice</method>
+                </customergroupsprice>
+            </observers>
+        </catalog_product_get_final_price>
+  </events>
+    <menu>
+      <system>
+	<children>
+	  <convert>
+	    <children>
+	      <customergroupsprice>
+		<title>Customer Groups Price</title>
+		<children>
+		  <export translate="title">
+		    <title>Export Prices</title>
+		    <action>customergroupsprice/convert/export</action>
+		  </export>
+		  <import translate="title">
+		    <title>Import Prices</title>
+		    <action>customergroupsprice/convert/import</action>
+		  </import>
+		</children>
+	      </customergroupsprice>
+	    </children>
+	  </convert>
+	</children>
+      </system>
+    </menu>
+    <acl>
+      <resources>
+	<all>
+	  <title>Allow Everything</title>
+	</all>
+	<admin>
+	  <children>
+	    <system>
+	      <children>
+		<convert>
+		  <children>
+		    <customergroupsprice>
+		      <title>Webtex &gt; Catalog</title>
+		      <sort_order>1</sort_order>
+		      <children>
+			<export translate="title">
+			  <title>Export Prices</title>
+			</export>
+			<import translate="title">
+			  <title>Import Prices</title>
+			</import>
+		      </children>
+		    </customergroupsprice>
+		  </children>
+		</convert>
+		<config>
+		  <children>
+		    <webtex_catalog translate="title" module="mgxcore">
+		      <title>Webtex &gt; Catalog</title>
+		      <sort_order>1</sort_order>
+		      <children>
+			<customergroupsprice translate="title" module="customergroupsprice">
+			  <title>Customer Groups Price</title>
+			</customergroupsprice>
+		      </children>
+		    </webtex_catalog>
+		  </children>
+		</config>
+	      </children>
+	    </system>
+	  </children>
+	</admin>
+      </resources>
+    </acl>
+  </adminhtml>
+
+  <default>
+    <webtex_catalog>
+      <customergroupsprice>
+	<enabled>0</enabled>
+	<hide_price></hide_price>
+      </customergroupsprice>
+    </webtex_catalog>
+  </default>
+</config>

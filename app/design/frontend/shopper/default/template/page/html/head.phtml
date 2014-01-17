@@ -1,0 +1,115 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+$config = Mage::getStoreConfig('shoppersettings/appearance', Mage::app()->getStore()->getId());
+$config_slideshow = Mage::getStoreConfig('shopperslideshow', Mage::app()->getStore()->getId());
+?>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<?php if (Mage::getStoreConfig('shoppersettings/design/responsive')) : ?>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+<?php endif; ?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<title><?php echo $this->getTitle() ?></title>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="apple-touch-icon" href="<?php echo $this->getSkinUrl(); ?>apple-touch-icon.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $this->getSkinUrl(); ?>apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="<?php echo $this->getSkinUrl(); ?>apple-touch-icon-114x114.png" />
+<!--[if lt IE 7]>
+<script type="text/javascript">
+//<![CDATA[
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+<![endif]-->
+<!-- Begin [JMO] -->
+<link href='http://fonts.googleapis.com/css?family=Italiana' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Quattrocento:400,700' rel='stylesheet' type='text/css'>
+<!-- End [JMO] -->
+<?php echo $this->getCssJsHtml() ?>
+<?php if (Mage::helper('shopperslideshow/data')->isSlideshowEnabled() && $config_slideshow['config']['slider'] == 'revolution') : ?>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') . 'queldorei/jquery.themepunch.plugins.min.js'; ?>"></script>
+<script type="text/javascript" src="<?php echo Mage::getBaseUrl('js') . 'queldorei/jquery.themepunch.revolution.min.js'; ?>"></script>
+<?php endif; ?>
+<?php if ($config['enable_font']) :?>
+<link href='//fonts.googleapis.com/css?family=<?php echo str_replace(' ', '+', $config['font']); ?>:300,400,700' rel='stylesheet' type='text/css'>
+<?php if ($config['price_font'] != $config['font'] ) : ?>
+    <link href='//fonts.googleapis.com/css?family=<?php echo str_replace(' ', '+', $config['price_font']); ?>:300,400,700' rel='stylesheet' type='text/css'>
+    <?php endif; ?>
+<?php endif; ?>
+<link href='<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB, Mage::app()->getFrontController()->getRequest()->isSecure()) . 'options.css.php'; echo '?store='.Mage::app()->getStore()->getCode();  if ($cat = Mage::registry('current_category')) { echo '&cat='.$cat->getId(); }  ?>' rel='stylesheet' type='text/css'>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>
+<script type="text/javascript">
+    //<![CDATA[
+    var Shopper = {};
+    Shopper.url = '<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB, Mage::app()->getFrontController()->getRequest()->isSecure()) ?>';
+    Shopper.store = '<?php echo Mage::app()->getStore()->getCode(); ?>';
+    Shopper.price_circle = <?php echo Mage::getStoreConfig('shoppersettings/design/price_circle') ?>;
+    Shopper.fixed_header = <?php echo Mage::getStoreConfig('shoppersettings/design/fixed_header') ?>;
+    Shopper.totop = <?php echo Mage::getStoreConfig('shoppersettings/ajax/totop') ?>;
+    Shopper.responsive = <?php echo Mage::getStoreConfig('shoppersettings/design/responsive') ?>;
+    Shopper.quick_view = <?php echo Mage::getStoreConfig('shoppersettings/ajax/quick_view') ?>;
+    Shopper.shopby_num = '<?php echo Mage::getStoreConfig('shoppersettings/catalog/shopby_num') ?>';
+    Shopper.text = {};
+    Shopper.text.more = '<?php echo $this->__('more...') ?>';
+    Shopper.text.less = '<?php echo $this->__('less...') ?>';
+    Shopper.anystretch_bg = '';
+    <?php
+    $bg_image = '';
+    if (!empty($config['content_bg_img']) && $config['content_bg_img_mode'] == 'stretch') {
+        $bg_image = $config['content_bg_img'];
+    }
+
+    if ($current_category = Mage::registry('current_category')) {
+        $current_scheme = Mage::helper('shoppercategories')->getCategoryScheme($current_category->getId());
+        if ($current_scheme && !empty($current_scheme['content_bg_img'])) {
+            if ($current_scheme['content_bg_img_mode'] == 'stretch') {
+                $bg_image = str_replace('queldorei/shopper/', '', $current_scheme['content_bg_img']);
+            } else {
+                $bg_image = '';
+            }
+        }
+    }
+
+    $route = Mage::app()->getFrontController()->getRequest()->getRouteName();
+    $action = Mage::app()->getFrontController()->getRequest()->getActionName();
+    if ( ($route == 'customer' && ($action == 'login' || $action == 'forgotpassword' || $action == 'create')) && !empty($config['login_bg']) ) {
+        $bg_image = $config['login_bg'];
+    }
+
+    if ( !empty($bg_image) ) {
+        echo "Shopper.anystretch_bg = '".Mage::getBaseUrl('media') . 'queldorei/shopper/' . $bg_image ."'; ";
+    }
+    ?>
+    //]]>
+</script>

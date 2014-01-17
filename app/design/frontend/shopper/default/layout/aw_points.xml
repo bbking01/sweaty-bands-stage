@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/aw_points/aw_points.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="cart_sidebar">
+            <action method="setTemplate">
+                <name>aw_points/checkout/cart/sidebar.phtml</name>
+            </action>
+            <block type="points/checkout_cart_points" name="checkout.cart.sidebar.points" template="aw_points/checkout/cart/sidebar/points.phtml" >
+                <block type="core/template" name="infopage.link" template="aw_points/infopagelink.phtml" />
+            </block>
+        </reference>
+    </default>
+
+    <!-- Customer page -->
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="addLink" translate="label" module="points" ifconfig="points/referal_system_configuration/enablerefsyst">
+                <name>invitation</name>
+                <path>points/invitation</path>
+                <label>My Invitation</label>
+            </action>
+            <action method="addLink" translate="label" module="points">
+                <name>reward</name>
+                <path>points/reward</path>
+                <label>Reward Points</label>
+            </action>
+        </reference>
+        <reference name="cart_sidebar">
+            <action method="setTemplate">
+                <name>aw_points/checkout/cart/sidebar.phtml</name>
+            </action>
+            <block type="points/checkout_cart_points" name="checkout.cart.sidebar.points" template="aw_points/checkout/cart/sidebar/points.phtml" >
+                <block type="core/template" name="infopage.link" template="aw_points/infopagelink.phtml" />
+            </block>
+        </reference>
+    </customer_account>
+    <points_invitation_index>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/aw_points/aw_points_invitation.css</stylesheet>
+            </action>
+        </reference>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="points/customer_invitation_list" name="points.invitation.list">
+                <action method="setTitle" translate="title" module="points">
+                    <title>My Invitation</title>
+                </action>
+            </block>
+        </reference>
+    </points_invitation_index>
+    <points_reward_index>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/aw_points/aw_points_reward.css</stylesheet>
+            </action>
+        </reference>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="points/customer_reward" name="points.reward" >
+                <action method="setTitle" translate="title" module="points">
+                    <title>Reward Points</title>
+                </action>
+                <block type="points/customer_reward_summary" name="points.reward.summary"></block>
+                <block type="points/customer_reward_history" name="points.reward.history" ></block>
+                <block type="points/customer_reward_coupon" name="points.reward.coupon"></block>
+                <block type="points/customer_reward_notifications" name="points.reward.notifications"></block>
+            </block>
+        </reference>
+    </points_reward_index>
+    <points_invitation_sendinvitation>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/aw_points/aw_points_invitation.css</stylesheet>
+            </action>
+        </reference>
+        <update handle="customer_account"/>
+        <reference name="content">
+            <block type="points/customer_invitation_form" name="points_invitation_form">
+                <action method="setTitle" translate="title" module="points">
+                    <title>Send Invitations</title>
+                </action>
+            </block>
+        </reference>
+    </points_invitation_sendinvitation>
+    <checkout_cart_index>
+        <reference name="head">
+            <action method="addCss">
+                <stylesheet>css/aw_points/aw_points_cart.css</stylesheet>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="points/checkout_cart_points" name="checkout.cart.points" template="aw_points/checkout/cart/points.phtml"  before="-" >
+                <block type="core/template" name="infopage.link" template="aw_points/infopagelink.phtml" />
+            </block>
+        </reference>
+    </checkout_cart_index>
+    <sales_order_view>
+        <reference name="order_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_order_view>
+    <sales_order_print>
+        <reference name="order_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_order_print>
+    <sales_email_order_items>
+        <reference name="order_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_email_order_items>
+
+    <sales_order_invoice>
+        <reference name="invoice_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_order_invoice>
+    <sales_order_printinvoice>
+        <reference name="invoice_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_order_printinvoice>
+    <sales_email_order_invoice_items>
+        <reference name="invoice_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_email_order_invoice_items>
+
+    <sales_order_creditmemo>
+        <reference name="creditmemo_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_order_creditmemo>
+    <sales_order_printcreditmemo>
+        <reference name="creditmemo_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_order_printcreditmemo>
+    <sales_email_order_creditmemo_items>
+        <reference name="creditmemo_totals">
+            <block type="points/sales_totals_points" name="points.order.totals" />
+        </reference>
+    </sales_email_order_creditmemo_items>
+
+</layout>

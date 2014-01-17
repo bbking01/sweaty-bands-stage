@@ -1,0 +1,51 @@
+<?php 
+	$image = $this->getImage();
+?>
+
+<div class="customerpictures 1column-page picture-view">
+	<div>
+		<div class="main-picture" style="width:<?php echo $this->getWidth()+80?>px; height:<?php echo $this->getHeight()+30 ?>px; float:left">
+			<img src="<?php echo $this->getImageUrl($image->getImageName(), $image->getUserId())?>" alt="<?php $image->getImageTitle() ?>"/>
+			<div class="like-date">
+				<div class="facebook-like-count">
+					<?php if($image->getWinnerTime()!=''): ?>
+					<?php echo $this->__('Facebook like: ') ?>
+					<?php Mage::helper('customerpictures/data')->getFacebookLike($image->getId()) ?>
+					<?php else: ?>
+					<iframe src="//www.facebook.com/plugins/like.php?href=<?php echo $this->getUrl('customerpictures/index/view').'id/'.$image->getId() ?>&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+					<?php endif ?>
+				</div>
+				<?php if($image->getWinnerTime()!=''):?>
+					<div class="image-date"><?php echo $this->__('Winning date: <b>%s</b>', $this->formatDate(date("Y-m-d H:i:s", $image->getWinnerTime()),'long')) ?></div>
+				<?php else: ?>
+					<div class="image-date"><?php echo $this->__('Upload date: <b>%s</b>', $this->formatDate(date("Y-m-d H:i:s", $image->getCreatedTime()),'long')) ?></div>
+				<?php endif ?>
+			</div>
+		</div>
+		<div class="picture-info">
+			<?php echo $this->getChildHtml('avatar') ?>
+			<h1 class="picture-title"><?php echo $image->getImageTitle() ?></h1>
+			<div class="picture-description">
+				<?php echo $image->getImageDescription() ?>
+			</div>
+			<div class="view-all">
+				<button onclick="setLocation('<?php echo $this->getViewAllUrl() ?>')" class="button">
+					<span><span>
+						<?php echo $this->getViewAllTitle() ?>
+					</span></span>
+				</button>
+			</div>
+		</div>
+		<div class="clearer"></div>
+	</div>
+	<div id="fb-root"></div>
+	<div class="fb-comments" data-href="<?php echo $this->getUrl('customerpictures/index/view').'id/'.$image->getId() ?>" data-num-posts="<?php echo $this->getFacebookCommentNum() ?>" data-width="<?php echo $this->getFacebookCommentWidth() ?>"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) {return;}
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+	</script>
+</div>

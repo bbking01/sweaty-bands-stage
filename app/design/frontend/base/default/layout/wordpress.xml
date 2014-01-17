@@ -1,0 +1,273 @@
+<?xml version="1.0"?>
+<layout>
+<!--
+/**
+ * @category    	Fishpig
+ * @package     Fishpig_Wordpress
+ * @license     	http://fishpig.co.uk/license.txt
+ * @author      	Ben Tideswell <help@fishpig.co.uk>
+ */
+/**
+ * 
+ * Customizing this file
+ *
+ * Rather than make changes directly in this file, it is recommend that you do one of the following:
+ *
+ * Option 1 - local.xml (recommended)
+ * Create a file named local.xml in your custom theme's layout folder. You can then make changes to the layout there by
+ * using the relevant layout handle. This allows you to leave this file intact and recieve new features
+ * when upgrading the extension.
+ *
+ * Option 2 - copy this file
+ * Copy this file and it's contents to a new file in your custom theme's layout folder named wordpress.xml. 
+ * Each time you upgrade, you will need to check with your copy of the file and
+ * the copy in app/design/frontend/base/default/layout/wordpress.xml for changes and merge any you find
+ *
+ */
+-->
+
+	<default>
+		<reference name="head">
+			<block type="core/template" name="wordpress.blog.feed" as="blog_feed" before="-" template="wordpress/feed/default/link.phtml" />
+		</reference>
+		<!-- 
+		/**
+		 * The below adds in the top link for the blog.
+		 * To remove this link, do not delete the code below.
+		 * Instead, you can disable (or rename) this link from the extension's configuration
+		 * section in the Magento Admin
+		 *
+		 */
+		 -->
+		<reference name="top.links">
+			<action method="addLink" translate="label title" module="wordpress" ifconfig="wordpress_blog/layout/toplink_enabled">
+				<label helper="wordpress/getTopLinkLabel" />
+				<url helper="wordpress/getTopLinkUrl"/>
+				<title>Blog</title>
+				<prepare>0</prepare>
+				<urlParams />
+				<position helper="wordpress/getTopLinkPosition" />
+				<li_params />
+				<a_params>class="top-link-blog"</a_params>
+				<before_text />
+				<after_text />
+			</action>
+		</reference>
+		<!--  End of add top 'Blog' link -->
+	</default>
+	<!--
+	/**
+	 * Default styles for all WordPress pages
+	 */
+	-->
+	<wordpress_default>
+		<remove name="tags_popular" />
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="head">
+			<action method="addCss" ifconfig="wordpress_blog/layout/include_css"><style>wordpress/styles.css</style></action>
+		</reference>
+		<reference name="left">
+			<action method="unsetChildren" ifconfig="wordpress_blog/layout/sidebar_left_empty" />
+			<block type="wordpress/sidebar" name="wordpress_sidebar_left" before="-" template="wordpress/sidebar.phtml">
+				<action method="setWidgetArea"><area>sidebar-1</area></action>
+				<action method="setWidgetFallbackArea"><area>primary-widget-area</area></action>
+			</block>
+			<block type="core/template" name="fishpig.wordpress.thankyou" after="-" template="wordpress/sidebar/widget/thank-you.phtml" />
+		</reference>
+		<reference name="right">
+			<action method="unsetChildren" ifconfig="wordpress_blog/layout/sidebar_right_empty" />
+			<block type="wordpress/sidebar" name="wordpress_sidebar_right" before="-" template="wordpress/sidebar.phtml">
+				<action method="setWidgetArea"><area>sidebar-2</area></action>
+				<action method="setWidgetFallbackArea"><area>secondary-widget-area</area></action>
+			</block>
+		</reference>
+		<reference name="before_body_end">
+			<block type="core/template" name="wordpress.humansnobots" as="HumansNoBots" template="wordpress/js/humans-no-bots.phtml" />
+			<block type="wordpress/sidebar_widget_slickSocialButtons" name="wordpress.slickSocialButtons" as="slickSocialButtons" />
+		</reference>
+	</wordpress_default>
+	<!--
+	/**
+	 * WordPress Homepage
+	 *
+	 */
+	-->
+	<wordpress_homepage>
+		<reference name="content">
+			<block type="wordpress/homepage" name="wordpress_homepage" template="wordpress/homepage.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" template="wordpress/post/list.phtml">
+					<block type="wordpress/post_list_pager" name="wordpress_post_list_pager"/>
+				</block>
+			</block>
+		</reference>
+	</wordpress_homepage>
+	<!--
+	/**
+	 * Blog post
+	 *
+	 */
+	-->
+	<wordpress_post_view>
+		<reference name="content">
+			<block type="wordpress/post_view" name="wordpress_post_view" template="wordpress/post/view.phtml">
+				<block type="wordpress/post_related" name="wordpress_post_related" as="related_posts" template="wordpress/post/related.phtml" />
+				<block type="wordpress/post_view_comments" name="wordpress_post_comments" template="wordpress/post/view/comments.phtml">
+					<block type="wordpress/post_view_comment_pager" name="wordpress_post_comment_pager"/>
+					<block type="wordpress/post_view_comment_form" name="wordpress_post_comment_form" template="wordpress/post/view/comment/form.phtml" />
+				</block>
+			</block>
+		</reference>
+		<reference name="left">
+			<block type="wordpress/post_associated_products" name="wordpress_associated_products" template="wordpress/post/associated/products.phtml" before="-">
+				<action method="setTitle" translate="title" module="wordpress"><title><![CDATA[Related Products]]></title></action>
+			</block>
+		</reference>
+	</wordpress_post_view>
+	<!--
+	/**
+	 * Blog post category
+	 *
+	 */
+	 -->
+	<wordpress_post_category_view>
+		<reference name="head">
+			<block type="core/template" name="wordpress.blog.feed.category" as="blog_category_feed" before="-" template="wordpress/feed/category/link.phtml" />
+		</reference>
+		<reference name="content">
+			<block type="wordpress/category_view" name="wordpress_category" template="wordpress/category/view.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" template="wordpress/post/list.phtml">
+					<block type="wordpress/post_list_pager" name="wordpress_post_list_pager"/>
+				</block>
+			</block>
+		</reference>
+	</wordpress_post_category_view>
+	<!--
+	/**
+	 * Individual Tag page that lists posts
+	 *
+	 */
+	 -->
+	<wordpress_post_tag_view>
+		<reference name="content">
+			<block type="wordpress/tag_view" name="wordpress_tag" template="wordpress/tag/view.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" template="wordpress/post/list.phtml">
+					<block type="wordpress/post_list_pager" name="wordpress_post_list_pager"/>
+				</block>
+			</block>
+		</reference>
+	</wordpress_post_tag_view>
+	<!--
+	/**
+	 * WordPress Term Page
+	 *
+	 */
+	 -->
+	<wordpress_term_view>
+		<reference name="content">
+			<block type="wordpress/term_view" name="wordpress_term_view" template="wordpress/term/view.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" template="wordpress/post/list.phtml">
+					<block type="wordpress/post_list_pager" name="wordpress_post_list_pager"/>
+				</block>
+			</block>
+		</reference>
+	</wordpress_term_view>
+	<!--
+	/**
+	 * WordPress Page
+	 *
+	 */
+	 -->
+	<wordpress_page_view>
+		<reference name="content">
+			<block type="wordpress/page_view" name="wordpress_page_view" template="wordpress/page/view.phtml">
+				<block type="wordpress/page_view_comments" name="wordpress_page_comments" template="wordpress/post/view/comments.phtml">
+					<block type="wordpress/page_view_comment_pager" name="wordpress_page_comment_pager"/>
+					<block type="wordpress/page_view_comment_form" name="wordpress_page_comment_form" template="wordpress/post/view/comment/form.phtml" />
+				</block>
+			</block>
+		</reference>
+	</wordpress_page_view>
+	<!--
+	/**
+	 * WordPress Search results
+	 *
+	 */
+	 -->
+	<wordpress_search_index>
+		<reference name="content">
+			<block type="wordpress/search_result" name="wordpress_search_result" template="wordpress/search/result.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" template="wordpress/post/list.phtml"/>
+			</block>
+		</reference>
+	</wordpress_search_index>	
+	<!--
+	/**
+	 * Blog archive page
+	 * This applies to archives based on the month or the day
+	 *
+	 */
+	 -->
+	<wordpress_archive_view>
+		<reference name="content">
+			<block type="wordpress/archive_view" name="wordpress_archive" template="wordpress/archive/view.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" template="wordpress/post/list.phtml">
+					<block type="wordpress/post_list_pager" name="wordpress_post_list_pager"/>
+				</block>
+			</block>
+		</reference>
+	</wordpress_archive_view>
+	<!--
+	/**
+	 * Author page
+	 *
+	 */
+	 -->
+	<wordpress_author_view>
+		<reference name="content">
+			<block type="wordpress/author_view" name="wordpress_author" template="wordpress/author/view.phtml">
+				<block type="wordpress/post_list" name="wordpress_post_list" template="wordpress/post/list.phtml">
+					<block type="wordpress/post_list_pager" name="wordpress_post_list_pager"/>
+				</block>
+			</block>
+		</reference>
+	</wordpress_author_view>
+	<!--
+	/**
+	 * Non-WordPress pages
+	 *
+	 */
+	-->
+	<!--
+	/**
+	 * Magento product view page
+	 * This displays any associated blog posts on the product page
+	 *
+	 */
+	 -->
+	<catalog_product_view>
+		<reference name="product.info.additional">
+			<block type="wordpress/post_associated" name="wordpress_posts_associated" template="wordpress/post/associated.phtml">
+				<action method="setTitle" translate="title" module="wordpress"><title><![CDATA[Related Blog Posts]]></title></action>
+				<action method="setEntity"><type><![CDATA[product]]></type></action>
+			</block>
+		</reference>
+	</catalog_product_view>
+	<!--
+	/**
+	 * CMS Pages
+	 * This displays any associated blog posts on a CMS page
+	 *
+	 */
+	 -->
+	<cms_page>
+		<reference name="content">
+			<block type="wordpress/post_associated" name="wordpress_posts_associated" template="wordpress/post/associated.phtml" after="-">
+				<action method="setTitle" translate="title" module="wordpress"><title><![CDATA[Related Blog Posts]]></title></action>
+				<action method="setEntity"><type><![CDATA[cms_page]]></type></action>
+			</block>
+		</reference>
+	</cms_page>
+	
+</layout>

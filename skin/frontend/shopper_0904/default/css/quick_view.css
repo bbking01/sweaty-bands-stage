@@ -1,0 +1,4 @@
+.ajax-index-options {}
+body.ajax-index-options {border:0;}
+.ajax-index-options .product-view .product-shop { float: none; width: auto; overflow: hidden; margin: 0;}
+.ajax-index-options .product-view .product-img-box {float:left; margin:0 30px 0 0;}

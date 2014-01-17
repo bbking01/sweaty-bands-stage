@@ -1,0 +1,29 @@
+<?php /* @var $this Mage_Core_Block_Template */?>
+<?php $currentAction = $this->getAction()->getFullActionName('/');?>
+<form id="ugiftcert-form" action="<?php echo $this->getUrl('ugiftcert/checkout/add') ?>" method="post">
+    <div class="discount">
+        <h2><?php echo $this->__('Gift cards') ?></h2>
+
+        <div class="ugiftcert-form">
+            <label for="cert_code"><?php echo $this->__('Redeem gift card if you have one.') ?></label>
+            <input type="hidden" value="<?php echo $currentAction;?>" name="current_action"/>
+            <div class="input-box">
+                <input class="input-text" id="cert_code" name="cert_code" value="" />
+            </div>
+            <div class="buttons-set">
+                <button type="button" title="<?php echo $this->__('Apply Card') ?>" class="button"
+                        onclick="ugiftcertForm.submit()" value="<?php echo $this->__('Apply Card') ?>">
+                    <span><span><?php echo $this->__('Apply Card') ?></span></span></button>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var ugiftcertForm = new VarienForm('ugiftcert-form');
+    ugiftcertForm.submit = function () {
+        $('cert_code').addClassName('required-entry');
+        return VarienForm.prototype.submit.bind(ugiftcertForm)();
+    }
+    //]]>
+</script>

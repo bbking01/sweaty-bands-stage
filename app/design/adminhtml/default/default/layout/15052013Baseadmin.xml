@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ * 
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@i95dev.com so we can send you a copy immediately.
+ *
+ * @category       
+ * @package        I95Dev_I95DevConnect
+ * @Description    
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2013 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+
+<layout>
+    <adminhtml_customer_edit_GP>
+        <reference name="customer_edit_tab_view">
+            <block type="I95DevConnect_Base/GP_adminhtml_customer_edit_tab_view" name="gp_customer_edit_tab_view" as="gp_customer_edit_tab_view" before="-" template="I95DevConnect/Base/GP/customer/gpview.phtml" />
+        </reference> 
+    </adminhtml_customer_edit_GP>
+    
+    <adminhtml_customer_edit_RMS>
+        <reference name="customer_edit_tab_view">
+            <block type="I95DevConnect_Base/GP_adminhtml_customer_edit_tab_view" name="gp_customer_edit_tab_view" as="gp_customer_edit_tab_view" before="-" template="I95DevConnect/Base/GP/customer/gpview.phtml" />
+        </reference> 
+    </adminhtml_customer_edit_RMS>
+<!--  GP layouts starts here  -->
+    <adminhtml_sales_order_view_GP>
+        <reference name="order_info">
+            <action method="setTemplate" ifconfig="I95DevConnect_Base/I95DevConnect_enabled_settings/is_enabled">
+                <template>I95DevConnect/Base/GP/sales/order/View/info.phtml</template> 
+            </action>
+            <block type="I95DevConnect_Base/GP_adminhtml_sales_order_view_info" name="gp_order_info" as="gp_order_info" template="I95DevConnect/Base/GP/sales/order/View/gpinfo.phtml" />
+        </reference> 
+    </adminhtml_sales_order_view_GP>
+    <adminhtml_sales_order_view_RMS>
+        <reference name="order_info">
+            <action method="setTemplate" ifconfig="I95DevConnect_Base/I95DevConnect_enabled_settings/is_enabled">
+                <template>I95DevConnect/Base/RMS/sales/order/View/info.phtml</template> 
+            </action>
+            <block type="I95DevConnect_Base/RMS_adminhtml_sales_order_view_info" name="rms_order_info" as="rms_order_info" template="I95DevConnect/Base/RMS/sales/order/View/rmsinfo.phtml" />
+        </reference> 
+    </adminhtml_sales_order_view_RMS>
+
+    <add_order_grid_column_handle_GP>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter" ifconfig="I95DevConnect_Base/I95DevConnect_enabled_settings/is_enabled">
+                <columnId>target_order_id</columnId>
+                <arguments module="order" translate="header">
+                    <header>GP Order ID</header>
+                    <index>target_order_id</index>
+                    <type>varchar</type>
+                </arguments>
+                <after>real_order_id</after>
+            </action>
+            <action method="addColumnAfter" ifconfig="I95DevConnect_Base/I95DevConnect_enabled_settings/is_enabled">
+                <columnId>origin</columnId>
+                <arguments module="order" translate="header">
+                    <header>Origin</header>
+                    <index>origin</index>
+                    <type>varchar</type>
+                </arguments>
+                <after>target_order_id</after>
+            </action>
+        </reference>
+    </add_order_grid_column_handle_GP>
+    
+    <add_order_grid_column_handle_RMS>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter" ifconfig="I95DevConnect_Base/I95DevConnect_enabled_settings/is_enabled">
+                <columnId>target_order_id</columnId>
+                <arguments module="order" translate="header">
+                    <header>RMS Order ID</header>
+                    <index>target_order_id</index>
+                    <type>varchar</type>
+                </arguments>
+                <after>real_order_id</after>
+            </action>
+            <action method="addColumnAfter" ifconfig="I95DevConnect_Base/I95DevConnect_enabled_settings/is_enabled">
+                <columnId>origin</columnId>
+                <arguments module="order" translate="header">
+                    <header>Origin</header>
+                    <index>origin</index>
+                    <type>varchar</type>
+                </arguments>
+                <after>target_order_id</after>
+            </action>
+        </reference>
+    </add_order_grid_column_handle_RMS>  
+
+    <!-- order grid action -->
+    <adminhtml_sales_order_grid>
+        <!-- apply the layout handle defined above -->
+        <update handle="add_order_grid_column_handle" />
+    </adminhtml_sales_order_grid>
+
+    <!-- order grid view action -->
+    <adminhtml_sales_order_index_GP>
+        <!-- apply the layout handle defined above -->
+        <update handle="add_order_grid_column_handle_GP" />
+    </adminhtml_sales_order_index_GP>
+    
+    <!-- order grid view action -->
+    <adminhtml_sales_order_index_RMS>
+        <!-- apply the layout handle defined above -->
+        <update handle="add_order_grid_column_handle_RMS" />
+    </adminhtml_sales_order_index_RMS>
+</layout>

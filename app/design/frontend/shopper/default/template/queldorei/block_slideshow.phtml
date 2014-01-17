@@ -1,0 +1,11 @@
+<?php
+ob_start();
+echo $this->getChildHtml();
+$queldorei_blocks = Mage::registry('queldorei_blocks');
+if ( !$queldorei_blocks ) {
+    $queldorei_blocks = array();
+} else {
+    Mage::unregister('queldorei_blocks');
+}
+$queldorei_blocks['block_slideshow'] = ob_get_clean();
+Mage::register('queldorei_blocks', $queldorei_blocks);

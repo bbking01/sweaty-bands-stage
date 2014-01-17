@@ -1,0 +1,116 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * @var Mage_Page_Block_Html_Header $this
+ */
+$config = Mage::getStoreConfig('shoppersettings', Mage::app()->getStore()->getId());
+$hdr_style = '';
+if ( $config['design']['search_field'] ) {
+	$hdr_style .= ' search-field';
+}
+if ( $config['design']['below_logo'] ) {
+	$hdr_style .= ' below-logo';
+}
+
+?>
+
+<!-- HEADER BOF -->
+<div class="header-container">
+    <div class="top-switch-bg">
+        <div class="row clearfix">
+            <div class="grid_6">
+                <?php echo $this->getChildHtml('store_language') ?>
+                <?php echo $this->getChildHtml('currencyTop') ?>
+            </div>
+            <div class="grid_6">
+                <?php echo $this->getChildHtml('topLinks') ?>
+            </div>
+        </div>
+    </div>
+    <div class="header-wrapper <?php echo $hdr_style?>">
+        <header>
+			<?php if ( $config['design']['below_logo'] ) : ?>
+            <div class="row clearfix">
+                <div class="grid_12">
+			        <?php if ($this->getIsHomePage()):?>
+                    <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><?php echo $this->getChildHtml('theme_logo', false) ?></a></h1>
+			        <?php else:?>
+                    <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><?php echo $this->getChildHtml('theme_logo', false) ?></a>
+			        <?php endif?>
+	                <div class="top-dropdowns">
+				        <?php echo $this->getChildHtml('cartTop') ?>
+				        <?php echo $this->getChildHtml('compareTop') ?>
+				        <?php echo $this->getChildHtml('topSearch'); ?>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+	        <div class="row clearfix">
+                <div class="grid_12 <?php if ( $config['navigation']['use_wide_navigation'] ) { echo 'wide-navigation'; } ?>">
+                    <!-- NAVIGATION -->
+	                <?php
+	                if ( !$config['navigation']['use_wide_navigation'] && $config['navigation']['use_navigation'] ) {
+		                echo $this->getChildHtml('topShopperMenu');
+	                } else {
+		                echo $this->getChildHtml('topMenu', false);
+	                }
+	                ?>
+                    <!-- NAVIGATION EOF -->
+			        <?php echo $this->getChildHtml('topContainer'); ?>
+                </div>
+            </div>
+			<?php else:?>
+            <div class="row clearfix">
+                <div class="grid_12 <?php if ( $config['navigation']['use_wide_navigation'] ) { echo 'wide-navigation'; } ?>">
+                    <?php if ($this->getIsHomePage()):?>
+                    <h1 class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><?php echo $this->getChildHtml('theme_logo', false) ?></a></h1>
+                    <?php else:?>
+                    <a href="<?php echo $this->getUrl('') ?>" title="<?php echo $this->getLogoAlt() ?>" class="logo"><strong><?php echo $this->getLogoAlt() ?></strong><?php echo $this->getChildHtml('theme_logo', false) ?></a>
+                    <?php endif; ?>
+                    <!-- NAVIGATION -->
+                    <?php
+                        if ( !$config['navigation']['use_wide_navigation'] && $config['navigation']['use_navigation'] ) {
+                            echo $this->getChildHtml('topShopperMenu');
+                        } else {
+                            echo $this->getChildHtml('topMenu', false);
+                        }
+                    ?>
+                    <!-- NAVIGATION EOF -->
+                    <div class="top-dropdowns">
+                        <?php echo $this->getChildHtml('cartTop') ?>
+                        <?php echo $this->getChildHtml('compareTop') ?>
+                        <?php echo $this->getChildHtml('topSearch'); ?>
+                        <div class="clear"></div>
+                    </div>
+                    <?php echo $this->getChildHtml('topContainer'); ?>
+                </div>
+            </div>
+	        <?php endif?>
+        </header>
+    </div>
+</div>
+<!-- HEADER EOF -->
+<?php echo $this->getChildHtml('slideshow'); ?>

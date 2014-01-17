@@ -1,0 +1,238 @@
+<?php
+$_helper = $this->helper('catalog/output');
+$_product = $this->getProduct();
+
+$helper = $this->helper('shoppersettings/image');
+list($defaultImgX, $defaultImgY) = $helper->getDefaultSize();
+list($imgX, $imgY) = $helper->getMainSize();
+if ( $imgX > 300 ) {
+    $imgX = 300;
+    $imgY = $helper->calculateHeight($imgX);
+}
+
+$product_img_box_width = $defaultImgX;
+if ( $defaultImgX != $imgX ) {
+    $product_img_box_width = $imgX;
+}
+//add image border
+$product_img_box_width += 18;
+
+$thumbX = 98;
+$thumbY = $helper->calculateHeight($thumbX);
+?>
+
+<script type="text/javascript">
+    var optionsPrice = new Product.OptionsPrice(<?php echo $this->getJsonConfig() ?>);
+</script>
+<div class="product-view">
+    <div class="product-essential">
+        <form action="<?php echo $this->getSubmitUrl($_product) ?>" method="post" id="product_addtocart_form"<?php if($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <div class="no-display">
+                <input type="hidden" name="product" value="<?php echo $_product->getId() ?>" />
+                <input type="hidden" name="related_product" id="related-products-field" value="" />
+            </div>
+
+            <div class="product-img-box" style="width:<?php echo $product_img_box_width; ?>px">
+                <?php echo $this->helper('shoppersettings')->getLabel($_product);  ?>
+
+                <?php if ($_product->getImage() != 'no_selection' && $_product->getImage()): ?>
+                <p class="product-image">
+                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize($imgX, $imgY); ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'image')->resize($imgX*2, $imgY*2); ?>" alt="<?php echo $this->escapeHtml($this->getImageLabel());?>" title="<?php echo $this->escapeHtml($this->getImageLabel());?>" width="<?php echo $imgX;?>" height="<?php echo $imgY;?>" />
+                </p>
+                <?php else: ?>
+                <p class="product-image">
+                    <?php
+                    $_img = '<img src="'.$this->helper('catalog/image')->init($_product, 'image')->resize($imgX, $imgY).'" data-srcX2="'.$this->helper('catalog/image')->init($_product, 'image')->resize($imgX*2, $imgY*2).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" width="'.$imgX.'" height="'.$imgY.'" />';
+                    echo $_helper->productAttribute($_product, $_img, 'image');
+                    ?>
+                </p>
+                <?php endif; ?>
+
+				<?php if (count($this->getProduct()->getMediaGalleryImages()) > 0): ?>
+				    <div class="more-views">
+				        <ul id="quick_view_carousel" class="jcarousel-skin-tango clearfix">
+							<?php foreach ($this->getProduct()->getMediaGalleryImages() as $_image): ?>
+							<?php //Skip, if no image
+							if ($_image->getFile() == NULL)
+								continue; ?>
+				            <li>
+				                <a href='<?php echo $this->helper('catalog/image')->init($_product, 'image', $_image->getFile())->resize($imgX, $imgY); ?>' title='<?php echo $this->escapeHtml($_image->getLabel()) ?>' >
+				                    <img src="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize($thumbX, $thumbY); ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($_product, 'thumbnail', $_image->getFile())->resize($thumbX*2, $thumbY*2); ?>" width="<?php echo $thumbX; ?>" height="<?php echo $thumbY; ?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"/>
+				                </a>
+				            </li>
+							<?php endforeach; ?>
+				        </ul>
+				        <div class="jcarousel-controls">
+				            <a href="#" class="jcarousel-prev-horizontal" id="quick_view_prev"></a>
+				            <a href="#" class="jcarousel-next-horizontal" id="quick_view_next"></a>
+				        </div>
+				    </div>
+	            <?php endif; ?>
+
+            </div>
+
+            <div class="product-shop">
+                <div class="product-shop-info">
+                    <div class="product-name">
+                        <h1><a href="<?php echo $_product->getProductUrl() ?>" onclick="parent.window.location = this.href; return false;"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h1>
+                    </div>
+
+                    <?php echo $this->getChildHtml('alert_urls') ?>
+                    <?php echo $this->getChildHtml('product_type_data') ?>
+                    <?php echo $this->getTierPriceHtml() ?>
+                    <?php echo $this->getChildHtml('extrahint') ?>
+
+                    <?php if ($_product->getShortDescription()):?>
+                    <div class="short-description">
+                        <div class="std"><?php echo $_helper->productAttribute($_product, nl2br($_product->getShortDescription()), 'short_description') ?></div>
+                    </div>
+                    <?php endif;?>
+
+                    <?php echo $this->getChildHtml('other');?>
+
+                    <?php if(!$_product->isGrouped()): ?>
+                    <div class="qty-container clearfix">
+                        <label for="qty"><?php echo $this->__('Qty') ?>:</label>
+                        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if (!$this->hasOptions()):?>
+                    <div class="add-to-box">
+                        <?php if($_product->isSaleable()): ?>
+                        <?php echo $this->getChildHtml('addtocart') ?>
+                        <?php endif; ?>
+                    </div>
+                    <?php echo $this->getChildHtml('extra_buttons') ?>
+                    <?php endif; ?>
+
+                    <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                    <?php echo $this->getChildChildHtml('container1', '', true, true) ?>
+                    <?php endif;?>
+
+                    <?php if ($_product->isSaleable() && $this->hasOptions()):?>
+                    <?php echo $this->getChildChildHtml('container2', '', true, true) ?>
+                    <?php endif;?>
+
+                    <?php echo $this->getChildHtml('addto') ?>
+                    <div class="clear"></div>
+                    <?php echo $this->getChildHtml('shopper_product_addthis') ?>
+                </div>
+            </div>
+            <div class="clearer"></div>
+        </form>
+        <script type="text/javascript">
+            //<![CDATA[
+
+            var productAddToCartForm = new VarienForm('product_addtocart_form');
+            productAddToCartForm.submit = function (button, url) {
+                if (this.validator.validate()) {
+                    var form = this.form;
+                    var oldUrl = form.action;
+                    if (url) {
+                        form.action = url;
+                    }
+                    var e = null;
+                    // Start of our new ajax code
+                    if (!url) {
+                        url = jQuery('#product_addtocart_form').attr('action');
+                    }
+                    url = url.replace("checkout/cart", "ajax/index"); // New Code
+                    var data = jQuery('#product_addtocart_form').serialize();
+                    data += '&isAjax=1';
+                    jQuery('#ajax_loader').css('display', 'block');
+                    try {
+                        jQuery.ajax({
+                            url:url,
+                            dataType:'jsonp',
+                            type:'post',
+                            data:data,
+                            success:function (data) {
+                                jQuery('#ajax_loader').css('display', 'none');
+                                parent.setAjaxData(data, true);
+
+                                jQuery('body').append('<div class="alert"></div>');
+                                jQuery('.alert').slideDown(400);
+                                jQuery('.alert').html(data.message).append('<button></button>');
+                                jQuery('button').click(function () {
+                                    jQuery('.alert').slideUp(400);
+                                });
+                                jQuery('.alert').slideDown('400', function () {
+                                    setTimeout(function () {
+                                        jQuery('.alert').slideUp('400', function () {
+                                            jQuery(this).slideUp(400)
+                                        });
+                                    }, 7000)
+                                });
+                            }
+                        });
+                    } catch (e) {
+                    }
+                    // End of our new ajax code
+                    this.form.action = oldUrl;
+
+                    if (e) {
+                        throw e;
+                    }
+                }
+            }.bind(productAddToCartForm);
+
+            productAddToCartForm.submitLight = function(button, url){
+                if(this.validator) {
+                    var nv = Validation.methods;
+                    delete Validation.methods['required-entry'];
+                    delete Validation.methods['validate-one-required'];
+                    delete Validation.methods['validate-one-required-by-name'];
+                    if (this.validator.validate()) {
+                        if (url) {
+                            this.form.action = url;
+                        }
+                        this.form.submit();
+                    }
+                    Object.extend(Validation.methods, nv);
+                }
+            }.bind(productAddToCartForm);
+
+            jQuery(document).ready(function($) {
+
+                myCarousel = null; // This will be the carousel object
+
+                function mycarousel_initCallback(carousel, state) {
+                    if (state == 'init') {
+                        myCarousel = carousel;
+                    }
+                    $('#quick_view_next').bind('click', function() {
+                        carousel.next();
+                        return false;
+                    });
+                    $('#quick_view_prev').bind('click', function() {
+                        carousel.prev();
+                        return false;
+                    });
+
+                    $('.product-view .product-img-box .more-views .jcarousel-skin-tango .jcarousel-container-horizontal').width(<?php echo ($thumbX+8)*2;?>);
+                    $('.product-view .product-img-box .more-views .jcarousel-skin-tango .jcarousel-clip-horizontal').width(<?php echo ($thumbX+8)*2;?>);
+                    $('.product-view .product-img-box .more-views .jcarousel-skin-tango .jcarousel-item').width(<?php echo $thumbX;?>);
+                    $('#quick_view_prev, #quick_view_next').css({marginTop:-<?php echo ($thumbY)/2+17;?>});
+
+                };
+
+                $('#quick_view_carousel').jcarousel({
+                    scroll: 1,
+                    initCallback: mycarousel_initCallback,
+                    buttonNextHTML: null,
+                    buttonPrevHTML: null
+                });
+
+	            $('#quick_view_carousel a').click(function(){
+		            $('p.product-image img').attr('src', $(this).attr('href'));
+		            return false;
+	            });
+
+            });
+
+            //]]>
+        </script>
+
+    </div>
+</div>

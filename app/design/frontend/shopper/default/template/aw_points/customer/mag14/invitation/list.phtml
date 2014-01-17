@@ -1,0 +1,78 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+
+
+<div class="page-title">
+    <h1><?php echo $this->getTitle() ?></h1>
+</div>
+<div class="aw-points-referral">
+    <span><?php echo Mage::helper('points')->__('Your broadcast link:'); ?></span>
+    <span class="aw-points-link"><?php echo Mage::helper('points')->getInvitationLink(); ?></span>
+</div>
+<br />
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php if ($this->hasInvitees()): ?>  
+    <fieldset>      
+        <table class="data-table" id="invitelist-table">
+            <thead>
+                <tr>
+                    <th><?php echo $this->__('E-mail') ?></th>
+                    <th><?php echo $this->__('Status') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($this->getCollection() as $item): ?>
+                    <tr>
+                        <td>
+                            <span class="nobr"><?php echo $item->getEmail() ?></span>
+                        </td>
+                        <td>
+                            <span class="nobr"><?php echo $item->getStatus() ?></span>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+        <script type="text/javascript">decorateTable('invitelist-table')</script>            
+    </fieldset>
+<?php else: ?>
+    <p><?php echo $this->__("You haven't sent any invitation yet") ?></p>
+<?php endif ?>
+<div class="buttons-set">
+    <button  title="<?php echo $this->__('Send invitation') ?>" class="button" onclick="window.location.href='<?php echo $this->getInvitationFormUrl(); ?>'">
+        <span>
+            <span>
+                <?php echo $this->__('Send invitation') ?>
+            </span>
+        </span>
+    </button>
+    <p class="back-link"><a href="<?php echo $this->getBackUrl(); ?>"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
+</div>

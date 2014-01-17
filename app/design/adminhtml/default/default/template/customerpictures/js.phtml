@@ -1,0 +1,1 @@
+<script type="text/javascript">	function setWinner(id, url){		var myAjax = new Ajax.Request(			url,			{			   method: 'post',			   onComplete: function(response){					if($('winner-'+id).checked){						$('coupon-form-'+id).show();					}					else{						$('coupon-form-'+id).hide();					}			   }			}		);	}</script>

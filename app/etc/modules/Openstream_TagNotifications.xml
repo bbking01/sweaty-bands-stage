@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Openstream_TagNotifications>
+			<active>true</active>
+			<codePool>community</codePool>
+		</Openstream_TagNotifications>
+	</modules>
+</config>

@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<config>
+    <api>
+        <resources>
+            <ugiftcert translate="title" module="ugiftcert">
+                <model>ugiftcert/api</model>
+                <title>Gift Certificates API</title>
+                <acl>ugiftcert</acl>
+                <methods>
+                    <list translate="title" module="ugiftcert">
+                        <title>Retrieve gift certificates by code</title>
+                        <method>items</method>
+                        <acl>ugiftcert/info</acl>
+                    </list>
+                    <create translate="title" module="ugiftcert">
+                        <title>Create gift certificate</title>
+                        <acl>ugiftcert/create</acl>
+                    </create>
+                    <massCreate translate="title" module="ugiftcert">
+                        <title>Create gift certificates</title>
+                        <acl>ugiftcert/create</acl>
+                    </massCreate>
+                    <update translate="title" module="ugiftcert">
+                        <title>Update gift certificate data</title>
+                        <acl>ugiftcert/update</acl>
+                    </update>
+                    <massUpdate translate="title" module="ugiftcert">
+                        <title>Update gift certificates</title>
+                        <acl>ugiftcert/update</acl>
+                    </massUpdate>
+                    <fetch translate="title" module="ugiftcert">
+                        <title>Get gift certificate data</title>
+                        <acl>ugiftcert/fetch</acl>
+                    </fetch>
+                    <delete translate="title" module="ugiftcert">
+                        <title>Delete gift certificate</title>
+                        <acl>ugiftcert/delete</acl>
+                    </delete>
+                    <massDelete translate="title" module="ugiftcert">
+                        <title>Delete gift certificates</title>
+                        <acl>ugiftcert/delete</acl>
+                    </massDelete>
+                </methods>
+                <faults module="ugiftcert">
+                    <not_exists>
+                        <code>101</code>
+                        <message>Certificate does not exists.</message>
+                    </not_exists>
+                    <not_updated>
+                        <code>102</code>
+                        <message>Certificate not updated. Details in error message.</message>
+                    </not_updated>
+                    <not_deleted>
+                        <code>103</code>
+                        <message>Certificate not deleted. Details in error message.</message>
+                    </not_deleted>
+                    <data_invalid>
+                        <code>104</code>
+                        <message>Invalid data given. Details in error message.</message>
+                    </data_invalid>
+                    <new_multiple>
+                        <code>105</code>
+                        <message>Can not create multiple Gift Certificates with the same code.</message>
+                    </new_multiple>
+                    <new_duplicate>
+                        <code>106</code>
+                        <message>Duplicate Gift Certificate Code was found.</message>
+                    </new_duplicate>
+                    <list_empty>
+                        <code>107</code>
+                        <message>No certificates found.</message>
+                    </list_empty>
+                    <filters_invalid>
+                        <code>108</code>
+                        <message>Provided filters are not valid.</message>
+                    </filters_invalid>
+                </faults>
+            </ugiftcert>
+        </resources>
+        <resources_alias>
+            <ugiftcert>ugiftcert</ugiftcert>
+        </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <ugiftcert>ugiftcert</ugiftcert>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <ugiftcert translate="title" module="ugiftcert">
+                    <title>Gift Certificates</title>
+                    <sort_order>4</sort_order>
+                    <update translate="title" module="ugiftcert">
+                        <title>Update</title>
+                    </update>
+                    <create translate="title" module="ugiftcert">
+                        <title>Create</title>
+                    </create>
+                    <fetch translate="title" module="ugiftcert">
+                        <title>Fetch</title>
+                    </fetch>
+                    <delete translate="title" module="ugiftcert">
+                        <title>Delete</title>
+                    </delete>
+                    <info translate="title" module="ugiftcert">
+                        <title>Retrieve certificates</title>
+                    </info>
+                </ugiftcert>
+            </resources>
+        </acl>
+    </api>
+</config>

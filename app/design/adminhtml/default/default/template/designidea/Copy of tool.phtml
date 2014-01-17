@@ -1,0 +1,76 @@
+<div>
+    <ul class="messages">
+        <li style="margin-top:11px;" class="notice-msg">
+            <ul>
+                <li>Save template changes before creating the template.</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<?php 
+$user = "admin";
+$swf = "designStudio";
+$path = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'designtool/';	
+
+$templateId = $this->getRequest()->getParam('id');
+$isAddStoreCode = Mage::getStoreConfig('web/url/use_store');
+$current_store = Mage::app()->getWebsite(true)->getDefaultStore()->getCode();
+
+		//To get first product id 
+		//$designtoolAttributeSetId = 9;
+		
+		$designtoolAttrSetName = "Designtool";
+		//Get Attribute set Id from Attribute set name
+		$designtoolAttributeSetId = Mage::getModel('eav/entity_attribute_set')
+                            ->load($designtoolAttrSetName, 'attribute_set_name')
+                            ->getAttributeSetId();
+							
+		$productCollection = Mage::getResourceModel('catalog/product_collection')							
+							->AddFieldToFilter('is_customizable', 1)
+							->AddFieldToFilter('status', 1)
+							->addAttributeToFilter('type_id', 'configurable')
+							->addAttributeToFilter('attribute_set_id',$designtoolAttributeSetId)
+							->addAttributeToSelect('*');
+		
+		Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($productCollection);
+		$productCollection = $productCollection->getFirstItem();		
+		$productId = $productCollection->getEntityId();
+		
+$args = "catid=".$_REQUEST['cid']."&productid=".$productId."&isAddStore=".$isAddStoreCode."&storeCode=".$current_store."&template_id=".$templateId."&user=".$user;
+
+?>
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="950" height="705" id="Untitled-1" align="middle">
+	<param name="movie" value="<?php echo $path ?>designStudio.swf" />
+	<param name="quality" value="high" />
+	<param name="bgcolor" value="#ffffff" />
+	<param name="play" value="true" />
+	<param name="loop" value="true" />
+	<param name="wmode" value="window" />
+	<param name="scale" value="showall" />
+	<param name="menu" value="true" />
+	<param name="devicefont" value="false" />
+	<param name="salign" value="" />
+	<param name="flashvars" value="<?php echo $args;?>">
+	<param name="allowScriptAccess" value="sameDomain" />
+	<!--[if !IE]>-->
+	<object type="application/x-shockwave-flash" data="<?php echo $path ?>designStudio.swf" width="950" height="705">
+		<param name="movie" value="<?php echo $path ?>designStudio.swf" />
+		<param name="quality" value="high" />
+		<param name="bgcolor" value="#ffffff" />
+		<param name="play" value="true" />
+		<param name="loop" value="true" />
+		<param name="wmode" value="window" />
+		<param name="scale" value="showall" />
+		<param name="menu" value="true" />
+		<param name="devicefont" value="false" />
+		<param name="salign" value="" />
+		<param name="flashvars" value="<?php echo $args;?>">
+		<param name="allowScriptAccess" value="sameDomain" />
+	<!--<![endif]-->
+		<a href="http://www.adobe.com/go/getflash">
+			<img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" />
+		</a>
+	<!--[if !IE]>-->
+	</object>
+	<!--<![endif]-->
+</object>

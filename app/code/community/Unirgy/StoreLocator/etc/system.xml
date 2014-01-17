@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Unirgy_StoreLocator extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Unirgy
+ * @package    Unirgy_StoreLocator
+ * @copyright  Copyright (c) 2008 Unirgy LLC
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Unirgy
+ * @package    Unirgy_StoreLocator
+ * @author     Boris (Moshe) Gurevich <moshe@unirgy.com>
+ */
+-->
+<config>
+    <sections>
+        <ustorelocator translate="label comment" module="ustorelocator">
+            <tab>general</tab>
+            <label>Store Locations</label>
+            <frontend_type>text</frontend_type>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label comment" module="ustorelocator">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <location_map_url translate="label">
+                            <label>Custom Map URL</label>
+                            <frontend_type>text</frontend_type>
+                            <backend_model>ustorelocator/settings_url</backend_model>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </location_map_url>
+                        <api_key translate="label">
+                            <label>Simple API key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>26</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </api_key>
+                        <page_title translate="label">
+                            <label>Page title</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>28</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Set map page title.]]></comment>
+                        </page_title>
+                        <show_search translate="label">
+                            <label>Show Search Form</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                        </show_search>
+                        <search_radius_options translate="label">
+                            <label>Search radius options</label>
+                            <frontend_type>text</frontend_type>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>33</sort_order>
+                            <comment><![CDATA[Set search radius values here.<br/>Use comma separated list of integers.]]></comment>
+                        </search_radius_options>
+                        <show_map translate="label">
+                            <label>Show Map on Page Load</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_map>
+                        <scale_icon translate="label">
+                            <label>Scale location icons</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Should custom location icons be scaled to fit in default icon size or not?]]></comment>
+                        </scale_icon>
+                        <use_geo_address translate="label">
+                            <label>Use geo location address</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>57</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[If is empty 'Address to be displayed' use 'Address for geo location' on frontend]]></comment>
+                        </use_geo_address>
+                        <default_location translate="label">
+                            <label>Default Location Address</label>
+                            <!--<frontend_type>text</frontend_type>-->
+                            <frontend_type>select</frontend_type>
+                            <source_model>ustorelocator/settings_locations</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_location>
+                        <min_zoom translate="label">
+                            <label>Minimal map zoom</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>61</sort_order>
+                            <source_model>ustorelocator/settings_zoom</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[This setting is to prevent too close to the ground zoom.<br/>The higher the number, the closer the zoom.<br/>1 is furthest away, 25 closest to earth.]]></comment>
+                        </min_zoom>
+                        <default_sort translate="label">
+                            <label>Results Sorted By</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>62</sort_order>
+                            <source_model>ustorelocator/settings_sort</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_sort>
+                        <default_sort_dir translate="label">
+                            <label>Default Sort Direction</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>64</sort_order>
+                            <source_model>ustorelocator/settings_dir</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_sort_dir>
+                        <default_radius translate="label">
+                            <label>Default Search Radius</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_radius>
+                        <distance_units translate="label">
+                            <label>Distance Units (mi or km)</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>ustorelocator/settings_units</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </distance_units>
+                        <default_country translate="label">
+                            <label>Default Country</label>
+                            <frontend_type>select</frontend_type>
+                            <sort_order>85</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[If a country is selected here, its locations will be shown on the map by default
+                            <br/>Else all configured locations will be shown on the map.]]></comment>
+                        </default_country>
+                        <num_results translate="label">
+                            <label>Number of Results to Show</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </num_results>
+                        <no_result translate="label">
+                            <label>No result coordinates</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[If search does not return any results, center map to these coordinates
+                            <br/>Please enter LatLng coordinates separated by a comma <strong>e.g. 40,-100</strong>]]></comment>
+                        </no_result>
+                        <upload_locations translate="label">
+                            <label>Import locations</label>
+                            <frontend_type>file</frontend_type>
+                            <backend_model>ustorelocator/import</backend_model>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </upload_locations>
+                        <upload_overwrite translate="label">
+                            <label>Overwrite existing locations on import?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>96</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </upload_overwrite>
+                        <download_locations translate="label">
+                            <label>Export Locations</label>
+                            <frontend_model>ustorelocator/adminhtml_export</frontend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </download_locations>
+                        <sl_layout>
+                            <label>Layout</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>page/source_layout</source_model>
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sl_layout>
+                    </fields>
+                </general>
+            </groups>
+        </ustorelocator>
+    </sections>
+</config>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+	<printcolormanagement_adminhtml_printcolorimport_index>
+        <reference name="content">
+            <block type="printcolormanagement/adminhtml_printcolorimport" name="printcolorimport" />
+        </reference>
+    </printcolormanagement_adminhtml_printcolorimport_index>
+	<printcolormanagement_adminhtml_printcolormanagement_index>
+        <reference name="content">
+            <block type="printcolormanagement/adminhtml_printcolormanagement" name="printcolormanagement" />
+        </reference>
+    </printcolormanagement_adminhtml_printcolormanagement_index>    
+</layout>

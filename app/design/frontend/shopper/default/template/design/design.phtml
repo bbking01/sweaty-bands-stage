@@ -1,0 +1,192 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * 
+ *
+ * @see Magestore_Design_Block_Design
+ */
+$isAddStoreCode = Mage::getStoreConfig('web/url/use_store');
+//echo $isAddStoreCode;
+$path = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB).'designtool/'; 
+$current_store = Mage::app()->getStore()->getCode();
+$current_storeid =  Mage::app()->getStore()->getStoreId();
+//For Default English Store
+if($current_store == "en")
+{
+	$swf = "designStudio";
+}else if($current_store == "dutch") //For German Store
+{
+	$swf = "designStudio";
+}
+else if($current_store == "german") //For German Store
+{
+	$swf = "designStudio_german";
+}
+else if($current_store == "en") //For German Store
+{
+	$swf = "designStudio";
+}
+else
+{
+	$swf = "designStudio";
+}
+$swf = "designStudio";
+$cid = $this->getCategoryId();
+$id = $this->getProductId();
+$design_id = $this->getDesignId(); 
+$order_id = $this->getOrderId();
+$cart_id = $this->getCartId();		
+
+/*get color, size and quantity when personalize from product*/
+if($id!='')
+{									 
+	$data = $this->getDesignData($id);
+	$colorId = $data['color'];
+	$sizeId = $data['size'];
+	$qty = $data['qty'];
+}
+/*get color, size and quantity when edit from cart*/
+if($cart_id!='')
+{
+	$cartData = $this->getColorSizeAndQuantity();
+	$id = $cartData['id'];
+	$colorId = $cartData['colorId'];
+	$sizeId = $cartData['sizeId'];
+	$qty = $cartData['qty'];
+}
+/**/
+ 
+?>
+
+<div class="flashwidth">
+<script type='text/javascript' src='<?php echo $path ?>script/swfobject.js'></script>
+<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+<script type='text/javascript'>
+	var flashvars = {};
+<?php
+if($design_id != ''){
+$model = Mage::getModel('design/savedesign')->load($design_id);	
+$designName = $model->getDesignName();	
+?>
+	flashvars.design_id = '<?php echo $design_id; ?>';
+	flashvars.designName = '<?php echo $designName; ?>';
+	flashvars.images = '<?php echo $model->getFrontImage().",".$model->getBackImage().",".$model->getLeftImage().",".$model->getRightImage(); ?>';	
+	flashvars.isAddStore = '<?php echo $isAddStoreCode; ?>';
+	flashvars.storeCode = '<?php echo $current_store; ?>';
+<?php
+}else if($order_id != ''){
+?>
+	flashvars.order_id= <?php echo $order_id; ?>;
+	flashvars.isAddStore = '<?php echo $isAddStoreCode; ?>';
+	flashvars.storeCode = '<?php echo $current_store; ?>';
+<?php
+}else{
+?>
+	flashvars.productid= '<?php echo $id; ?>';	
+	flashvars.cart_id= '<?php echo $cart_id; ?>';
+	flashvars.colorId= '<?php echo $colorId; ?>';
+	flashvars.sizeId= '<?php echo $sizeId; ?>';
+	flashvars.qty= '<?php echo $qty; ?>';
+	flashvars.isAddStore = '<?php echo $isAddStoreCode; ?>';
+	flashvars.storeCode = '<?php echo $current_store; ?>';
+<?php } ?>
+	var parameters = {};
+	parameters.salign = 'tl';
+	parameters.wmode = 'transparent';
+	var attributes = {};
+	attributes.allowscriptaccess = "always";
+	attributes.name = "flashObj";
+	attributes.id = "flashObj";
+	swfobject.embedSWF('<?php echo $path.$swf ?>.swf?t=<?php echo date('Y-m-d H:i:s'); ?>', 'designStudioDiv', '100%', '610', '10.0.0', false, flashvars, parameters, attributes);
+</script>
+
+<div id='designStudioDiv'>
+<p>This page requires Adobe Flash Player, which you can download free at <a href="http://get.adobe.com/flashplayer/">http://get.adobe.com/flashplayer/</a></p>
+</div>
+</div>
+<script type="text/javascript">
+function share (title, description, url, imageUrl, whatToShare)
+{	
+	var title = "My Design";
+	if (whatToShare == 'facebook') {
+		var url = "http://www.facebook.com/sharer.php?s=100&p[title]="+title+"&p[url]="+url+"&p[images][0]="+imageUrl;
+	} else if (whatToShare == 'twitter') {
+		var url = "https://twitter.com/share?text=My Design&tw_p=tweetbutton&url="+url;
+	} else if (whatToShare == 'pinterest') {
+		var url = "http://pinterest.com/pin/create/button/?url="+url+"&media="+imageUrl+"&description=My Design&ref="+url;
+	}
+	
+	window.open(url,"ShareDesign", "menubar=no,status=no,location=no,width=750,height=450,toolbar=no,scrollbars=1");
+}
+
+function afterLogin()
+{
+	//update welcome message
+	jQuery.ajax({
+					url : '<?php echo $this->getUrl("design/index/welcomeMessage") ?>',
+					complete : function(data){
+                    // data.responseText is empty here.
+                    jQuery('p.welcome-msg').html(data.responseText);
+                    // This returns the data object with statusText = "error"
+                   /// console.log(data);
+					}
+	})
+	
+	//update top links
+	jQuery.ajax({
+					url : '<?php echo $this->getUrl("design/index/updateTopLinks") ?>',
+					complete : function(data){
+                    // data.responseText is empty here.
+                    jQuery('ul.links').replaceWith(data.responseText);
+                    // This returns the data object with statusText = "error"
+                   /// console.log(data);
+					}
+	})	
+	
+	//update top carts
+	jQuery.ajax({
+					url : '<?php echo $this->getUrl("design/index/topCarts") ?>',
+					complete : function(data){
+                    // data.responseText is empty here.
+                    jQuery('div.top-cart-contain').replaceWith(data.responseText);
+					(function($jq){
+					//show subnav on hover
+					jQuery('.top-cart-contain').mouseenter(function() {
+						jQuery(this).find(".top-cart-content").stop(true, true).slideDown();
+					});
+					//hide submenus on exit
+					jQuery('.top-cart-contain').mouseleave(function() {
+						jQuery(this).find(".top-cart-content").stop(true, true).slideUp();
+					});
+					})(jQuery);
+                    // This returns the data object with statusText = "error"
+                   /// console.log(data);
+					}
+	})	
+	
+}
+</script>

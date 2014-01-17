@@ -1,0 +1,63 @@
+#aw_points-summary-box dl.box-content dt {
+    margin-top:  12px;
+    font-weight: bold;
+}
+
+#aw_points-summary-box .learnmore {
+    font-size: 10px;
+}
+
+#aw_points-summary-box .box-content dt.expiration span {
+    color: #cc0000;
+}
+
+#aw_points-history-box  {
+    margin-bottom: 15px;
+}
+
+#aw_points-history-box table#points-history-table col.id {
+    width: 10px;
+}
+
+#aw_points-history-box table#points-history-table col.points {
+    width: 10px;
+}
+
+#aw_points-history-box table#points-history-table col.date{
+    width: 170px;
+}
+
+#aw_points-history-box table#points-history-table .aw-expiration-in-table{
+    color: gray;
+}
+
+#aw_points-button-to-subscribe{
+    float: right;
+    margin-top: 23px;
+}
+
+#aw_points-summary-box {
+    margin-bottom:20px;
+    border:1px solid #ccc;
+    border-right-color:#999;
+    border-bottom-color:#999;
+    background:url(../../images/aw_points/balance_box_bg.gif) repeat-x #fff;
+    padding:15px;    
+}
+
+#aw_points-summary-box h2 {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#points-history-table{
+    border-spacing: 0; 
+}
+
+
+
+.aw_points-coupon-box{
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+}

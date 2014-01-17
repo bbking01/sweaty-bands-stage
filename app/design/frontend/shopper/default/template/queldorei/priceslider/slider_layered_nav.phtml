@@ -1,0 +1,108 @@
+<?php
+ob_start();
+if ($this->canShowBlock()):
+
+$currentCurrencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
+$requestParams = $this->getRequest()->getParams();
+$category_id = $requestParams['id'];
+$page = 1;
+if ( isset($_COOKIE['queldorei_priceslider_page_'.$currentCurrencyCode.$category_id]) ) {
+	$page = $_COOKIE['queldorei_priceslider_page_'.$currentCurrencyCode.$category_id];
+}
+unset($requestParams['id']);
+$requestParams['p'] = $page;
+
+$max = Mage::getModel('catalog/layer_filter_price');
+$slider_max = $maxPrice = $max->getMaxPriceInt()+1;
+$slider_min = 0;
+if ( isset($_COOKIE['queldorei_priceslider_min_'.$currentCurrencyCode.$category_id]) && $_COOKIE['queldorei_priceslider_min_'.$currentCurrencyCode.$category_id] > $slider_min ) {
+    $slider_min = $_COOKIE['queldorei_priceslider_min_'.$currentCurrencyCode.$category_id];
+}
+if ( isset($_COOKIE['queldorei_priceslider_max_'.$currentCurrencyCode.$category_id]) && $_COOKIE['queldorei_priceslider_max_'.$currentCurrencyCode.$category_id] > $slider_min && $_COOKIE['queldorei_priceslider_max_'.$currentCurrencyCode.$category_id] < $slider_max ) {
+    $slider_max = $_COOKIE['queldorei_priceslider_max_'.$currentCurrencyCode.$category_id];
+}
+
+$baseCurrencyCode = Mage::app()->getStore()->getBaseCurrencyCode();
+$currentCurrencyCode = Mage::app()->getStore()->getCurrentCurrencyCode();
+if ( $baseCurrencyCode != $currentCurrencyCode ) {
+    $rate = Mage::helper('directory')->currencyConvert(1, $baseCurrencyCode, $currentCurrencyCode);
+    $max = $slider_max / $rate;
+    $min = $slider_min / $rate;
+} else {
+    $max = $slider_max;
+    $min = $slider_min;
+}
+
+$priceFilterExist = false;
+$_filters = $this->getFilters();
+foreach ($_filters as $_filter) {
+    if ( $_filter->getType() == 'catalog/layer_filter_price' ) {$priceFilterExist = true; break;}
+}
+?>
+
+<?php if ($priceFilterExist): ?>
+<div class="block block-layered-price">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Price') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <div id="slider"></div>
+        <div class="f-left" id="slider-min"><?php echo $this->helper('core')->currency($min, true, false) ; ?></div>
+        <div class="f-right" id="slider-max"><?php echo $this->helper('core')->currency($max, true, false) ; ?></div>
+        <div class="clearer"></div>
+    </div>
+</div>
+<input id="max-price" type="hidden" name="max-price" value="<?php echo $maxPrice; ?>">
+<input id="slider-baseurl" type="hidden" name="slider-baseurl" value="<?php echo Mage::getBaseUrl();?>">
+<input id="category" type="hidden" value="<?php echo $category_id; ?>">
+<script type="text/javascript">
+var Queldorei_Priceslider = {
+    request_params : '<?php echo http_build_query($requestParams); ?>',
+    currency : '<?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>',
+    currency_code : '<?php echo $currentCurrencyCode; ?>',
+    category_id: <?php echo $category_id; ?>,
+    slider_min: <?php echo $slider_min; ?>,
+    slider_max: <?php echo $slider_max; ?>
+}
+</script>
+<?php endif; ?>
+
+<?php
+$stateHtml = $this->getStateHtml();
+$filtersHtml = '';
+foreach ($_filters as $_filter) {
+    if ( $_filter->getType() == 'catalog/layer_filter_price' ) continue;
+    if ($_filter->getType() == "catalog/layer_filter_category" && !Mage::getStoreConfig('shoppersettings/catalog/categories_filter') ) continue;
+    if ($_filter->getItemsCount()) {
+        $filtersHtml .= '<dt>'.$this->__($_filter->getName()).'</dt><dd>'.$_filter->getHtml().'<a href="#" class="shopby_more">'.$this->__('more...').'</a></dd>';
+    }
+}
+?>
+
+<?php if ( !empty($filtersHtml) || !empty($stateHtml) ): ?>
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <?php echo $this->getStateHtml() ?>
+        <?php if ($this->canShowOptions()): ?>
+        <p class="block-subtitle"><?php echo $this->__('Shopping Options') ?></p>
+        <dl id="narrow-by-list">
+            <?php echo $filtersHtml; ?>
+        </dl>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+
+<?php endif; ?>
+<?php
+$queldorei_blocks = Mage::registry('queldorei_blocks');
+if ( !$queldorei_blocks ) {
+    $queldorei_blocks = array();
+} else {
+    Mage::unregister('queldorei_blocks');
+}
+$queldorei_blocks['block_layered_nav'] = ob_get_clean();
+Mage::register('queldorei_blocks', $queldorei_blocks);

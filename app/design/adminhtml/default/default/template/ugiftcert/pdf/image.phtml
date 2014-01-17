@@ -1,0 +1,141 @@
+<?php
+/**
+ * Created by JetBrains PhpStorm.
+ * User: pp
+ * Date: 11-11-11
+ * Time: 20:47
+ */
+
+/* @var $this Unirgy_Giftcert_Block_Adminhtml_Pdf_Edit_Tab_Image */
+?>
+<?php $_htmlId      = $this->getElement()->getHtmlId() ?>
+<?php $_htmlName    = $this->getElement()->getName() ?>
+<?php $_note = $this->getElement()->getNote(); ?>
+<?php $_hlp = Mage::helper('ugiftcert');?>
+<?php if($_note): ?>
+<tr>
+    <td>&nbsp;</td>
+    <td>
+        <ul class="messages">
+            <li class="notice-msg">
+                <ul>
+                    <li>
+                        <?php echo $_note;?>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </td>
+</tr>
+<?php endif; ?>
+<tr>
+    <td class="label"><?php echo $this->getElement()->getLabel() ?></td>
+    <td colspan="10" class="grid image_settings">
+        <table cellspacing="0" class="data border" id="image_settings_table">
+            <col width="135" />
+            <col width="120" />
+            <col width="95" />
+            <col />
+            <col width="1" />
+            <thead>
+            <tr class="headings">
+                <th width="30px"><?php echo $_hlp->__('Preview') ?></th>
+                <th><?php echo $_hlp->__('Image') ?></th>
+                <th><?php echo $_hlp->__('Width') ?></th>
+                <th><?php echo $_hlp->__('Height') ?></th>
+                <th><?php echo $_hlp->__('X position') ?></th>
+                <th><?php echo $_hlp->__('Y position') ?></th>
+                <th class="last"><?php echo $_hlp->__('Action') ?></th>
+            </tr>
+            </thead>
+            <tbody id="<?php echo $_htmlId ?>_container"></tbody>
+            <tfoot>
+            <tr>
+                <td colspan="10" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+            </tr>
+            </tfoot>
+        </table>
+        <script type="text/javascript">
+            //<![CDATA[
+            var imageRowTemplate = '<tr>'
+                + '<td class="img-preview">{{preview}}</td>'
+                + '<td><input type="file" id="image_settings_{{index}}_file" name="image_settings[{{index}}][file]" value="{{value}}" /></td>'
+                + '<td><input class="short-text required-entry validate-greater-than-zero" type="text" id="image_settings_{{index}}_width" name="<?php echo $_htmlName ?>[{{index}}][width]" value="{{width}}"/></td>'
+                + '<td><input class="short-text required-entry validate-greater-than-zero" type="text" id="image_settings_{{index}}_height" name="<?php echo $_htmlName ?>[{{index}}][height]" value="{{height}}"/></td>'
+                + '<td><input class="short-text required-entry validate-number" type="text" id="image_settings_{{index}}_x_pos" name="<?php echo $_htmlName ?>[{{index}}][x_pos]" value="{{x_pos}}"/></td>'
+                + '<td><input class="short-text required-entry validate-number" type="text" id="image_settings_{{index}}_y_pos" name="<?php echo $_htmlName ?>[{{index}}][y_pos]" value="{{y_pos}}"/></td>'
+                + '<td class="last"><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][delete]" class="delete" value="" id="image_settings_row_{{index}}_delete" />'
+                + '<button title="<?php echo Mage::helper("catalog")->__("Delete entry") ?>" type="button" class="scalable delete icon-btn delete-product-option" id="image_settings_row_{{index}}_delete_button" onclick="return imageControl.deleteItem(event);">'
+                + '<span><?php echo Mage::helper("catalog")->__("Delete") ?></span></button></td>'
+                + '</tr>';
+            var previewTemplate = '<a href="{{url}}" onclick="imagePreview(\'image_settings_{{index}}_image\'); return false;">'
+                + '<img src="<?php echo $this->getBaseUrl();?>{{url}}" id="image_settings_{{index}}_image" title="{{value}}" alt="{{value}}" height="50" width="50" class="small-image-preview v-middle" /></a>'
+                + '<input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][value]" value={{value}}/><input type="hidden" name="<?php echo $_htmlName ?>[{{index}}][url]" value="{{url}}" />';
+            var imageControl = {
+                template: new Template(imageRowTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                previewTpl: new Template(previewTemplate, new RegExp('(^|.|\\r|\\n)({{\\s*(\\w+)\\s*}})', "")),
+                itemsCount: 0,
+                addItem : function () {
+                    var data = {
+                        url: false,
+                        preview: '',
+                        value: '',
+                        width: 50,
+                        height: 50,
+                        x_pos: 0,
+                        y_pos: 0,
+                        index: this.itemsCount++
+                    };
+
+                    if(arguments.length >= 6) {
+                        data.url      = arguments[0];
+                        data.value    = arguments[1];
+                        data.width    = arguments[2];
+                        data.height   = arguments[3];
+                        data.x_pos    = arguments[4];
+                        data.y_pos    = arguments[5];
+                    }
+
+                    if(data.url) {
+                        data.preview = this.previewTpl.evaluate(data);
+                    }
+
+                    Element.insert($('<?php echo $_htmlId ?>_container'), {
+                        bottom : this.template.evaluate(data)
+                    });
+                    if(!data.value) { // if no value, then have to pick an image
+                        $('image_settings_' + data.index + '_file').addClassName('required-entry');
+                    }
+
+                    $('<?php echo $_htmlId ?>_container').select('input', 'select').each(function(el){ Event.observe(el, 'change', el.setHasChanges.bind(el)); });
+                },
+                disableElement: function(el) {
+                    el.disabled = true;
+                    el.addClassName('disabled');
+                },
+                deleteItem: function(event) {
+                    var tr = Event.findElement(event, 'tr');
+                    if (tr) {
+                        Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+                        Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+                        Element.hide(tr);
+                        Element.addClassName(tr, 'no-display template');
+                    }
+                    return false;
+                }
+            };
+
+
+            <?php foreach ($this->getValues() as $_item): ?>
+            imageControl.addItem(
+                '<?php echo rtrim($_item['url'], '/');?>',
+                '<?php echo rtrim($_item['value'], '/');?>',
+                '<?php echo $_item['width'];?>',
+                '<?php echo $_item['height'];?>',
+                '<?php echo sprintf('%.4f', $_item['x_pos']*1);?>',
+                '<?php echo sprintf('%.4f', $_item['y_pos']*1);?>'
+            );
+                <?php endforeach; ?>
+            //]]>
+        </script>
+    </td></tr>

@@ -1,0 +1,28 @@
+	<config>
+		<api>
+			<resources>
+				<clipart translate="title" module="magestore_clipartmanagement">
+					<title>Title Of My Resource</title>
+					<model>clipartmanagement/objectmodel_api</model>
+					<methods>
+						<list translate="title" module="magestore_clipartmanagement">
+							<title>Title Of My Method</title>
+							<method>items</method>
+						</list>
+						<category_list translate="title" module="magestore_clipartmanagement">
+							<title>Title Of My Method</title>
+							<method>category_items</method>
+						</category_list>
+					</methods>
+           		</clipart>				
+			</resources>
+			<resources_alias>
+				<resourcename>Clipart</resourcename>
+			</resources_alias>
+			<v2>
+				<resources_function_prefix>
+					<resourcename>Clipart</resourcename>
+				</resources_function_prefix>
+			</v2>
+		</api>
+	</config>

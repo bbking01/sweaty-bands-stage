@@ -1,0 +1,134 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+$config = Mage::getStoreConfig('shoppersettings/social', Mage::app()->getStore()->getId());
+$appearance = Mage::getStoreConfig('shoppersettings/appearance', Mage::app()->getStore()->getId());
+$route = Mage::app()->getFrontController()->getRequest()->getRouteName();
+$action = Mage::app()->getFrontController()->getRequest()->getActionName();
+?>
+<!-- footer BOF -->
+<div class="footer-container">
+    <?php if ( !($route == 'customer' && ($action == 'login' || $action == 'forgotpassword' || $action == 'create')) ) : ?>
+    <div class="footer-banners">
+	    <?php $cms_block = Mage::getModel('cms/block')
+		    ->setStoreId( Mage::app()->getStore()->getId() )
+		    ->load('shopper_footer_banners');
+	    if($cms_block->getIsActive()) {
+		    echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_footer_banners')->toHtml();
+	    }
+	    ?>
+    </div>
+    <div class="footer-info">
+        <div class="row clearfix facebook">
+
+            <div class="grid_3">
+            <h4>Facebook</h4>
+            <?php if ( empty($config['facebook_replace']) ) { ?>
+                <div class="block-content">
+                <iframe src="//www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2F<?php echo $config['facebook'] ?>&amp;width=270&amp;show_faces=true&amp;colorscheme=light&amp;stream=false&amp;show_border=false&amp;header=false" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                </div>
+            <?php } else {
+                $cms_block = Mage::getModel('cms/block')
+		            ->setStoreId( Mage::app()->getStore()->getId() )
+		            ->load($config['facebook_replace']);
+	            if($cms_block->getIsActive()) {
+		            echo $this->getLayout()->createBlock('cms/block')->setBlockId($config['facebook_replace'])->toHtml();
+	            }
+            } ?>
+            </div>
+
+            <div class="grid_3">
+            <h4>Twitter</h4>
+            <?php if ( empty($config['twitter_replace']) ) { ?>
+                <div class="block-content">
+                <div class="twitterWidget" data-user="<?php echo $config['twitter'] ?>">
+                    <div class="twitterContent">
+                        <ul class="twitterList">
+                            <li>Follow us on twitter</li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                </div>
+                <script type="text/javascript">
+                    var el = {
+                            widget				: jQuery('.twitterWidget'),
+                            twitterList			: jQuery('.twitterWidget').find(".twitterList")
+                        },
+                        utils	= {
+                            username		: el.widget.data("user"),
+                            currentIndex	: 0,
+                            callback		: function(){},
+                            isReady			: false,
+                            height			: 0,
+                            text_specify    : "<?php echo $this->__('You need to specify a username');?>",
+                            text_error      : "<?php echo $this->__('There was an error connecting to your Twitter account');?>",
+                            text_follow     : "<?php echo $this->__('Follow us');?>",
+                            text_on_twitter : "<?php echo $this->__('on Twitter');?>"
+                        }
+                    getTweets(el, utils);
+                </script>
+            <?php } else {
+                $cms_block = Mage::getModel('cms/block')
+		            ->setStoreId( Mage::app()->getStore()->getId() )
+		            ->load($config['twitter_replace']);
+	            if($cms_block->getIsActive()) {
+		            echo $this->getLayout()->createBlock('cms/block')->setBlockId($config['twitter_replace'])->toHtml();
+	            }
+            } ?>
+            </div>
+            <div class="grid_3 information">
+	            <?php $cms_block = Mage::getModel('cms/block')
+		            ->setStoreId( Mage::app()->getStore()->getId() )
+		            ->load('shopper_footer_information');
+	            if($cms_block->getIsActive()) {
+		            echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_footer_information')->toHtml();
+	            }
+	            ?>
+            </div>
+            <div class="grid_3">
+				
+	            <?php $cms_block = Mage::getModel('cms/block')
+		            ->setStoreId( Mage::app()->getStore()->getId() )
+		            ->load('shopper_footer_contact');
+	            if($cms_block->getIsActive()) {
+		            echo $this->getLayout()->createBlock('cms/block')->setBlockId('shopper_footer_contact')->toHtml();
+	            }
+	            ?>
+            </div>
+
+        </div>
+    </div>
+    <?php endif; // ( !($route == 'customer' && $action == 'login') ) : ?>
+    <footer class="row clearfix">
+        <div class="grid_6">
+            <address><?php echo $this->getCopyright(); ?></address>
+        </div>
+        <div class="grid_6">
+            <?php echo $this->getChildHtml('shopper_footer_links'); ?>
+        </div>
+    </footer>
+</div>
+<!-- footer EOF -->

@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sub@i95dev.com so we can send you a copy immediately.
+ *
+ * @category    I95DevConnect
+ * @package     I95DevConnect_Errorreport
+ * @Description 
+ * @author      i95Dev
+ * @copyright   Copyright (c) 2013 i95Dev
+ * @license     http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+<config>
+    <modules>
+        <I95DevConnect_Errorreport>
+            <version>0.1.0</version>
+        </I95DevConnect_Errorreport>
+    </modules>
+    <frontend>
+        <routers>
+           <errors>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_Errorreport</module>
+                    <frontName>admin</frontName>
+                </args>
+            </errors> 
+        </routers>
+    </frontend>
+    
+    <admin>
+          <routers>
+             <adminhtml>
+                <args>
+                   <modules>
+                      <I95DevConnect_Errorreport_Adminhtml before="Mage_Adminhtml">I95DevConnect_Errorreport_Adminhtml</I95DevConnect_Errorreport_Adminhtml>
+                   </modules>
+                </args>
+             </adminhtml>
+          </routers>
+    </admin>
+   <adminhtml>
+       <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <errorreport>
+ 
+                                            <title>Errorreport</title>
+ 
+                                        </errorreport>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <I95DevConnect_Errorreport>
+                            <title>Errorreport</title>
+ 
+                            <sort_order>16</sort_order>
+                        </I95DevConnect_Errorreport>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+ 
+	  <menu>
+			<report module="errorreport">
+				<children>
+					<errorreport module="errorreport">
+						<title>I95Dev Error Report</title>
+						<sort_order>500</sort_order>
+				      	  <children>
+						    <magtogp module="errorreport">
+						    <title>Magento to Target Report</title>
+						    <sort_order>800</sort_order>
+					        <action>adminhtml/reports_unsyncreport</action>
+					        </magtogp>
+				        </children>	
+					</errorreport>
+				</children>
+			</report>
+		</menu>  
+        
+   		<layout>
+			<updates>
+				<errorreport>
+					<file>errorreport.xml</file>
+				</errorreport>
+			</updates>
+		</layout>
+        
+    </adminhtml>
+    
+    <global>
+        <models>
+            <errorreport>
+                <class>I95DevConnect_Errorreport_Model</class>
+                <resourceModel>errorreport_mysql4</resourceModel>
+            </errorreport>
+            <errorreport_mysql4>
+                <class>I95DevConnect_Errorreport_Model_Mysql4</class>
+                <entities>
+                    <errorreport>
+                        <table>i95dev_failed_schedular_details</table>
+                    </errorreport>
+                </entities>
+            </errorreport_mysql4>
+        </models>
+        
+        <resources>
+            <errorreport_setup>
+                <setup>
+                    <module>I95DevConnect_Errorreport</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </errorreport_setup>
+            <errorreport_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </errorreport_write>
+            <errorreport_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </errorreport_read>
+        </resources>
+   
+        <helpers>
+            <errorreport>
+                <class>I95DevConnect_Errorreport_Helper</class>
+            </errorreport>
+           
+        </helpers>
+        
+       <blocks>
+            <errorreport>
+                <class>I95DevConnect_Errorreport_Block</class>
+            </errorreport>
+		</blocks>
+        
+    </global>
+
+</config>

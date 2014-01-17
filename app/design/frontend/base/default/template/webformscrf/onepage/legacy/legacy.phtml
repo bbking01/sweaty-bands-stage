@@ -1,0 +1,170 @@
+<?php
+/**
+ * Feel free to contact me via Facebook
+ * http://www.facebook.com/rebimol
+ *
+ *
+ * @author        Vladimir Popov
+ * @copyright    Copyright (c) 2012 Vladimir Popov
+ */
+?>
+
+<div id="webform_<?php echo $this->getWebform()->getId()?>_form">
+
+    <iframe id="webform_<?php echo $this->getWebform()->getId()?>_iframe"
+            name="webform_<?php echo $this->getWebform()->getId()?>_iframe"
+            style="width:0;height:0;border:0;position:absolute"></iframe>
+
+    <form action="<?php echo $this->getUrl('webformscrf/checkout/billing', array('_secure' => true))?>" method="post"
+          name="webform_<?php echo $this->getWebform()->getId()?>"
+          id="webform_<?php echo $this->getWebform()->getId()?>" enctype="<?php echo $this->getEnctype()?>"
+          class="webforms-<?php echo $this->getWebform()->getCode()?>"
+          <?php if($this->isAjax()){?>target="webform_<?php echo $this->getWebform()->getId()?>_iframe"<?php }?>>
+
+
+        <input type="hidden" name="submitWebform_<?php echo $this->getWebform()->getId()?>" value="1"/>
+        <input type="hidden" name="webform_id" value="<?php echo $this->getWebform()->getId()?>"/>
+        <input type="hidden" name="result_id" id="result_id" value=""/>
+
+        <?php if (is_array($this->getData('hidden'))) {
+            foreach ($this->getData('hidden') as $key => $value) {
+                ?>
+                <input type="hidden" name="<?php echo $key?>" value="<?php echo $value?>"/>
+            <?php
+            }
+        }?>
+
+        <?php if (count($this->getWebform()->_getHidden())) {
+            foreach ($this->getWebform()->_getHidden() as $field) {
+                echo $field->toHtml();
+            }
+        } ?>
+
+        <?php
+        foreach (Mage::registry('fields_to_fieldsets') as $fieldset_id => $fieldset) {
+            ?>
+
+            <fieldset id="fieldset_<?php echo $fieldset_id?>"
+                      class="group-select wide fieldset-<?php echo $fieldset_id?>"
+                <?php if (!empty($fieldset['logic_visibility']) && $fieldset['logic_visibility'] == 'hidden') echo 'style="display:none"';?>>
+
+                <ul>
+                    <li>
+                        <div class="webformscrf-onepage-fieldset" style="margin:0">
+                            <?php    if (!empty($fieldset['name'])) { ?>
+                                <?php echo $fieldset['name'] ?>
+                            <?php }    ?>
+                        </div>
+                    </li>
+                    <?php
+                    $k = 0;
+                    $j = 0;
+                    $prev = false;
+                    $fields_count = count($fieldset['fields']);
+                    foreach ($fieldset['fields'] as $field) {
+
+                        $size_class = "fields";
+                        $field_class = "input-box";
+                        if ($field->getSize() == 'wide') {
+                            $size_class = "wide";
+                            $field_class = "";
+                        }
+
+                        ?>
+                        <?php if ($j % 2 == 0 || $field->getSize() == 'wide' || $prev->getSize() == 'wide') {
+                            $j = 0; ?>
+                            <?php if ($k > 1) { ?></li><?php } ?>
+                            <li>
+                        <?php } ?>
+                        <?php if ($size_class != "wide"){ ?>
+                        <div id="field_<?php echo $field->getId()?>"
+                             class="<?php echo $field_class?> webforms-fields-<?php echo $field->getId()?><?php if ($field->getCode()) { ?> webforms-fields-<?php echo $field->getCode();
+                             }?>"
+                            <?php if ($field->getData('logic_visibility') == 'hidden') echo 'style="display:none"';?>>
+                    <?php } ?>
+
+                        <?php if ($field->getType() != 'html') { ?>
+                            <label for="field_<?php echo $field->getId()?>">
+
+
+                                <?php echo $field->getName()?>
+
+                                <?php if ($field->getRequired()) { ?>
+                                    <span class="required">*</span>
+                                <?php }?>
+                            </label>
+                        <?php } ?>
+
+                        <br/>
+
+                        <?php if ($size_class != "wide"){ ?>
+                        <div class="input-box">
+                    <?php } ?>
+
+                        <?php echo $field->toHtml(); ?>
+
+                        <?php if ($field->getComment()) { ?>
+                            <p class="webforms-fields-comment">
+                                <?php echo nl2br($field->getComment())?>
+                            </p>
+                        <?php } ?>
+
+                        <?php if ($size_class != "wide"){ ?>
+                        </div>
+                    <?php } ?>
+
+                        <?php if ($size_class != "wide"){ ?>
+                        </div>
+                    <?php } ?>
+                        <?php if ($k == $fields_count - 1) { ?>
+                            </li>
+                        <?php } ?>
+                        <?php
+                        $k++;
+                        $j++;
+                        $prev = $field;
+                    }?>
+                </ul>
+
+            </fieldset>
+
+        <?php
+        } // foreach 'fields_to_fieldsets'
+        ?>
+
+        <?php if (Mage::helper('webformscrf')->showCaptchaCheckout()) { ?>
+            <div class="webformscrf-onepage-fieldset">Captcha</div>
+            <ul class="form-list">
+                <li class="fields">
+                    <div class="field">
+                        <?php echo $this->getCaptcha()->getHTML()?>
+                    </div>
+                </li>
+            </ul>
+        <?php }?>
+    </form>
+
+</div>
+
+<?php echo $this->getLayout()->createBlock(
+    'core/template',
+    'webform_' . $this->getWebform()->getId() . '_submit_script',
+    array(
+        'webform' => $this->getWebform(),
+        'ajax' => 1,
+        'template' => 'webforms/scripts/submit.phtml',
+    )
+)->toHtml();
+?>
+
+<?php if ($this->getWebform()->getLogic())
+    echo $this->getLayout()->createBlock(
+        'core/template',
+        'webform_' . $this->getWebform()->getId() . '_logic',
+        array(
+            'webform' => $this->getWebform(),
+            'template' => 'webforms/scripts/logic.phtml',
+        )
+    )->toHtml();
+?>
+

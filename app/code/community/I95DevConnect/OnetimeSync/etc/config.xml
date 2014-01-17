@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to sub@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_OnetimeSync
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <modules>
+        <I95DevConnect_OnetimeSync>
+            <version>0.1.0</version>
+        </I95DevConnect_OnetimeSync>
+    </modules>
+    <!-- <frontend>
+        <routers>
+            <OnetimeSync>
+                <use>standard</use>
+                <args>
+                    <module>I95DevConnect_OnetimeSync</module>
+                    <frontName>OnetimeSync</frontName>
+                </args>
+            </OnetimeSync>
+        </routers>
+    </frontend> -->
+    <!-- <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <I95DevConnect_Base_Adminhtml before="Mage_Adminhtml">I95DevConnect_Base_Adminhtml</I95DevConnect_Base_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin> -->
+    <global>
+        <helpers>
+            <I95DevConnect_OnetimeSync>
+                <class>I95DevConnect_OnetimeSync_Helper</class>
+            </I95DevConnect_OnetimeSync>
+        </helpers>
+        <!-- <blocks>
+            <I95DevConnect_OnetimeSync>
+                <class>I95DevConnect_OnetimeSync_Block</class>
+            </I95DevConnect_OnetimeSync>
+        </blocks> -->
+        <models>
+            <I95DevConnect_OnetimeSync>
+                <class>I95DevConnect_OnetimeSync_Model</class>
+            </I95DevConnect_OnetimeSync>
+		</models>
+        <resources>
+            <onetimesync_setup>
+                <setup>
+                    <module>I95DevConnect_OnetimeSync</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </onetimesync_setup>
+        </resources>
+    </global>
+  
+    
+</config>

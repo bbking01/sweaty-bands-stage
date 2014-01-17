@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect  
+* @package        I95DevConnect_Base
+* @Description
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+
+
+-->
+<config>
+    <api>
+        <resources>
+            <i95devconnect_base translate="title"  module="I95DevConnect_Base">
+                <model>I95DevConnect_Base_Model_BaseConnect_Api</model>
+                <title>Request i95DevConnect Extension data</title>
+                <acl>I95DevConnect/Base</acl>
+                <methods>
+		    <apiInfo translate="title" module="I95DevConnect_Base">
+	                <title>Retrieve cart data</title>
+       	                <method>apiInfo</method>
+                    </apiInfo>
+                    <updateProduct translate="title" module="I95DevConnect_Base">
+                        <title>Updates product</title>
+                        <method>updateProduct</method>
+                    </updateProduct>
+                    <createProduct translate="title" module="I95DevConnect_Base">
+                        <title>Creates product</title>
+                        <method>createProduct</method>
+                    </createProduct>
+                    <createCustomer translate="title" module="I95DevConnect_Base">
+                        <title>Creates Customer</title>
+                        <method>createCustomer</method>
+                    </createCustomer>
+                    <createOrder translate="title" module="I95DevConnect_Base">
+                        <title>Creates Order</title>
+                        <method>createOrder</method>
+                    </createOrder>
+                    <updateTierPrice translate="title" module="I95DevConnect_Base">
+                        <title>Update the Tierprice</title>
+                        <method>updateTierPrice</method>
+                    </updateTierPrice>
+                    <orderStatusUpdate translate="title" module="I95DevConnect_Base">
+			<title>Updates the Order Status</title>
+			<method>orderStatusUpdate</method>
+		    </orderStatusUpdate>
+                    <createInvoice translate="title" module="I95DevConnect_Base">
+			<title>Create new invoice for target order</title>
+			<method>createInvoice</method>
+		    </createInvoice>
+                    <createShipment translate="title" module="I95DevConnect_Base">
+			<title>Create new shipment for target order</title>
+			<method>createShipment</method>
+		    </createShipment>
+ 		    <createCustomerGroup translate="title" module="I95DevConnect_Base">
+			<title>Create Customer Group</title>
+			<method>createCustomerGroup</method>
+		    </createCustomerGroup>
+                    <createProductGp translate="title" module="I95DevConnect_Base">
+                        <title>Creates product Gp</title>
+                        <method>createProductGp</method>
+                    </createProductGp>
+                    <createCustomerGp translate="title" module="I95DevConnect_Base">
+                        <title>Creates Customer Gp</title>
+                        <method>createCustomerGp</method>
+                    </createCustomerGp>
+                    <createOrderGp translate="title" module="I95DevConnect_Base">
+                        <title>Creates Order Gp</title>
+                        <method>createOrderGp</method>
+                    </createOrderGp>
+		    <getToken translate="title" module="I95DevConnect_Base">
+		        <title>Retrieve Token from the database</title>
+			<method>getToken</method>
+		    </getToken>
+		    <testShipment translate="title" module="I95DevConnect_Base">
+		        <title>Create test shipment for target order</title>
+			<method>testShipment</method>
+		    </testShipment> 
+                </methods>
+            </i95devconnect_base>
+        </resources>
+        <resources_alias>
+            <baseconnect>i95devconnect_base</baseconnect>
+        </resources_alias>
+        <v2>
+            <resources_function_prefix>
+                <baseconnect>i95devConnect</baseconnect>
+            </resources_function_prefix>
+        </v2>
+        <acl>
+            <resources>
+                <i95dev translate="title" module="I95DevConnect_Base">
+                    <title>I95Dev</title>
+                    <sort_order>100</sort_order>
+                    <baseconnect translate="title" module="I95DevConnect_Base">
+                        <title>I95dev Base</title>
+                        <sort_order>100</sort_order>
+                        <allaccess translate="title" module="I95DevConnect_Base">
+                            <title>Core functionality required by all users.</title>
+                            <sort_order>10</sort_order>
+                        </allaccess>
+                        <owneraccess translate="title" module="I95DevConnect_Base">
+                            <title>Functions accessible only for owner.</title>
+                            <sort_order>50</sort_order>
+                        </owneraccess>
+                    </baseconnect>
+                </i95dev>
+            </resources>
+        </acl>
+    </api>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <AW_Autorelated>
+            <active>true</active>
+            <codePool>local</codePool>
+        </AW_Autorelated>
+    </modules>
+</config>

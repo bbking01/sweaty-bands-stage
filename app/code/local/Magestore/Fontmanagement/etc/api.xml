@@ -1,0 +1,60 @@
+	<config>
+	
+		<api>
+		
+			<resources>
+			
+				<!--<font translate="title" module="magestore_fontmanagement">
+					<model>fontmanagement/addfont_api</model>
+					<title>Font Resource</title>
+					<acl>fontmanagement</acl> 
+					<methods>
+						<list translate="title" module="magestore_fontmanagement">
+							<title>Retrive fonts</title>  
+							<method>items</method>     								   
+						</list>
+					</methods>						
+					<faults module="magestore_fontmanagement">  
+						<data_invalid> 
+							<code>100</code> 
+							<message>Invalid customer data. Details in error message.</message>
+						</data_invalid>
+						<filters_invalid>
+							<code>101</code> 
+							<message>Invalid filters specified. Details in error message.</message>
+						</filters_invalid>
+						<not_exists>
+							<code>102</code> 
+							<message>Customer doesn't exist.</message>
+						</not_exists>
+						<not_deleted>
+							<code>103</code> 
+							<message>Customer was not deleted. Details in error message.</message>
+						</not_deleted>					                 
+					</faults>
+				</font>			-->
+				<font translate="title" module="magestore_fontmanagement">
+				<title>Title Of My Resource</title>
+				<model>fontmanagement/objectmodel_api</model>
+				<methods>
+					<list translate="title" module="magestore_fontmanagement">
+						<title>Title Of My Method</title>
+						<method>items</method>
+					</list>
+					<category_list translate="title" module="magestore_fontmanagement">
+						<title>Title Of My Method</title>
+						<method>category_items</method>
+					</category_list>
+				</methods>
+            </font>				
+			</resources>
+			<resources_alias>
+				<resourcename>font</resourcename>
+			</resources_alias>
+			<v2>
+				<resources_function_prefix>
+					<resourcename>Font</resourcename>
+				</resources_function_prefix>
+			</v2>
+		</api>
+	</config>

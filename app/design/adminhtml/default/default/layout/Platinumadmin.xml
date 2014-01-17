@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ * 
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@i95dev.com so we can send you a copy immediately.
+ *
+ * @category       
+ * @package        I95Dev_I95DevConnect
+ * @Description    
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2013 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+
+
+<layout>
+
+    <!-- handles new tab  product edit option for  offline sync-->   
+    <add_i95dev_product_tab>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>offlinesynctab</name>
+                <block>I95DevConnect_Platinum/GP_adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+    </add_i95dev_product_tab>
+    
+    <!-- supports simple product -->   
+    <adminhtml_catalog_product_edit>
+        <update handle="add_i95dev_product_tab"/>
+    </adminhtml_catalog_product_edit>
+   
+    
+    
+    
+
+</layout>

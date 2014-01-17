@@ -1,0 +1,104 @@
+/* Search Page */
+.col1-layout #locations-and-map { width: auto; }
+.col2-left-layout #locations-and-map,
+.col2-right-layout #locations-and-map { width: 685px; }
+.col3-layout #locations-and-map { width: 464px; }
+#locations-and-map { border: 1px solid #ddd; position: relative; overflow: hidden;}
+#locations-and-map .locations { float: left; width: 28%; height: 530px; overflow: auto; display: none;  }
+#locations-and-map .locations li { padding: 5px 5px 15px; }
+#locations-and-map .map { float: right; width: 70%; }
+
+/* Style the search form */
+.store-location-search #store_location_search { }
+.store-location-search #store_location_search .form-list .field { width: 200px; }
+.store-location-search #store_location_search .form-list .field .input-box,
+.store-location-search #store_location_search .form-list .field .input-select { width: 200px; }
+.store-location-search #store_location_search .form-list .field input.input-text,
+.store-location-search #store_location_search .form-list .field select.input-select { width: 180px;  }
+.store-location-search #store_location_search button.button { margin: 15px 0 0 0; }
+
+#locations-and-map .wide { width: 100%; }
+#locations-and-map { }
+
+
+/* Locations Page */
+.store-location-list {}
+.store-location-list .limiter { margin: 0 0 15px 0; }
+.store-location-list .limiter label { font-weight: bold;  }
+.store-location-list .limiter .input-select,
+.store-location-list .limiter .input-box { margin-bottom: 10px; }
+.store-location-list .buttons-set { margin: 20px 0; }
+.store-location-list .locations-list {}
+.store-location-list .buttons-set button.button { float: none; }
+
+/* Locations Pager */
+.store-location-list .pager {}
+.store-location-list .pager .prev { float: left; }		
+.store-location-list .pager .next { float: right; }		
+.store-location-list .pager p { text-align: center; padding: 0 100px; }	
+
+/* View Type: Grid */
+.locations-grid { border-bottom:1px solid #ddd; position:relative; overflow: hidden; }
+.locations-grid.last { border-bottom:0; }
+.locations-grid li.item { float:left; width:30%; padding:12px 10px 12px; }
+.locations-grid .location-image { display: block; margin:0 0 10px 0; }
+.locations-grid .location-name { margin:0 0 5px; font-weight:bold; font-size:18px; }
+.locations-grid .location-name a { text-decoration: none; color: #000; }
+.locations-grid .location-name a:hover { text-decoration: underline; }
+.locations-grid .desc { padding:0; margin:15px 0 15px; line-height:1.35; }
+
+.col3-layout .locations-grid { width: 100%; margin: 0 auto; }
+.col3-layout .locations-grid li.item { width: 29%; }
+.col3-layout .locations-grid .location-image { min-height: 100px; }
+.col3-layout .locations-grid .location-image img { width: 100%; }
+
+.col2-left-layout .locations-grid,
+.col2-right-layout .locations-grid { width:700px; margin:0 auto; }
+
+.col2-left-layout .locations-grid li.item,
+.col2-right-layout .locations-grid li.item {}
+.col2-left-layout .locations-grid .location-image,
+.col2-right-layout .locations-grid .location-image { width: 100%; }
+.col2-left-layout .locations-grid .location-image img,
+.col2-right-layout .locations-grid .location-image img { width: 100%; }
+
+.col1-layout .locations-grid { width:790px; margin:0 auto; }
+
+/* View Type: List */
+.locations-list li.item { border-bottom:1px solid #ddd; padding:12px 10px; }
+.locations-list li.item.last { border-bottom:0; }
+.locations-list .location-image { float:left; width:150px; margin:0 10px 10px 0; }
+.locations-list .location-name { margin:0 0 5px; font-weight:bold; font-size:18px; }
+.locations-list .location-name a { text-decoration: none; color: #000; }
+.locations-list .location-name a:hover { text-decoration: underline; }
+.locations-list .price-box { float:left; margin:3px 13px 5px 0; }
+.locations-list .desc { clear:both; padding:6px 0 0; margin:15px 0 15px; line-height:1.35; }
+
+		
+/* Details page */
+.col1-layout .store-location-details .location-image { width: 47%; }
+.col1-layout .store-location-details .location-image img { width: 100%; }
+.col1-layout .store-location-details #map_container { width: 510px; height: 350px; float: left; }
+
+.col2-left-layout .store-location-details .location-image,
+.col2-right-layout .store-location-details .location-image { width: 340px; }
+.col2-left-layout .store-location-details .location-image img,
+.col2-right-layout .store-location-details .location-image img { width: 100%; }
+.col2-left-layout .store-location-details #map_container,
+.col2-right-layout .store-location-details #map_container { width: 340px;  float: left; margin: 0 0 10px;  }
+
+.col3-layout .store-location-details .location-image { width: 47%; }
+.col3-layout .store-location-details .location-image img { width: 100%; }
+.col3-layout .store-location-details #map_container { width: 250px; height: 150px; float: left; }
+
+.store-location-details .location-image { float: left; margin-right: 5px; }
+.store-location-details h3.owner { clear: both; padding: 15px 0 0 0; }
+.store-location-details .address { margin: 0 0 10px 0; clear: both; padding: 15px 0 0 0; }
+.store-location-details .phone { margin: 0 0 10px 0; }
+.store-location-details .fax { margin: 0 0 10px 0; }
+.store-location-details .location-url { margin: 0 0 10px 0; }
+.store-location-details .email { margin: 0 0 10px 0; }
+.store-location-details .hours { margin: 0 0 10px 0; }
+.store-location-details .get-directions { margin: 10px 0; }
+
+

@@ -1,0 +1,81 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+?>
+
+<?php
+$highLimit = $this->getBalanceLimitationHigh();
+$lowLimit = $this->getBalanceLimitationLow();
+$rewardpoint = $this->getPointUnitName();
+$expiration = $this->getExpiration();
+$infoPage = $this->getInfoPageUrl();
+$pointsFromRatePointsToCurrency = $this->getPointsFromRatePointsToCurrency();
+$pointsFromRateCurrencyToPoints = $this->getPointsFromRateCurrencyToPoints();
+$pointsConvertedIntoMoney = $this->getPointsConvertedIntoMoney()
+?>
+
+<div id="aw_points-summary-box"  >
+
+    <h2 class="box-title"><?php echo $this->__('Reward points balance information'); ?>
+
+        <?php if ($infoPage): ?>
+            <span class="separator">|</span>
+            <a class="learnmore" href="<?php echo $infoPage ?>"><?php echo $this->__('learn more...') ?></a>
+        <?php endif; ?>
+
+    </h2>
+    <dl class="box-content">
+        <dt><?php echo $this->__("Your current balance is %s %s %s.", $this->getCurrentPointsBalance(), $rewardpoint, $pointsConvertedIntoMoney ? "($pointsConvertedIntoMoney)" : ""); ?></dt>
+
+        <?php if ($pointsFromRatePointsToCurrency || $pointsFromRateCurrencyToPoints): ?>
+            <dt><?php echo $this->__('Current exchange rates:'); ?></dt>
+            <?php if ($pointsFromRatePointsToCurrency): ?>
+                <dd><?php echo $this->__("Each <strong> %s </strong> %s can be redeemed for <strong> %s </strong>.", $pointsFromRatePointsToCurrency, $rewardpoint, $this->getCurrencyFromRatePointsToCurrency()); ?></dd>
+            <?php endif; ?>
+            <?php if ($pointsFromRateCurrencyToPoints): ?>
+                <dd><?php echo $this->__("Each <strong> %s </strong> spent will earn <strong> %s </strong> %s.", $this->getCurrencyFromRateCurrencyToPoints(), $pointsFromRateCurrencyToPoints, $rewardpoint); ?></dd>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($highLimit || $lowLimit): ?>
+            <dt><?php echo $this->__('Balance limitation:'); ?></dt>
+            <?php if ($highLimit): ?>
+                <dd><?php echo $this->__("Balance is limited at %s  %s.", $highLimit, $rewardpoint); ?></dd>
+            <?php endif; ?>
+            <?php if ($lowLimit): ?>
+                <dd><?php echo $this->__("Reach  %s  %s to start spending them.", $lowLimit, $rewardpoint); ?></dd>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <?php if ($expiration): ?>
+            <dt class="expiration"><?php echo $this->__('Each earned %s record expires in <span> %s </span> days', $rewardpoint, $expiration); ?></dt>
+            <dd><?php echo $this->__('Refer to %s transaction  history to see if a specific record expires and when.', $rewardpoint); ?></dd>
+        <?php endif; ?>
+
+    </dl>   
+</div>

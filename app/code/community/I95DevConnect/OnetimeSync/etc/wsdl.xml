@@ -1,0 +1,997 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+* i95Dev.com
+* 
+* NOTICE OF LICENSE
+*
+* This source file is subject to the EULA
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://store.i95dev.com/LICENSE-M1.txt
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to support@i95dev.com so we can send you a copy immediately.
+*
+* @category       I95DevConnect
+* @package        I95DevConnect_OnetimeSync
+* @Description    
+* @author         I95Dev
+* @copyright      Copyright (c) 2013 i95Dev
+* @license        http://store.i95dev.com/LICENSE-M1.txt
+*/
+-->
+<definitions xmlns:typens="urn:{{var wsdl.name}}" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="{{var wsdl.name}}" targetNamespace="urn:{{var wsdl.name}}">
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:Magento">
+            <import namespace="http://schemas.xmlsoap.org/soap/encoding/" schemaLocation="http://schemas.xmlsoap.org/soap/encoding/" />
+            <complexType name="i95devTargetEntries">
+                <all>
+                    <element name="customeruuid" type="xsd:string" minOccurs="0" />
+                    <element name="subscriptionkey" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="anyType">
+				<all>
+					<element name="anyType" type="xsd:string" minOccurs="0" />
+				</all>
+			</complexType>
+	    <!-- Added  to handle the magento bug
+            <complexType name="associativeMultiArray">
+                <all>
+                    <element name="associativeArray" type="typens:associativeArray" minOccurs="0" />
+                </all>
+            </complexType>-->
+            <!-- Preparing the complex data types for GP-->
+            <complexType name="i95devProductEntity">
+                <all>
+                    <element name="sku" type="xsd:string" minOccurs="0" />
+                    <element name="productType" type="xsd:string" minOccurs="0" />
+                    <element name="name" type="xsd:string" minOccurs="0" />
+                    <element name="description" type="xsd:string" minOccurs="0" />
+                    <element name="qty" type="xsd:string" minOccurs="0" />
+                    <element name="weight" type="xsd:string" minOccurs="0" />
+                    <element name="price" type="xsd:string" minOccurs="0" />
+                    <element name="cost" type="xsd:string" minOccurs="0" />
+                    <element name="isInStock" type="xsd:string" minOccurs="0" />
+                    <element name="manageStock" type="xsd:string" minOccurs="0" />
+                    <element name="useConfigManageStock" type="xsd:string" minOccurs="0" />
+                    <element name="backorders" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+           <!-- Defining customer request object entity -->
+            <complexType name="i95devCustomerEntity">
+                <all>
+                    <element name="targetCustomerId" type="xsd:string" minOccurs="0" />
+                    <element name="firstName" type="xsd:string" minOccurs="0" />
+                    <element name="middleName" type="xsd:string" minOccurs="0" />
+                    <element name="lastName" type="xsd:string" minOccurs="0" />
+                    <element name="suffix" type="xsd:string" minOccurs="0" />
+                    <element name="prefix" type="xsd:string" minOccurs="0" />
+                    <element name="email" type="xsd:string" minOccurs="0" />
+                    <element name="vatNumber" type="xsd:string" minOccurs="0" />
+                    <element name="gender" type="xsd:string" minOccurs="0" />
+                    <element name="password" type="xsd:string" minOccurs="0" />
+                    <element name="isGuest" type="xsd:string" minOccurs="0" />
+                    <element name="customerGroup" type="xsd:string" minOccurs="0" />
+                    <element name="storeId" type="xsd:string" minOccurs="0" />
+                    <element name="createdAt" type="xsd:string" minOccurs="0" />
+                    <element name="creditLimitAmount" type="xsd:string" minOccurs="0" />
+                    <element name="creditLimitType" type="xsd:string" minOccurs="0" />
+                    <element name="financeChargeAmount" type="xsd:string" minOccurs="0" />
+                    <element name="financeChargePercent" type="xsd:string" minOccurs="0" />
+                    <element name="addresses" type="typens:i95devCustomerAddressEntityArray" />
+                </all>
+            </complexType>
+            <!-- Defining the customer address entity array -->
+            <complexType name="i95devCustomerAddressEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devCustomerAddressEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="i95devCustomerGroupEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devCustomerGroupEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+      <complexType name="i95devPriceLevelEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]" />
+					</restriction>
+				</complexContent>
+			</complexType>  
+      <complexType name="i95devCustomerEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devCustomerEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+                   <complexType name="i95devTrackingDetailsArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devTrackingDetailsEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType> 
+            <!-- Defining the customer address entity -->
+            <complexType name="i95devCustomerAddressEntity">
+                <all>
+                    <element name="targetCustomerId" type="xsd:string" minOccurs="0" />
+                    <element name="entityId" type="xsd:string" minOccurs="0" />
+                    <element name="createdAt" type="xsd:string" minOccurs="0" />
+                    <element name="updatedAt" type="xsd:string" minOccurs="0" />
+                    <element name="websiteId" type="xsd:string" minOccurs="0" />
+                    <element name="firstName" type="xsd:string" minOccurs="0" />
+                    <element name="prefix" type="xsd:string" minOccurs="0" />
+                    <element name="suffix" type="xsd:string" minOccurs="0" />
+                    <element name="lastName" type="xsd:string" minOccurs="0" />
+                    <element name="middleName" type="xsd:string" minOccurs="0" />
+                    <element name="company" type="xsd:string" minOccurs="0" />
+                    <element name="countryId" type="xsd:string" minOccurs="0" />
+                    <element name="regionId" type="xsd:string" minOccurs="0" />
+                    <element name="region" type="xsd:string" minOccurs="0" />
+                    <element name="city" type="xsd:string" minOccurs="0" />
+                    <element name="street" type="xsd:string" minOccurs="0" />
+                    <element name="street2" type="xsd:string" minOccurs="0" />
+                    <element name="telephone" type="xsd:string" minOccurs="0" />
+                    <element name="targetAddressId" type="xsd:string" minOccurs="0" />
+                    <element name="postcode" type="xsd:string" minOccurs="0" />
+                    <element name="fax" type="xsd:string" minOccurs="0" />
+                    <element name="isDefaultShipping" type="xsd:string" minOccurs="0" />
+                    <element name="isDefaultBilling" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <!-- Defining the customer creation order entity -->
+            <complexType name="i95devOrderEntity">
+                <all>
+                    <element name="targetCustomerId" type="xsd:string" minOccurs="0" />
+                    <element name="targetBillingAddressId" type="xsd:string" minOccurs="0" />
+                    <element name="targetShippingAddressId" type="xsd:string" minOccurs="0" />
+                    <element name="paymentMethod" type="xsd:string" minOccurs="0" />
+                    <element name="poNumber" type="xsd:string" minOccurs="0" />
+                    <element name="shippingMethod" type="xsd:string" minOccurs="0" />
+                    <element name="shippingAmount" type="xsd:string" minOccurs="0" />
+                    <element name="targetOrderId" type="xsd:string" minOccurs="0" />
+                    <element name="chequeNumber" type="xsd:string" minOccurs="0" />
+                    <element name="ccOwner" type="xsd:string" minOccurs="0" />
+                    <element name="ccType" type="xsd:string" minOccurs="0" />
+                    <element name="ccNumber" type="xsd:string" minOccurs="0" />
+                    <element name="ccExpMonth" type="xsd:string" minOccurs="0" />
+                    <element name="ccExpYear" type="xsd:string" minOccurs="0" />
+                    <element name="ccCid" type="xsd:string" minOccurs="0" />
+                    <element name="discount" type="xsd:string" minOccurs="0" />
+                    <element name="shippingTitle" type="xsd:string" minOccurs="0" />
+                    <element name="taxAmount" type="xsd:string" minOccurs="0" />
+                    <element name="orderCreatedDate" type="xsd:string" minOccurs="0" />
+                    <element name="orderItems" type="typens:orderItemsEntityArray" minOccurs="0" />
+                    <element name="customerEntity" type="typens:i95devCustomerEntity" minOccurs="0" />
+                    <element name="invoice" type="typens:i95devInvoiceEntity" />
+                    <element name="shipment" type="typens:i95devShipmentEntity" />
+                    <element name="targetOrderStatus" type="xsd:string" />
+					<element name="orderDocumentAmount" type="xsd:string" />
+                </all>
+            </complexType>
+            <complexType name="i95devInvoiceEntity">
+                <all>
+                    <element name="targetOrderId" type="xsd:string" minOccurs="0"/>
+	                  <element name="targetInvoiceId" type="xsd:string" minOccurs="0"/>
+	                  <element name="invoiceItemEntity" type="typens:shipmentInvoiceItemQtyArray" minOccurs="0"/>
+	                  <element name="comment" type="xsd:string" minOccurs="0"/>
+	                  <element name="email" type="xsd:string" minOccurs="0"/>
+	                  <element name="includeComment" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="i95devShipmentEntity">
+                <all>
+                    <element name="targetOrderId" type="xsd:string" minOccurs="0"/>
+	                  <element name="shipmentItemEntity" type="typens:shipmentInvoiceItemQtyArray" minOccurs="0"/>
+	                  <element name="comment" type="xsd:string" minOccurs="0"/>
+	                  <element name="email" type="xsd:string" minOccurs="0"/>
+	                  <element name="includeComment" type="xsd:string" minOccurs="0"/>
+		                <element name="tracking" type="typens:i95devTrackingDetailsArray" />
+                </all>
+            </complexType>
+            <complexType name="i95devTrackingDetailsEntity">
+                <all>
+	                  <element name="carrier" type="xsd:string" minOccurs="0"/>
+		                <element name="title" type="xsd:string" minOccurs="0"/>
+		                <element name="trackNumber" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            
+            <complexType name="shipmentInvoiceItemQty">
+                <all>
+                    <element name="orderItemId" type="xsd:string" />
+                    <element name="qty" type="xsd:double" />
+                </all>
+            </complexType>
+            <!-- Defining the order items entity array -->
+            <complexType name="orderItemsEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devProductEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="shipmentInvoiceItemQtyArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:shipmentInvoiceItemQty[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+             <complexType name="i95devConnectcreateProductEntity">
+                <all>
+                    <element name="categories" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="websites" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="name" type="xsd:string" minOccurs="0"/>
+                    <element name="description" type="xsd:string" minOccurs="0"/>
+                    <element name="shortDescription" type="xsd:string" minOccurs="0"/>
+                    <element name="weight" type="xsd:string" minOccurs="0"/>
+                    <element name="status" type="xsd:string" minOccurs="0"/>
+                    <element name="visibility" type="xsd:string" minOccurs="0"/>
+                    <element name="categoryIds" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="websiteIds" type="typens:ArrayOfString" minOccurs="0"/>
+                    <element name="price" type="xsd:string" minOccurs="0"/>
+                    <element name="specialPrice" type="xsd:string" minOccurs="0"/>
+                    <element name="specialFromDate" type="xsd:string" minOccurs="0"/>
+                    <element name="specialToDate" type="xsd:string" minOccurs="0"/>
+                    <element name="taxClassId" type="xsd:string" minOccurs="0"/>
+                    <element name="type" type="xsd:string" minOccurs="0"/>
+                    <element name="set" type="xsd:string" minOccurs="0"/>
+                    <element name="sku" type="xsd:string" minOccurs="0"/>
+                    <element name="storeView" type="xsd:string" minOccurs="0"/>
+                    <element name="qty" type="xsd:string" minOccurs="0"/>
+                    <element name="manageStock" type="xsd:string" minOccurs="0"/>
+                    <element name="useConfigManageStock" type="xsd:string" minOccurs="0"/>
+                    <element name="isInStock" type="xsd:string" minOccurs="0"/>
+                    <element name="stockData" type="xsd:string" minOccurs="0"/>  
+                    <element name="cost" type="xsd:string" minOccurs="0"/>
+                   <element name="backorders" type="xsd:string" minOccurs="0"/>
+                   <element name="attributes" type="xsd:string" minOccurs="0"/>
+                    <element name="parentsku" type="xsd:string" minOccurs="0"/>
+                    <element name="attribute1" type="xsd:string" minOccurs="0"/>
+                    <element name="attribute2" type="xsd:string" minOccurs="0"/>
+                    <element name="attribute3" type="xsd:string" minOccurs="0"/>
+                    <element name="attribute1code" type="xsd:string" minOccurs="0"/>
+                    <element name="attribute2code" type="xsd:string" minOccurs="0"/>
+                    <element name="attribute3code" type="xsd:string" minOccurs="0"/>
+                </all>
+            </complexType>
+            <complexType name="i95devCustomerGroupEntity">
+                <all>
+                    <element name="customergroupid" type="xsd:string" minOccurs="0"/>
+                     <element name="groupdescription" type="xsd:string" minOccurs="0"/>
+                    <element name="taxclass" type="xsd:string" minOccurs="0"/>
+                    <element name="pricelevel" type="xsd:string" minOccurs="0"/>                                                        
+                </all>
+            </complexType>
+	     <!-- Defining the Tierprice entity array -->
+            <complexType name="i95devConnectTierPriceEntity">
+                <all>
+                    <element name="customerGroupId" type="xsd:string" minOccurs="0" />
+                    <element name="website" type="xsd:string" minOccurs="0" />
+                    <element name="qty" type="xsd:string" minOccurs="0" />
+                    <element name="maxQty" type="xsd:string" minOccurs="0" />
+                    <element name="price" type="xsd:string" minOccurs="0" />
+                    <element name="delete" type="xsd:string" minOccurs="0" />
+                </all>
+            </complexType>
+            <complexType name="recordDetailsEntity">
+				<all>
+					<element name="last_update_id" type="xsd:string" />
+					<element name="updatedtime" type="xsd:string" />
+				</all>
+			</complexType>
+			<complexType name="i95devConnectProductsCreateEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType"
+							wsdl:arrayType="typens:i95devConnectcreateProductEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="recordDetailsEntityArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:recordDetailsEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+           <complexType name="i95devConnectTierPriceEntityArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devConnectTierPriceEntity[]" />
+                    </restriction>
+                </complexContent>
+            </complexType>
+            <complexType name="i95devConnectcreateOrdersArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devOrderEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="i95devConnectTierPriceEntityMultiArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devConnectTierPriceEntityArray[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+             <complexType name="i95devConnectcompleteOrdersArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devOrderEntity[]" />
+					</restriction>
+				</complexContent>
+			</complexType>
+			<complexType name="i95devConnectTierPriceEntityMultiArray">
+                <complexContent>
+                    <restriction base="soapenc:Array">
+                        <attribute ref="soapenc:arrayType" wsdl:arrayType="typens:i95devConnectTierPriceEntityArray[]"/>
+                    </restriction>
+                </complexContent>
+            </complexType>
+        </schema>
+    </types>
+    <message name="i95devConnectapiInfoRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="i95devConnectapiInfoResponse">
+        <part name="i95devcustomer" type="typens:i95devTargetEntries" />
+    </message>
+    <message name="i95devConnectCreateCustomerRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="customerData" type="xsd:string"/>
+    </message>
+    <message name="i95devConnectCreateCustomerResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="i95devConnectCreateCustomersRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="customerData" type="xsd:string" />
+	</message>
+	<message name="i95devConnectCreateCustomersResponse">
+		<part name="result" type="xsd:string" />
+	</message>
+    <message name="i95devConnectUpdateProductRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="productData" type="xsd:string"/>
+    </message>
+    <message name="i95devConnectUpdateProductResponse">
+        <part name="result" type="xsd:boolean"/>
+    </message>
+    <message name="i95devConnectgetConfigRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="storeView" type="xsd:string" />
+	</message>
+	<message name="i95devConnectgetConfigResponse">
+		<part name="result" type="xsd:string" />
+	</message>
+	<message name="i95devConnectgetLastRecordRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="type" type="xsd:string" />
+	</message>
+	<message name="i95devConnectgetLastRecordResponse">
+		<part name="storeView" type="typens:recordDetailsEntityArray" />
+	</message>
+    <message name="i95devConnectCreateOrderRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="orderData" type="xsd:string" />
+    </message>
+    <message name="i95devConnectCreateOrderResponse">
+        <part name="result" type="xsd:string" />
+    </message>
+   <message name="i95devConnectorderStatusUpdateRequest">
+	<part name="sessionId" type="xsd:string" />
+  <part name="orderStatus" type="xsd:string" />
+   </message>
+   <message name="i95devConnectorderStatusUpdateResponse">
+	<part name="result" type="xsd:string" />
+   </message>
+   <message name="i95devConnectCreateOrdersRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="orderDataArray" type="xsd:string" />
+	</message>
+	<message name="i95devConnectCreateOrdersResponse">
+		<part name="result" type="xsd:string" />
+	</message>
+         <message name="i95devConnectCompleteOrdersRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="orderDataArray" type="xsd:string" />
+	</message>
+	<message name="i95devConnectCompleteOrdersResponse">
+		<part name="result" type="xsd:string" />
+	</message>
+	<message name="i95devConnectUpdateProductsRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="productData" type="xsd:string"/>
+    </message>
+    <message name="i95devConnectUpdateProductsResponse">
+        <part name="result" type="xsd:int"/>
+    </message>
+	<message name="i95devConnectcreateProductsRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="productDataArray" type="xsd:string" />
+	</message>
+	<message name="i95devConnectcreateProductsResponse">
+		<part name="result" type="xsd:int" />
+	</message>
+  <message name="i95devConnectcreateCustomerGroupsRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="customerGroupDataArray" type="xsd:string" />
+	</message>
+	<message name="i95devConnectcreateCustomerGroupsResponse">
+		<part name="result" type="xsd:string" />
+	</message>
+  <message name="i95devConnectcreatePriceLevelsRequest">
+		<part name="sessionId" type="xsd:string" />
+		<part name="priceLevelDataArray" type="xsd:string" />
+	</message>
+	<message name="i95devConnectcreatePriceLevelsResponse">
+		<part name="result" type="xsd:int" />
+	</message> 
+  <message name="i95devConnectcreateInvoiceRequest">
+	<part name="sessionId" type="xsd:string" />
+	<part name="invoiceData" type="xsd:string" />
+  </message>
+   <message name="i95devConnectcreateInvoiceResponse">
+	<part name="result" type="xsd:string" />
+   </message>
+   <message name="i95devConnectcreateShipmentRequest">
+	<part name="sessionId" type="xsd:string" />
+   	<part name="shipmentData" type="xsd:string" />
+   </message>
+   <message name="i95devConnectcreateShipmentResponse">
+	<part name="shipmentIncrementId" type="xsd:string" />
+   </message>
+   <message name="i95devConnectcreateInvoicesRequest">
+	<part name="sessionId" type="xsd:string" />
+	<part name="invoiceData" type="xsd:string" />
+  </message>
+   <message name="i95devConnectcreateInvoicesResponse">
+	<part name="result" type="xsd:string" />
+   </message>
+   <message name="i95devConnectcreateShipmentsRequest">
+	<part name="sessionId" type="xsd:string" />
+   	<part name="shipmentData" type="xsd:string" />
+   </message>
+   <message name="i95devConnectcreateShipmentsResponse">
+	<part name="shipmentIncrementId" type="xsd:string" />
+   </message>
+   <message name="i95devConnectorderStatusUpdatesRequest">
+	<part name="sessionId" type="xsd:string" />
+  <part name="orderStatus" type="xsd:string" />
+   </message>
+   <message name="i95devConnectorderStatusUpdatesResponse">
+	<part name="result" type="xsd:string" />
+   </message>
+   <message name="i95devConnectcreateProductRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="productData" type="xsd:string"/>
+   </message>
+    <message name="i95devConnectcreateProductResponse">
+        <part name="result" type="xsd:string"/>
+    </message>    
+    <message name="i95devConnectcreateCustomerGroupRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="customerGroupData" type="xsd:string"/>
+    </message>
+     <message name="i95devConnectcreateCustomerGroupResponse">
+        <part name="result" type="xsd:string"/>
+    </message>
+    <message name="i95devConnectupdateTierPriceRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="productId" type="xsd:string" />
+        <part name="tierPrice" type="xsd:string" />
+    </message>
+    <message name="i95devConnectupdateTierPriceResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="i95devConnectCreateCustomerGpRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="customerid" type="xsd:string"/>
+    </message>
+    <message name="i95devConnectCreateCustomerGpResponse">
+        <part name="result" type="xsd:string"/>
+    </message>    
+    <message name="i95devConnectCreateOrderGpRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name="orderId" type="xsd:string" />
+    </message>
+    <message name="i95devConnectCreateOrderGpResponse">
+        <part name="result" type="xsd:string" />
+    </message>  
+    <message name="i95devConnectcreateProductGpRequest">
+        <part name="sessionId" type="xsd:string"/>
+        <part name="productId" type="xsd:string"/>
+    </message>
+    <message name="i95devConnectcreateProductGpResponse">
+        <part name="result" type="xsd:string"/>
+    </message> 
+    <message name="i95devConnectgetTokenRequest">
+        <part name="sessionId" type="xsd:string" />
+    </message>
+    <message name="i95devConnectgetTokenResponse">
+        <part name="token" type="xsd:string" />
+    </message>
+    <message name="i95devConnectUpdateTierPricesRequest">
+        <part name="sessionId" type="xsd:string" />
+        <part name = "productId" type = "xsd:string" />
+        <part name="tierPriceArray" type="xsd:string" />
+    </message>
+    <message name="i95devConnectUpdateTierPricesResponse">
+        <part name="result" type="xsd:int" />
+    </message>
+    <message name="i95devConnecttestShipmentRequest">
+	<part name="sessionId" type="xsd:string" />
+   	<part name="testData" type="typens:i95devOrderEntity" />
+   	<part name="testProductData" type="typens:i95devConnectcreateProductEntity" />
+   	<part name="testGroupData" type="typens:i95devCustomerGroupEntity" />
+   	<part name="testPriceData" type="typens:i95devConnectTierPriceEntityArray" />
+   	<part name="testCustomerData" type="typens:i95devCustomerEntityArray" />
+   	<part name="testOrderData" type="typens:i95devConnectcreateOrdersArray" />
+   	<part name="testProductsData" type="typens:i95devConnectProductsCreateEntityArray" />
+   	<part name="testGroupsData" type="typens:i95devCustomerGroupEntityArray" />
+   	<part name="testPriceLevelsData" type="typens:i95devPriceLevelEntityArray" />
+   	<part name="testTierPricesData" type="typens:i95devConnectTierPriceEntityMultiArray" />
+   	<part name="testUpdateProductsData" type="typens:orderItemsEntityArray" />
+   	
+   </message>
+   <message name="i95devConnecttestShipmentResponse">
+	<part name="testId" type="xsd:string" />
+   </message>
+    <portType name="{{var wsdl.handler}}PortType">  
+    	<operation name="i95devConnectapiInfo">
+            <documentation>Request i95Dev Target plugin data</documentation>
+            <input message="typens:i95devConnectapiInfoRequest" />
+            <output message="typens:i95devConnectapiInfoResponse" />
+        </operation>
+        <!-- Method for updating product information from Target System-->
+        <operation name="i95devConnectupdateProduct">
+            <documentation>Update product</documentation>
+            <input message="typens:i95devConnectUpdateProductRequest" />
+            <output message="typens:i95devConnectUpdateProductResponse" />
+        </operation>
+         <!-- Method for updating products information from Target System-->
+        <operation name="i95devConnectupdateProducts">
+            <documentation>Update product</documentation>
+            <input message="typens:i95devConnectUpdateProductsRequest" />
+            <output message="typens:i95devConnectUpdateProductsResponse" />
+        </operation>
+         <!-- Method for creating product information from Target System-->
+        <operation name="i95devConnectcreateCustomer">
+            <documentation>Create Customer</documentation>
+            <input message="typens:i95devConnectCreateCustomerRequest" />
+            <output message="typens:i95devConnectCreateCustomerResponse" />
+        </operation>
+        <!-- Method for creating order from Target system-->
+        <operation name="i95devConnectcreateOrder">
+            <documentation>Create Order</documentation>
+            <input message="typens:i95devConnectCreateOrderRequest" />
+            <output message="typens:i95devConnectCreateOrderResponse" />
+        </operation>
+        <operation name="i95devConnectgetConfig">
+			<documentation>Retrieve magento config details</documentation>
+			<input message="typens:i95devConnectgetConfigRequest" />
+			<output message="typens:i95devConnectgetConfigResponse" />
+		</operation>
+		<operation name="i95devConnectgetLastRecord">
+			<documentation>Retrieve products details</documentation>
+			<input message="typens:i95devConnectgetLastRecordRequest" />
+			<output message="typens:i95devConnectgetLastRecordResponse" />
+		</operation>
+		<!-- Method for creating customers information from GP -->
+		<operation name="i95devConnectcreateCustomers">
+			<documentation>Create Customers</documentation>
+			<input message="typens:i95devConnectCreateCustomersRequest" />
+			<output message="typens:i95devConnectCreateCustomersResponse" />
+		</operation>
+		<!-- Method for creating orders information from GP -->
+		<operation name="i95devConnectcreateOrders">
+			<documentation>Create orders</documentation>
+			<input message="typens:i95devConnectCreateOrdersRequest" />
+			<output message="typens:i95devConnectCreateOrdersResponse" />
+		</operation>
+                <!-- Method for creating copmlete orders information from GP -->
+		<operation name="i95devConnectcompleteOrders">
+			<documentation>Complete orders</documentation>
+			<input message="typens:i95devConnectCompleteOrdersRequest" />
+			<output message="typens:i95devConnectCompleteOrdersResponse" />
+		</operation>
+		<operation name="i95devConnectcreateProducts">
+			<documentation>Create products</documentation>
+			<input message="typens:i95devConnectcreateProductsRequest" />
+			<output message="typens:i95devConnectcreateProductsResponse" />
+		</operation>
+    <!-- Method for creating customer groups information from GP -->
+		<operation name="i95devConnectcreateCustomerGroups">
+			<documentation>Create CustomerGroups</documentation>
+			<input message="typens:i95devConnectcreateCustomerGroupsRequest" />
+			<output message="typens:i95devConnectcreateCustomerGroupsResponse" />
+		</operation>
+    <!-- Method for creating pricelevels information from GP -->
+		<operation name="i95devConnectcreatePriceLevels">
+			<documentation>Create Pricelevels</documentation>
+			<input message="typens:i95devConnectcreatePriceLevelsRequest" />
+			<output message="typens:i95devConnectcreatePriceLevelsResponse" />
+		</operation>  
+       	<!-- Method for updating the magento order status from Target System-->
+	<operation name="i95devConnectorderStatusUpdate">
+	    <documentation>Updates order status for Target Order</documentation>
+	    <input message="typens:i95devConnectorderStatusUpdateRequest" />
+	    <output message="typens:i95devConnectorderStatusUpdateResponse" />
+	</operation>
+        <!-- Method for generating the invoice for the order from Target System -->
+	<operation name="i95devConnectcreateInvoice">
+	    <documentation>Create new invoice for order</documentation>
+	    <input message="typens:i95devConnectcreateInvoiceRequest" />
+	    <output message="typens:i95devConnectcreateInvoiceResponse" />
+	</operation>
+        <!-- Method for creating the shipment for the order from Target System -->
+	<operation name="i95devConnectcreateShipment">
+	    <documentation>Create new shipment for order</documentation>
+ 	    <input message="typens:i95devConnectcreateShipmentRequest" />
+	    <output message="typens:i95devConnectcreateShipmentResponse" />
+        </operation>
+        <!-- Method for updating the magento order status from Target System-->
+	<operation name="i95devConnectorderStatusUpdates">
+	    <documentation>Updates order status for Target Order</documentation>
+	    <input message="typens:i95devConnectorderStatusUpdatesRequest" />
+	    <output message="typens:i95devConnectorderStatusUpdatesResponse" />
+	</operation>
+        <!-- Method for generating the invoice for the order from Target System -->
+	<operation name="i95devConnectcreateInvoices">
+	    <documentation>Create new invoices for order</documentation>
+	    <input message="typens:i95devConnectcreateInvoicesRequest" />
+	    <output message="typens:i95devConnectcreateInvoicesResponse" />
+	</operation>
+        <!-- Method for creating the shipments for the order from Target System -->
+	<operation name="i95devConnectcreateShipments">
+	    <documentation>Create new shipment for order</documentation>
+ 	    <input message="typens:i95devConnectcreateShipmentsRequest" />
+	    <output message="typens:i95devConnectcreateShipmentsResponse" />
+        </operation>
+        <!-- Method for creating the product from Target System -->
+	<operation name="i95devConnectcreateProduct">
+	    <documentation>Creates Product in Magento</documentation>
+ 	    <input message="typens:i95devConnectcreateProductRequest" />
+	    <output message="typens:i95devConnectcreateProductResponse" />
+        </operation>
+        <!-- Method for creating the customer group with price level from Target System -->
+    <operation name="i95devConnectcreateCustomerGroup">
+	    <documentation>Creates CustomerGroup in Magento</documentation>
+ 	    <input message="typens:i95devConnectcreateCustomerGroupRequest" />
+	    <output message="typens:i95devConnectcreateCustomerGroupResponse" />
+        </operation>
+
+	<!-- Method for updating the tier price from Target System-->
+        <operation name="i95devConnectupdateTierPrice">
+            <documentation>Update product tier prices</documentation>
+            <input message="typens:i95devConnectupdateTierPriceRequest" />
+            <output message="typens:i95devConnectupdateTierPriceResponse" />
+        </operation>
+        <!-- Method for create customer in gp from out of magento with magento customer id-->
+        <operation name="i95devConnectcreateCustomerGp">
+            <documentation>Create Customer Gp</documentation>
+            <input message="typens:i95devConnectCreateCustomerGpRequest" />
+            <output message="typens:i95devConnectCreateCustomerGpResponse" />
+        </operation>
+         <!-- Method for create order in gp from out of magento with magento order id-->
+        <operation name="i95devConnectcreateOrderGp">
+            <documentation>Create Order Gp</documentation>
+            <input message="typens:i95devConnectCreateOrderGpRequest" />
+            <output message="typens:i95devConnectCreateOrderGpResponse" />
+        </operation> 
+         <!-- Method for create product in gp from out of magento with magento product id-->      	
+	<operation name="i95devConnectcreateProductGp">
+	    <documentation>Creates Product Gp</documentation>
+ 	    <input message="typens:i95devConnectcreateProductGpRequest" />
+	    <output message="typens:i95devConnectcreateProductGpResponse" />
+        </operation>
+	<!-- Method for Getting the token -->
+	<operation name="i95devConnectgetToken">
+	    <documentation>Request i95Dev Token</documentation>
+	    <input message="typens:i95devConnectgetTokenRequest" />
+	    <output message="typens:i95devConnectgetTokenResponse" />
+	</operation>
+	<!-- Method for Test Shipment-->
+        <operation name="i95devConnecttestShipment">
+            <documentation>Test shipment</documentation>
+            <input message="typens:i95devConnecttestShipmentRequest" />
+            <output message="typens:i95devConnecttestShipmentResponse" />
+        </operation>
+        <operation name="i95devConnectUpdateTierPrices">
+			<documentation>Update tierprices</documentation>
+			<input message="typens:i95devConnectUpdateTierPricesRequest" />
+			<output message="typens:i95devConnectUpdateTierPricesResponse" />
+		</operation>
+    </portType>
+    
+    <binding name="{{var wsdl.handler}}Binding" type="typens:{{var wsdl.handler}}PortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+      <operation name="i95devConnectapiInfo">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="i95devConnectupdateProduct">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="i95devConnectupdateProducts">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="i95devConnectcreateCustomer">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>     
+        <operation name="i95devConnectcreateOrder">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="i95devConnectcreateCustomers">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="i95devConnectcreateOrders">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+                <operation name="i95devConnectcompleteOrders">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="i95devConnectgetConfig">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+		<operation name="i95devConnectcreateProducts">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+    <operation name="i95devConnectcreateCustomerGroups">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+   <operation name="i95devConnectcreatePriceLevels">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation> 
+		<operation name="i95devConnectgetLastRecord">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded"
+					encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>   
+        <operation name="i95devConnectorderStatusUpdate">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+        <operation name="i95devConnectcreateInvoice">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+        <operation name="i95devConnectcreateShipment">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+	<operation name="i95devConnectorderStatusUpdates">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+        <operation name="i95devConnectcreateInvoices">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+		<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+        <operation name="i95devConnectcreateShipments">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+        <operation name="i95devConnectcreateProduct">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+	<operation name="i95devConnectcreateCustomerGroup">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+	
+	<operation name="i95devConnectupdateTierPrice">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+         <operation name="i95devConnectcreateCustomerGp">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>     
+        <operation name="i95devConnectcreateOrderGp">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>   
+        <operation name="i95devConnectcreateProductGp">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>	
+	<operation name="i95devConnectgetToken">
+	    <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+	    <input>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </input>
+	    <output>
+	        <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	    </output>
+	</operation>
+	<operation name="i95devConnecttestShipment">
+            <soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+            <input>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </input>
+            <output>
+                <soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+            </output>
+        </operation>
+        <operation name="i95devConnectUpdateTierPrices">
+			<soap:operation soapAction="urn:{{var wsdl.handler}}Action" />
+			<input>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</input>
+			<output>
+				<soap:body namespace="urn:{{var wsdl.name}}" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+			</output>
+		</operation>
+    </binding>
+    
+    <service name="{{var wsdl.name}}Service">
+        <port name="{{var wsdl.handler}}Port" binding="typens:{{var wsdl.handler}}Binding">
+            <soap:address location="{{var wsdl.url}}" />
+        </port>
+    </service>
+</definitions>

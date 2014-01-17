@@ -1,0 +1,68 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.6.2
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div>
+    <?php echo $this->getChildHtml('related.grid') ?>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+
+    var selectedBlocks = $H(<?php echo $this->getBlocksJson() ?>);
+
+    function registerRuleBlock(grid, element, checked){
+        if(checked) selectedBlocks.set(element.value, true);
+        else selectedBlocks.unset(element.value);
+
+        $('rule_static_blocks_ids').value = selectedBlocks.keys();
+        grid.reloadParams = {'selected_blocks[]':selectedBlocks.keys()};
+    }
+    function ruleBlockRowClick(grid, event){
+        var trElement = Event.findElement(event, 'tr');
+        var isInput   = Event.element(event).tagName == 'INPUT';
+        if(trElement){
+            var checkbox = Element.getElementsBySelector(trElement, 'input');
+            if(checkbox[0]){
+                var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+                related_block_gridJsObject.setCheckboxChecked(checkbox[0], checked);
+            }
+        }
+    }
+
+    function ruleBlockRowInit(grid, row){
+        var checkbox = $(row).getElementsByClassName('checkbox')[0];
+        if (selectedBlocks.get(checkbox.value)) checkbox.checked = true;
+    }
+
+    related_block_gridJsObject.rowClickCallback = ruleBlockRowClick;
+    related_block_gridJsObject.checkboxCheckCallback = registerRuleBlock;
+    related_block_gridJsObject.rows.each(function(row){ruleBlockRowInit(related_block_gridJsObject, row)});
+    related_block_gridJsObject.initCallback = function(grid){
+        grid.rows.each(function(row){ruleBlockRowInit(grid, row)});
+    };
+    
+    //]]>
+</script>

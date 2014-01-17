@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <block type="awaffiliate/customer_accountlink" name="awaffiliate.customer.account.checker" as="awaffiliate_customer_account_checker">
+                <action method="addLink"></action>
+            </block>
+        </reference>
+    </customer_account>
+
+    <awaffiliate_customer_affiliate_view>
+        <update handle="customer_account" />
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>aw_affiliate/js/withdrawal_request.js</name></action>
+            <action method="addCss"><stylesheet>aw_affiliate/css/customer_account.css</stylesheet></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="awaffiliate.customer.account.head"  as="awaffiliate_customer_account_head" template="aw_affiliate/customer/head.phtml"/>
+            <block type="awaffiliate/customer_topinfo" name="awaffiliate.customer.account.info" as="awaffiliate_customer_account_info" template="aw_affiliate/customer/topinfo.phtml">
+                <block type="awaffiliate/customer_summary" name="awaffiliate.customer.account.summary" as="awaffiliate_customer_account_summary" />
+                <block type="awaffiliate/customer_report" name="awaffiliate.customer.account.report" as="awaffiliate_customer_account_report" />
+            </block>
+            <block type="awaffiliate/customer_campaigns" name="awaffiliate.customer.account.campaigns" as="awaffiliate_customer_account_campaigns" />
+            <block type="awaffiliate/customer_withdrawal" name="awaffiliate.customer.account.withdrawal" as="awaffiliate_customer_account_withdrawal" />
+            <block type="awaffiliate/customer_backlink" name="awaffiliate.customer.account.link.back" template="aw_affiliate/customer/backlink.phtml">
+                <action method="setBackLink"><link>customer/account</link></action>
+            </block>
+        </reference>
+        <reference name="before_body_end">
+            <block type="awaffiliate/customer_withdrawal_form" name="awaffiliate.customer.withdrawal.form" as="awaffiliate_customer_withdrawal_form" />
+        </reference>
+    </awaffiliate_customer_affiliate_view>
+
+    <awaffiliate_customer_affiliate_campaign>
+        <update handle="customer_account" />
+        <reference name="head">
+            <action method="addCss"><stylesheet>aw_affiliate/css/customer_account.css</stylesheet></action>
+            <action method="addCss"><stylesheet>aw_affiliate/css/customer_campaign.css</stylesheet></action>
+            <action method="addItem"><type>skin_js</type><name>aw_affiliate/js/campaign.js</name></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="awaffiliate.customer.account.head"  as="awaffiliate_customer_account_head" template="aw_affiliate/campaign/head.phtml"/>
+            <block type="awaffiliate/customer_topinfo" name="awaffiliate.customer.account.info" as="awaffiliate_customer_account_info" template="aw_affiliate/customer/topinfo.phtml">
+                <block type="awaffiliate/customer_summary" name="awaffiliate.customer.account.summary" as="awaffiliate_customer_account_summary" />
+            </block>
+            <block type="awaffiliate/campaign_link" name="awaffilaite.customer.campaign.link" as="awaffiliate_customer_campaign_link"/>
+            <block type="awaffiliate/customer_backlink" name="awaffiliate.customer.account.link.back" template="aw_affiliate/customer/backlink.phtml">
+                <action method="setBackLink"><link>affiliate/customer_affiliate/view</link></action>
+            </block>
+        </reference>
+    </awaffiliate_customer_affiliate_campaign>
+
+    <awaffiliate_customer_affiliate_report>
+        <update handle="customer_account" />
+        <reference name="head">
+            <action method="addCss"><stylesheet>aw_affiliate/css/customer_report.css</stylesheet></action>
+            <action method="addItem"><type>js_css</type><name>calendar/calendar-win2k-1.css</name><params/><!--<if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>js</type><name>calendar/calendar-setup.js</name><!--<params/><if/><condition>can_load_calendar_js</condition>--></action>
+            <action method="addItem"><type>skin_js</type><name>aw_affiliate/js/report.js</name></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="awaffiliate.customer.report.head"  as="awaffiliate_customer_report_head" template="aw_affiliate/report/head.phtml"/>
+            <block type="awaffiliate/report_create" name="awaffiliate.customer.report.create" as="awaffiliate_customer_report_create" />
+            <block type="core/html_calendar" name="html_calendar" as="html_calendar" template="page/js/calendar.phtml"/>
+            <block type="core/template" name="awaffiliate.customer.report.report" as="awaffiliate_customer_report_report" template="aw_affiliate/report/report.phtml"/>
+            <block type="awaffiliate/customer_backlink" name="awaffiliate.customer.report.link.back" template="aw_affiliate/customer/backlink.phtml">
+                <action method="setBackLink"><link>awaffiliate/customer_affiliate/view</link></action>
+            </block>
+        </reference>
+    </awaffiliate_customer_affiliate_report>
+</layout>

@@ -1,0 +1,65 @@
+<?php
+/* @var $this Unirgy_Giftcert_Block_Product_Type */
+$_options = $this->getProductPersonalizationOptions();
+if($_options):
+?>
+<script type="text/javascript">
+    var ugoftcertPro = {
+        personalizationOptions: $H(<?php echo Zend_Json::encode($_options);?>),
+        dropDown: function () {
+            var tpl = '<div id="gc-personalization-options">';
+            tpl += '<label for="pers-opts"><?php echo $this->__("Personalize Certificate:");?></label><br>';
+            tpl += '<select id="pers-opts">';
+            tpl += '<option value="0"><?php echo $this->__("-- Select option --");?></option>';
+            <?php foreach ($_options as $key => $option) : ?>
+            tpl += '<option value="<?php echo $key;?>"><?php echo addslashes($this->escapeHtml($option['title']));?></option>';
+            <?php endforeach; ?>
+            tpl += '</select>';
+            tpl += '</div>';
+            return tpl;
+        },
+        originalImage: null,
+        baseUrl: '<?php echo Mage::getBaseUrl('media');?>'
+    };
+
+    Event.observe(window, 'load', function(){
+        var container = $('ugc-form-container');//.up(); // id selectors are supposed to be faster than class ones
+        var imgContainerClass = ".product-image";
+
+        if(container){
+            var imgContainer = $$(imgContainerClass);
+            var tpl = ugoftcertPro.dropDown();
+            container.insert(tpl); // add options dropdown to container
+            container.insert("<input type='hidden' id='u_personal_img_url' name='u_personal_img_url' value='' disabled='disabled'/>");
+            $('pers-opts').observe('change', function () {
+                var selected = $(this).getValue();
+                var img = imgContainer ? imgContainer.first().down('img'): undefined;
+                if (selected == '0') {
+                    $('u_email_template').disable();
+                    $('u_pdf_template').disable();
+                    if (ugoftcertPro.originalImage && img) {
+                        $('u_personal_img_url').disable();
+                        img.src = ugoftcertPro.originalImage;
+                    }
+                }
+                var option = ugoftcertPro.personalizationOptions.get(selected);
+                if (option) {
+                    $('u_email_template').enable().setValue(option['email_template']);
+                    $('u_pdf_template').enable().setValue(option['pdf_template']);
+                    if (option['url']) {
+                        var src = ugoftcertPro.baseUrl + '/' + option['url'];
+                        $('u_personal_img_url').enable().setValue(option['url']);
+                        if (!ugoftcertPro.originalImage && img) {
+                            ugoftcertPro.originalImage = img.readAttribute('src');
+                        }
+                        if(img){
+                            img.src = src;
+                        }
+                    }
+                }
+            });
+        }
+
+    });
+</script>
+<?php endif; ?>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Grow Development - Base Admin Module
+ *
+ * @category   Growdevelopment
+ * @package    Growdevelopment_Base
+ * @copyright  Copyright (c) 2012 Grow Development (http://www.growdevelopment.com)
+ * @license    http://www.growdevelopment.com/docs/eula.txt
+ * @author     Daniel Espinoza <modules@growdevelopment.com>
+ */
+-->
+<config>
+   <modules>
+        <Growdevelopment_Base>
+			<version>0.0.1</version>
+    	</Growdevelopment_Base>
+    </modules>
+    <global>
+    	<blocks>
+    	</blocks>
+    	<helpers>
+    		<growdevbase>
+    			<class>Growdevelopment_Base_Helper</class>
+    		</growdevbase>
+    	</helpers>
+    </global>
+    <admin>
+    	<routers>
+    		<growdevbase>
+    			<use>admin</use>
+    			<args>
+    				<module>Growdevelopment_Base</module>
+    				<frontName>growdevbase</frontName>
+    			</args>
+    		</growdevbase>
+    	</routers>
+    </admin>
+</config>

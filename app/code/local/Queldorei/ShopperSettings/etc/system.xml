@@ -1,0 +1,1314 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<queldorei translate="label" module="shoppersettings">
+			<label>Queldorei</label>
+			<sort_order>205</sort_order>
+		</queldorei>
+	</tabs>
+	<sections>
+		<shoppersettings translate="label" module="shoppersettings">
+			<label>Shopper Theme Settings v1.5.2</label>
+			<tab>queldorei</tab>
+			<sort_order>100</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<appearance translate="label">
+					<label>Appearance</label>
+                    <comment><![CDATA[<a href="//Queldorei.com">Queldorei.com</a> Shopper v1.5.2]]></comment>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<option_divider translate="label comment">
+							<label>Main Options: </label>
+							<comment></comment>
+							<frontend_type>hidden</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</option_divider>
+                        <enable_font translate="label comment">
+							<label>Enable Google Font: </label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable_font>
+                        <font translate="label comment">
+							<label>Font: </label>
+                            <comment>Enable google font to use this option</comment>
+							<frontend_type>select</frontend_type>
+							<frontend_model>shoppersettings/adminhtml_system_config_form_field_font</frontend_model>
+							<source_model>shoppersettings/config_font</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</font>
+                        <color translate="label comment">
+                            <label>Theme Color: </label>
+                            <comment>This color will be used for buttons and backgrounds</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </color>
+                        <title_color translate="label comment">
+                            <label>Title Color: </label>
+                            <comment>This color will be used for titles</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title_color>
+
+                        <option_divider1 translate="label comment">
+                            <label>Header Options: </label>
+                            <comment></comment>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>51</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </option_divider1>
+
+                        <toolbar_bg translate="label comment">
+                            <label>Toolbar Background Color: </label>
+                            <comment>This color will be used for toolbar background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>52</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </toolbar_bg>
+                        <toolbar_color translate="label comment">
+                            <label>Toolbar Color: </label>
+                            <comment>This color will be used for Toolbar text</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>53</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </toolbar_color>
+                        <toolbar_hover_color translate="label comment">
+                            <label>Toolbar Mouseover Color: </label>
+                            <comment>This color will be used for Toolbar links mouseover</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>54</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </toolbar_hover_color>
+
+                        <header_bg translate="label comment">
+                            <label>Header Background Color: </label>
+                            <comment>This color will be used for Header Background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </header_bg>
+                        <menu_text_color translate="label comment">
+                            <label>Navigation Color: </label>
+                            <comment>This color will be used for Navigation links</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </menu_text_color>
+
+                        <slideshow_bg translate="label comment">
+                            <label>Slideshow Background Color: </label>
+                            <comment>This color will be used for slideshow Background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </slideshow_bg>
+
+                        <page_title_bg translate="label comment">
+                            <label>Page Title Background Color: </label>
+                            <comment>This color will be used for Page title Background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </page_title_bg>
+
+                        <option_divider2 translate="label comment">
+                            <label>Content Options: </label>
+                            <comment></comment>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>79</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </option_divider2>
+
+                        <content_bg translate="label comment">
+                            <label>Content Background Color: </label>
+                            <comment>This color will be used for Content Background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </content_bg>
+                        <content_bg_img translate="label comment">
+                            <label>Content Background Image: </label>
+                            <comment>This image will be used for Content Background</comment>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">queldorei/shopper</upload_dir>
+                            <base_url type="media" scope_info="1">queldorei/shopper</base_url>
+                            <sort_order>83</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </content_bg_img>
+                        <content_bg_img_mode translate="label comment">
+                            <label>Content Background Image Display mode: </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_bg</source_model>
+                            <sort_order>86</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </content_bg_img_mode>
+                        <content_link translate="label comment">
+                            <label>Content Link Color: </label>
+                            <comment>This color will be used for Content Link</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </content_link>
+                        <content_link_hover translate="label comment">
+                            <label>Content Link Mouseover Color: </label>
+                            <comment>This color will be used for Content Link Mouseover</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </content_link_hover>
+
+                        <slider_bg translate="label comment">
+                            <label>Product Slider Background Color: </label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </slider_bg>
+                        <slider_border translate="label comment">
+                            <label>Product Slider Border Color:</label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </slider_border>
+
+
+                        <option_divider3 translate="label comment">
+                            <label>Footer Options: </label>
+                            <comment></comment>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>169</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </option_divider3>
+
+                        <footer_bg translate="label comment">
+                            <label>Footer Background Color: </label>
+                            <comment>This color will be used for Footer Background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>170</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_bg>
+                        <footer_color translate="label comment">
+                            <label>Footer Text Color: </label>
+                            <comment>This color will be used for Footer text</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>180</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_color>
+                        <footer_hover_color translate="label comment">
+                            <label>Footer Link Mouseover Color: </label>
+                            <comment>This color will be used for Footer link Mouseover </comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>190</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_hover_color>
+                        <footer_banners_bg translate="label comment">
+                            <label>Footer Banners Background Color: </label>
+                            <comment>This color will be used for Banners Background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>200</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_banners_bg>
+                        <footer_info_bg translate="label comment">
+                            <label>Footer Info Background Color: </label>
+                            <comment>This color will be used for Info Background</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>210</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_info_bg>
+                        <footer_info_border translate="label comment">
+                            <label>Footer Info Border Color: </label>
+                            <comment>This color will be used for Info Border</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>220</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_info_border>
+                        <footer_info_title_color translate="label comment">
+                            <label>Footer Info Title Color: </label>
+                            <comment>This color will be used for Info Titles</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>230</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_info_title_color>
+                        <footer_info_color translate="label comment">
+                            <label>Footer Info Text Color: </label>
+                            <comment>This color will be used for Info Text</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>240</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_info_color>
+                        <footer_info_link_color translate="label comment">
+                            <label>Footer Info Link Color: </label>
+                            <comment>This color will be used for Info Link</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>250</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_info_link_color>
+                        <footer_info_link_hover_color translate="label comment">
+                            <label>Footer Info Link Mouseover Color: </label>
+                            <comment>This color will be used for Info Link Mouseover</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>260</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </footer_info_link_hover_color>
+
+                        <option_divider4 translate="label comment">
+                            <label>Price Options: </label>
+                            <comment></comment>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>269</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </option_divider4>
+
+                        <price_font translate="label comment">
+                            <label>Price Font: </label>
+                            <comment>Enable google font to use this option</comment>
+                            <frontend_type>select</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_font</frontend_model>
+                            <source_model>shoppersettings/config_font</source_model>
+                            <sort_order>270</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_font>
+                        <price_color translate="label comment">
+                            <label>Price Color: </label>
+                            <comment>This color will be used for price</comment>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>280</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_color>
+                        <price_circle_color translate="label comment">
+                            <label>Price Circle bg Color: </label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>290</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_circle_color>
+
+                        <option_divider5 translate="label comment">
+                            <label>Other Options: </label>
+                            <comment></comment>
+                            <frontend_type>hidden</frontend_type>
+                            <sort_order>299</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </option_divider5>
+
+                        <login_bg>
+                            <label>Login page background image</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">queldorei/shopper</upload_dir>
+                            <base_url type="media" scope_info="1">queldorei/shopper</base_url>
+                            <sort_order>300</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login_bg>
+                        <timeline translate="label comment">
+                            <label>Timeline Color: </label>
+                            <frontend_type>text</frontend_type>
+                            <frontend_model>shoppersettings/adminhtml_system_config_form_field_color</frontend_model>
+                            <sort_order>310</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </timeline>
+
+					</fields>
+				</appearance>
+                <design translate="label">
+                    <label>Design</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <responsive translate="label">
+                            <label>Enable Responsive Design</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </responsive>
+                        <price_circle translate="label">
+                            <label>Show Price circle on product listing</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </price_circle>
+                        <fixed_header translate="label">
+                            <label>Enable fixed header</label>
+                            <comment>If enabled - header will always stay at the top</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fixed_header>
+                        <top_compare translate="label">
+                            <label>Show compare block in header</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_compare>
+                        <search_field translate="label">
+                            <label>Show search field instead of icon in header</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </search_field>
+                        <below_logo translate="label">
+                            <label>Show navigation below logo</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>120</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </below_logo>
+                        <override_css>
+                            <label>Enable custom css</label>
+                            <comment>Enable this option to load "override.css" file in which you can override the default styling of the theme.
+                                To create "override.css" you can use the file "default.override.css" which is located in skin/frontend/shopper/default/css directory.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>130</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </override_css>
+                        <hide_compare>
+                            <label>Hide Compare functionality</label>
+                            <comment>It will hide compare links across the site, compare sideblock and compare icon in header.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>140</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hide_compare>
+	                    <prev_next>
+                            <label>Disable prev_next buttons</label>
+                            <comment>Prev / Next buttons on product page</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>150</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </prev_next>
+                    </fields>
+                </design>
+				<navigation translate="label">
+					<label>Navigation</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+                        <use_wide_navigation translate="label">
+                            <label>Enable Wide Navigation</label>
+                            <comment>DO NOT ENABLE wide navigation and "Shopper Theme Navigation" option at a time</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_wide_navigation>
+                        <use_navigation translate="label">
+                            <label>Use Shopper Theme Navigation</label>
+                            <comment>Select NO to use default magento navigation</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_navigation>
+                        <column_items translate="label">
+                            <label>Number of items in column</label>
+                            <comment>Define number of items in column for subcategories dropdown</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </column_items>
+                        <home translate="label">
+                            <label>Home Link in Navigation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </home>
+                        <custom_block_width translate="label">
+                            <label>Custom Navigation Block width</label>
+                            <comment><![CDATA[Define custom block width in px]]></comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </custom_block_width>
+					</fields>
+				</navigation>
+				<catalog translate="label">
+					<label>Catalog</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>40</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<categories_filter translate="label comment">
+							<label>Show Categories filter in layered navigation: </label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</categories_filter>
+                        <shopby_num translate="label comment">
+							<label>Limit number of shown attribute options in layered navigation sideblock: </label>
+                            <comment>Will hide more than that number and add 'more' link</comment>
+							<frontend_type>text</frontend_type>
+							<sort_order>14</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</shopby_num>
+                        <grid_columns_2col translate="label comment">
+                            <label>Number of columns in grid mode ( 2 columns layout ) : </label>
+                            <comment>
+                                <![CDATA[To change number of products per page go to<br/> <strong>System -> Configuration -> Catalog -> Frontend</strong>]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_grid_twocolumns</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </grid_columns_2col>
+                        <grid_columns_1col translate="label comment">
+                            <label>Number of columns in grid mode ( 1 column layout ) : </label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_grid_onecolumn</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </grid_columns_1col>
+                        <bestsellers translate="label">
+                            <label>Bestsellers</label>
+                            <comment>Enter product ids you want to display in bestsellers block separated by comma. Example: 23,354,12. Leave empty to hide bestsellers</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </bestsellers>
+					</fields>
+				</catalog>
+                <header translate="label">
+                    <label>Header</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>20</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <top_signup translate="label">
+                            <label>Show Sign Up Link</label>
+                            <comment>Link in the Top Links (top right corner).</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_signup>
+                        <top_custom_link translate="label">
+                            <label>Custom Link in Top links</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_custom_link>
+                        <top_custom_link_path translate="label">
+                            <label>Custom Link Path</label>
+                            <comment>No leading or trailing slashes.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_custom_link_path>
+                        <top_custom_link_anchor translate="label">
+                            <label>Custom Link Anchor Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_custom_link_anchor>
+                        <top_custom_link_title translate="label">
+                            <label>Custom Link Title Text</label>
+                            <comment>Additional text displayed on hover.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </top_custom_link_title>
+                    </fields>
+                </header>
+                <social translate="label">
+                    <label>Social</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <twitter translate="label">
+                            <label>Twitter Account</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </twitter>
+	                    <tweets_num translate="label">
+                            <label>Number of tweets shown in the footer</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tweets_num>
+	                    <consumerkey translate="label">
+                            <label>Twitter consumer key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </consumerkey>
+	                    <consumersecret translate="label">
+                            <label>Twitter consumer secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </consumersecret>
+	                    <accesstoken translate="label">
+                            <label>Twitter access token</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </accesstoken>
+	                    <accesstokensecret translate="label">
+                            <label>Twitter access token secret</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </accesstokensecret>
+	                    <twitter_replace translate="label">
+                            <label>Replace Twitter with Static block </label>
+                            <comment>Enter cms block id if you want to replace twitter block with your static block</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </twitter_replace>
+                        <facebook translate="label">
+                            <label>Facebook ID</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </facebook>
+                        <facebook_replace translate="label">
+                            <label>Replace Facebook with Static block</label>
+                            <comment>Enter cms block id if you want to replace facebook block with your static block</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </facebook_replace>
+                    </fields>
+                </social>
+                <cloudzoom>
+                    <label>CloudZoom</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>70</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enable Cloud Zoom</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enabled>
+                        <position translate="label">
+                            <label>Cloudzoom position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_zoom_position</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </position>
+                        <lens_opacity translate="label">
+                            <label>Lens Opacity (%)</label>
+                            <comment>Opacity of the lens pointer.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </lens_opacity>
+                        <zoom_width translate="label">
+                            <label>Zoom Area Width (px)</label>
+                            <comment>Leave empty to use default.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zoom_width>
+                        <zoom_height translate="label">
+                            <label>Zoom Area Height (px)</label>
+                            <comment>Leave empty to use default.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zoom_height>
+                        <big_image_width translate="label">
+                            <label>Image Width After Zooming (px)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </big_image_width>
+                        <big_image_height translate="label">
+                            <label>Image Height After Zooming (px)</label>
+                            <comment>Leave empty to keep aspect ratio of the image</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </big_image_height>
+                        <tint_color translate="label">
+                            <label>Tint Color</label>
+                            <comment>Color which will cover the main image. (e.g. #ededed). Does not work with Soft Focus.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tint_color>
+                        <tint_opacity translate="label">
+                            <label>Tint Opacity (%)</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </tint_opacity>
+                        <soft_focus translate="label">
+                            <label>Soft Focus</label>
+                            <comment>Applies a subtle blur effect to the main image. Does not work with tint.</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </soft_focus>
+                        <smooth_move translate="label">
+                            <label>Smooth Move</label>
+                            <comment>Amount of smoothness/drift of the zoom image as it moves. The higher the number, the smoother/more drifty the movement will be. 1 = no smoothing.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>110</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smooth_move>
+                    </fields>
+                </cloudzoom>
+                <images>
+                    <label>Product Images</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <zoom translate="label">
+                            <label>Zoom method for Product page</label>
+                            <comment>
+                                <![CDATA[If you use cloudZoom you still need to enable it in CloudZoom section ]]>
+                            </comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_zoom</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zoom>
+                        <width translate="label">
+                            <label>Main Product Image Width (px)</label>
+                            <comment>
+                                <![CDATA[Please update cloudzoom big image size if you override dimensions.<br/> If width is not specified, default <strong>width and height</strong> will be used (494 x 494 pixels).  ]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </width>
+                        <height translate="label">
+                            <label>Main Product Image Height (px)</label>
+                            <comment>
+                                <![CDATA[If height is not specified width value will be used. If width is not specified, default <strong>width and height</strong> will be used (494 x 494 pixels).]]>
+                            </comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </height>
+                        <keep_ratio translate="label">
+                            <label>Use aspect ratio for all images</label>
+                            <comment>Use main image aspect ration throughout the site</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </keep_ratio>
+                    </fields>
+                </images>
+                <ajax>
+                    <label><![CDATA[Ajax & Js features]]></label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>80</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <priceslider translate="label">
+                            <label>Enable Priceslider for layered navigation</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </priceslider>
+                        <wishlist translate="label">
+                            <label>Enable Ajax wishlist and compare</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wishlist>
+                        <cart translate="label">
+                            <label>Enable Ajax cart / Quick View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </cart>
+                        <quick_view translate="label">
+                            <label>Show Quick view button</label>
+                            <comment>Quick view popup will be shown for products with required options regardless of this option</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </quick_view>
+                        <totop translate="label">
+                            <label>Enable Scroll to top button</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </totop>
+                    </fields>
+                </ajax>
+				<labels translate="label">
+                    <label>Product</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>90</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <new_label translate="label">
+                            <label>Show "New" label</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </new_label>
+                        <new_label_position translate="label">
+                            <label>"New" label position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_position</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </new_label_position>
+                        <sale_label translate="label">
+                            <label>Show "Sale" label</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sale_label>
+                        <sale_label_position translate="label">
+                            <label>"Sale" label position</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_position</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sale_label_position>
+                        <enable_upsell translate="label">
+                            <label>Enable Upsell Products</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_upsell>
+                        <number_upsell translate="label">
+                            <label>Number of Upsell Products in slide</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </number_upsell>
+                        <replace_upsell translate="label">
+                            <label>Replace Upsell Products</label>
+                            <comment><![CDATA[Upsell products can be replaced with static block <b>queldorei_product_additional</b>]]></comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>shoppersettings/config_upsell</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </replace_upsell>
+                        <sku translate="label">
+                            <label>Show SKU on product page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sku>
+                        <clone_price translate="label">
+                            <label>Hide second price after product options on configurable product page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </clone_price>
+                    </fields>
+                </labels>
+
+                <blocks translate="label">
+                    <label>Sideblocks</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+
+                        <block_left_nav translate="label">
+                            <label>Categories - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_left_nav>
+                        <block_left_nav_order translate="label">
+                            <depends>
+                                <block_left_nav>1</block_left_nav>
+                            </depends>
+                            <label>Categories - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_left_nav_order>
+
+                        <block_bestsellers translate="label">
+                            <label>Bestsellers - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_bestsellers>
+                        <block_bestsellers_order translate="label">
+                            <depends>
+                                <block_bestsellers>1</block_bestsellers>
+                            </depends>
+                            <label>Bestsellers - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>25</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_bestsellers_order>
+
+                        <block_layered_nav translate="label">
+                            <label>Shop By - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_layered_nav>
+                        <block_layered_nav_order translate="label">
+                            <depends>
+                                <block_layered_nav>1</block_layered_nav>
+                            </depends>
+                            <label>Shop By - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>35</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_layered_nav_order>
+
+                        <block_slideshow translate="label">
+                            <label>Slideshow - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_slideshow>
+                        <block_slideshow_order translate="label">
+                            <depends>
+                                <block_slideshow>1</block_slideshow>
+                            </depends>
+                            <label>Slideshow - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>45</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_slideshow_order>
+
+                        <block_viewed translate="label">
+                            <label>Recently viewed - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_viewed>
+                        <block_viewed_order translate="label">
+                            <depends>
+                                <block_viewed>1</block_viewed>
+                            </depends>
+                            <label>Recently viewed - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>55</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_viewed_order>
+
+                        <block_tags translate="label">
+                            <label>Popular Tags - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_tags>
+                        <block_tags_order translate="label">
+                            <depends>
+                                <block_tags>1</block_tags>
+                            </depends>
+                            <label>Popular Tags - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>65</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_tags_order>
+
+                        <block_subscribe translate="label">
+                            <label>Newsletters signup - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_subscribe>
+                        <block_subscribe_order translate="label">
+                            <depends>
+                                <block_subscribe>1</block_subscribe>
+                            </depends>
+                            <label>Newsletters signup - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>75</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_subscribe_order>
+
+                        <block_compare translate="label">
+                            <label>Compare products - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>80</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_compare>
+                        <block_compare_order translate="label">
+                            <depends>
+                                <block_compare>1</block_compare>
+                            </depends>
+                            <label>Compare products - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>85</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_compare_order>
+
+                        <block_poll translate="label">
+                            <label>Poll - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>90</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_poll>
+                        <block_poll_order translate="label">
+                            <depends>
+                                <block_poll>1</block_poll>
+                            </depends>
+                            <label>Poll - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>95</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_poll_order>
+
+                        <block_compared translate="label">
+                            <label>Recently Compared products - Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_compared>
+                        <block_compared_order translate="label">
+                            <depends>
+                                <block_compared>1</block_compared>
+                            </depends>
+                            <label>Recently Compared products - Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>105</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </block_compared_order>
+
+                    </fields>
+                </blocks>
+			</groups>
+		</shoppersettings>
+	</sections>
+</config>
+
+

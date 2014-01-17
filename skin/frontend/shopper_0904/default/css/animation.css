@@ -1,0 +1,103 @@
+a{
+    transition: color 600ms ease-in-out;
+    -webkit-transition: color 600ms ease-in-out;
+    -moz-transition: color 600ms ease-in-out;
+    -o-transition: color 600ms ease-in-out;
+}
+a:hover{
+    transition: color 10ms ease-in-out;
+    -webkit-transition: color 10ms ease-in-out;
+    -moz-transition: color 10ms ease-in-out;
+    -o-transition: color 10ms ease-in-out;
+}
+
+.slider-container .jcarousel-list .btn-cart,
+.jcarousel-next-horizontal, .jcarousel-prev-horizontal,
+#toTop,
+.banners a span,
+.banners a em,
+.banner a span,
+.banner a em,
+.products-grid .btn-cart,
+.products-list .btn-cart,
+.opc .step-title,
+.product-tabs a,
+.footer-banners a img, .homepage-banners a img,
+footer .footer-subscribe button.button span,
+.quick-view,
+nav .nav-top-title, .nav-container .nav-top-title,
+nav .nav-top-title div.icon span, .nav-container .nav-top-title div.icon span,
+.compare-top{
+transition: all 400ms ease-in-out;
+-webkit-transition: all 400ms ease-in-out;
+-moz-transition: all 400ms ease-in-out;
+-o-transition: all 400ms ease-in-out;
+}
+.jcarousel-next-horizontal:hover, .jcarousel-prev-horizontal:hover{
+transition: all 400ms ease-in-out;
+-webkit-transition: all 400ms ease-in-out;
+-moz-transition: all 400ms ease-in-out;
+-o-transition: all 400ms ease-in-out;
+}
+
+.footer-info .block-control {
+    transition: background-color 400ms ease-in-out;
+    -webkit-transition: background-color 400ms ease-in-out;
+    -moz-transition: background-color 400ms ease-in-out;
+    -o-transition: background-color 400ms ease-in-out;
+}
+
+button.button span,
+.products-list .button-container .btn-add-cart span,
+.pager .pages li a.next span,
+.pager .pages li a.previous span,
+.slideshow-nav a,
+.header-dropdown ul li a,
+.cart-top-title a span.icon,
+.compare-top-title a span.icon,
+.search-top-container .search-form .search-top-title span.icon,
+.footer-info ul.social li a,
+.footer-info ul.twitterList li span.tweet-icon,
+.search-top, .cart-top > a,
+.product-view .add-to-links li span.icon,
+.top-opc li.allow .number,
+.btn-remove, .btn-edit, .products-grid .hover .button-container button.button span span em {
+transition: background 200ms ease-in-out;
+-webkit-transition: background 200ms ease-in-out;
+-moz-transition: background 200ms ease-in-out;
+-o-transition: background 200ms ease-in-out;
+}
+
+#nav>li>a, #nav ul li a, #nav>li>a>span,
+#mobile-nav>li>a, #mobile-nav ul li a,  #mobile-nav>li>a>span,
+#queldoreiNav>li>a, #queldoreiNav ul li a, #queldoreiNav>li>a>span {
+    transition: all 600ms ease-in-out;
+    -webkit-transition: all 600ms ease-in-out;
+    -moz-transition: all 600ms ease-in-out;
+    -o-transition: all 600ms ease-in-out;
+}
+#nav>li>a:hover, #nav ul li a:hover, #nav>li>a:hover>span,
+#mobile-nav>li>a:hover, #mobile-nav ul li a:hover, #mobile-nav>li>a:hover>span,
+#queldoreiNav>li>a:hover, #queldoreiNav ul li a:hover, #queldoreiNav>li>a:hover>span {
+    transition: all 100ms ease-in-out;
+    -webkit-transition: all 100ms ease-in-out;
+    -moz-transition: all 100ms ease-in-out;
+    -o-transition: all 100ms ease-in-out;
+}
+
+.products-grid .add-to-links li a:hover span {
+    color:#000;
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+.products-grid .add-to-links li a span,
+.mobile-nav li.parent > a em,
+.search-field #search_mini_form .form-search button{
+    transition: all 400ms ease-in-out;
+    -webkit-transition: all 400ms ease-in-out;
+    -moz-transition: all 400ms ease-in-out;
+    -o-transition: all 400ms ease-in-out;
+}

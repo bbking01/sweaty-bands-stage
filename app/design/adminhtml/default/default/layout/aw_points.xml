@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    
+    <adminhtml_customer_edit>
+        <reference name="customer_edit_tabs">
+            <block type="points/adminhtml_customer_edit_tabs_rewardPoints" name="rewardpoints_tab" template="aw_points/customer/tab/rewardpoints.phtml">
+                <block type="points/adminhtml_customer_edit_tabs_rewardPoints_balance" name="aw_points_balance" template="aw_points/customer/tab/rewardpoints/balance.phtml"/>
+                <block type="points/adminhtml_customer_edit_tabs_rewardPoints_history" name="aw_points_history" template="aw_points/customer/tab/rewardpoints/history.phtml">
+                    <block type="points/adminhtml_customer_edit_tabs_rewardPoints_history_grid" name="aw_points_history_grid" />
+                </block>
+                <block type="points/adminhtml_customer_edit_tabs_rewardPoints_balanceUpdate" name="aw_points_balanceupdate" template="aw_points/customer/tab/rewardpoints/balanceUpdate.phtml"/>
+                <block type="points/adminhtml_customer_edit_tabs_rewardPoints_notifications" name="aw_points_notifications" template="aw_points/customer/tab/rewardpoints/notifications.phtml"/>
+            </block>
+            <action method="addTab">
+                <name>Reward Points</name>
+                <block>rewardpoints_tab</block>
+            </action>
+        </reference>
+    </adminhtml_customer_edit>
+
+    <points_admin_adminhtml_transaction_new>
+        <reference name="content">
+            <block type="points/adminhtml_transaction_add" name="points.transaction.add" template="aw_points/transaction/add.phtml" />
+        </reference>
+    </points_admin_adminhtml_transaction_new>
+    <adminhtml_sales_order_view>
+        <!-- This section is used for Magento >= 1.4  -->
+        <reference name="order_totals">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.order.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento >= 1.4 ends -->
+        <!-- This section is used for Magento 1.3  -->
+        <reference name="sales.order.view.totals.main">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.order.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento 1.3 ends -->
+    </adminhtml_sales_order_view>
+    <adminhtml_sales_order_invoice_new>
+        <!-- This section is used for Magento >= 1.4  -->
+        <reference name="invoice_totals">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento >= 1.4 ends -->
+        <!-- This section is used for Magento 1.3  -->
+        <reference name="sales.order.view.totals.main">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento 1.3 ends -->
+    </adminhtml_sales_order_invoice_new>
+    <adminhtml_sales_order_invoice_view>
+        <!-- This section is used for Magento >= 1.4  -->
+        <reference name="invoice_totals">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento >= 1.4 ends -->
+        <!-- This section is used for Magento 1.3  -->
+        <reference name="sales.order.view.totals.main">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento 1.3 ends -->
+    </adminhtml_sales_order_invoice_view>
+    <adminhtml_sales_order_invoice_updateqty>
+        <!-- This section is used for Magento >= 1.4  -->
+        <reference name="invoice_totals">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento >= 1.4 ends -->
+        <!-- This section is used for Magento 1.3  -->
+        <reference name="sales.order.view.totals.main">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento 1.3 ends -->
+    </adminhtml_sales_order_invoice_updateqty>
+    <adminhtml_sales_order_creditmemo_view>
+        <!-- This section is used for Magento >= 1.4  -->
+        <reference name="creditmemo_totals">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento >= 1.4 ends -->
+        <!-- This section is used for Magento 1.3  -->
+        <reference name="sales.order.view.totals.main">
+            <block type="points/adminhtml_sales_order_totals_points" name="points.invoice.totals" template="aw_points/sales/totals/points.phtml" />
+        </reference>
+        <!-- Section for Magento 1.3 ends -->
+    </adminhtml_sales_order_creditmemo_view>
+
+    <points_admin_adminhtml_rule_edit>
+        <reference name="js">
+            <block type="core/template" template="aw_points/rule/edit/js.phtml" name="points_edit" />
+        </reference>
+    </points_admin_adminhtml_rule_edit>
+</layout>

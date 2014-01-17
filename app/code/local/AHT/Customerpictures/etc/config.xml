@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <AHT_Customerpictures>
+            <version>0.1.0</version>
+        </AHT_Customerpictures>
+    </modules>
+    <frontend>
+        <routers>
+            <customerpictures>
+                <use>standard</use>
+                <args>
+                    <module>AHT_Customerpictures</module>
+                    <frontName>customerpictures</frontName>
+                </args>
+            </customerpictures>
+        </routers>
+        <layout>
+            <updates>
+                <customerpictures>
+                    <file>customerpictures.xml</file>
+                </customerpictures>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+			<customerpictures>
+				<use>admin</use>
+				<args>
+					<module>AHT_Customerpictures</module>
+					<frontName>customerpictures</frontName>
+				</args>
+			</customerpictures>
+        </routers>
+    </admin>
+    <adminhtml>
+		<menu>
+			<customerpictures module="customerpictures">
+				<title>Customer Pictures</title>
+				<sort_order>71</sort_order>               
+				<children>
+					<items module="customerpictures">
+						<title>All Pictures</title>
+						<sort_order>0</sort_order>
+						<action>customerpictures/adminhtml_customerpictures</action>
+					</items>
+					<winner module="customerpictures">
+						<title>All Winners</title>
+						<sort_order>1</sort_order>
+						<action>customerpictures/adminhtml_winner</action>
+					</winner>
+					<setting module="customerpictures">
+						<title>Setting</title>
+						<sort_order>2</sort_order>
+						<action>adminhtml/system_config/edit/section/customerpictures</action>
+					</setting>
+				</children>
+			</customerpictures>
+		</menu>
+		<acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <customerpictures translate="title" module="customerpictures">
+                                            <title>Customer Pictures</title>
+                                            <sort_order>55</sort_order>
+                                        </customerpictures>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+		<layout>
+			<updates>
+				<customerpictures>
+					<file>customerpictures.xml</file>
+				</customerpictures>
+			</updates>
+		</layout>
+    </adminhtml>   
+    <global>
+        <models>
+            <customerpictures>
+                <class>AHT_Customerpictures_Model</class>
+                <resourceModel>customerpictures_mysql4</resourceModel>
+            </customerpictures>
+            <customerpictures_mysql4>
+                <class>AHT_Customerpictures_Model_Mysql4</class>
+                <entities>
+                    <images>
+                        <table>customerpictures_images</table>
+                    </images>
+					<users>
+                        <table>customerpictures_user</table>
+                    </users>
+                </entities>
+            </customerpictures_mysql4>
+        </models>
+        <resources>
+            <customerpictures_setup>
+                <setup>
+                    <module>AHT_Customerpictures</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </customerpictures_setup>
+            <customerpictures_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </customerpictures_write>
+            <customerpictures_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </customerpictures_read>
+        </resources>
+        <blocks>
+            <customerpictures>
+                <class>AHT_Customerpictures_Block</class>
+            </customerpictures>
+        </blocks>
+        <helpers>
+            <customerpictures>
+                <class>AHT_Customerpictures_Helper</class>
+            </customerpictures>
+        </helpers>
+
+		<template>
+			<email>
+				<customerpictures_coupon_email_template translate="label" module="customerpictures">
+					<label>Coupon email sending</label>
+					<file>customerpictures_coupon_email.html</file>
+					<type>html</type>
+				</customerpictures_coupon_email_template>
+				
+				<customerpictures_notice_email_template translate="label" module="customerpictures">
+					<label>Notice email sending</label>
+					<file>customerpictures_notice_email.html</file>
+					<type>html</type>
+				</customerpictures_notice_email_template>
+			</email>
+		</template> 
+
+    </global>
+	<default>
+        <customerpictures>
+			<facebook>
+				<width>400</width>
+                <num>10</num>
+            </facebook>
+            <general>
+				<enabled>1</enabled>
+                <limit>2</limit>
+				<desc>A short description</desc>
+            </general>
+			<user>
+				<perpage>20,100,All</perpage>
+				<column>4</column>
+				<width>170</width>
+				<height>170</height>
+				
+			</user>
+			<page>
+				<perpage>20,100,All</perpage>
+				<column>5</column>
+				<width>178</width>
+				<height>178</height>
+				<title>Customer pictures</title>
+			</page>
+			<view>
+				<width>400</width>
+				<height>500</height>
+			</view>
+        </customerpictures>
+    </default>
+</config>

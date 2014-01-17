@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config>
+  <global>
+    <models>
+        <magestoreadminthemecontroller>
+             <class>Inchoo_Admintheme_Controller</class>
+        </magestoreadminthemecontroller>
+    </models>
+    <events>
+      <adminhtml_controller_action_predispatch_start>
+        <observers>
+          <magestore_themeoverride_observer>
+            <type>singleton</type>
+            <class>Magestore_Admintheme_Controller_Observer</class>
+            <method>overrideTheme</method>
+          </magestore_themeoverride_observer>
+        </observers>
+      </adminhtml_controller_action_predispatch_start>      
+    </events>
+  </global>
+  
+</config>

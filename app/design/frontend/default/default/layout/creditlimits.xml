@@ -1,0 +1,164 @@
+<?xml version="1.0"?>
+<!-- /** * i95Dev.com * * NOTICE OF LICENSE * * This source file is subject 
+	to the EULA * that is bundled with this package in the file LICENSE.txt. 
+	* It is also available through the world-wide-web at this URL: * http://store.i95dev.com/LICENSE-M1.txt 
+	* If you did not receive a copy of the license and are unable to * obtain 
+	it through the world-wide-web, please send an email * to support@i95dev.com 
+	so we can send you a copy immediately. * * * @category I95Dev * @package 
+	I95DevConnect_Creditlimits * @Description * @author I95Dev * @copyright Copyright 
+	(c) 2011 i95Dev * @license http://store.i95dev.com/LICENSE-M1.txt */ -->
+<layout version="0.1.0">
+	<!--<default>
+		<reference name="head">
+			<action method="addJs">
+				<script>creditlimits/customerCreditPayment.js</script>
+			</action>
+		</reference>
+	</default>-->
+
+	<customer_account>
+		<reference name="customer_account_navigation">
+			<action method="addLink" translate="label" module="sales">
+				<name>orders</name>
+				<path>sales/order/history/</path>
+				<label>Order History</label>
+			</action>
+			<action method="addLink" translate="label" module="customer">
+				<name>credit_info</name>
+				<path>creditlimits/creditlimit_index/</path>
+				<label>Credit History</label>
+			</action>
+			<action method="addLink" translate="label" module="customer">
+				<name>credit_payment</name>
+				<path>creditlimits/creditlimit_index/creditorders</path>
+				<label>Credit Payment</label>
+			</action>
+			<action method="addLink" translate="label" module="customer">
+				<name>finance_charges</name>
+				<path>creditlimits/creditlimit_index/financecharges</path>
+				<label>Finance Charges</label>
+			</action>
+		</reference>
+	</customer_account>
+
+	<creditlimits_creditlimit_index_index>
+		<reference name="head">
+			<action method="setTitle">
+				<title>Order History</title>
+			</action>
+			<action method="addJs">
+				<script>calendar/calendar.js</script>
+			</action>
+			<action method="addJs">
+				<script>calendar/calendar-setup.js</script>
+			</action>
+		</reference>
+		<update handle="customer_account" />
+		<reference name="content">
+			<block type="creditlimits/creditlimits" name="creditlimitsindex"
+				template="creditlimits/creditlimits/creditlimits.phtml" />
+		</reference>
+	</creditlimits_creditlimit_index_index>
+	<creditlimits_creditlimit_index_financecharges>
+		<update handle="customer_account" />
+		<reference name="content">
+			<block type="creditlimits/creditlimits" name="buycredit1"
+				template="creditlimits/creditlimits/financecharges.phtml"></block>
+		</reference>
+	</creditlimits_creditlimit_index_financecharges>
+	<creditlimits_creditlimit_index_payfinancecharges>
+		<update handle="customer_account" />
+		<reference name="content">
+			<block type="creditlimits/creditlimits" name="buycredit1"
+				template="creditlimits/creditlimits/payfinancecharges.phtml">
+				<block type="creditlimits/onepage_payment_methods" name="creditlimits.payment.methods"
+					as="custommethods" template="creditlimits/creditlimits/buy/paymentfromcheckout.phtml" />
+			</block>
+		</reference>
+	</creditlimits_creditlimit_index_payfinancecharges>
+
+	<creditlimits_creditlimit_index_creditorders>
+		<update handle="customer_account" />
+		<reference name="content">
+			<block type="creditlimits/creditpayment" name="creditpayment"
+				template="creditlimits/creditlimits/payment.phtml" />
+		</reference>
+	</creditlimits_creditlimit_index_creditorders>
+	<creditlimits_creditlimit_index_paymentschedule>
+		<update handle="customer_account" />
+		<reference name="content">
+			<block type="creditlimits/repaymentschedule" name="repaymentschedule"
+				template="creditlimits/creditlimits/repaymentschedule.phtml" />
+		</reference>
+	</creditlimits_creditlimit_index_paymentschedule>
+	<creditlimits_index_savedata>
+		<reference name="root">
+			<action method="setTemplate">
+				<template>creditlimits/page/popup.phtml</template>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="creditlimits/creditlimits" name="_myblock"
+				template="creditlimits/creditlimits/review.phtml">
+			</block>
+		</reference>
+	</creditlimits_index_savedata>
+	<creditlimits_creditlimit_index_buycreditoncheckout>
+		<update handle="customer_account" />
+		<reference name="content">
+			<block type="creditlimits/creditlimits" name="buycredit1"
+				template="creditlimits/creditlimits/buycreditoncheckout.phtml">
+				<block type="creditlimits/onepage_payment_methods" name="creditlimits.payment.methods"
+					as="custommethods" template="creditlimits/creditlimits/buy/paymentfromcheckout.phtml" />
+			</block>
+		</reference>
+	</creditlimits_creditlimit_index_buycreditoncheckout>
+	<creditlimits_creditlimit_index_paymentsuccess>
+		<reference name="head">
+			<action method="setTitle">
+				<title>Payment Success</title>
+			</action>
+		</reference>
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/1column.phtml</template>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="creditlimits/repaymentschedule" name="paymentsuccess"
+				template="creditlimits/creditlimits/paymentsuccess.phtml" />
+		</reference>
+	</creditlimits_creditlimit_index_paymentsuccess>
+	<creditlimits_creditlimit_index_print>
+		<reference name="head">
+			<action method="setTitle">
+				<title>Payment Success</title>
+			</action>
+		</reference>
+		<reference name="root">
+			<action method="setTemplate">
+				<template>page/1column.phtml</template>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="creditlimits/repaymentschedule" name="paymentsuccess"
+				template="creditlimits/creditlimits/print.phtml" />
+		</reference>
+	</creditlimits_creditlimit_index_print>
+	<checkout_cart_index>
+		<reference name="checkout.cart.item.renderer">
+			<block type="type" name="creditlimits.cart" template="checkout/cart/item1/default.phtml"></block>
+		</reference>
+	</checkout_cart_index>
+	<checkout_onepage_paymentmethod>
+		<remove name="right" />
+		<remove name="left" />
+		<block type="creditlimits/onepage_payment_methods" name="root"
+			output="toHtml" template="creditlimits/checkout/onepage/payment/methods.phtml">
+			<action method="setMethodFormTemplate">
+				<method>purchaseorder</method>
+				<template>payment/form/purchaseorder.phtml</template>
+			</action>
+		</block>
+	</checkout_onepage_paymentmethod>
+</layout> 

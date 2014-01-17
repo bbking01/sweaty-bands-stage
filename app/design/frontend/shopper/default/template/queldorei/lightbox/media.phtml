@@ -1,0 +1,106 @@
+<?php
+/**
+ * @var $this		Mage_Catalog_Block_Product_View_Media
+ * @var $product	Mage_Catalog_Model_Product
+ */
+?>
+<?php
+	$product = $this->getProduct();
+	$outputHelper = $this->helper('catalog/output');
+	$helper = $this->helper('shoppersettings/image');
+    $config = Mage::getStoreConfig('shoppersettings');
+
+    list($defaultImgX, $defaultImgY) = $helper->getDefaultSize();
+    list($imgX, $imgY) = $helper->getMainSize();
+    if ( $imgX > 800 ) {
+        $imgX = 800;
+        $imgY = $helper->calculateHeight($imgX);
+    }
+    list($thumbX, $thumbY) = $helper->getThumbSize();
+?>
+
+<?php if ($product->getImage() != 'no_selection' && $product->getImage()): ?>
+
+	<p class="product-image">
+        <a href="<?php echo $this->helper('catalog/image')->init($product, 'image'); ?>" rel="lighbox-zoom-gallery" >
+            <img src="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize($imgX, $imgY); ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($product, 'image')->resize($imgX*2, $imgY*2); ?>" alt="<?php echo $this->escapeHtml($this->getImageLabel());?>" title="<?php echo $this->escapeHtml($this->getImageLabel());?>" width="<?php echo $imgX;?>" height="<?php echo $imgY;?>" />
+        </a>
+    </p>
+    
+<?php else: ?>
+
+    <p class="product-image">
+        <?php
+            $_img = '<img src="'.$this->helper('catalog/image')->init($product, 'image')->resize($imgX, $imgY).'" data-srcX2="'.$this->helper('catalog/image')->init($product, 'image')->resize($imgX*2, $imgY*2).'" alt="'.$this->escapeHtml($this->getImageLabel()).'" title="'.$this->escapeHtml($this->getImageLabel()).'" width="'.$imgX.'" height="'.$imgY.'" />';
+            echo $outputHelper->productAttribute($product, $_img, 'image');
+        ?>
+    </p>
+
+<?php endif; ?>
+
+<?php if (count($this->getGalleryImages()) > 0): ?>
+<div class="more-views">
+    <ul id="shopper_gallery_carousel" class="jcarousel-skin-tango clearfix">
+    <?php foreach ($this->getGalleryImages() as $_image): ?>
+    	<?php //Skip, if no image
+        	if ($_image->getFile() == NULL)
+			continue; ?>
+        <li>
+            <a href='<?php echo $this->helper('catalog/image')->init($product, 'image', $_image->getFile()); ?>' rel='lighbox-zoom-gallery' title='<?php echo $this->escapeHtml($_image->getLabel()) ?>' >
+            <img src="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail', $_image->getFile())->resize($thumbX, $thumbY); ?>" data-srcX2="<?php echo $this->helper('catalog/image')->init($product, 'thumbnail', $_image->getFile())->resize($thumbX*2, $thumbY*2); ?>" width="<?php echo $thumbX; ?>" height="<?php echo $thumbY; ?>" alt="<?php echo $this->escapeHtml($_image->getLabel()) ?>"/>
+            </a>
+        </li>
+    <?php endforeach; ?>
+    </ul>
+    <div class="jcarousel-controls">
+        <a href="#" class="jcarousel-prev-horizontal" id="shopper_gallery_prev"></a>
+        <a href="#" class="jcarousel-next-horizontal" id="shopper_gallery_next"></a>
+    </div>
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+
+        $('a[rel="lighbox-zoom-gallery"]').fancybox({
+            titleShow:false,
+            hideOnContentClick:true
+        });
+
+        myCarousel = null; // This will be the carousel object
+
+        function mycarousel_initCallback(carousel, state) {
+            if (state == 'init') {
+                myCarousel = carousel;
+            }
+            $('#shopper_gallery_next').bind('click', function() {
+                carousel.next();
+                return false;
+            });
+            $('#shopper_gallery_prev').bind('click', function() {
+                carousel.prev();
+                return false;
+            });
+
+            $('.product-view .product-img-box .more-views .jcarousel-skin-tango .jcarousel-container-horizontal').width(<?php echo ($thumbX+8)*3;?>);
+            $('.product-view .product-img-box .more-views .jcarousel-skin-tango .jcarousel-clip-horizontal').width(<?php echo ($thumbX+8)*3;?>);
+            $('.product-view .product-img-box .more-views .jcarousel-skin-tango .jcarousel-item').width(<?php echo $thumbX;?>);
+            $('#shopper_gallery_prev, #shopper_gallery_next').css({marginTop:-<?php echo ($thumbY)/2+17;?>});
+
+        };
+
+        $('#shopper_gallery_carousel').jcarousel({
+            scroll: 1,
+            initCallback: mycarousel_initCallback,
+            buttonNextHTML: null,
+            buttonPrevHTML: null
+        });
+
+        $(window).resize(function(){
+            var n = $('#shopper_gallery_carousel > li').length;
+            var w = $('#shopper_gallery_carousel > li').outerWidth(true);
+            $('#shopper_gallery_carousel').width(n*w);
+            if ( myCarousel ) myCarousel.scroll(0);
+        });
+
+    });
+</script>

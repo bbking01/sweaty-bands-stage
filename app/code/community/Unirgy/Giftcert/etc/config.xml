@@ -1,0 +1,717 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Unirgy_Giftcert extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ *
+ * @category   Unirgy
+ * @package    Unirgy_Giftcert
+ * @copyright  Copyright (c) 2008 Unirgy LLC
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+
+/**
+ * @category   Unirgy
+ * @package    Unirgy_Giftcert
+ * @author     Boris (Moshe) Gurevich <moshe@unirgy.com>
+ */
+-->
+<config>
+    <modules>
+        <Unirgy_Giftcert>
+            <version>2.0.7</version>
+            <usimpleup remote="http://download.unirgy.com/simple/client_api/version/"
+                       changelog="http://unirgy.com/support/portal/announcements"/>
+        </Unirgy_Giftcert>
+    </modules>
+    <global>
+        <models>
+            <ugiftcert>
+                <class>Unirgy_Giftcert_Model</class>
+                <resourceModel>ugiftcert_mysql4</resourceModel>
+            </ugiftcert>
+            <ugiftcert_mysql4>
+                <class>Unirgy_Giftcert_Model_Mysql4</class>
+                <entities>
+                    <cert>
+                        <table>ugiftcert_cert</table>
+                    </cert>
+                    <history>
+                        <table>ugiftcert_history</table>
+                    </history>
+                    <pdf>
+                        <table>ugiftcert_pdf</table>
+                    </pdf>
+                </entities>
+            </ugiftcert_mysql4>
+            <!-- Trying very hard not to overload sales/quote, and failing utterly... -->
+            <!--
+            <sales>
+                <rewrite>
+                    <quote>Unirgy_Giftcert_Model_Quote</quote>
+                </rewrite>
+            </sales>
+            -->
+        </models>
+        <resources>
+            <ugiftcert_setup>
+                <setup>
+                    <module>Unirgy_Giftcert</module>
+                    <class>Unirgy_Giftcert_Model_Resource_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </ugiftcert_setup>
+            <ugiftcert_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </ugiftcert_write>
+            <ugiftcert_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </ugiftcert_read>
+        </resources>
+        <helpers>
+            <ugiftcert>
+                <class>Unirgy_Giftcert_Helper</class>
+            </ugiftcert>
+            <payment>
+                <rewrite>
+                    <data>Unirgy_Giftcert_Helper_Payment</data>
+                </rewrite>
+            </payment>
+        </helpers>
+        <blocks>
+            <ugiftcert>
+                <class>Unirgy_Giftcert_Block</class>
+            </ugiftcert>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_totals>Unirgy_Giftcert_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+                    <sales_order_invoice_totals>Unirgy_Giftcert_Block_Adminhtml_Sales_Invoice_Totals</sales_order_invoice_totals>
+                    <sales_order_creditmemo_totals>Unirgy_Giftcert_Block_Adminhtml_Sales_Creditmemo_Totals</sales_order_creditmemo_totals>
+                </rewrite>
+            </adminhtml>
+            <!--<paypal>-->
+            <!--<rewrite>-->
+            <!--<standard_redirect>Unirgy_Giftcert_Block_Paypal_Standard_Redirect</standard_redirect>-->
+            <!--</rewrite>-->
+            <!--</paypal>-->
+            <checkout>
+                <rewrite>
+                    <onepage_payment_methods>Unirgy_Giftcert_Block_Payment_Methods</onepage_payment_methods>
+                </rewrite>
+            </checkout>
+        </blocks>
+        <catalog>
+            <product>
+                <type>
+                    <ugiftcert translate="label" module="ugiftcert">
+                        <label>Gift Certificate</label>
+                        <model>ugiftcert/product_type</model>
+                        <price_model>ugiftcert/product_price</price_model>
+                        <index_data_retreiver>ugiftcert/product_index</index_data_retreiver>
+                        <is_qty>1</is_qty>
+                    </ugiftcert>
+                </type>
+            </product>
+        </catalog>
+        <pdf>
+            <invoice>
+                <ugiftcert>ugiftcert/pdf_item</ugiftcert>
+            </invoice>
+            <shipment>
+                <ugiftcert>ugiftcert/pdf_item</ugiftcert>
+            </shipment>
+            <creditmemo>
+                <ugiftcert>ugiftcert/pdf_item</ugiftcert>
+            </creditmemo>
+            <totals>
+                <giftcert_amount translate="title">
+                    <title>Gift Certificate</title>
+                    <source_field>giftcert_amount</source_field>
+                    <font_size>8</font_size>
+                    <display_zero>0</display_zero>
+                    <sort_order>550</sort_order>
+                </giftcert_amount>
+            </totals>
+        </pdf>
+        <sales>
+            <quote>
+                <totals>
+                    <ugiftcert>
+                        <class>ugiftcert/quote_total</class>
+                        <renderer>ugiftcert/cart_total</renderer>
+                        <after>subtotal,discount,shipping,tax</after>
+                        <before>grand_total</before>
+                    </ugiftcert>
+                    <!-- Node bellow is added to fix a Magento bug, which is causing improper ordering of totals -->
+                    <tax_shipping>
+                        <after>shipping,weee</after>
+                    </tax_shipping>
+                    <tax>
+                        <before>grand_total</before>
+                    </tax>
+                    <msrp>
+                        <before>grand_total</before>
+                    </msrp>
+                    <!-- End fix magento bug-->
+                </totals>
+            </quote>
+            <order_invoice>
+                <totals>
+                    <ugiftcert>
+                        <class>ugiftcert/invoice_total</class>
+                        <after>subtotal,discount,shipping,tax</after>
+                        <before>grand_total</before>
+                    </ugiftcert>
+                </totals>
+            </order_invoice>
+            <order_creditmemo>
+                <totals>
+                    <ugiftcert>
+                        <class>ugiftcert/creditmemo_total</class>
+                        <before>grand_total</before>
+                    </ugiftcert>
+                </totals>
+            </order_creditmemo>
+        </sales>
+        <events>
+            <sales_order_payment_place_start>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>sales_order_payment_place_start</method>
+                    </ugiftcert>
+                </observers>
+            </sales_order_payment_place_start>
+            <sales_order_save_after>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>sales_order_save_after</method>
+                    </ugiftcert>
+                </observers>
+            </sales_order_save_after>
+            <sales_order_load_after>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>sales_order_load_after</method>
+                    </ugiftcert>
+                </observers>
+            </sales_order_load_after>
+            <sales_order_invoice_pay>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>sales_order_invoice_pay</method>
+                    </ugiftcert>
+                </observers>
+            </sales_order_invoice_pay>
+            <catalog_product_load_before>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>catalog_product_load_before</method>
+                    </ugiftcert>
+                </observers>
+            </catalog_product_load_before>
+            <controller_front_init_before>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>controller_front_init_before</method>
+                    </ugiftcert>
+                </observers>
+            </controller_front_init_before>
+            <sales_order_payment_cancel>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>sales_order_payment_cancel</method>
+                    </ugiftcert>
+                </observers>
+            </sales_order_payment_cancel>
+            <sales_quote_collect_totals_before>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>sales_quote_collect_totals_before</method>
+                    </ugiftcert>
+                </observers>
+            </sales_quote_collect_totals_before>
+            <sales_order_creditmemo_refund>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>sales_order_creditmemo_refund</method>
+                    </ugiftcert>
+                </observers>
+            </sales_order_creditmemo_refund>
+        </events>
+        <template>
+            <email>
+                <ugiftcert_email_template translate="label" module="ugiftcert">
+                    <label>New Gift Certificate to Someone Else</label>
+                    <file>ugiftcert_recipient.html</file>
+                    <type>html</type>
+                </ugiftcert_email_template>
+
+                <ugiftcert_email_template_self translate="label" module="ugiftcert">
+                    <label>New Gift Certificate to Self</label>
+                    <file>ugiftcert_self.html</file>
+                    <type>html</type>
+                </ugiftcert_email_template_self>
+            </email>
+        </template>
+        <fieldsets>
+            <sales_convert_quote>
+                <giftcert_code>
+                    <to_order>*</to_order>
+                </giftcert_code>
+            </sales_convert_quote>
+            <sales_convert_quote_address>
+                <giftcert_code>
+                    <to_order>*</to_order>
+                </giftcert_code>
+                <giftcert_amount>
+                    <to_order>*</to_order>
+                </giftcert_amount>
+                <base_giftcert_amount>
+                    <to_order>*</to_order>
+                </base_giftcert_amount>
+            </sales_convert_quote_address>
+            <sales_convert_order>
+                <giftcert_code>
+                    <to_quote>*</to_quote>
+                </giftcert_code>
+                <giftcert_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </giftcert_amount>
+                <base_giftcert_amount>
+                    <to_quote_address_shipping>*</to_quote_address_shipping>
+                </base_giftcert_amount>
+            </sales_convert_order>
+        </fieldsets>
+        <ugiftcert>
+            <options>
+                <vars>
+                    <recipient_name translate="label">
+                        <label>Recipient's name</label>
+                    </recipient_name>
+                    <recipient_email translate="label">
+                        <label>Recipient's email address</label>
+                    </recipient_email>
+                    <recipient_address translate="label">
+                        <label>Recipient's postal address</label>
+                    </recipient_address>
+                    <toself_printed translate="label">
+                        <label>Send printed copy to myself</label>
+                    </toself_printed>
+                    <send_on translate="label">
+                        <label>Send On</label>
+                    </send_on>
+                    <sender_name translate="label">
+                        <label>Sender Name</label>
+                    </sender_name>
+                    <sender_email translate="label">
+                        <label>Sender Email</label>
+                    </sender_email>
+                    <sender_address translate="label">
+                        <label>Sender Address</label>
+                    </sender_address>
+                    <delivery_type translate="label">
+                        <label>Delivery type</label>
+                    </delivery_type>
+                    <recipient_message translate="label">
+                        <label>Custom message</label>
+                    </recipient_message>
+                </vars>
+            </options>
+        </ugiftcert>
+    </global>
+    <frontend>
+        <product>
+            <collection>
+                <attributes>
+                    <ugiftcert_amount_config/>
+                </attributes>
+            </collection>
+        </product>
+        <routers>
+            <ugiftcert>
+                <use>standard</use>
+                <args>
+                    <module>Unirgy_Giftcert</module>
+                    <frontName>ugiftcert</frontName>
+                </args>
+            </ugiftcert>
+        </routers>
+        <translate>
+            <modules>
+                <Unirgy_Giftcert>
+                    <files>
+                        <default>Unirgy_Giftcert.csv</default>
+                    </files>
+                </Unirgy_Giftcert>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <ugiftcert module="Unirgy_Giftcert">
+                    <file>ugiftcert.xml</file>
+                </ugiftcert>
+            </updates>
+        </layout>
+        <events>
+            <controller_action_predispatch_customer_account_loginPost>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>controller_action_predispatch_customer_account_loginPost</method>
+                    </ugiftcert>
+                </observers>
+            </controller_action_predispatch_customer_account_loginPost>
+            <customer_login>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>customer_login</method>
+                    </ugiftcert>
+                </observers>
+            </customer_login>
+            <controller_action_predispatch_checkout_cart_couponPost>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>controller_action_predispatch_checkout_cart_couponPost</method>
+                    </ugiftcert>
+                </observers>
+            </controller_action_predispatch_checkout_cart_couponPost>
+            <controller_action_predispatch_onestepcheckout_ajax_add_coupon>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/onestepObserver</class>
+                        <method>controller_action_predispatch_onestepcheckout_ajax_add_coupon</method>
+                    </ugiftcert>
+                </observers>
+            </controller_action_predispatch_onestepcheckout_ajax_add_coupon>
+            <paypal_prepare_line_items>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>paypal_prepare_line_items</method>
+                    </ugiftcert>
+                </observers>
+            </paypal_prepare_line_items>
+            <google_checkout_discount_item_price>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>google_checkout_discount_item_price</method>
+                    </ugiftcert>
+                </observers>
+            </google_checkout_discount_item_price>
+            <controller_action_predispatch_checkout>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>dummy</method>
+                    </ugiftcert>
+                </observers>
+            </controller_action_predispatch_checkout>
+            <core_block_abstract_to_html_before>
+                <observers>
+                    <ugiftcert>
+                        <class>ugiftcert/observer</class>
+                        <method>core_block_abstract_to_html_before</method>
+                        <type>singleton</type>
+                    </ugiftcert>
+                </observers>
+            </core_block_abstract_to_html_before>
+            <catalog_product_load_after>
+                <observers>
+                    <ugiftcert>
+                        <class>ugiftcert/observer</class>
+                        <method>catalog_product_load_after</method>
+                        <type>singleton</type>
+                    </ugiftcert>
+                </observers>
+            </catalog_product_load_after>
+            <catalog_product_collection_load_after>
+                <observers>
+                    <ugiftcert>
+                        <class>ugiftcert/observer</class>
+                        <method>catalog_product_collection_load_after</method>
+                        <type>singleton</type>
+                    </ugiftcert>
+                </observers>
+            </catalog_product_collection_load_after>
+        </events>
+        <secure_url>
+            <sales>/ugiftcert/customer/balance</sales>
+        </secure_url>
+    </frontend>
+    <admin>
+        <routers>
+            <ugiftcertadmin>
+                <use>admin</use>
+                <args>
+                    <module>Unirgy_Giftcert</module>
+                    <frontName>ugiftcertadmin</frontName>
+                </args>
+            </ugiftcertadmin>
+        </routers>
+    </admin>
+    <adminhtml>
+        <menu>
+            <customer>
+                <children>
+                    <ugiftcert translate="title" module="ugiftcert">
+                        <title>Gift Certificates</title>
+                        <action>ugiftcertadmin/adminhtml_cert/</action>
+                        <children>
+                            <ugiftcert_pdf translate="title" module="ugiftcert">
+                                <title>PDF Printout Settings</title>
+                                <action>ugiftcertadmin/adminhtml_pdf</action>
+                            </ugiftcert_pdf>
+                            <ugiftcert_import translate="title" module="ugiftcert">
+                                <title>Gift Certificate Import</title>
+                                <action>ugiftcertadmin/adminhtml_cert/importing</action>
+                            </ugiftcert_import>
+                            <ugiftcert_report translate="title" module="ugiftcert">
+                                <title>Gift Certificate Report</title>
+                                <action>ugiftcertadmin/adminhtml_cert/report</action>
+                            </ugiftcert_report>
+                        </children>
+                    </ugiftcert>
+                </children>
+            </customer>
+        </menu>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <ugiftcert translate="title" module="ugiftcert">
+                                            <title>Gift Certificates</title>
+                                        </ugiftcert>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                        <customer>
+                            <children>
+                                <ugiftcert translate="title" module="ugiftcert">
+                                    <title>Gift Certificates</title>
+                                    <sort_order>40</sort_order>
+                                    <children>
+                                        <ugiftcert_pdf translate="title" module="ugiftcert">
+                                            <title>PDF Printout Settings</title>
+                                        </ugiftcert_pdf>
+                                        <ugiftcert_import translate="title" module="ugiftcert">
+                                            <title>Gift Certificate Import</title>
+                                        </ugiftcert_import>
+                                        <ugiftcert_report translate="title" module="ugiftcert">
+                                            <title>Gift Certificate Report</title>
+                                        </ugiftcert_report>
+                                    </children>
+                                </ugiftcert>
+                            </children>
+                        </customer>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+            <modules>
+                <Unirgy_Giftcert>
+                    <files>
+                        <default>Unirgy_Giftcert.csv</default>
+                    </files>
+                </Unirgy_Giftcert>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <ugiftcert module="Unirgy_Giftcert">
+                    <file>ugiftcert.xml</file>
+                </ugiftcert>
+            </updates>
+        </layout>
+        <events>
+            <controller_action_predispatch>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>preDispatch</method>
+                    </ugiftcert>
+                </observers>
+            </controller_action_predispatch>
+            <controller_action_predispatch_adminhtml_sales_order_create_loadBlock>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>controller_action_predispatch_adminhtml_sales_order_create_loadBlock</method>
+                    </ugiftcert>
+                </observers>
+            </controller_action_predispatch_adminhtml_sales_order_create_loadBlock>
+            <catalog_product_prepare_save>
+                <observers>
+                    <ugiftcert>
+                        <class>ugiftcert/observer</class>
+                        <method>catalog_product_prepare_save</method>
+                    </ugiftcert>
+                </observers>
+            </catalog_product_prepare_save>
+            <paypal_prepare_line_items>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>paypal_prepare_line_items</method>
+                    </ugiftcert>
+                </observers>
+            </paypal_prepare_line_items>
+            <google_checkout_discount_item_price>
+                <observers>
+                    <ugiftcert>
+                        <type>singleton</type>
+                        <class>ugiftcert/observer</class>
+                        <method>google_checkout_discount_item_price</method>
+                    </ugiftcert>
+                </observers>
+            </google_checkout_discount_item_price>
+        </events>
+        <sales>
+            <order>
+                <create>
+                    <available_product_types>
+                        <ugiftcert/>
+                    </available_product_types>
+                </create>
+            </order>
+        </sales>
+    </adminhtml>
+    <crontab>
+        <jobs>
+            <ugiftcert>
+                <schedule>
+                    <cron_expr>1 */4 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>ugiftcert/observer::cron</model>
+                </run>
+            </ugiftcert>
+        </jobs>
+    </crontab>
+    <default>
+        <payment>
+            <ugiftcert>
+                <active>0</active>
+                <model>ugiftcert/quote_payment</model>
+                <order_status>processing</order_status>
+                <title>Gift certificate</title>
+                <allowspecific>0</allowspecific>
+                <comments><![CDATA[This order will be fully paid by the gift certificate(s)]]></comments>
+            </ugiftcert>
+        </payment>
+        <sales>
+            <totals_sort>
+                <ugiftcert>90</ugiftcert>
+            </totals_sort>
+        </sales>
+        <ugiftcert>
+            <default>
+                <auto_cert_number>1</auto_cert_number>
+                <cert_number><![CDATA[[A*5]-[AN*5]]]></cert_number>
+                <use_pin>1</use_pin>
+                <auto_pin>1</auto_pin>
+                <pin><![CDATA[[N*4]]]></pin>
+                <status>P</status>
+                <amount_config>50-1500</amount_config>
+                <expire_timespan></expire_timespan>
+                <use_conditions>0</use_conditions>
+                <giftcert_order_info>0</giftcert_order_info>
+                <single_mode>0</single_mode>
+                <single_mode_error_msg><![CDATA[You can use only one certificate per order.]]></single_mode_error_msg>
+                <disallow_coupons_error_msg>
+                    <![CDATA[You can not use both certificate and coupon in same order.]]></disallow_coupons_error_msg>
+                <check_store>0</check_store>
+            </default>
+            <import>
+                <delimiter>,</delimiter>
+                <enclosure>"</enclosure>
+                <file>import.csv</file>
+                <action>3</action>
+            </import>
+            <custom>
+                <allow_message>1</allow_message>
+                <message_max_length>320</message_max_length>
+                <apply_customer_group_limitation>0</apply_customer_group_limitation>
+            </custom>
+            <email>
+                <enabled>1</enabled>
+                <allow_recipient_email>1</allow_recipient_email>
+                <auto_send>1</auto_send>
+                <allow_scheduled_sending>1</allow_scheduled_sending>
+                <identity></identity>
+                <!--<template_self>ugiftcert_email_template_self</template_self>-->
+                <template>ugiftcert_email_template</template>
+                <pin_format><![CDATA[<br />PIN: %s<br />]]></pin_format>
+            </email>
+            <address>
+                <enabled>0</enabled>
+            </address>
+            <admin>
+                <notifications>1</notifications>
+            </admin>
+            <pdf>
+                <page_width>612</page_width>
+                <page_height>198</page_height>
+                <cert_number_x>70</cert_number_x>
+                <cert_number_y>140</cert_number_y>
+                <cert_number_font_size>12</cert_number_font_size>
+                <pin_x>70</pin_x>
+                <pin_y>120</pin_y>
+                <pin_font_size>12</pin_font_size>
+                <image_width>50</image_width>
+                <image_height>50</image_height>
+                <image_x>15</image_x>
+                <image_y>133</image_y>
+                <use_font>HELVETICA</use_font>
+            </pdf>
+        </ugiftcert>
+    </default>
+</config>

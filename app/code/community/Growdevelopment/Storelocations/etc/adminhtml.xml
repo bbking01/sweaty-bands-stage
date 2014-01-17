@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Grow Development - Store Locations Pro
+ *
+ * @category   Growdevelopment
+ * @package    Growdevelopment_StoreLocations
+ * @copyright  Copyright (c) 2012 Grow Development (http://www.growdevelopment.com)
+ * @license    http://www.growdevelopment.com/docs/eula.txt
+ * @author     Daniel Espinoza <modules@growdevelopment.com>
+ *
+ */
+-->
+<config>
+    <menu>
+    	<cms>
+    		<children>
+	        	<growdevstorelocations translate="title" module="growdevstorelocations">
+	        		<title>Store Locations</title>
+	        		<sort_order>99</sort_order>
+	        		<action>adminhtml/storelocations</action>
+	        	</growdevstorelocations>
+	        </children>
+		</cms>
+    </menu>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <cms>
+	                    <children>
+		                    <storelocations>
+		                    	<title>Grow Development - Store Locations</title>
+		                    	<sort_order>99</sort_order>
+		                    </storelocations>
+	                    </children>
+                    </cms>
+            		<system>
+            			<children>
+            				<config>
+            					<children>
+            						<growdevstorelocations translate="title" module="growdevstorelocations">
+            							<title>Grow Development - Store Locations Configuration</title>
+            						</growdevstorelocations>
+            					</children>
+            				</config>
+            			</children>
+            		</system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

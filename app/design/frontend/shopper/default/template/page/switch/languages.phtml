@@ -1,0 +1,65 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Language switcher template
+ *
+ * @see Mage_Page_Block_Switch
+ */
+?>
+
+<!-- LANGUAGES BOF -->
+<?php if(count($this->getStores())>1): ?>
+<?php
+$stores = array();
+$_current = null;
+foreach ($this->getStores() as $_lang) {
+    $_selected = $_selected_option = '';
+    if ( ($_lang->getId() == $this->getCurrentStoreId()) ) {
+        $_current =  $_lang;
+        $_selected = ' class="selected"';
+        $_selected_option = ' selected="selected"';
+    }
+    $stores[] = '<li'. $_selected .'><a style="background-image:url(\''. $this->getSkinUrl('images/flags/'.$_lang->getCode().'.png') .'\');" href="'. $_lang->getCurrentUrl() .'">'. $this->htmlEscape($_lang->getName()) .'</a></li>';
+    $select_stores[] = '<option '.$_selected_option.' value="'. $_lang->getCurrentUrl() .'">'. $this->htmlEscape($_lang->getName()) .'</option>';
+}
+
+?>
+<div class="header-switch language-switch">
+    <span><?php echo $this->__('Your Language:') ?>
+        <span class="current"><?php echo $this->htmlEscape($_current->getName()); ?></span>
+    </span>
+	<div class="header-dropdown">
+        <ul><?php echo implode('', $stores); ?></ul>
+    </div>
+</div>
+<div class="language-select">
+    <span><?php echo $this->__('Your Language:') ?></span>
+	<select name="language_switch" onchange="window.location=this.value"><?php echo implode('', $select_stores); ?></select>
+</div>
+<?php endif; ?>
+<!-- LANGUAGES EOF -->

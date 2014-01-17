@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+    <awautorelated_admin_adminhtml_blocksgrid_selecttype>
+        <reference name="content">
+            <block type="awautorelated/adminhtml_blocks_typeselector" name="aw.autorelated.adminhtml.blocks.typeselector"/>
+        </reference>
+    </awautorelated_admin_adminhtml_blocksgrid_selecttype>
+    <awautorelated_admin_adminhtml_categoryblock_edit>
+        <reference name="head">
+            <action method="addJs">
+                <script>extjs/ext-tree.js</script>
+            </action>
+            <action method="addJs">
+                <script>extjs/ext-tree-checkbox.js</script>
+            </action>
+            <action method="addJs">
+                <script>aw_autorelated/backend/category.js</script>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>extjs/resources/css/ext-all.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>extjs/resources/css/ytheme-magento.css</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>mage/adminhtml/rules.js</name>
+                <params/>
+            </action>
+        </reference>
+    </awautorelated_admin_adminhtml_categoryblock_edit>
+    <awautorelated_admin_adminhtml_productblock_edit>
+        <reference name="head">
+            <action method="addJs">
+                <script>aw_autorelated/backend/product.js</script>
+            </action>
+        </reference>
+    </awautorelated_admin_adminhtml_productblock_edit>
+    <awautorelated_admin_adminhtml_shoppingcartblock_edit>
+        <reference name="head">
+            <action method="addJs">
+                <script>extjs/ext-tree.js</script>
+            </action>
+            <action method="addJs">
+                <script>extjs/ext-tree-checkbox.js</script>
+            </action>
+            <action method="addJs">
+                <script>aw_autorelated/backend/shoppingcart.js</script>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>extjs/resources/css/ext-all.css</name>
+            </action>
+            <action method="addItem">
+                <type>js_css</type>
+                <name>extjs/resources/css/ytheme-magento.css</name>
+            </action>
+            <action method="addItem">
+                <type>js</type>
+                <name>mage/adminhtml/rules.js</name>
+                <params/>
+            </action>
+        </reference>
+    </awautorelated_admin_adminhtml_shoppingcartblock_edit>
+</layout>

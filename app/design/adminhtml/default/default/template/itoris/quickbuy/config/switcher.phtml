@@ -1,0 +1,48 @@
+<?php 
+/**
+ * ITORIS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the ITORIS's Magento Extensions License Agreement
+ * which is available through the world-wide-web at this URL:
+ * http://www.itoris.com/magento-extensions-license.html
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sales@itoris.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extensions to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to the license agreement or contact sales@itoris.com for more information.
+ *
+ * @category   ITORIS
+ * @package    ITORIS_QUICKBUY
+ * @copyright  Copyright (c) 2012 ITORIS INC. (http://www.itoris.com)
+ * @license    http://www.itoris.com/magento-extensions-license.html  Commercial License
+ */
+?>
+<div class="switcher">
+    <label for="store_switcher"><?php echo $this->__('Current Configuration Scope:') ?></label>
+    <select id="store_switcher" class="system-config-store-switcher" onchange="location.href=this.options[this.selectedIndex].getAttribute('url')">
+    <?php foreach ($this->getStoreSelectOptions() as $_value=>$_option): ?>
+    <?php if (isset($_option['is_group'])): ?>
+        <?php if ($_option['is_close']): ?>
+            </optgroup>
+        <?php else: ?>
+            <optgroup label="<?php echo $_option['label'] ?>" style="<?php echo $_option['style'] ?>">
+        <?php endif; ?>
+        <?php continue ?>
+    <?php endif; ?>
+      <option value="<?php echo $_value ?>" url="<?php echo $_option['url'] ?>" <?php echo $_option['selected']?'selected="selected"':'' ?> style="<?php echo $_option['style'] ?>">
+          <?php echo $_option['label'] ?>
+      </option>
+    <?php endforeach ?>
+    </select>
+    <?php if (Mage::getSingleton('admin/session')->isAllowed('system/store')): ?>
+    <p style="margin:10px 0 0;">
+        <a href="<?php echo $this->getUrl('adminhtml/system_store') ?>"><?php echo $this->__('Manage Stores') ?></a>
+    </p>
+    <?php endif; ?>
+</div>

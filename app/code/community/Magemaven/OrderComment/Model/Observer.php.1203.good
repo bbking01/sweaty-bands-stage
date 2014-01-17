@@ -1,0 +1,184 @@
+<?php
+/**
+ * title: Observer.php
+ * modified by:  d charles sweet
+ * date:    2013 11 29
+ *          2013 12 02
+ * 
+ * TODO:
+ *   add send to email method
+ * 
+ * 
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ *
+ * @category    Magemaven
+ * @package     Magemaven_OrderComment
+ * @copyright   Copyright (c) 2011-2012 Sergey Storchay <r8@r8.com.ua>
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+class Magemaven_OrderComment_Model_Observer extends Varien_Object
+{
+    /**
+     * Save comment from agreement form to order
+     *
+     * @param $observer
+     */
+    public function saveOrderComment($observer)
+    {
+        $orderComment = Mage::app()->getRequest()->getPost('ordercomment');
+        
+        
+        Mage::log("saveOrderComment");
+        
+       
+        
+             //   $invoice = $observer->getEvent()->getInvoice(); 
+             //   $orderData = $invoice->getOrder(); 
+             //   $id = $orderData -> getId(); 
+             //   Mage::log("\n===".__LINE__."======\n order id: ".$id."\n=========\n");  
+        
+        
+        
+        if (is_array($orderComment) && isset($orderComment['comment'])) {
+            $oc=print_r($orderComment,1);  
+        Mage::log($oc);
+            $comment = trim($orderComment['comment']);
+
+            if (!empty($comment)) {
+				 //$this->sendTransactionalEmail($comment);
+				
+				 
+                $order = $observer->getEvent()->getOrder(); 
+                $order->setCustomerComment($comment);
+                $order->setCustomerNoteNotify(true);
+                $order->setCustomerNote($comment);
+                
+           
+            //    Mage::log("\n===".__LINE__."======\n order email: ". $order->shipping_address->getData('email')."\n=========\n"); 
+           //     Mage::log("\n===".__LINE__."======\n order name: ". var_dump($order)."\n=========\n");                 
+                
+
+                
+                
+                $this->sendCommentNotification($comment,$order->getData('increment_id'));
+               
+            }
+        }
+    }
+
+
+ function sendCommentNotification($comment,$order_id)
+{  
+	 /**                                                                                                                                                                     
+     * Send transactional email to recipient                                                                                                                                
+     * sendTransactional(31, $sender, $email, $name, $vars, $storeId);                                                                                                                                                                     
+     * @param   int $templateId                                                                                                                                             
+     * @param   string|array $sender sneder informatio, can be declared as part of config path                                                                              
+     * @param   string $email recipient email                                                                                                                               
+     * @param   string $name recipient name                                                                                                                                 
+     * @param   array $vars varianles which can be used in template                                                                                                         
+     * @param   int|null $storeId                                                                                                                                           
+     * @return  Mage_Core_Model_Email_Template      
+     * 
+<p><strong>Order No:  {{var ordernumber}}</p>
+<p><strong>Comment:  </strong>{{var ordercomment}}</p>                                                                                                                             
+     */ 
+     
+     //Mage::log("\n====sendCommentNotification=====\n : ".__LINE__."\n=========\n");                      
+     $mailSubject = 'HI this is a test mail.';
+     
+     $templateCode= 'SB Order Comment Admin Notification';
+ 
+$emailTemplate = Mage::getModel('core/email_template')->loadByCode($templateCode);
+$template_id= $emailTemplate['template_id'];    
+     //Mage::log("\n=========\n sender: ".print_r($emailTemplate,1)."\n=========\n");
+     //Mage::log("\n=========\n template_id: ".$template_id."\n=========\n");
+     
+     
+ 
+  /**
+  * $sender can be of type string or array. You can set identity of
+  * diffrent Store emails (like 'support', 'sales', etc.) found
+  * in "System->Configuration->General->Store Email Addresses"
+  */
+    // Set sender information          
+    $senderName = Mage::getStoreConfig('trans_email/ident_support/name');
+    $senderEmail = Mage::getStoreConfig('trans_email/ident_support/email');    
+    $sender = array('name' => $senderName,
+                'email' => $senderEmail);     
+     //Mage::log("\n=========\n : ".__LINE__."\n=========\n");                  
+     //Mage::log("\n=========\n sender: ".print_r($sender,1)."\n=========\n");
+     //Mage::log("\n=========\n : ".__LINE__."\n=========\n");   
+ 
+
+ 
+  /**
+  * In case of multiple recipient use array here.
+  */
+  $email =  $senderEmail;
+ $email =  "mag-dcsweet@cox.net";
+ $email = "Matt.Dennis@powerhousefactories.com";
+
+
+  /**
+  * If $name = null, then magento will parse the email id
+  * and use the base part as name.
+  */
+  $name = 'Charlie';
+ 
+  $vars = Array();
+  /* An example how you can pass magento objects and normal variables*/
+  /*
+  $vars = Array('customer'=>$customer,
+                'address' =>$address,
+                'varification_data'=>'fake data for example');*/
+  // Set variables that can be used in email template
+    $vars = array(
+              ##custom variable
+              'ordernumber' => $order_id,
+              'ordercomment'  => $comment);        ##custom variable  
+   //  Mage::log("\n=========\n sender: ".print_r($vars,1)."\n=========\n");              
+   
+   
+   
+              
+  /*This is optional*/
+  $storeId = Mage::app()->getStore()->getId();
+ 
+ 
+  $translate  = Mage::getSingleton('core/translate');
+  Mage::getModel('core/email_template')
+      ->setTemplateSubject($mailSubject)
+      ->sendTransactional(31, $sender, $email, $name, $vars, $storeId);
+  $translate->setTranslateInline(true);
+ //      Mage::log("\n=========\n : ".__LINE__."\n=========\n");    
+ }//END_sendCommentNotification
+    
+    
+
+
+}//END_CLASS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

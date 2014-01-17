@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ * 
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to support@i95dev.com so we can send you a copy immediately.
+ *
+ * @category       
+ * @package        I95DevConnect_All
+ * @Description    
+ * @author         I95Dev
+ * @copyright      Copyright (c) 2013 i95Dev
+ * @license        http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+<config>
+	<modules>
+		<I95DevConnect_StorePickup>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_StorePickup>
+		<I95DevConnect_Silver>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_Silver>
+		<I95DevConnect_GpStatus>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_GpStatus>
+		<I95DevConnect_Errorreport>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_Errorreport>
+		<I95DevConnect_CustomerCredits>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_CustomerCredits>
+		<I95DevConnect_Creditlimits>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_Creditlimits>
+		<I95DevConnect_Configsettings>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_Configsettings>
+		<I95DevConnect_CashOnDelivery>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_CashOnDelivery>
+		<I95DevConnect_Base>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_Base>
+		<I95DevConnect_Gold>
+			<active>false</active>
+			<codePool>community</codePool>
+			<depends>
+				<I95DevConnect_Silver />
+			</depends>
+		</I95DevConnect_Gold>
+		<I95DevConnect_Platinum>
+			<active>false</active>
+			<codePool>community</codePool>
+			<depends>
+				<I95DevConnect_Gold />
+			</depends>
+		</I95DevConnect_Platinum>
+		<I95DevConnect_PriceLevel>
+			<active>false</active>
+			<codePool>community</codePool>
+		</I95DevConnect_PriceLevel>
+	</modules>
+</config>

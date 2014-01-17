@@ -1,0 +1,6 @@
+type1:
+ label: "Product Page Block"
+type2:
+ label: "Category Page Block"
+type3:
+ label: false

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <customerpictures_adminhtml_customerpictures_index>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/lightbox.js</name></action>
+			<action method="addItem"><type>skin_css</type><name>customerpictures/css/lightbox.css</name></action>
+		</reference>
+        <reference name="before_body_end">
+            <block type="customerpictures/customerpictures" name="customerpictures.admin" after="customerpictures" template="customerpictures/js.phtml"/>
+        </reference>
+    </customerpictures_adminhtml_customerpictures_index>
+	
+	<customerpictures_adminhtml_winner_index>
+		<reference name="head">
+			<action method="addItem"><type>skin_js</type><name>customerpictures/js/lightbox.js</name></action>
+			<action method="addItem"><type>skin_css</type><name>customerpictures/css/lightbox.css</name></action>
+		</reference>
+        <reference name="content">
+            <block type="customerpictures/images" name="customerpictures.winner" after="winner" template="customerpictures/winner.phtml"/>
+        </reference>
+    </customerpictures_adminhtml_winner_index>
+</layout>

@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<layout>
+
+	<default>
+		<reference name="before_body_end">
+			<block type="adminhtml/template" name="wordpress.adminLinks" template="wordpress/admin-links-js.phtml"/>
+		</reference>
+	</default>
+
+	<adminhtml_wordpress_autologin>
+		<reference name="left">
+			<block type="wordpress/adminhtml_autologin_edit_tabs" name="wordpress.autologin.tabs"/>
+		</reference>
+		<reference name="content">
+			<block type="wordpress/adminhtml_autologin_edit" name="wordpress.autologin" />
+		</reference>
+	</adminhtml_wordpress_autologin>
+	
+	<adminhtml_system_config_edit>
+		<reference name="content">
+			<block type="wordpress/adminhtml_system_config_wrapper" name="wordpress.test.results"  before="-" template="wordpress/config/test/results.phtml">
+				<block type="wordpress/adminhtml_system_config_test_results_grid" name="wp_test_results" as="wp_test_results"/>
+			</block>
+		</reference>
+	</adminhtml_system_config_edit>
+
+	<adminhtml_catalog_product_edit>
+		<reference name="product_tabs">
+			<action method="addTab">
+				<name>wp_posts</name><block>wordpress/adminhtml_associations_product_post</block>
+			</action>
+			<action method="addTab">
+				<name>wp_categories</name><block>wordpress/adminhtml_associations_product_category</block>
+			</action>
+		</reference>	
+	</adminhtml_catalog_product_edit>
+	
+	<adminhtml_wordpress_association_product_post>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_product_post" name="wp_assoc_grid" />
+			<block type="adminhtml/widget_grid_serializer" name="post_grid_serializer">
+                <reference name="post_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>wp_assoc_grid</grid_block_name>
+                        <data_callback>getSelectedWpItemPositions</data_callback>
+                        <hidden_input_name>wp[assoc][product][post]</hidden_input_name>
+                        <reload_param_name>associated_ids</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                    	<input_name>associated_position</input_name>
+					</action>
+                </reference>
+            </block>
+		</block>
+	</adminhtml_wordpress_association_product_post>
+	
+	<adminhtml_wordpress_association_product_post_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_product_post" name="wp_assoc_grid" />
+		</block>
+	</adminhtml_wordpress_association_product_post_grid>
+	
+	<adminhtml_wordpress_association_product_category>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_product_category" name="wp_assoc_grid" />
+			<block type="adminhtml/widget_grid_serializer" name="category_grid_serializer">
+                <reference name="category_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>wp_assoc_grid</grid_block_name>
+                        <data_callback>getSelectedWpItemPositions</data_callback>
+                        <hidden_input_name>wp[assoc][product][category]</hidden_input_name>
+                        <reload_param_name>associated_ids</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                    	<input_name>associated_position</input_name>
+					</action>
+                </reference>
+            </block>
+		</block>
+	</adminhtml_wordpress_association_product_category>
+	
+	<adminhtml_wordpress_association_product_category_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_product_category" name="wp_assoc_grid" />
+		</block>
+	</adminhtml_wordpress_association_product_category_grid>
+	
+	<adminhtml_catalog_category_edit>
+		<reference name="tabs">
+			<action method="addTab">
+				<name>wp_posts</name>
+				<block>wordpress/adminhtml_associations_category_post</block>
+			</action>
+			<action method="addTab">
+				<name>wp_categories</name>
+				<block>wordpress/adminhtml_associations_category_category</block>
+			</action>
+		</reference>	
+	</adminhtml_catalog_category_edit>
+	
+	<adminhtml_wordpress_association_category_post>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_category_post" name="wp_assoc_grid" />
+			<block type="adminhtml/widget_grid_serializer" name="post_grid_serializer">
+                <reference name="post_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>wp_assoc_grid</grid_block_name>
+                        <data_callback>getSelectedWpItemPositions</data_callback>
+                        <hidden_input_name>wp[assoc][category][post]</hidden_input_name>
+                        <reload_param_name>associated_ids</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                    	<input_name>associated_position</input_name>
+					</action>
+                </reference>
+            </block>
+		</block>
+	</adminhtml_wordpress_association_category_post>
+
+	<adminhtml_wordpress_association_category_post_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_category_post" name="wp_assoc_grid" />
+		</block>
+	</adminhtml_wordpress_association_category_post_grid>
+
+	<adminhtml_wordpress_association_category_category>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_category_category" name="wp_assoc_grid" />
+			<block type="adminhtml/widget_grid_serializer" name="category_grid_serializer">
+                <reference name="category_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>wp_assoc_grid</grid_block_name>
+                        <data_callback>getSelectedWpItemPositions</data_callback>
+                        <hidden_input_name>wp[assoc][category][category]</hidden_input_name>
+                        <reload_param_name>associated_ids</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                    	<input_name>associated_position</input_name>
+					</action>
+                </reference>
+            </block>
+		</block>
+	</adminhtml_wordpress_association_category_category>
+
+	<adminhtml_wordpress_association_category_category_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_category_category" name="associated.category" />
+		</block>
+	</adminhtml_wordpress_association_category_category_grid>
+
+	<adminhtml_cms_page_edit>
+		<reference name="cms_page_edit_tabs">
+			<action method="addTab"><name>wp_posts</name><block>wordpress/adminhtml_associations_cms_page_post</block></action>
+			<action method="addTab"><name>wp_categories</name><block>wordpress/adminhtml_associations_cms_page_category</block></action>
+		</reference>	
+	</adminhtml_cms_page_edit>
+	
+	<adminhtml_wordpress_association_cms_page_post>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_cms_page_post" name="wp_assoc_grid" />
+			<block type="adminhtml/widget_grid_serializer" name="post_grid_serializer">
+                <reference name="post_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>wp_assoc_grid</grid_block_name>
+                        <data_callback>getSelectedWpItemPositions</data_callback>
+                        <hidden_input_name>wp[assoc][cms_page][post]</hidden_input_name>
+                        <reload_param_name>associated_ids</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                    	<input_name>associated_position</input_name>
+					</action>
+                </reference>
+            </block>
+		</block>
+	</adminhtml_wordpress_association_cms_page_post>
+	
+	<adminhtml_wordpress_association_cms_page_post_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_cms_page_post" name="wp_assoc_grid" />
+		</block>
+	</adminhtml_wordpress_association_cms_page_post_grid>
+
+	<adminhtml_wordpress_association_cms_page_category>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_cms_page_category" name="wp_assoc_grid" />
+			<block type="adminhtml/widget_grid_serializer" name="category_grid_serializer">
+                <reference name="category_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>wp_assoc_grid</grid_block_name>
+                        <data_callback>getSelectedWpItemPositions</data_callback>
+                        <hidden_input_name>wp[assoc][cms_page][category]</hidden_input_name>
+                        <reload_param_name>associated_ids</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                    	<input_name>associated_position</input_name>
+					</action>
+                </reference>
+            </block>
+		</block>
+	</adminhtml_wordpress_association_cms_page_category>
+	
+	<adminhtml_wordpress_association_cms_page_category_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="wordpress/adminhtml_associations_cms_page_category" name="wp_assoc_grid" />
+		</block>
+	</adminhtml_wordpress_association_cms_page_category_grid>
+
+</layout>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+
+	<clipartmanagement_adminhtml_clipartimport_index>
+        <reference name="content">
+            <block type="clipartmanagement/adminhtml_clipartimport" name="clipartimport" />
+        </reference>
+    </clipartmanagement_adminhtml_clipartimport_index>
+	
+	<clipartmanagement_adminhtml_clipartcategory_index>
+        <reference name="content">
+            <block type="clipartmanagement/adminhtml_clipartcategory" name="clipartcategory" />
+        </reference>
+    </clipartmanagement_adminhtml_clipartcategory_index>
+    <clipartmanagement_adminhtml_clipart_index>
+        <reference name="content">
+            <block type="clipartmanagement/adminhtml_clipart" name="clipart" />
+        </reference>
+    </clipartmanagement_adminhtml_clipart_index>
+</layout>
